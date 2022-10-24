@@ -8,14 +8,17 @@ rails plugin new mimotor --mountable --database=postgresql --skip-keeps \
   --javascript=esbuild
 ```
 
-Pase al directorio mimotor y edite el archivo `mimotor.gemspec` para modificar  las descripciones que dicen TODO y agregar:
+Pasa al directorio `mimotor` y edita el archivo `mimotor.gemspec` para 
+modificar  las descripciones que dicen TODO y agregar:
 ```ruby
 s.add_dependency "msip"
 ```
 
-Edite el archivo `Gemfile` y agregue las mismas gemas que requiere una aplicación que use msip (ver [Iniciar un sistema de información usando Msip](doc/iniciar-si-usando-msip.md))
+Edita el archivo `Gemfile` y agrega las mismas gemas que requiere una 
+aplicación que use msip (ver [Iniciar un sistema de información usando Msip](doc/iniciar-si-usando-msip.md))
 
-Cree el archivo app/models/mimotor/ability.rb donde se configurará control de acceso, inicialmente con:
+Crea el archivo `app/models/mimotor/ability.rb` donde se configurará 
+control de acceso, inicialmente con:
 ```ruby
 module Mimotor
   class Ability  < Msip::Ability
@@ -46,59 +49,58 @@ end
 # Verificar aplicación de prueba
 
 Antes de comenzar a crear tablas básicas y otras tablas, es conveniente que 
-vea corriendo la aplicación de prueba disponible en test/dummy para e
-so siga las instrucciones de 
+veas corriendo la aplicación de prueba disponible en `test/dummy` para 
+eso sigue las instrucciones de 
 [Iniciar un sistema de información usando Msip](iniciar-si-usando-msip)
 
-En esas instrucciones tener en cuenta:
+En esas instrucciones ten en cuenta:
 
-* Cuando cree `test/dummy/app/models/ability.rb` cambie
+* Cuando crees `test/dummy/app/models/ability.rb` cambia
 `class Ability  < Msip::Ability` por `class Ability  < Mimotor::Ability`
-* Las semillas de la aplicación deberían incluir las de msip y las de su nuevo motor
-`test/dummy/db/seeds.rb`:
+* Las semillas de la aplicación deberían incluir las de 
+  msip y las de tu nuevo motor, por eso `test/dummy/db/seeds.rb`
+  debe ser:
 
-```ruby
-# encoding: UTF-8
-conexion = ActiveRecord::Base.connection();
-
-# De motores
-Msip::carga_semillas_sql(conexion, 'msip', :datos)
-motor = ['mimotor', '../..']
-motor.each do |m|
-    Msip::carga_semillas_sql(conexion, m, :cambios)
-    Msip::carga_semillas_sql(conexion, m, :datos)
-end
-
-# Usuario para primer ingreso msip, msip
-conexion.execute("INSERT INTO usuario 
-  (nusuario, email, encrypted_password, password, 
-  fechacreacion, created_at, updated_at, rol) 
-  VALUES ('msip', 'msip@localhost', 
-  '$2a$10$uPICXBx8K/csSb5q3uNsPOwuU1h.9O5Kj9dyQbaCy8gF.5rrPJgG.',
-  '', '2014-08-14', '2014-08-14', '2014-08-14', 1);")
-```
-
-* Las rutas deben montar el motor que está creando al final
-```
+  ```ruby
+  # encoding: UTF-8
+  conexion = ActiveRecord::Base.connection();
+  
+  # De motores
+  Msip::carga_semillas_sql(conexion, 'msip', :datos)
+  motor = ['mimotor', '../..']
+  motor.each do |m|
+      Msip::carga_semillas_sql(conexion, m, :cambios)
+      Msip::carga_semillas_sql(conexion, m, :datos)
+  end
+  
+  # Usuario para primer ingreso msip, msip
+  conexion.execute("INSERT INTO usuario 
+    (nusuario, email, encrypted_password, password, 
+    fechacreacion, created_at, updated_at, rol) 
+    VALUES ('msip', 'msip@localhost', 
+    '$2a$10$uPICXBx8K/csSb5q3uNsPOwuU1h.9O5Kj9dyQbaCy8gF.5rrPJgG.',
+    '', '2014-08-14', '2014-08-14', '2014-08-14', 1);")
+  ```
+* Las rutas deben montar el motor que estás creando al final
+  ```
   mount MiMotor::Engine, at: rutarel, as: 'mimotor'
-```
+  ```
 
-* Es mejor incluir todas los ayudadores en el action_controller dejando
-  en `test/dummy/config/application.rb`:
-
+* Es mejor configurar la inclusión de todos los ayudadores en
+  en `test/dummy/config/application.rb` con la línea:
   ```
   config.action_controller.include_all_helpers = true
   ```
 
 # Migraciones automáticas
 
-Su motor puede tener migraciones, para aplicarlas en aplicaciones que 
-usen el motor tiene al menos estas dos opciones:
+Tu motor puede tener migraciones, para aplicarlas en aplicaciones que 
+usen el motor tienes al menos estas dos opciones:
 
-1. Con una tarea (desde la aplicación tendría que ejecutarse algo como 
+1. Con una tarea (un usuario de la aplicación tendría que ejecutar algo como 
    `bin/rails mimotor:install:migrations`)
-2. Que se apliquen automáticamente (desde la aplicación cuando se ejecute 
-   `bin/rails db:migrate`)
+2. Que se apliquen automáticamente desde la aplicación cuando se ejecute 
+   `bin/rails db:migrate`
 
 Para el segundo caso lo que debe hacer, como se explica en {2}, es agregar 
 al archivo `lib/mimotor/engine.rb` las líneas:

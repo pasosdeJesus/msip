@@ -118,7 +118,7 @@ https://hakiri.io/blog/ruby-security-tools-and-resources
     puede haber configuraciones variables a lo largo de la aplicación. Si 
     necesitas introducir variables, recomendamos que sea en mayúscula, 
     remplazando espacios por _ y que comiencen con el nombre del motor 
-    (e.g `SIP_FORMATO_FECHA`). Recuerda definir los valores predeterminados
+    (e.g `MSIP_FORMATO_FECHA`). Recuerda definir los valores predeterminados
     en `.env.plantilla` y además en el código ruby en lugar de 
     `ENV['MIMOTOR_VAR']` mejor emplea 
     `ENV.fetch('MIMOTOR_VAR', 'valor predeterminado')` o si la aplicación 

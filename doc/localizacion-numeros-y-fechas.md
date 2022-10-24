@@ -10,7 +10,7 @@ add_column :cor1440_gen_actividad, :tiempo, :decimal,
 
 Sin embargo para los usuarios del sistema de información debería ser natural utilizar las convenciones de su país.  
 
-En SIP se ha extendido ActiveRecord::Base para poder indicar:
+En MSIP se ha extendido `ActiveRecord::Base` para poder indicar:
 * campos numéricos con decimales (por ejemplo cantidades monetarias) que deben presentarse con las convenciones del locale de la aplicación (definidas en I18n::t('numeric')
 * Campos de fecha que deben presentarse en otros formatos, por ejemplo '05/Mar/2016'
 

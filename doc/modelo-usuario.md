@@ -32,7 +32,7 @@ class UsuariosController < Msip::ModelosController
 end
 ```
 
-Tal como en modelo en lugar de incluir el modulo de msip puede incluirse el de otro motor que a su vez incluya el de SIP.
+Tal como en modelo en lugar de incluir el modulo de msip puede incluirse el de otro motor que a su vez incluya el de MSIP.
 
 ## 1.3 Vistas
 

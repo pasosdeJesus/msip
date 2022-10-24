@@ -1,6 +1,6 @@
 # Vistas automáticas con Msip::Modelo y Msip::ModelosController
 
-En SIP es posible tener vistas automáticas para un modelo y su controlador, 
+En MSIP es posible tener vistas automáticas para un modelo y su controlador, 
 con buen grado de personalización.
 
 Esto requiere que el modelo incluya el módulo `Msip::Modelo` y que el 

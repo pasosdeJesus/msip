@@ -1,7 +1,8 @@
 #!/bin/sh
 # Actualiza varios sistemas que usan msip. Dominio público. 2016
 # Podria ejecutar con
-# SALTASIP=1 SALTASIPD=1 SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
+# SALTASIP=1 SALTASIPD=1 SALTAMSIP=1
+# SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
 # SALTACOR1440=1 SALTASAL7711=1 
 # SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
 # SALTASIANZORC=1 SALTASIASOM=1 SALTASIIAP=1 SALTASIFASOL=1 
@@ -53,14 +54,20 @@ function actuno {
 
 if (test "$SALTASIP" != "1") then {
   echo "**** msip"
-  actuno msip-2.0 test/dummy
-  actuno msip test/dummy
+  actuno sip-2.0 test/dummy
+  actuno sip test/dummy
 } fi;
 
 # Usan solo msip
 if (test "$SALTASIPD" != "1") then {
   echo "**** msipd"
-  actuno msipd test/dummy
+  actuno sipd test/dummy
+} fi;
+
+if (test "$SALTAMSIP" != "1") then {
+  echo "**** msip"
+  actuno msip test/dummy
+  actuno msip_carto test/dummy
 } fi;
 
 
