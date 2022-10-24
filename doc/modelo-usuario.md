@@ -36,7 +36,8 @@ Tal como en modelo en lugar de incluir el modulo de msip puede incluirse el de o
 
 ## 1.3 Vistas
 
-Se personalizan como otras vistas de modelos Msip::Modelo (ver <https://gitlab.com/pasosdeJesus/msip/wiki/Vistas-autom%C3%A1ticas-con-Msip::Modelo-y-Msip::ModelosController>).
+Se personalizan como otras vistas de modelos Msip::Modelo (ver
+[vistas-automaticas]).
 
 
 # 2. En motores

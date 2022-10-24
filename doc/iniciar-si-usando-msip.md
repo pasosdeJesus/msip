@@ -3,7 +3,7 @@
 Para iniciar una aplicación que usará **msip** en adJ sugerimos:
 
 - Disponer una plataforma que cumpla 
-  [los requisitos de instalación](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/requisitos.md)
+  [los requisitos de instalación](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md)
 - Crea una aplicación rails que use la base de datos PostgreSQL. Además crea y 
   configura la carpeta  `.bundle` así:
 ```sh
@@ -368,7 +368,7 @@ irb(main):001:0> Rails.configuration.x.formato_fecha
 
 - Copia la estructura de la base de datos mínima
 ```sh
-$ ftp -o db/structure.sql https://raw.githubusercontent.com/pasosdeJesus/msip/master/test/dummy/db/structure.sql
+$ ftp -o db/structure.sql https://raw.githubusercontent.com/pasosdeJesus/msip/main/test/dummy/db/structure.sql
 ```
 - Prepara como semillas para la base de datos las semillas incluidas en
   msip y un primer usuario `msip` con clave `msip`, modificando `db/seeds.rb` 
@@ -643,7 +643,7 @@ en las de la gema `twitter-bootstrap-rails`):
     <% end %>
   <% end %>
   <%= grupo_menus :empuja => :derecha do %>
-    <%= opcion_menu "Documentacion", "https://github.com/pasosdeJesus/msip/tree/master/doc/README.md" %>
+    <%= opcion_menu "Documentacion", "https://github.com/pasosdeJesus/msip/tree/main/doc/README.md" %>
     <% if current_usuario %>
       <%= despliega_abajo "Administrar" do %>
         <%= opcion_menu "Clave", main_app.editar_registro_usuario_path, desplegable: true %>

@@ -41,7 +41,7 @@ BUNDLE_PATH: "/var/www/bundler-miusuario/"
 ```
 * Recomendamos emplear zsh, tmux y neovim con los archivos de configuración
   e instrucciones disponibles en
-  <https://gitlab.com/pasosdeJesus/adJ/tree/master/arboldd/usr/local/share/adJ/archconf>
+  <https://github.com/pasosdeJesus/adJ/tree/master/arboldd/usr/local/share/adJ/archconf>
 
 
 

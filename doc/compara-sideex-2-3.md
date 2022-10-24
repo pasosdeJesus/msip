@@ -1,7 +1,7 @@
 # Comparación entre Sideex 2 y Sideex 3
 Agradecimientos a Paola Martínez por proveer documento base para este
 
-![img1](https://gitlab.com/pasosdeJesus/msip/raw/master/doc/sideex.img/sideex-Paola.png)
+![img1](https://gitlab.com/pasosdeJesus/msip/raw/main/doc/sideex.img/sideex-Paola.png)
 
 
 | Característica | Sideex 2 | Sideex 3|

@@ -1,9 +1,10 @@
 # Convenciones respecto al código fuente
 
-Respecto a licenciamiento y uso de gitlab por favor ver https://gitlab.com/pasosdeJesus/msip/blob/master/CONTRIBUTING.md
+Respecto a licenciamiento y uso de gitlab por favor ver 
+<https://gitlab.com/pasosdeJesus/msip/blob/main/CONTRIBUTING.md>
 
 En general adoptamos las de thoughtbot:
-https://github.com/thoughtbot/guides
+<https://github.com/thoughtbot/guides>
 
 
 

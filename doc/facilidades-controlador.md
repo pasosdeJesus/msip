@@ -2,7 +2,7 @@
 
 La principal funcionalidad de msip para controladores descendientes
 de `Msip::ModelosController` son vistas más automáticas, como se describe en:
-<https://gitlab.com/pasosdeJesus/msip/blob/master/doc/vistas-automaticas.md>
+<https://gitlab.com/pasosdeJesus/msip/blob/main/doc/vistas-automaticas.md>
 
 Pero hay otras facilidades disponibles que aquí se describen.
 

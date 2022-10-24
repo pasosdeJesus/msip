@@ -11,10 +11,10 @@ además se espera que coincida con el tema de id 1.
 
 Para establecer un nuevo tema predeterminado se recomienda crear una migración
 que modifique el tema con id 1, puede ver un ejemplo en
-<https://gitlab.com/pasosdeJesus/sivel2_mujeresindigenas/blob/master/db/migrate/20201001132215_tema_predeterminado_2020.rb>
+<https://gitlab.com/pasosdeJesus/sivel2_mujeresindigenas/blob/main/db/migrate/20201001132215_tema_predeterminado_2020.rb>
 
 Para la elección de colores se recomienda ver
-<https://gitlab.com/pasosdeJesus/msip/blob/master/doc/elementos_dise%C3%B1o_visual.md>
+<https://gitlab.com/pasosdeJesus/msip/blob/main/doc/elementos_dise%C3%B1o_visual.md>
 
 Para poner el tema predeterminado en fuentes, use la misma gama
 de colores de la migración en `config/initializers/msip.rb` agregando:

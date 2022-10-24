@@ -1,7 +1,7 @@
 # Aplicación de prueba
 
 Asegúrate de contar con los
-[Requisitos](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/requisitos.md)
+[Requisitos](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md)
 
 ## 1. Base de datos
 
@@ -48,7 +48,7 @@ Asegura que puedes instalar las gemas requeridas por la aplicación,
 no sólo configurando bundler para instalar gemas en un directorio
 de la forma `/var/www/bundler-miusuario`, tanto de forma general (como se 
 indica en el documento de
-[Requisitos](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/requisitos.md)
+[Requisitos](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md)
 como de manera particular en el directorio del motor
 (digamos que sea `$HOME/comp/rails/msip`) con:
 

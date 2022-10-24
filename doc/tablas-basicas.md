@@ -29,7 +29,7 @@ Además debe editar otros archivos ya existentes para realizar los siguientes ca
 
 | Archivo | Edición que requiere |
 | --- | --- |
-| `app/models/ability.rb` | En la función tablas básicas (o en la constante apropiada) agregue la nueva tabla básica, con algo como `['', 'acpcatmotivo']` y en la función `initialize` defina el control de acceso, por ejemplo si un rol o grupo puede administrarla ponerle `can :manage, ::Acpcatmotivo`.  Ver ejemplo completo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/master/app/models/ability.rb> |
+| `app/models/ability.rb` | En la función tablas básicas (o en la constante apropiada) agregue la nueva tabla básica, con algo como `['', 'acpcatmotivo']` y en la función `initialize` defina el control de acceso, por ejemplo si un rol o grupo puede administrarla ponerle `can :manage, ::Acpcatmotivo`.  Ver ejemplo completo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/main/app/models/ability.rb> |
 | `config/initializers/inflections.rb` | Añadir en orden alfabético o en un orden que asegure que se carga correctamente, una línea de la forma `inflect.irregular 'acpcatmotivo', 'acpcatsmotivo'` |
 | `config/locales/es.yml` | En `es:` -> `activerecord:` -> `attributes:` añada líneas como las que se ven a continuación |
   
@@ -52,9 +52,9 @@ Los datos iniciales para esta tabla, los puede agregar en una nueva migración
 ```
 bin/rails g migration datosini_acpcatmotivo
 ```
-cuyo contenido puede ser como el de <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/master/db/migrate/20200715105931_datosini_acpcatmotivo.rb> 
+cuyo contenido puede ser como el de <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/main/db/migrate/20200715105931_datosini_acpcatmotivo.rb> 
 
-O si prefiere también puede incluirlos en la migración que crea la tabla, como se hace por ejemplo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/master/db/migrate/20200805141624_create_acpactor1.rb>  (note que al final reserva 100 primeros identificadores con `SELECT setval('acpactor1_id_seq', 100);`)
+O si prefiere también puede incluirlos en la migración que crea la tabla, como se hace por ejemplo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/main/db/migrate/20200805141624_create_acpactor1.rb>  (note que al final reserva 100 primeros identificadores con `SELECT setval('acpactor1_id_seq', 100);`)
 
 Esos datos iniciales y la reserva de identificaciones inciales también los debe agregar al archivo `db/datos-basicas.sql` precediendo el nombre de la tabla con `public`
 
@@ -74,8 +74,8 @@ Si la tabla básica será usada en un motor, que servirá a la vez en otras apli
 ```
 mv test/dummy/db/migrate/[migracion] db/migrate
 ```
-*  Mover el modelo dividiendolo en una clase ubicada en `app/models/[motor]/` y en un módulo ubicado en `lib/[motor]/conerns/models/`. Por ejemplo para el caso de la tabla básica `financiador` del motor `cor1440_gen`, el módulo queda en [lib/cor1440_gen/concerns/models/financiador.rb](https://gitlab.com/pasosdeJesus/cor1440_gen/blob/master/lib/cor1440_gen/concerns/models/financiador.rb) y la clase queda en [app/models/cor1440_gen/financiador.rb](https://github.com/pasosdeJesus/cor1440_gen/blob/master/app/models/cor1440_gen/financiador.rb).
-* Mover el controlador dividiendolo en dos archivos, una clase en `app/controllers/[motor]/admin/` y un módulo en `lib/[motor]/concerns/controller`. Para el caso de la tabla básica `financiador` del motor `cor1440_gen`,  la clase queda en [app/controllers/cor1440_gen/admin/financiadores_controller.rb](https://gitlab.com/pasosdeJesus/cor1440_gen/blob/master/app/controllers/cor1440_gen/admin/financiadores_controller.rb) y el módulo en [lib/cor1440_gen/concerns/controllers/financiadores_controller.rb](https://github.com/pasosdeJesus/cor1440_gen/blob/master/lib/cor1440_gen/concerns/controllers/financiadores_controller.rb)
+*  Mover el modelo dividiendolo en una clase ubicada en `app/models/[motor]/` y en un módulo ubicado en `lib/[motor]/conerns/models/`. Por ejemplo para el caso de la tabla básica `financiador` del motor `cor1440_gen`, el módulo queda en [lib/cor1440_gen/concerns/models/financiador.rb](https://gitlab.com/pasosdeJesus/cor1440_gen/blob/main/lib/cor1440_gen/concerns/models/financiador.rb) y la clase queda en [app/models/cor1440_gen/financiador.rb](https://github.com/pasosdeJesus/cor1440_gen/blob/main/app/models/cor1440_gen/financiador.rb).
+* Mover el controlador dividiendolo en dos archivos, una clase en `app/controllers/[motor]/admin/` y un módulo en `lib/[motor]/concerns/controller`. Para el caso de la tabla básica `financiador` del motor `cor1440_gen`,  la clase queda en [app/controllers/cor1440_gen/admin/financiadores_controller.rb](https://gitlab.com/pasosdeJesus/cor1440_gen/blob/main/app/controllers/cor1440_gen/admin/financiadores_controller.rb) y el módulo en [lib/cor1440_gen/concerns/controllers/financiadores_controller.rb](https://github.com/pasosdeJesus/cor1440_gen/blob/main/lib/cor1440_gen/concerns/controllers/financiadores_controller.rb)
 * La inflección del plural y las cadenas en español deben ubicarse en los archivos de configuración del motor (`config`) y no en los de la aplicación de prueba (`test/dummy/config`).
 
 # 2. Modelo
@@ -171,6 +171,6 @@ e integrar los cambios necesarios, preferiblemente con:
 ```
 cp db/datos-basicas.sql ../../db/datos-basicas.sql
 ```
-Esta forma de integración es ideal pero no siempre es posible por ejemplo por temas de integridad referencial que requieran deshabilitar al comienzo de `db/datos-basicas.sql` y rehabilitar al final.  Ver ejemplo el caso de sivel2_gen en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/master/db/datos-basicas.sql>
+Esta forma de integración es ideal pero no siempre es posible por ejemplo por temas de integridad referencial que requieran deshabilitar al comienzo de `db/datos-basicas.sql` y rehabilitar al final.  Ver ejemplo el caso de sivel2_gen en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/main/db/datos-basicas.sql>
 
 

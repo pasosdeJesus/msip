@@ -149,8 +149,8 @@ controlador, especifique la misma cadena singular y plural en
 `config/initializers/inflections.rb` y cree una ruta `post` para el modelo 
 en singular con alias `crea_modelo_path` y que diriga al método `create` 
 del controlador.  Ver por ejemplo como se hace con `plantillahcr` en 
-<https://gitlab.com/pasosdeJesus/heb412_gen/blob/master/config/initializers/inflections.rb> y 
-<https://gitlab.com/pasosdeJesus/heb412_gen/blob/master/config/routes.rb>.
+<https://gitlab.com/pasosdeJesus/heb412_gen/blob/main/config/initializers/inflections.rb> y 
+<https://gitlab.com/pasosdeJesus/heb412_gen/blob/main/config/routes.rb>.
 
 ## 2.1 Lo clásico de un controlador 
 
@@ -317,8 +317,8 @@ prefiere especificar un control particular para un campo cree una plantilla
 
 También puede emplear otros nombres en los campos de filtro (no incluido en `atributos_index` del controlador), en 
 tal caso puede detectar y filtrar por estos en un scop de nombre `filtrar_alterno` en el modelo.   
-Puede ver un ejemplo de campos de filtro no definidos en `atributos_index` en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/master/app/views/sivel2_gen/victimas/_filtro_pconsolidado.html.erb> y 
-su scope filtrar_alterno en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/master/lib/sivel2_gen/concerns/models/victima.rb>
+Puede ver un ejemplo de campos de filtro no definidos en `atributos_index` en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/main/app/views/sivel2_gen/victimas/_filtro_pconsolidado.html.erb> y 
+su scope filtrar_alterno en <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/main/lib/sivel2_gen/concerns/models/victima.rb>
 
 #### 4.1.2.2 Otros controles de un filtro
 

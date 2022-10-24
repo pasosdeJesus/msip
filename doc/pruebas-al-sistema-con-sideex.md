@@ -19,7 +19,7 @@ aplicación (y de las pruebas) se almacenan en un repositorio de gitlab (https:/
 y que el seguimiento al desarrollo se realiza en un tablero Trello (https://trello.com).
 
 Aunque existe Sideex 3, preferimos usar Sideex 2 porque es de fuentes abiertas, ver 
-[Comparación](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/compara-sideex-2-3.md).
+[Comparación](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/compara-sideex-2-3.md).
 
 
 ## 1. Tablero Trello
@@ -158,11 +158,11 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
   Haga clic sobre la flecha en la parte superior izquierda del repositorio, debajo de la palabra Code
   a la derecha de master para escoger y cambiar la rama espera-asercion.
     
-  ![sosX5dn - Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/sosX5dn%20-%20Imgur.png)
+  ![sosX5dn - Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/sosX5dn%20-%20Imgur.png)
   
 * Haga clic en la parte superior derecha sobre Code y vera Download ZIP para descargar el sideex.
 
-  ![kF0Hu9w%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/kF0Hu9w%20-%20Imgur.png)
+  ![kF0Hu9w%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/kF0Hu9w%20-%20Imgur.png)
   
 * En la parte inferior de la pagina se vera el archivo y se debe abrir con Gestor de archivadores y Extraer.
   
@@ -174,7 +174,7 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
 * Haga clic sobre los 3 puntos y vera Personaliza y controla Google Chrome.
   Escoja Más herramientas y luego Extensiones. 
    
-  ![qGu3pjp%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/qGu3pjp%20-%20Imgur.png)
+  ![qGu3pjp%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/qGu3pjp%20-%20Imgur.png)
    
 * Activa el modo de desarrollador en Extensiones
 
@@ -184,20 +184,20 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
 
 * Haga clic en el icono Extensiones  en la parte superior derecha de la página
 
-  ![uooGhNd%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/uooGhNd%20-%20Imgur.png)
+  ![uooGhNd%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/uooGhNd%20-%20Imgur.png)
   
 * Haga clic en el icono Fijar extensión al lado derecho del icono de sideex2
 
-  ![lUqpscY%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/lUqpscY%20-%20Imgur.png)
+  ![lUqpscY%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/lUqpscY%20-%20Imgur.png)
     
 * Después de descargar Sideex2 se vera en la barra de 
   herramientas el icono de Sideex2.
   
-  ![img1](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img1.png)  
+  ![img1](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img1.png)  
   
 * Al pulsar sobre el icono de sideex2 se vera el panel
 
-  ![img2](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img2.png) 
+  ![img2](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img2.png) 
   
 * Sideex2 admite la ejecución de dos o más pruebas de Sideex2 en diferentes 
   ventanas del explorador al mismo tiempo en un escritorio para procesar suits de 
@@ -221,7 +221,7 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
   
 * En la parte superior vemos varios _botones principales_:
 
-  ![8opciones](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img8.png)
+  ![8opciones](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img8.png)
 
     * `Record`: Grabar. Pulse Record para empezar a grabar la secuencia de 
     comandos de una prueba. 
@@ -242,7 +242,7 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
 * Debajo de `Record` hay una _barra de velocidad_ que podemos usar para
     cambiar la velocidad de ejecución de las pruebas a nuestra elección.
     
-     ![img55](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img55.velocidad.png)
+     ![img55](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img55.velocidad.png)
     
     * `Fast`: Rápido
     
@@ -251,29 +251,29 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
 * En el panel titulado  `TEST SUITES` _suits de pruebas_ se verán las suits que haya cargado 
   o creado y dentro de cada suit los casos de prueba que la conforman:
 
-    ![img33](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img33.suit.png)
+    ![img33](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img33.suit.png)
     
     * A la derecha del título `TEST SUITES` verá un icono de archivo que permite cargar
       pruebas almacenadas previamente.
-     ![archivo](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/archivo.png)
+     ![archivo](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/archivo.png)
     
     * Más a la derecha verá un signo mas (+) para crear una nueva suit de pruebas, al pulsarlo
       se abrirá una ventana emergente donde se puede escribir el nombre de la suit nueva.
       
-     ![img4](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img4.png) 
+     ![img4](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img4.png) 
     
     * Al crear o cargar una suit de prueba, cuando pase el cursor sobre esta, 
       verá a la izquerda del título un icono para guardar la suit y a la la derecha un signo más (+)
       que permite agregar un nuevo caso de prueba a esa suit.
       
-      ![img5](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img5.png)
+      ![img5](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img5.png)
       
         * Al pulsar con el botón derecho sobre el nombre de una suit de pruebas, verá
           un menú contextual con las opciones: Abrir suit de pruebas, Agregar nueva suit de pruebas, 
           Guardar suit de pruebas como, Cerrar suit de pruebas, Agregar nuevo caso de prueba y 
           renombrar suit de pruebas.
           
-          ![img6](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img6.png) 
+          ![img6](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img6.png) 
           
        * Al pulsar con el botón derecho sobre un caso de prueba, verá un menú contextual
          con opciones Agregar Nuevo Caso de Prueba, Eliminar Caso de Prueba y Renombrar Caso de Prueba.
@@ -283,7 +283,7 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
     Cada fila de esta fila tendrá una orden completa, las columnas son:
   
     * `Command`: Orden selenese. En esta fila vera las ordenes del caso de prueba.
-      ![8opciones](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img8.png)
+      ![8opciones](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img8.png)
   
     * `Target`: Objetivo. En esta columna verá selectores sobre los que se aplica cada orden.  
   
@@ -296,7 +296,7 @@ Por cada novedad o falla resuelta que reporte el equipo de desarrollo:
     
         * En el campo `Target`  se ve una flecha, si hace clic sobre la flecha se presentará  
           una lista de selectores  que se pueden utilizar de ser necesario.
-         ![10flecha2](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img10.png)
+         ![10flecha2](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img10.png)
             * En la misma fila de target hay un boton `Select` (seleccionar) que puede utilizar para 
               elegir visualmente un selector en la ventana del navegador donde corre la prueba.
             * En la misma fila hay un botón `Find` (encontrar) que resaltará en la ventana del 
@@ -343,15 +343,15 @@ del comando, la segunda para el selector y la tercera para el valor.
 * Abra la página que va a probar
 
 * Pulse sobre el icono de sideex2 en la barra de herramientas del navegador  
-  ![img3](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img3.png) 
+  ![img3](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img3.png) 
      
 * Pulse en el signo mas (+) del cuadro de TEST SUITES a la izquierda del panel y digite 
   el nombre da la suit que creará y pulse Aceptar.
-  [img4](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img4.png) 
+  [img4](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img4.png) 
     
 * Pulse en  el lado derecho del nombre de la suit creada sobre el signo mas (+) y de el 
   nombre del primer caso de prueba de la suit.
-  ![img5](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/img5.png) 
+  ![img5](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/img5.png) 
    
 * Pulse en el botón `Record` para iniciar las operaciones de grabación
     
@@ -401,26 +401,26 @@ Sideex cuando se da el foco a la orden en un caso de prueba.
 * Para correr una suit ya creada, debemos tenerla guardada en el computador.
 * Pulse en el icono de archivo y busquelo en los archivos en el computador.
 
-   ![px1yokA%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/px1yokA%20-%20Imgur.png)
+   ![px1yokA%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/px1yokA%20-%20Imgur.png)
 
 * Escoja un archivo y lo abre. 
 
-  ![H1VJZ0D%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/H1VJZ0D%20-%20Imgur.png)
+  ![H1VJZ0D%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/H1VJZ0D%20-%20Imgur.png)
    
 * Puede correr toda la suit pulsando sobre PlayThisSuite.
 
-   ![s8MipPe%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/s8MipPe%20-%20Imgur.png)
+   ![s8MipPe%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/s8MipPe%20-%20Imgur.png)
    
 * Tambien puede correr un solo caso de la suite pulsando sobre el caso que va a correr y luego sobre PlayThisCase.
 
-   ![bjAgimK%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/bjAgimK%20-%20Imgur.png)
+   ![bjAgimK%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/bjAgimK%20-%20Imgur.png)
    
 #### 3.3.7 Pruebas con error y sin error
 
 * Cuando se corre una prueba y no tiene errores se ve el panel en verde, al lado del nombre de la prueba un visto bueno
   y aumenta el numero en RUNS 
 
-![vliRAtI%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/vliRAtI%20-%20Imgur.png)
+![vliRAtI%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/vliRAtI%20-%20Imgur.png)
 
 * Y cuando tiene error, se ve roja la linea que tiene el error, al lado del nombre de la prueba una X en rojo
   y se aumenta el numero en FAILURES  
@@ -430,7 +430,7 @@ Sideex cuando se da el foco a la orden en un caso de prueba.
 * En la parte inferior se van viendo todos y cada uno de los comando que se estan ejecutando y cuando se genera 
   error tambien se ve la linea del error en rojo.
   
-  ![i0s8RRi%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/sideex.img/i0s8RRi%20-%20Imgur.png)
+  ![i0s8RRi%20-%20Imgur.png](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/sideex.img/i0s8RRi%20-%20Imgur.png)
   
 #### 3.3.8 Teclas de acceso rápido
   

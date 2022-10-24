@@ -60,4 +60,4 @@ Los colores pueden personalizarse con los temas o creando por ejemplo un archivo
 
 # Elementos del diseño visual para sistemas de información web
 
-Recomendamos https://gitlab.com/pasosdeJesus/msip/blob/master/doc/elementos_dise%C3%B1o_visual.md
+Recomendamos https://gitlab.com/pasosdeJesus/msip/blob/main/doc/elementos_dise%C3%B1o_visual.md

@@ -13,7 +13,7 @@ sólo  se incluyen.
 Si motores descendientes de `msip` deben modificarlos, se espera que usen la
 misma técnica, recordando que `concerns/models/mimodelo` puede incluir el
 módulo de msip ubicado en `lib/msip/concerns/models/mimodelo`.   Ver por
-ejemplo <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/master/lib/sivel2_gen/concerns/models/etiqueta.rb>
+ejemplo <https://gitlab.com/pasosdeJesus/sivel2_gen/blob/main/lib/sivel2_gen/concerns/models/etiqueta.rb>
 
 Una aplicación que requiera modificar uno de estos modelos tiene dos
 posibilidades: (1) Crear un decorador en `app/decorators/msip/mimodelo.rb` o
@@ -24,7 +24,7 @@ preferimos el segundo método.
 
 Las tablas básicas no requieren que se definan vistas, sino que su modelo
 incluya `Msip::Basica` y que su  controlador sea descendiente de
-`Msip::Admin::BasicasController`, ver [Tablas Básicas](https://gitlab.com/pasosdeJesus/msip/blob/master/doc/tablas-basicas.md)
+`Msip::Admin::BasicasController`, ver [Tablas Básicas](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/tablas-basicas.md)
 
 ### Tablas unión
 
@@ -91,19 +91,19 @@ definir `app/models/mimotor/{ability,usuario}.rb` como clases descendientes
 de Msip::Ability y Msip::Usuario respectivamente y personalizar.  Pueden
 personalizarse las vistas de usuarios redefiniéndolas en
 `app/views/mimotor/usuarios`, puede aprovechar la vista parcial, como se
-hace en <https://gitlab.com/pasosdeJesus/cor1440_gen/tree/master/app/views/cor1440_gen/usuarios>
+hace en <https://gitlab.com/pasosdeJesus/cor1440_gen/tree/main/app/views/cor1440_gen/usuarios>
 
 Se espera que las aplicaciones creen `app/models/ability.rb` y
 `app/models/usuario.rb` que hereden respectivamente de `Msip::Ability` y
 `Msip::Usuario` (o sus equivalentes en otros motores descendientes de msip,
-como por ejemplo <https://gitlab.com/pasosdeJesus/cor1440/blob/master/app/models/ability.rb>
-y <https://gitlab.com/pasosdeJesus/cor1440/blob/master/app/models/usuario.rb>).
+como por ejemplo <https://gitlab.com/pasosdeJesus/cor1440/blob/main/app/models/ability.rb>
+y <https://gitlab.com/pasosdeJesus/cor1440/blob/main/app/models/usuario.rb>).
 
 En la tabla usuario no puede sobrecargarse la validación de mínima longitud,
 por lo que se ha introducido la constante  `longitud_nusuario` en
 `lib/msip/engine.rb` (inicialmente en valor 15) que una aplicación puede
 sobrecargar en `config/initializers/msip.rb`  (ver por ejemplo
-<https://gitlab.com/pasosdeJesus/sal7711_cinep/blob/master/config/initializers/msip.rb.plantilla>).
+<https://gitlab.com/pasosdeJesus/sal7711_cinep/blob/main/config/initializers/msip.rb.plantilla>).
 
 Una convención respecto a permiso de ingresar a la página principal por
 parte de un usuario autenticado es que tenga la habilidad de CanCan

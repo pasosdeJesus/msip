@@ -12,7 +12,7 @@ Preferimos modelos en singular, pero controladores en plural.
 
 Estamos usando reglas sin locale de inflección de singular a plural
 en español, como se configuran en 
-<https://gitlab.com/pasosdeJesus/msip/blob/master/config/initializers/inflections.rb>.
+<https://gitlab.com/pasosdeJesus/msip/blob/main/config/initializers/inflections.rb>.
 Además en ese mismo archivo se dejan las reglas generales del español con expresiones 
 regulares.
 

@@ -9,7 +9,7 @@ Como la aplicación se dirige a usuarios de Colombia todo debe verse en español
 
 # 1. Genera parcialmente migración, modelo y controlador
 
-En una aplicación que ya use msip (ver [Iniciar un sistema de información usando Msip](https://gitlab.com/pasosdeJesus/msip/wiki/Iniciar-un-sistema-de-informaci%C3%B3n-usando-Msip)), puedes generar una migración parcial (para crear la tabla `actividad`), el modelo (`app/models/actividad.rb`) y el controlador (`app/controllers/actividades_controller.rb`) con:
+En una aplicación que ya use msip (ver [Iniciar un sistema de información usando Msip](iniciar-si-usando-msip)), puedes generar una migración parcial (para crear la tabla `actividad`), el modelo (`app/models/actividad.rb`) y el controlador (`app/controllers/actividades_controller.rb`) con:
 ```sh
 $ DISABLE_SPRING=1 bin/rails g msip:modelo actividad actividades
 ```

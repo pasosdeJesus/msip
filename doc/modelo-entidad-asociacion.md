@@ -1,7 +1,7 @@
 # Tablas incluidas y modelo entidad asociación
 
 A continuación presentamos el modelo entidad-asociación de las tablas de msip:
-![Modelo Entidad Asociación](https://raw.gitlabusercontent.com/pasosdeJesus/msip/main/doc/erd.png)
+![Modelo Entidad Asociación](https://gitlab.com/pasosdeJesus/msip/-/raw/main/doc/erd.png)
 
 Esta imagen está en el directorio `doc` de las fuentes. Se generó con 
 `graphviz` y `rails-erd`. En adJ, puedes instalar `graphviz` con:

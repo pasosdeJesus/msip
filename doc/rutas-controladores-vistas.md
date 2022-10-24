@@ -40,7 +40,7 @@ Para usarlo en aplicaciones basta en ```app/views/layouts/application.html.erb``
 <%= render template: "layouts/msip/application" %>
 ```
 
-Si un motor descendiente lo modificará se recomienda en ```app/views/layout/Mimotor/application.html.erb```, ver por ejemplo https://gitlab.com/pasosdeJesus/sal7711_gen/blob/master/app/views/layouts/sal7711_gen/application.html.erb
+Si un motor descendiente lo modificará se recomienda en ```app/views/layout/Mimotor/application.html.erb```, ver por ejemplo https://gitlab.com/pasosdeJesus/sal7711_gen/blob/main/app/views/layouts/sal7711_gen/application.html.erb
 
 
 ## Controlador hogar
