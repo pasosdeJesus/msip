@@ -1,0 +1,10 @@
+<%= f.input :bussexo, 
+  collection: ::Msip::Persona::sexo_opciones,
+  label: false,
+  include_blank: true,
+  selected: Msip::ModeloHelper.poromision(params, :bussexo),
+  input_html: { 
+    class: 'chosen-select',
+    "data-enviarautomatico" => "" 
+  } 
+%>

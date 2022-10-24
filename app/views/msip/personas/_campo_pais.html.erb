@@ -1,0 +1,6 @@
+<%= f.association :pais,
+  collection: Msip::Pais.habilitados,
+  include_blank: ' ',
+  label_method: :nombre,
+  value_method: :id 
+%>

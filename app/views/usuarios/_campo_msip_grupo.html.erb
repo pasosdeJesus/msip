@@ -1,0 +1,6 @@
+<%= f.association :msip_grupo,
+  collection: Msip::Grupo.habilitados,
+  label_method: :nombre,
+  value_method: :id,
+  input_html: { class: 'chosen-select' }
+%>

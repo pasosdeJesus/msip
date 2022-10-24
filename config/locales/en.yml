@@ -1,0 +1,332 @@
+en:
+  Acciones: Actions
+  "Acerca de": About
+  acercade_apoyo: To support the development of this application, the creation of lessons and the operation we thank your work, donations and prayers.
+  acercade_invita_a_donar: We invite you to
+  Donar: Donate
+  acercade_resumen: Summary here
+  acercade_agradecimiento_Dios: "Start children off on the way they should go,<br> and even when they are old they will not turn from it.<br>Proverbs 22:6"
+  Actualizar: Update
+  Anexos: Attachments
+  "Añadir": Add
+  "Añadir contacto": Add contact
+  Archivo: File
+  Administrar: Manage
+  Apellidos: Lastname
+  Buscar: Search
+  Cargo: Position
+  "Crear copia": Create copy
+  Crear: Create
+  Configuraciones: Settings
+  "Contactos en la organización social": Contacts in the social organization
+  Correo: Email
+  Clave: Password
+  "Datos básicos": Basical information
+  Descripción: Description
+  Documentos: Documents
+  Edita: Edit
+  "El formulario tiene": The form has
+  "Expandir / colapsar": "Expand / collapse"
+  Fecha: Date
+  Filtrar: Filter
+  Foto: Picture
+  fotojpgpngtiff:  "Picture (.jpg, .png, .tiff)"
+  Habilitado: Enabled
+  habilitado: Enabled
+  "Hora del bloqueo": Locked at
+  "Iniciar sesión": Login
+  Inicio: Home
+  "Id Actividad": Id of Activity
+  Listado: List
+  Manual: User Guide
+  Nombre: Name
+  Nombres: Names
+  Nuevo: New
+  Nueva: New
+  "No hay resultados": There are no results
+  "Organizaciones sociales": Social organizations
+  Perfil: Profile
+  Persona: Person
+  Recordarme: Remember me
+  Rol: Role
+  "Seleccione algunas opciones": Select some options
+  "Seleccione una opción": Select one option
+  Sexo: Sex
+  Tablas básicas: Basic tables
+  Tablero: Dashboard
+  Usuario: User
+  Usuarios: Users
+  Validar: Validate
+  "Validar y Guardar": Validate and Save
+  mes:
+    one: '%{count} month'
+    other: '%{count} months'
+  dia:
+    one: '%{count} day'
+    other: '%{count} days'
+  attributes:
+    created_at: Creation date
+    created_at_localizada: Creation date
+    departamento: Department / State
+    descripcion: Description
+    fechacreacion: Creation date
+    fechadeshabilitacion: Disabling date
+    fechacreacion_localizada: Creation date
+    fechadeshabilitacion_localizada: Disabling date
+    formatoregex: Format (Reg. exp.)
+    id_pais: Country
+    limiteinferior: Lower limit
+    limitesuperior: Upper limit
+    municipio: Municipality
+    pais: Country
+    supracategoria: Supracategory
+    updated_at: Update date
+    updated_at_localizada: Update date
+    tviolencia: Type of violence
+  errors:
+    format: "%{message}"
+    messages:
+      accepted: "In '%{model}' must accept '%{attribute}'"
+      blank: "In '%{model}' a value is missing for '%{attribute}'"
+      present: "In '%{model}' must be blank '%{attribute}'"
+      confirmation: "In '%{model}' does not match confirmation '%{attribute}'"
+      empty: "In '%{model}' cannot be empty '%{attribute}'"
+      equal_to: "In '%{model}' the value of '%{attribute}' must be equal to%{count}"
+      even: "In '%{model}' the value of '%{attribute}' must be even"
+      exclusion: "In '%{model}' is reserved '%{attribute}'"
+      greater_than: "In '%{model}' the value of '%{attribute}' must be greater than%{count}"
+      greater_than_or_equal_to: "In '%{model}' the value of '%{attribute}' must be greater than or equal to %{count}"
+      inclusion: "In '%{model}' the value of '%{attribute}' is not included in the list"
+      invalid: "In '%{model}' is not valid '%{attribute}'"
+      less_than: "In '%{model}' the value of '%{attribute}' must be less than %{count}"
+      less_than_or_equal_to: "In '%{model}' the value of '%{attribute}' must be less than or equal to %{count}"
+      model_invalid: "Falló la validación para '%{model}': %{errors}"
+      not_a_number: "In '%{model}' the value of '%{attribute}' is not a number"
+      not_an_integer: "In '%{model}' the value of '%{attribute}' is not an integer"
+      odd: "In '%{model}' the value of '%{attribute}' must be odd"
+      required: "In '%{model}' there must be '%{attribute}'"
+      taken: "In '%{model}' repeats '%{attribute}' (the repeated value is '%{value}')"
+      too_long:
+        one: "In '%{model}' the value of '%{attribute}' is too long (maximum 1 character)"
+        other: "In '%{model}' the value of '%{attribute}' is too long (maximum %{count} characters)"
+      too_short:
+        one: "In '%{model}' the value of '%{attribute}' is too short (minimum 1 character)"
+        other: "In '%{model}' the value of '%{attribute}' is too short (minimum %{count} character)"
+      wrong_length:
+        one: "In '%{model}' the value of '%{attribute}' is not the correct length (exactly 1 character)"
+        other: "In '%{model}' the value of '%{attribute}' is not the correct length (exactly %{count} characters)"
+      other_than: must be different from%{count}
+      other_than: "In '%{model}' the value of '%{attribute}' must be different from %{count}"
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+  activerecord:
+    attributes:
+      "msip/anexo":
+        descripcion: Description
+      "msip/bitacora":
+        Bitacora: Log in
+        Bitacoras: Log records
+        modelo_id: Id
+      "msip/clase":
+        Clase: Populated center
+        Clases: Population centers
+        id_municipio: Municipality
+        id_clalocal: Code within the country
+        id_tclase: Type of populated center
+        latitud: Latitude
+        longitud: Longitude
+        municipio: Municipality
+        pais: Country
+        tclase: Type of populated center
+      "msip/departamento":
+        Departamento: Department / State
+        Departamentos: Departments / States
+        id_pais: Country
+        id_deplocal: Code within the country
+        latitud: Latitude
+        longitud: Longitude
+      "msip/etiqueta":
+        Etiqueta: Label
+        Etiquetas: Labels
+      "msip/fuenteprensa":
+        Fuenteprensa: Press source
+        Fuentesprensa: Press sources
+        tfuente: Source type
+      "msip/grupo":
+        Grupo: Group
+        Grupos: Groups
+        "{:usuario_ids=>[]}": Members
+        "usuario": Members
+        "usuario_ids": Members
+      "msip/grupoper":
+        anotaciones: Notes
+        nombre: Name
+      "msip/municipio":
+        etiqueta_ids: Labels
+        id_munlocal: Code within department / state
+        id_pais: Country
+        id_departamento: Department
+        latitud: Latitude
+        longitud: Longitude
+        Municipio: Municipality
+        Municipios: Municipalities
+      "msip/orgsocial":
+        Orgsocial: Social organization
+        Orgsociales: Social organizations
+        anotaciones: Notes
+        created_at_localizada: Created at
+        direccion: Address
+        fechadeshabilitacion: Disabling date
+        fechadeshabilitacion_localizada: Disabling date
+        grupoper: Name
+        grupoper_id: Name
+        habilitado: enabled
+        nombre: Name
+        orgsocial_persona: Contact(s)
+        "{:orgsocial_persona=>[]}": Contact(s)
+        pais_id: Country
+        pais: Country
+        sectororgsocial: Sector(s)
+        sectororgsocial_ids: Sector(s)
+        telefono: Telephone
+        "{:sectororgsocial_ids=>[]}": Sector(s)
+        fechadeshabilitacion: Disabling date
+        fechadeshabilitacion_localizada: Disabling date
+        Orgsocial: Social organization
+        Orgsociales: Social organizations
+      "msip/orgsocial_persona":
+        perfilorgsocial: Profile in social organization
+        orgsocial: Social organization to which it belongs
+      "msip/pais":
+        alfa2: 2-letter ISO code
+        alfa3: 3-letter ISO code
+        created_at: Date it was created in the database
+        codiso: Numeric ISO code
+        div1: First political division (e.g. Department or State)
+        div2: Second political division (e.g. Municipality or County)
+        div3: Third political division (e.g. town center)
+        latitud: Latitude
+        longitud: Longitude
+        fechacreacion: Date when added to sources
+        fechadeshabilitacion: Disabling date
+        nombre: Name
+        nombreiso_espanol: ISO name in Spanish
+        nombreiso_frances: ISO name in French
+        nombreiso_ingles: ISO name in English
+        Pais: Country
+        Paises: Countries
+        updated_at: Date in which the database was updated
+      "msip/perfilorgsocial":
+        Perfilorgsocial: Profile in social organization
+        Perfilesorgsocial: Profiles in social organization
+      "msip/orgsocial_persona":
+        perfilorgsocial: Profile in social organization
+        orgsocial: Social organization to which it belongs
+      "msip/persona":
+        Personas: Beneficiaries
+        Persona: Beneficiary
+        anionac: Year of birth
+        apellidos: Lastname
+        clase: Town center birth
+        departamento: Birth department
+        dianac: Day of birth
+        fechanac: Date of birth
+        id_clase: Town center birth
+        id_departamento: Birth department
+        id_municipio: Municipality of birth
+        id_pais: Country of birth
+        mesnac: Birth month
+        municipio: Municipality of birth
+        nombres: Name
+        nacionalde: National of
+        nacional: National of
+        numerodocumento: Document number
+        pais: Country of birth
+        sexo: Sex
+        tdocumento: Document type
+        tdocumento_id: Document type
+      "msip/respaldo7z":
+        clave7z: Encryption key
+        clave7z_confirmation: Encryption key confirmation
+      "msip/sectororgsocial":
+        Sectororgsocial: Social organization sector
+        Sectoresorgsocial: Sectors of social organizations
+      "msip/tclase":
+        Tclase: Type of populated center
+        Tclases: Types of populated centers
+        id_tclase: Type of populated center
+        id_clalocal: Code within the municipality
+      "msip/tdocumento":
+        Tdocumento: Type of document of identy
+        Tdocumentos: Types of identity documents
+        sigla: Initials
+        formatoregex: Format as RegEx
+      "msip/tema":
+        Tema: Theme
+        Temas: Themes
+        btn_primario_fondo_ini:  Left button background top color
+        btn_primario_fondo_fin:  Color of the bottom of the left button's background
+        btn_primario_fuente: Primary Button Font Color
+        btn_peligro_fondo_ini: Hazard Button Background Overhead Color
+        btn_peligro_fondo_fin: Hazard Button Bottom Color
+        btn_peligro_fuente: Danger button font color
+        btn_accion_fondo_ini: Other Actions Button Background Top Color
+        btn_accion_fondo_fin: Bottom color of the button background of other actions
+        btn_accion_fuente: Other Actions Button Font Color
+        nav_ini: Top color of navigation bar background
+        nav_fin: Bottom color of the navigation bar background
+        nav_fuente: Navigation bar font color
+        fondo_lista: Second color for alternate lists
+        fondo:  Bottom
+        color_flota_subitem_fuente: Menu option font color hovering over
+        color_flota_subitem_fondo: Background color of menu option hovering over
+        color_fuente: Font Color
+        alerta_exito_fondo: Success alert background
+        alerta_exito_fuente: Success alert font color
+        alerta_problema_fondo: Trouble alert background
+        alerta_problema_fuente: Trouble alert font color
+      "msip/trelacion": 
+        Trelacion: Type of family relationship
+        Trelaciones: Types of family relationships
+      "msip/trivalente":
+        Trivalente: Trivalent
+        Trivalentes: Trivalents
+      "msip/tsitio": 
+        Tsitio: Type of sites
+        Tsitios: Types of sites
+      "msip/ubicacion":
+        Ubicacion: Location
+      "msip/vereda":
+        id_verlocal: Code in municipality
+        id_municipio: Municipality
+        id_departamento: Department
+        Vereda: Rural district (Vereda)
+        Veredas: Rural districts (Veredas)
+      "trivalente":
+        Trivalente: Trivalent
+        Trivalentes: Trivalents
+      "usuario":
+        Usuario: User
+        Usuarios: Users
+        created_at: Registration date
+        created_at_localizada: Registration date
+        descripcion: Description
+        email: Email
+        encrypted_password: Hash of password
+        failed_attempts: Failed attempts
+        fechacreacion_localizada: Creation date
+        fechadeshabilitacion_localizada: Disabling date
+        foto: Picture
+        habilitado: Active
+        idioma: Language
+        locked_at: Lock time
+        nusuario: User
+        nombre: Name
+        rol: Role
+        rol_id: Role
+        "msip_grupo": Groups
+        msip_grupo_ids: Groups
+        tema: Theme
+        unlock_token: Unlock Token

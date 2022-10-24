@@ -1,0 +1,35 @@
+<article>
+<h1>Acerca de</h1>
+<p><%= Msip.titulo %>: <%= Msip.descripcion %>
+
+<p>El código fuente está en 
+<a href='<%= Msip.codigofuente %>'><%= Msip.codigofuente %></a>. 
+Se trata de código abierto 
+desarrollado y mantenido por 
+<a href="http://www.pasosdeJesus.org" target="_blank">Pasos de Jesús</a>
+con 
+<a href='https://gitlab.com/pasosdeJesus/msip/blob/master/LICENCIA.md'>licencia ISC</a>. 
+Lo invitamos a ver <a href="<%= Msip.urlcontribuyentes %>">el listado de las personas que han contribuido en la implementación</a>.
+</p>
+<p>
+Agradecemos a diversas organizaciones que han apoyado 
+el desarrollo de <strong><%= Msip.titulo %></strong> y de sistemas de 
+información que se basan en este, puede ver créditos en:
+<a href="<%= Msip.urlcreditos %>"><%= Msip.urlcreditos %></a>
+</p>
+<%= render partial: 'acerca_configuracion' %>
+<h2>Pila tecnológica</h2>
+<p>
+<%= render partial: 'acerca_pila_pdJ' %>
+</p>
+<p>
+<%= render partial: 'acerca_tecno' %>
+</p>
+<p>
+El sistema operativo de desarrollo y objetivo principal para producción
+ha sido <a href='https://aprendiendo.pasosdeJesus.org'>adJ/OpenBSD</a>.
+</p>
+<hr>
+  <%= Msip.agradecimientoDios %>
+<hr>
+</article>

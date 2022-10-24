@@ -1,0 +1,32 @@
+
+module Msip
+  module Concerns
+    module Models
+      module OrgsocialPersona
+        extend ActiveSupport::Concern
+
+        included do
+          include Msip::Modelo 
+          include Msip::Localizacion
+
+          self.table_name = 'msip_orgsocial_persona'
+
+          belongs_to :orgsocial, class_name: 'Msip::Orgsocial',
+            foreign_key: 'orgsocial_id', inverse_of: :orgsocial_persona, 
+            optional: true
+          belongs_to :persona, class_name: 'Msip::Persona',
+            foreign_key: 'persona_id', validate: true, optional: false
+
+          accepts_nested_attributes_for :persona, reject_if: :all_blank
+
+          belongs_to :perfilorgsocial, class_name: 'Msip::Perfilorgsocial',
+            foreign_key: 'perfilorgsocial_id', validate: true, optional: true
+
+          validates :persona, presence: true
+
+        end # included
+
+      end
+    end
+  end
+end

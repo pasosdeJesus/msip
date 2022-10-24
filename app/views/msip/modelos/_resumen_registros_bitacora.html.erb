@@ -1,0 +1,38 @@
+<% if  controller.registrar_en_bitacora %>
+  <div class="accordion" id="acordeon-bitacora">
+    <%= item_acordeon_bs(
+      'acordeon-bitacora', 'bitacora', 
+      "Expandir / colapsar bitácora de cambios "\
+      "<!-- (#{@registro.class}) -->".html_safe,
+      false, {"clase_accordion-body" => 'table-responsive',
+              "estilo_accordion-body" => 'overflow-x:scroll'
+      }) do %>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">IP</th>
+            <th scope="col">Operación</th>
+            <th scope="col">Detalle cambio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Msip::Bitacora.where(
+            modelo: clase, 
+            modelo_id: @registro.id, 
+            operacion: ['actualizar', 'importar', 'iniciar', 'tocar']).order('fecha DESC').each do |r| %>
+            <tr>
+              <th scope="row"><%= r.fecha %></th>
+              <td><%= r.usuario_id ? Usuario.find(r.usuario_id).nusuario : ''  %></td>
+              <td><%= r.ip %></td>
+              <td><%= r.operacion %></td>
+              <td><%= r.detalle %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+  </div> <!-- accordion-->
+<% end %>

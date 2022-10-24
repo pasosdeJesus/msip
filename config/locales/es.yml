@@ -1,0 +1,306 @@
+es:
+  Acciones: Acciones
+  acercade_apoyo: Para apoyar el desarrollo de esta aplicación, la creación de cursos y la operación agradecemos su trabajo, donaciones y oraciones.
+  acercade_invita_a_donar: Lo invitamos a 
+  acercade_resumen: Dada la importancia de la educación y que todos podemos ayudar a mejorarla, este prototipo de aplicación web busca ser un Sistema para Administración de Aprendizaje que facilite tanto tomar cursos como crear nuevos cursos y/o currículos y publicitar un curso o currículo de manera independiente de otros si se desea con un tema visual e interfaz de usuario única.
+  Actualizar: Actualizar
+  Anexos: Anexos
+  "Añadir": Añadir
+  "Añadir contacto": Añadir contacto
+  Archivo: Archivo
+  Administrar: Administrar
+  Apellidos: Apellidos
+  Buscar: Buscar
+  Cargo: Cargo
+  "Crear copia": Crear copia
+  Crear: Crear
+  Configuraciones: Configuraciones
+  "Contactos en la organización social": Contactos en la organización social
+  Correo: Correo
+  Clave: Clave
+  "Datos básicos": Datos básicos
+  Descripción: Descripción
+  Documentos: Documentos
+  Edita: Edita
+  "El formulario tiene": El formulario tiene
+  "Expandir / colapsar": Expandir / colapsar
+  Fecha: Fecha
+  Filtrar: Filtrar
+  Foto: Foto
+  fotojpgpngtiff:  Foto (.jpg, .png, .tiff)
+  Habilitado: Habilitado
+  habilitado: habilitado
+  "Hora del bloqueo": Hora del bloqueo
+  "Iniciar sesión": Iniciar sesión
+  "Id Actividad": Id. Actividad
+  Listado: Listado
+  Manual: Manual
+  Nombre: Nombre
+  Nombres: Nombres
+  Nuevo: Nuevo
+  Nueva: Nueva
+  "No hay resultados": No hay resultados
+  "Organizaciones sociales": Organizaciones sociales
+  Perfil: Perfil
+  Persona: Persona
+  Recordarme: Recordarme
+  Rol: Rol
+  "Seleccione algunas opciones": Seleccione algunas opciones
+  "Seleccione una opción": Seleccione una opción
+  Sexo: Sexo
+  "Tablas básicas": Tablas básicas
+  Tablero: Tablero
+  Usuario: Usuario
+  Usuarios: Usuarios
+  Validar: Validar
+  "Validar y Guardar": Validar y Guardar
+  mes:
+    one: '%{count} mes'
+    other: '%{count} meses'
+  dia:
+    one: '%{count} día'
+    other: '%{count} días'
+  attributes:
+    clase: Centro poblado
+    clases: Centros poblados
+    created_at: Fecha de creacíon
+    created_at_localizada: Fecha de creacíon
+    updated_at: Fecha de actualizacíon
+    updated_at_localizada: Fecha de actualizacíon
+    departamento: Departamento/Estado
+    descripcion: Descripción
+    fechacreacion: Creación
+    fechadeshabilitacion: Deshabilitación 
+    fechacreacion_localizada: Creación
+    fechadeshabilitacion_localizada: Deshabilitación 
+    formatoregex: Formato (exp. reg)
+    limiteinferior: Límite inferior
+    limitesuperior: Límite superior
+    municipio: Municipio
+    pais: País
+    supracategoria: Supracategoria
+    tviolencia: Tipo de violencia
+  errors:
+    format: "%{message}"
+    messages:
+      accepted: "En '%{model}' debe aceptar '%{attribute}'"
+      blank: "En '%{model}' falta un valor para '%{attribute}'"
+      present: "En '%{model}' debe estar en blanco '%{attribute}'"
+      confirmation: "En '%{model}' no coincide confirmación '%{attribute}'"
+      empty: "En '%{model}' no puede estar vacío '%{attribute}'"
+      equal_to: "En '%{model}' el valor de '%{attribute}' debe ser igual a %{count}"
+      even: "En '%{model}' el valor de '%{attribute}' debe ser par"
+      exclusion: "En '%{model}' está reservado '%{attribute}'"
+      greater_than: "En '%{model}' el valor de '%{attribute}' debe ser mayor que %{count}"
+      greater_than_or_equal_to: "En '%{model}' el valor de '%{attribute}' debe ser mayor o igual a %{count}"
+      inclusion: "En '%{model}' el valor de '%{attribute}' no está incluido en la lista"
+      invalid: "En '%{model}' no es válido '%{attribute}'"
+      less_than: "En '%{model}' el valor de '%{attribute}' debe ser menor que %{count}"
+      less_than_or_equal_to: "En '%{model}' el valor de '%{attribute}' debe ser menor o igual a %{count}"
+      model_invalid: "Falló la validación para '%{model}': %{errors}"
+      not_a_number: "En '%{model}' el valor de '%{attribute}' no es un número"
+      not_an_integer: "En '%{model}' el valor de '%{attribute}' no es un entero"
+      odd: "En '%{model}' el valor de '%{attribute}' debe ser impar"
+      required: "En '%{model}' debe existir '%{attribute}'"
+      taken: "En '%{model}' se repite '%{attribute}' (el valor repetido es '%{value}')"
+      too_long:
+        one: "En '%{model}' es demasiado largo el valor de '%{attribute}' (máximo 1 carácter)"
+        other: "En '%{model}' es demasiado largo el valor de '%{attribute}' (máximo %{count} caracteres)"
+      too_short:
+        one: "En '%{model}' es demasiado corto el valor de '%{attribute}' (mínimo 1 carácter)"
+        other: "En '%{model}' es demasiado corto el valor de '%{attribute}' (mínimo %{count} carácter)"
+      wrong_length:
+        one: "En '%{model}' el valor de '%{attribute}' no tiene la longitud corecta (exactamente 1 carácter)"
+        other: "En '%{model}' el valor de '%{attribute}' no tiene la longitud corecta (exactamente %{count} caracteres)"
+      other_than: debe ser distinto de %{count}
+      other_than: "En '%{model}' el valor de '%{attribute}' debe ser distinto de %{count}"
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+  activerecord:
+    attributes:
+      "msip/orgsocial":
+        Orgsocial: Organización social
+        Orgsociales: Organizaciones sociales
+        orgsocial_persona: Contacto(s)
+        "{:orgsocial_persona=>[]}": Contacto(s)
+        direccion: Dirección
+        fechadeshabilitacion: Fecha de deshabilitación
+        fechadeshabilitacion_localizada: Fecha de deshabilitación
+        nombre: Nombre
+        grupoper: Nombre
+        grupoper_id: Nombre
+        pais_id: País
+        sectororgsocial: Sector(es)
+        sectororgsocial_ids: Sector(es)
+        telefono: Teléfono
+        "{:sectororgsocial_ids=>[]}": Sector(es)
+      "msip/anexo":
+        descripcion: Descripción
+      "msip/bitacora":
+        Bitacora: Registro en bitácora
+        Bitacoras: Registros en bitácora
+        modelo_id: Id
+      "msip/clase":
+        Clase: Centro poblado
+        Clases: Centros poblados
+        id_municipio: Municipio
+        id_clalocal: Código dentro del país
+        id_tclase: Tipo de centro poblado
+        tclase: Tipo de centro poblado
+      "msip/departamento":
+        codreg: Código secundario del país
+        Departamento: Departamento/Estado
+        Departamentos: Departamentos/Estados
+        id_deplocal: Código dentro del país
+      "msip/estadosol":
+        Estadosol: Estado de solicitud
+        Estadossol: Estados de solicitudes
+      "msip/fuenteprensa":
+        Fuenteprensa: Fuente de prensa
+        Fuentesprensa: Fuentes de prensa
+        tfuente: Tipo de fuente
+      "msip/grupo":
+        "{:usuario_ids=>[]}": Miembros
+        "usuario": Miembros
+      "msip/municipio":
+        codreg: Código secundario del país
+        etiqueta_ids: Etiquetas
+        id_munlocal: Código dentro del departamento/estado
+        id_pais: País
+        id_departamento: Departamento
+        Municipio: Municipio
+        Municipios: Municipios
+        tipomun: Tipo
+      "msip/orgsocial":
+        direccion: Dirección
+        fechadeshabilitacion: Fecha de deshabilitación
+        fechadeshabilitacion_localizada: Fecha de deshabilitación
+        grupoper: Nombre
+        grupoper_id: Nombre
+        Orgsocial: Organización social
+        Orgsociales: Organizaciones sociales
+        orgsocial_persona: Contacto(s)
+        "{:orgsocial_persona=>[]}": Contacto(s)
+        pais_id: País
+        sectororgsocial: Sector(es)
+        sectororgsocial_ids: Sector(es)
+        telefono: Teléfono
+        "{:sectororgsocial_ids=>[]}": Sector(es)
+      "msip/orgsocial_persona":
+        perfilorgsocial: Perfil en organización social
+        orgsocial: Organización social a la que pertenece
+      "msip/pais":
+        alfa2: Código ISO de 2 letras
+        alfa3: Código ISO de 3 letras
+        codiso: Código ISO numérico
+        created_at: Fecha en la que se creó en base de datos
+        div1: Primera división política (e.g Departamento o Estado)
+        div2: Segunda división política (e.g Municipio o Condado)
+        div3: Tercer división política (e.g Centro poblado)
+        fechacreacion: Fecha cuando se agregó a fuentes
+        fechadeshabilitacion: Fecha de deshabilitacion
+        latitud: Latitud
+        longitud: Longitud
+        nombre: Nombre
+        nombreiso_espanol: Nombre ISO en español
+        nombreiso_ingles: Nombre ISO en inglés
+        nombreiso_frances: Nombre ISO en francés
+        Pais: País
+        Paises: Países
+        updated_at: Fecha en la que se actualizó en base de datos
+        ultvigenciaini: Fecha de inicio de la vigencia más reciente
+        ultvigenciafin: Fecha de finalización de la vigencia más reciente
+      "msip/perfilorgsocial":
+        Perfilorgsocial: Perfil en organización social
+        Perfilesorgsocial: Perfiles en organización social
+      "msip/orgsocial_persona":
+        perfilorgsocial: Perfil en organización social
+        orgsocial: Organización social a la que pertenece
+      "msip/persona":
+        anionac: Año nacimiento
+        clase: Centro poblado nacimiento
+        departamento: Departamento nacimiento
+        dianac: Día nacimiento
+        fechanac: Fecha de nacimiento
+        id_clase: Centro poblado nacimiento
+        id_departamento: Departamento nacimiento
+        id_municipio: Municipio nacimiento
+        id_pais: País nacimiento
+        mesnac: Mes nacimiento
+        municipio: Municipio nacimiento
+        nacionalde: Nacional de
+        nacional: Nacional de
+        numerodocumento: Número de documento
+        pais: País nacimiento
+        tdocumento: Tipo de documento
+        tdocumento_id: Tipo de documento
+      "msip/respaldo7z":
+        clave7z: Clave de cifrado
+        clave7z_confirmation: Confirmación de clave de cifrado
+      "msip/sectororgsocial":
+        Sectororgsocial: Sector de organización social
+        Sectoresorgsocial: Sectores de organizaciones sociales
+      "msip/tclase":
+        Tclase: Tipo de centro poblado
+        Tclases: Tipos de centros poblados
+        id_tclase: Tipo de centro poblado
+        id_clalocal: Código dentro del municipio
+      "msip/tdocumento":
+        Tdocumento: Tipo de documento de identidad
+        Tdocumentos: Tipos de documentos de identidad
+      "msip/tema":
+        btn_primario_fondo_ini:  Color de arriba del fondo del botón primario
+        btn_primario_fondo_fin:  Color de abajo del fondo del botón primario
+        btn_primario_fuente: Color de letra de botón primario
+        btn_peligro_fondo_ini: Color de arriba del fondo del botón de peligro
+        btn_peligro_fondo_fin: Color de abajo del fondo del botón de peligro
+        btn_peligro_fuente: Color de letra de botón de peligro
+        btn_accion_fondo_ini: Color de arriba del fondo del botón de otras acciones
+        btn_accion_fondo_fin: Color de abajo del fondo del botón de otras acciones
+        btn_accion_fuente: Color de letra de botón de otras acciones
+        nav_ini: Color de arriba del fondo de la barra de navegación
+        nav_fin: Color de abajo del fondo de la barra de navegación
+        nav_fuente: Color de fuente de barra de navegación
+        fondo_lista: Segundo color para listas alternates
+        fondo:  Fondo
+        color_flota_subitem_fuente: Color de fuente de opción del menú sobre la que está el cursor (hover)
+        color_flota_subitem_fondo: Color de fondo de opción del menú sobre la que esté el cursor (hover)
+        color_fuente: Color de fuente
+        alerta_exito_fondo: Fondo de alerta de éxito
+        alerta_exito_fuente: Color de letra de alerta de éxito
+        alerta_problema_fondo: Fondo de alerta de problema
+        alerta_problema_fuente: Color de letra de alerta de problema
+      "msip/trelacion": 
+        Trelacion: Tipo de relación familiar
+        Trelaciones: Tipos de relaciones familiares
+      "msip/tsitio": 
+        Tsitio: Tipo de sitios
+        Tsitios: Tipos de sitios
+      "msip/ubicacion":
+        Ubicacion: Ubicación
+      "msip/vereda":
+        id_verlocal: Código en municipio
+        verlocal: Código en municipio
+        id_municipio: Municipio
+        id_departamento: Departamento
+        Vereda: Vereda
+        Veredas: Veredas
+      "trivalente":
+        Trivalente: Trivalente
+        Trivalentes: Trivalentes
+      "usuario":
+        created_at: Fecha registro
+        created_at_localizada: Fecha registro
+        descripcion: Descripción
+        email: Correo
+        encrypted_password: Clave
+        failed_attempts: Intentos fallidos
+        fechacreacion_localizada: Fecha de creación
+        fechadeshabilitacion_localizada: Fecha de deshabilitación
+        locked_at: Hora de bloqueo
+        nusuario: Usuario
+        "msip_grupo": Grupos
+        unlock_token: Testigo para desbloquear
+

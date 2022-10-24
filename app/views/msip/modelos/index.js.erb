@@ -1,0 +1,14 @@
+$(".master-container").html("<%= escape_javascript(render template: 'msip/modelos/index', formats: [:html]) %>");
+
+root=window
+
+$('[data-behaviour~=datepicker]').datepicker({
+  format: root.formato_fecha,
+  autoclose: true,
+  todayHighlight: true,
+  language: 'es'	
+})
+$('.chosen-select').chosen()
+$('.chosen-drop').css({minWidth: '100%', width: 'auto'});
+$('.chosen-container').removeAttr('style')
+

@@ -1,0 +1,5 @@
+<%= f.association :nacional,
+  collection: Msip::Pais.habilitados,
+  label_method: :nombre,
+  value_method: :id 
+%>

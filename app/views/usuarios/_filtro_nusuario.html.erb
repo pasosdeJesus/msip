@@ -1,0 +1,12 @@
+<%= f.input :busnusuario,
+  collection: ::Usuario.all.order('LOWER(nusuario)'),
+  label: false,
+  label_method: :nusuario,
+  value_method: :nusuario,
+  selected: Msip::ModeloHelper.poromision(params, :busnusuario),
+  input_html: {
+    class: 'chosen-select',
+    'data-enviarautomatico' => ''
+  },
+  include_blank: true
+%>

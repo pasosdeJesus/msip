@@ -1,0 +1,8 @@
+<div class='campos_grupoper'>
+  <%= f.input :id, as: :hidden %>
+  <%= render partial: 'msip/gruposper/campo_nombre', locals: {f: f} %>
+  <%= render partial: 'msip/gruposper/campo_anotaciones', locals: {f: f} %>
+  <%= render partial: 'msip/gruposper/grupoper_complemento1', 
+    locals: {f: f} %>
+</div>
+

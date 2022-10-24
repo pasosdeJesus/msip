@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-5">
+    <% if @registros %>
+      <%= will_paginate @registros, { param_name: :pagina ,
+        class: 'page-link' }  %>
+    <% end %>
+  </div>
+  <div class="col-sm-2">
+    <% if can?(:new, clase.constantize) && @registros %>
+      <% rutaf = clase.pluralize.underscore + '/index_boton_nuevo' %>
+      <% if lookup_context.find_all(rutaf, [], true).any? %>
+        <%= render partial: rutaf, locals: {f: f} %>
+      <% else %>
+        <%= render partial: 'index_boton_nuevo', locals: {f: f} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

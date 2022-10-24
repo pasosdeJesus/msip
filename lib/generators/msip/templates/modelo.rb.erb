@@ -1,0 +1,8 @@
+class <%= nom_clase %> < ActiveRecord::Base
+	include Msip::Modelo
+  include Msip::Localizacion
+
+  def presenta_nombre
+    "#{id}"
+  end
+end

@@ -1,0 +1,14 @@
+<div class='control-group nested-fields'>
+  <div class="controls">
+
+    <%  f.object.msip_anexo = Msip::Anexo.new if !f.object.msip_anexo %>
+
+    <%= f.simple_fields_for :msip_anexo do |a| %>
+      <%= render 'msip/anexos/anexo_campos', a: a %>
+    <% end %>
+
+    <%= link_to_remove_association "Eliminar Anexo", f, 
+      :class => 'btn-danger' 
+    %> 
+  </div>
+</div>
