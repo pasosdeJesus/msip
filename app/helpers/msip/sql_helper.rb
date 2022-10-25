@@ -210,5 +210,61 @@ module Msip
     end
     module_function :rehabilita_centropoblado
 
+    # Decide si existe una funcón f en base PostgreSQL
+    def existe_función_pg?(f)
+      c = "SELECT EXISTS("\
+        "SELECT * FROM pg_proc WHERE proname = '#{f}'"\
+        ");"
+      r=execute(c)
+      return r[0]['exists']
+    end
+    module_function :existe_función_pg?
+
+    # Renombra una función en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_función_pg(nomini, nomfin)
+      execute("ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
+    end
+    module_function :renombrar_función_pg
+
+
+    # Decide si existe una restricción r en base PostgreSQL
+    def existe_restricción_pg?(r)
+      c = "SELECT EXISTS("\
+        "SELECT * FROM pg_constraint WHERE conname = '#{r}'"\
+        ");"
+      r=execute(c)
+      return r[0]['exists']
+    end
+    module_function :existe_restricción_pg?
+
+    # Renombra una restricción en base PostgreSQL
+    # @param tabla Tabla con la restricción
+    # @param nomini Nombre inicial de restricción
+    # @param nomfin Nombre final
+    def renombrar_restricción_pg(tabla, nomini, nomfin)
+      execute("ALTER TABLE #{tabla} "\
+              "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
+    end
+    module_function :renombrar_restricción_pg
+
+    # Renombra una vista en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_vista_pg(nomini, nomfin)
+      execute("ALTER VIEW #{nomini} RENAME TO #{nomfin};")
+    end
+    module_function :renombrar_vista_pg
+
+    # Renombra una vista materializada en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_vistamat_pg(nomini, nomfin)
+      execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
+    end
+    module_function :renombrar_vistamat_pg
+
+
   end
 end
