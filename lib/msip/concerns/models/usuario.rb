@@ -26,10 +26,10 @@ module Msip
 
           belongs_to :tema, class_name: 'Msip::Tema',
             foreign_key: 'tema_id', validate: true, optional: true
-          has_and_belongs_to_many :msip_grupo, 
+          has_and_belongs_to_many :grupo, 
             class_name: "Msip::Grupo",
             foreign_key: "usuario_id",
-            association_foreign_key: "msip_grupo_id",
+            association_foreign_key: "grupo_id",
             join_table: 'msip_grupo_usuario',
             validate: true
 
