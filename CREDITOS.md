@@ -1,5 +1,5 @@
 Puede ver el listado de personas que han implementado en:
-<https://gitlab.com/pasosdeJesus/msip/graphs/contributors>
+<https://gitlab.com/pasosdeJesus/msip/-/graphs/main
 y en la versión predecesora:
 <https://github.com/pasosdeJesus/sip/graphs/contributors>
 
