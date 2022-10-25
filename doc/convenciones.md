@@ -7,27 +7,49 @@ En general adoptamos las de thoughtbot:
 <https://github.com/thoughtbot/guides>
 
 
-
 A continuación enfatizamos o cambiamos algunas:
 
 # Uso de español en fuentes
 
-Esperamos inicialmente desarrolladores de habla hispana, por eso esperamos los identificadores y comentarios que se introduzcan en español.  Para traducir términos recomendamos wikipedia y <https://fundeu.es/wp-content/uploads/2018/02/Glosario-de-Comunicaci%C3%B3n-Estrat%C3%A9gica-Fund%C3%A9u.pdf>
+Esperamos inicialmente desarrolladores de habla hispana, por eso 
+esperamos los identificadores y comentarios que se introduzcan en español.  
+Para traducir términos recomendamos wikipedia 
+y <https://fundeu.es/wp-content/uploads/2018/02/Glosario-de-Comunicaci%C3%B3n-Estrat%C3%A9gica-Fund%C3%A9u.pdf>
 
-Si algún componente resulta muy popular como para ser usado por hablantes de otros idiomas, esperamos su ayuda para traducir a inglés.
+Si algún componente resulta muy popular como para ser usado por hablantes 
+de otros idiomas, esperamos su ayuda o financiación para traducir a inglés.
+
 
 # Configuración con variables de ambiente
 
 Es un lineamiento de <https://12factor.net/>
-La forma particular de lograrlo en cada lenguaje y ambiente varía.
+La forma particular de lograrlo en cada lenguaje y ambiente varía, pero
+se mantienen en .env  (plantilla .env), y cuando alguna es específica
+de un motor se pone como prefijo una identificación del motor.
 
 
 # SQL
 
 * Palabras reservadas de SQL en mayúscula.
-* Nombres de tablas en singular y preferible que sean una sola palabra (sin usar `_`).  Si son de un motor comienzan con el nombre del motor y `_` por ejemplo `msip_grupo`.  La excepcion pueden ser tablas combinadas (Join tables), cuyo nombre se puede componer del nombre de las dos tablas que une  ordenadas alfabéticamente (por ejemplo `msip_pais` con `msip_grupo` sería `msip_grupo_pais`).
-* SQL no es sensitivo a mayúsculas/minúsculas pero Ruby si lo es.  Sugerimos escribir nombres de campos que se compongan de varias palabras con capitalización camello pero empezando en minúscula, por ejemplo  `colorFlotaSubitemFuente` en lugar de `color_flota_subitem_fuente` pero los que sean llaves foraneas si mejor terminados en `_id`, por ejemplo `caso_id` 
-* Emplear funciones para utilidades generales. Separar palabras con raya al piso `_`.  Si se definen en un motor ponerle de prefijo el nombre del motor seguido de `_`.  
+* Nombres de tablas en singular y preferible que sean una sola palabra 
+  (sin usar `_`).  Si son de un motor comienzan con el nombre del motor 
+  y `_` por ejemplo `msip_grupo`.  La excepcion pueden ser tablas 
+  combinadas (Join tables), cuyo nombre se puede componer del nombre de las 
+  dos tablas que une  ordenadas alfabéticamente (por ejemplo `msip_pais` 
+  con `msip_grupo` sería `msip_grupo_pais`).
+* SQL no es sensitivo a mayúsculas/minúsculas pero Ruby si lo es.  Sugerimos 
+  escribir nombres de campos que se compongan de varias palabras con 
+  capitalización camello pero empezando en minúscula, por ejemplo  
+  `colorFlotaSubitemFuente` en lugar de `color_flota_subitem_fuente` 
+  pero los que sean llaves foraneas si mejor terminados en `_id`, por 
+  ejemplo `caso_id` 
+* Emplear funciones para utilidades generales. Separar palabras con raya al 
+  piso `_`.  Si se definen en un motor ponerle de prefijo el nombre del 
+  motor seguido de `_`.
+* Para las restricciones (constraints) de una tabla sugerimos:
+  - Llave primaria `nombretabla_pkey` si es el caso autoincrementanda
+    con secuencia `nombretabla_id_seq` (que es la convención usada
+    por rails para renombramientos con `rename_table`).
 
 ## Tablas y modelos en singular, controladores y vistas en plural
 

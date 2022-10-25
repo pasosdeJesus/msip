@@ -79,7 +79,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   `msip` en el archivo `Gemfile` que debe quedar al menos con:
   ```
   source 'https://rubygems.org'
-  git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+  git_source(:gitlab) { |repo| "https://gitlab.com/#{repo}.git" }
   
   ruby '>=3.1.1'
   
@@ -536,7 +536,7 @@ minmsip_des=# \q
   de ejemplo de msip:
   
   ```
-  $ (cd app/javascript && ftp https://raw.githubusercontent.com/pasosdeJesus/msip/main/test/dummy/app/javascript/{application.js,jquery.js,jquery-ui.js})
+  $ (cd app/javascript && ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/javascript/{application.js,jquery.js,jquery-ui.js})
   ```
   Asegura que se podrán usar funciones auxiliares relacionadas con Bootstrap, 
   dejando `app/helpers/application_helper.rb` con el siguiente contenido:
@@ -584,8 +584,8 @@ minmsip_des=# \q
   copiar allí los de la aplicación de prueba de msip con
   ```
   cd app/assets/images
-  ftp https://raw.githubusercontent.com/pasosdeJesus/msip/main/test/dummy/app/assets/images/{logo.jpg,browserconfig.xml,favicon.ico}
-  ftp https://raw.githubusercontent.com/pasosdeJesus/msip/main/test/dummy/app/assets/images/favicon-{114,120,144,150,152,16,160,180,192,310,32,57,60,64,70,72,76,96}.png
+  ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/assets/images/{logo.jpg,browserconfig.xml,favicon.ico}
+  ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/assets/images/favicon-{114,120,144,150,152,16,160,180,192,310,32,57,60,64,70,72,76,96}.png
   cd ../../..
   ```
   Sprockets también servirá los javascript que pongas en app/assets/javascripts
@@ -645,7 +645,7 @@ minmsip_des=# \q
       <% end %>
     <% end %>
     <%= grupo_menus :empuja => :derecha do %>
-      <%= opcion_menu "Documentacion", "https://github.com/pasosdeJesus/msip/tree/main/doc/README.md" %>
+      <%= opcion_menu "Documentacion", "https://gitlab.com/pasosdeJesus/msip/tree/main/doc/README.md" %>
       <% if current_usuario %>
         <%= despliega_abajo "Administrar" do %>
           <%= opcion_menu "Clave", main_app.editar_registro_usuario_path, desplegable: true %>

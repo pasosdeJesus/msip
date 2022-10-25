@@ -1,5 +1,5 @@
 
-# Ayudadores para Bootstrap 5 basados en los ayudaddores para 
+# Ayudadores para Bootstrap 5 basados en los ayudadores para 
 # Bootstrap 3 de la gema twitter-bootstrap-rails
 module Msip
   module BootstrapHelper

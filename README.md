@@ -53,8 +53,8 @@ de información como:
     (implementados en tablas `msip_grupo` --modelo `Msip::Grupo`--,
     y `msip_grupo_usuario`), o en otras tablas o métodos que elija.
 - Tablas estándar iniciales para ubicaciones geográficas `msip_pais`,
-  `msip_departamento`, `msip_municipio`, `msip_centro` para centros
-  poblados), `msip_tcentro` (tipos de centros poblados), `msip_tsitio`
+  `msip_departamento`, `msip_municipio`, `msip_clase` para centros
+  poblados), `msip_tclase` (tipos de centros poblados), `msip_tsitio`
   (tipo de sitio) y `msip_ubicacion`. Con datos de todos los países,
   aunque estados y municipios completos para Colombia, Venezuela y
   Honduras y ciudades completas para Colombia de acuerdo a DIVIPOLA 2022 

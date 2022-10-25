@@ -46,6 +46,10 @@ module Mimotor
 end
 ```
 
+Elimina `app/controllers/mimotor/application_controller` pero en la aplicación
+de prueba deja `test/dummy/app/controllers/application_controller.rb` 
+estándar de aplicaciones que usan msip.
+
 # Verificar aplicación de prueba
 
 Antes de comenzar a crear tablas básicas y otras tablas, es conveniente que 
