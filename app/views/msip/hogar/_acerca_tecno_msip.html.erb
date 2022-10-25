@@ -16,6 +16,12 @@
     </span>
   </li>
 
+  <li>Stimulus Rails
+    <span id='ver_stimulus-rails'>
+      <%= Gem::Specification.find_by_name("stimulus-rails").version.to_s %>
+    </span>
+  </li>
+
   <li>jQuery 
     <span id='ver_jquery'></span>
     <script type="module">$('#ver_jquery').html($.fn.jquery)</script>
