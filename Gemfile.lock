@@ -344,22 +344,22 @@ PLATFORMS
 DEPENDENCIES
   babel-transpiler
   bootsnap (>= 1.4.4)
-  cancancan
+  cancancan (~> 3.4)
   capybara!
   cocoon!
   code-scanning-rubocop
-  coffee-rails
+  coffee-rails (~> 5.0)
   colorize
   connection_pool
   cuprite
   debug (>= 1.0.0)
-  devise
+  devise (~> 4.8)
   devise-i18n
   dotenv-rails
   jbuilder (>= 2.7)
   jsbundling-rails
   kt-paperclip!
-  minitest
+  minitest (~> 5.16)
   minitest-reporters
   nokogiri (>= 1.11.1)
   pg (>= 0.18, < 2.0)
@@ -367,16 +367,16 @@ DEPENDENCIES
   rails (~> 7.0)
   rails-controller-testing
   rails-erd
-  rails-i18n
+  rails-i18n (~> 7.0)
   redis
-  sassc-rails
-  simple_form
+  sassc-rails (~> 2.1)
+  simple_form (~> 5.1)
   simplecov (~> 0.10, < 0.18)
   spork
   sprockets-rails
   stimulus-rails
   turbo-rails (~> 1.0)
-  twitter_cldr
+  twitter_cldr (~> 6.11)
   tzinfo
   web-console (>= 3.3.0)
   will_paginate

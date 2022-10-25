@@ -7,13 +7,13 @@ gem 'babel-transpiler'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'cancancan'                 # Control de acceso
+gem 'cancancan', '~> 3.4'       # Control de acceso
 
 gem 'cocoon', git: 'https://github.com/vtamara/cocoon.git', branch: 'new_id_with_ajax' # Formularios anidados (algunos con ajax)
 
-gem 'coffee-rails'              # CoffeeScript para recursos .js.coffee
+gem 'coffee-rails', '~> 5.0'    # CoffeeScript para recursos .js.coffee
 
-gem 'devise'                    # Autenticación
+gem 'devise', '~> 4.8'          # Autenticación
 
 gem 'devise-i18n'               # Localización e Internacionalización
 
@@ -21,7 +21,7 @@ gem 'jbuilder', '>= 2.7'        # Json
 
 gem 'jsbundling-rails'
 
-gem 'kt-paperclip',                 # Anexos
+gem 'kt-paperclip',             # Anexos
   git: 'https://github.com/kreeti/kt-paperclip.git'
   #git: 'https://github.com/vtamara/paperclip.git', branch: 'fix-ruby3'
   #path: '../tmp/paperclip'
@@ -36,21 +36,21 @@ gem 'puma'                      # Lanza en modo desarrollo
 gem 'rails', '~> 7.0'
   #git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
-gem 'rails-i18n'                # Localización e Internacionalización
+gem 'rails-i18n', '~> 7.0'      # Localización e Internacionalización
 
 gem 'redis'
 
-gem 'sassc-rails'#, '2.1.0'      # Conversión a CSS
+gem 'sassc-rails', '~> 2.1'     # Conversión a CSS
 
-gem 'simple_form'               # Formularios
+gem 'simple_form', '~> 5.1'     # Formularios
 
 gem 'sprockets-rails'
 
-gem 'stimulus-rails'               # Formularios
+gem 'stimulus-rails'            # Controladores en javascript
 
 gem 'turbo-rails', '~> 1.0'
 
-gem 'twitter_cldr'              # Localiación e internacionalización
+gem 'twitter_cldr', '~> 6.11'   # Localiación e internacionalización
 
 gem 'tzinfo'                    # Zonas horarias
 
@@ -82,7 +82,7 @@ group :test do
   
   gem 'cuprite' 
 
-  gem "minitest"
+  gem "minitest", '~> 5.16'
 
   gem "minitest-reporters"
 

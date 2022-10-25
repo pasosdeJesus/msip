@@ -651,7 +651,7 @@ ALTER SEQUENCE public.msip_grupo_id_seq OWNED BY public.msip_grupo.id;
 
 CREATE TABLE public.msip_grupo_usuario (
     usuario_id integer NOT NULL,
-    msip_grupo_id integer NOT NULL
+    grupo_id integer NOT NULL
 );
 
 
@@ -2216,7 +2216,7 @@ ALTER TABLE ONLY public.msip_orgsocial_persona
 --
 
 ALTER TABLE ONLY public.msip_grupo_usuario
-    ADD CONSTRAINT fk_rails_8d24f7c1c0 FOREIGN KEY (msip_grupo_id) REFERENCES public.msip_grupo(id);
+    ADD CONSTRAINT fk_rails_8d24f7c1c0 FOREIGN KEY (grupo_id) REFERENCES public.msip_grupo(id);
 
 
 --
@@ -2520,6 +2520,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220722000850'),
 ('20220722192214'),
 ('20220805181901'),
-('20220822132754');
+('20220822132754'),
+('20221024221557'),
+('20221025025402');
 
 
