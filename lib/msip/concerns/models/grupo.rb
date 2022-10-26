@@ -17,7 +17,7 @@ module Msip
 
           has_and_belongs_to_many :usuario,
             class_name: "::Usuario", 
-            foreign_key: "msip_grupo_id", 
+            foreign_key: "grupo_id", 
             association_foreign_key: "usuario_id",
             join_table: 'msip_grupo_usuario',
             validate: true

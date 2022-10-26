@@ -1,3 +1,3 @@
 module Msip
-  VERSION = "2.2a1"
+  VERSION = "2.2a2"
 end

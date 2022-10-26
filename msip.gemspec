@@ -13,10 +13,41 @@ Gem::Specification.new do |s|
   s.description = "Motor para construir su propio sistema de información."
   s.license     = "ISC"
 
-  s.files = Dir['{app,config,db,lib}/**/*.rb'] + Dir['bin/*']
-  s.files += Dir['[A-Z]*']
+  s.files = Dir['[A-Z]*'] +
+    Dir['app/assets/**/*'] +
+    Dir['app/controllers/**/*rb'] +
+    Dir['app/helpers/**/*rb'] +
+    Dir['app/javascript/**/*'] +
+    Dir['app/mailers/**/*rb'] +
+    Dir['app/models/**/*rb'] +
+    Dir['app/views/**/*rb'] +
+    Dir['bin/*'] +
+    Dir['config/**/*rb'] +
+    Dir['config/**/*yml'] +
+    Dir['db/**/*rb'] +
+    Dir['db/**/*sql'] +
+    Dir['desarrollo/**/*'] +
+    Dir['doc/**/*md'] +
+    Dir['lib/**/*rb'] +
+    Dir['lib/**/*rake'] 
 
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["test/**/*.rb"] + 
+    Dir["test/**/*plantilla"] + 
+    Dir["test/dummy/*"] + 
+    Dir["test/dummy/app/assets/config/*"] + 
+    Dir["test/dummy/app/assets/images/*"] + 
+    Dir["test/dummy/app/assets/javascripts/*"] + 
+    Dir["test/dummy/app/assets/stylesheets/*"] + 
+    Dir["test/dummy/app/javascript/*"] + 
+    Dir["test/dummy/app/javascript/controllers/*"] + 
+    Dir["test/dummy/app/views/**/*rb"] + 
+    Dir["test/dummy/bin/*"] + 
+    Dir["test/dummy/config/**/*"] + 
+    Dir["test/dummy/db/*"] + 
+    Dir["test/dummy/public/*"] + 
+    Dir["test/dummy/public/msip/*html"] + 
+    Dir["test/dummy/public/msip/*ico"] + 
+    Dir["test/dummy/test/**/*rb"] 
 
   s.add_runtime_dependency "rails"
   s.add_runtime_dependency "rails-i18n"

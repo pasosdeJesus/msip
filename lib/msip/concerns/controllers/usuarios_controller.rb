@@ -138,7 +138,7 @@ module Msip
             ] + [ 
               :etiqueta_ids => [] 
             ] + [
-              :msip_grupo_ids => []
+              :grupo_ids => []
             ]
             r
           end

@@ -326,7 +326,7 @@ en:
         nombre: Name
         rol: Role
         rol_id: Role
-        "msip_grupo": Groups
-        msip_grupo_ids: Groups
+        grupo: Groups
+        grupo_ids: Groups
         tema: Theme
         unlock_token: Unlock Token
