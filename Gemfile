@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# No usamos gemspec porque la aplicacón de prueba de un motor rails
+# no lo soporta.
+
 ruby ">= 3.1.2"
 
 gem 'babel-transpiler'

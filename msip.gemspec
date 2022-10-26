@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["vtamara@pasosdeJesus.org"]
   s.homepage    = "http://gitlab.com/pasosdeJesus/msip.git"
   s.summary     = "Motor para Sistemas de Información estilo Pasos de Jesús"
-  s.description = "Motor para construir su propio sistema de información."
+  s.description = "Motor para Rails que le facilita construir su sistema de información."
   s.license     = "ISC"
 
   s.files = Dir['[A-Z]*'] +
@@ -49,19 +49,22 @@ Gem::Specification.new do |s|
     Dir["test/dummy/public/msip/*ico"] + 
     Dir["test/dummy/test/**/*rb"] 
 
-  s.add_runtime_dependency "rails"
-  s.add_runtime_dependency "rails-i18n"
-  s.add_runtime_dependency "coffee-rails"
-  s.add_runtime_dependency "sassc-rails"
-  s.add_runtime_dependency "devise"
-  s.add_runtime_dependency "devise-i18n"
-  s.add_runtime_dependency "kt-paperclip"
-  s.add_runtime_dependency "cancancan"
-  s.add_runtime_dependency "simple_form"
-  s.add_runtime_dependency "twitter_cldr"
+  # Dejamos gemas representativas, el listado completo en Gemfile
+  s.add_runtime_dependency "cancancan", '~> 3'
+  s.add_runtime_dependency "devise", '~> 4'
+  s.add_runtime_dependency "devise-i18n", '~> 1'
+  s.add_runtime_dependency "kt-paperclip", '~> 7'
+  s.add_runtime_dependency "pg", '~> 1'
+  s.add_runtime_dependency "rails", '~> 7.0'
+  s.add_runtime_dependency "rails-i18n", '~> 7'
+  s.add_runtime_dependency "sassc-rails", '~> 2'
+  s.add_runtime_dependency "simple_form", '~> 5'
+  s.add_runtime_dependency "sprockets-rails", '~> 3'
+  s.add_runtime_dependency "stimulus-rails", '~> 1'
+  s.add_runtime_dependency "twitter_cldr", '~> 6'
+  s.add_runtime_dependency "will_paginate", '~> 3'
 
-  s.add_runtime_dependency "minitest"
-
-  s.add_development_dependency "capybara"
+  s.add_development_dependency "minitest", '~> 5'
+  s.add_development_dependency "cuprite", '~> 0'
 
 end
