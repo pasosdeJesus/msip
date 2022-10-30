@@ -32,7 +32,7 @@ module Msip
     module_function :edad_de_fechanac_fecha
 
 
-    # @parama modelorango es nombre de modelo con rangos e.g 
+    # @param modelorango es nombre de modelo con rangos e.g 
     #   'Sivel2Gen::Rangoead' o 'Cor1440Gen::Rangoedadac'
     # @return id en tabla del rango o si no se puede calcular
     #   retorna ID del registro SIN INFORMACIÓN (o -1 si no hay

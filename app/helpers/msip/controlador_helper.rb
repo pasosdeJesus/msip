@@ -21,8 +21,9 @@ module Msip
      end
     module_function :asignar_en_diccionario
 
-    # Convierte parámetros en un arreglo con parejas 
-    # {name: nombre,value: valor} a diccionario con parámetros
+    # Convierte parámetros en un arreglo con 
+    # parejas de la forma name: nombre,value: valor, a 
+    # diccionario con parámetros
     def convertir_arrnomval_diccionario(arr)
       diccionario = {}
       arr.each do |d|

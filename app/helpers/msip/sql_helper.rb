@@ -71,10 +71,10 @@ module Msip
     ##
     # Agrega una nueva tabla al listado $t
     #
-    # @param string &$t Listado de tablas separadas por ,
-    # @param string $nt Nueva tabla por agregar si falta
+    # @param t [Array<String>] Listado de tablas separadas por ,
+    # @param nt [String] Nueva tabla por agregar si falta
     #
-    # @return string cadena t completada para asegurar tabla
+    # @return [String] cadena t completada para asegurar tabla
     #/
     def agregar_tabla(t, nt)
       at = t.split(',').map(&:strip)
@@ -91,12 +91,12 @@ module Msip
     ##
     # Agrega condición a WHERE en un SELECT de SQL
     #
-    # @param unknown &$db   Conexión a base de datos
-    # @param string  &$w    cadena con WHERE que se completa
-    # @param string  $n     nombre de campo
-    # @param string  $v     valor esperado
-    # @param string  $opcmp operador de comparación por usar.
-    # @param string  $con   con
+    # @param [Object]  db   Conexión a base de datos
+    # @param [String]  w    cadena con WHERE que se completa
+    # @param [String]  n     nombre de campo
+    # @param [String]  v     valor esperado
+    # @param [String]  opcmp operador de comparación por usar.
+    # @param [String]  con   con
     #
     # @return string cadena w completada con nueva condición
     def ampliar_where(w, n, v, opcmp = '=', con='AND')
@@ -109,7 +109,6 @@ module Msip
       w += " " + n + opcmp + Sivel2Gen::Caso.connection.quote(v)
     end
     module_function :ampliar_where
-
     alias_method :consulta_and, :ampliar_where
     module_function :consulta_and
 
@@ -117,13 +116,13 @@ module Msip
     # Como la función anterior sólo que el valor no lo pone entre 
     # apostrofes y supone que ya viene escapado el valor $v
     #
-    # @param string &$w    cadena con WHERE que se completa
-    # @param string $n     nombre de campo
-    # @param string $v     valor esperado
-    # @param string $opcmp operador de comparación por usar.
-    # @param string $con   con
+    # @param w [String]     cadena con WHERE que se completa
+    # @param n [String]     nombre de campo
+    # @param v [String]     valor esperado
+    # @param opcmp [String] operador de comparación por usar.
+    # @param con [String]   conector
     #
-    # @return string cadena w completada con nueva condición
+    # @return [String] cadena w completada con nueva condición
     #/
     def ampliar_where_sinap(w, n, v, opcmp = '=', con = "AND")
       if (w != "") 

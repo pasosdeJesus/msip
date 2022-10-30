@@ -4,16 +4,16 @@ require "msip/engine"
 module Msip
 
   # Carga un archivo con semillas SQL de un motor, ruta o app
-  # @param objeto conexion Tipicamente ActiveRecord::Base.connection()
-  # @param string motor motor del cual cargar, o cadena con ruta 
+  # @param conexion [Object] Tipicamente ActiveRecord::Base.connection()
+  # @param motor [String] motor del cual cargar, o cadena con ruta 
   #   o nil para que sea de aplicación
-  # @param string tipoarchivo 'cambios' o 'datos' para indicar si se carga
+  # @param tipoarchivo [String] 'cambios' o 'datos' para indicar si se carga
   #     cambios-basica.sql o datos-basica.sql. El primero debería tener cambios
   #     a tablas básicas de motor del cual desciende directamente.
   #     El segundo debería tener nuevos datos para las tablas básicas.
-  # @param patexcluye Excluir lineas que cumplan el patrón
+  # @param patexcluye [Pattern] Excluir lineas que cumplan el patrón
   #
-  # @return void Si el archivo existe lo ejecuta
+  # @return [void] Si el archivo existe lo ejecuta
   def self.carga_semillas_sql(conexion, motor, tipoarchivo, patexcluye = nil)
     if (tipoarchivo.to_s != 'datos' && tipoarchivo.to_s != 'cambios')
       raise 'Las semillas solo pueden ser cambios o datos'

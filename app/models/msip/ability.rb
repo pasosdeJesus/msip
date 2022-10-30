@@ -141,7 +141,7 @@ module Msip
     # En aplicaciones es mejor escribir completo el modelo de autorización
     # para facilitar su análisis y evitar cambios inesperados al actualizar
     # motores
-    # @usuario Usuario que hace petición
+    # @param usuario Usuario que hace petición
     def initialize_msip(usuario = nil)
       # El primer argumento para can es la acción a la que se da permiso, 
       # el segundo es el recurso sobre el que puede realizar la acción, 

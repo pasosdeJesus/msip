@@ -536,7 +536,7 @@ minmsip_des=# \q
   de ejemplo de msip:
   
   ```
-  $ (cd app/javascript && ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/javascript/{application.js,jquery.js,jquery-ui.js})
+  $ (cd app/javascript && ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/javascript/{application.js,jquery.js})
   ```
   Asegura que se podrán usar funciones auxiliares relacionadas con Bootstrap, 
   dejando `app/helpers/application_helper.rb` con el siguiente contenido:

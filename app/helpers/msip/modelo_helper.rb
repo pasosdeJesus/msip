@@ -103,7 +103,8 @@ module Msip
     end
 
     # Ruta para listado de registros o
-    # @posfijo_path Si el posfijo de la ruta es _path (si es falso se usa _url)
+    # @param posfijo_path [Boolean] Si el posfijo de la ruta es _path 
+    #   (si es falso se usa _url)
     def modelos_path(o, posfijo_path = true)
       if o.nil?
         return '#'
