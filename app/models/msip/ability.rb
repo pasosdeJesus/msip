@@ -91,7 +91,7 @@ module Msip
       ['Msip', 'clase_histvigencia'], 
       ['Msip', 'departamento_histvigencia'], 
       ['Msip', 'municipio_histvigencia'], 
-      ['Msip', 'paishistvigencia'], 
+      ['Msip', 'pais_histvigencia'], 
       ['Msip', 'grupoper'], 
       ['Msip', 'persona'], 
       ['Msip', 'persona_trelacion'], 
