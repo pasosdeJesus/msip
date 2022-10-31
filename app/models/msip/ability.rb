@@ -88,8 +88,13 @@ module Msip
 
     NOBASICAS_INDSEQID = [
       ['Msip', 'anexo'], 
+      ['Msip', 'clase_histvigencia'], 
+      ['Msip', 'departamento_histvigencia'], 
+      ['Msip', 'municipio_histvigencia'], 
+      ['Msip', 'paishistvigencia'], 
       ['Msip', 'grupoper'], 
       ['Msip', 'persona'], 
+      ['Msip', 'persona_trelacion'], 
       ['Msip', 'ubicacion'], 
       ['', 'usuario']
     ]
