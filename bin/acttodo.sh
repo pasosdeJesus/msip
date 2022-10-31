@@ -52,24 +52,24 @@ function actuno {
   cd $acdir
 }
 
-if (test "$SALTASIP" != "1") then {
-  echo "**** msip"
-  actuno sip-2.0 test/dummy
-  actuno sip test/dummy
-} fi;
-
-# Usan solo msip
-if (test "$SALTASIPD" != "1") then {
-  echo "**** msipd"
-  actuno sipd test/dummy
-} fi;
-
 if (test "$SALTAMSIP" != "1") then {
   echo "**** msip"
   actuno msip test/dummy
   actuno msip_carto test/dummy
 } fi;
 
+
+if (test "$SALTASIP" != "1") then {
+  echo "**** sip"
+  actuno sip-2.0 test/dummy
+  actuno sip test/dummy
+} fi;
+
+# Usan solo msip
+if (test "$SALTASIPD" != "1") then {
+  echo "**** sipd"
+  actuno sipd test/dummy
+} fi;
 
 if (test "$SALTAJN316" != "1") then {
   echo "**** jn316"
@@ -139,11 +139,6 @@ if (test "$SALTASIIAP" != "1") then {
 if (test "$SALTASIFASOL" != "1") then {
   actuno si_fasol; 
 } fi;
-
-if (test "$SALTASIBDHN" != "1") then {
-  actuno si_bdhn; 
-} fi;
-
 
 if (test "$SALTASIVELSJR" != "1") then {
   echo "**** sivelsjr"
