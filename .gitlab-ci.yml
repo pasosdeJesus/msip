@@ -43,15 +43,17 @@ test:
     - apt-get update && apt-get install -y google-chrome-stable 
     - export CHROMEDRIVER_DIR=/chromedriver
     - mkdir $CHROMEDRIVER_DIR
-    - export CHROME_VERSION=$(google-chrome --product-version | sed -e 's/^\([0-9]*\)\..*/\1/g');
-    - echo $CHROME_VERSION 
-    - CHROMEDRIVER_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION);
+    - export CHROME_VERSION=$(google-chrome --product-version)
+    - echo "CHROME_VERSION=$CHROME_VERSION"
+    - export CHROME_LR=$(echo $CHROME_VERSION | sed -e 's/^\([0-9]*\)\..*/\1/g');
+    - echo "CHROME_LR=$CHROME_LR"
+    - CHROMEDRIVER_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_LR);
     - echo $CHROMEDRIVER_VERSION 
     - echo "El siguiente debería ser https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip"
-    - echo "Es http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+    - echo "Es http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
     - wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
     - unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
-    - export PATH $CHROMEDRIVER_DIR:$PATH
+    - export PATH=$CHROMEDRIVER_DIR:$PATH
     - chromedriver --version
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
