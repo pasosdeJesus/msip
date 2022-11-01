@@ -44,8 +44,13 @@ test:
     - export CHROMEDRIVER_DIR=/chromedriver
     - mkdir $CHROMEDRIVER_DIR
     - export CHROME_VERSION=$(google-chrome --product-version | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p');
+    - echo $CHROME_VERSION 
     - CHROMEDRIVER_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION);
+    - echo $CHROMEDRIVER_VERSION 
+    - echo "El siguiente debería ser https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip"
+    - echo "Es http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
     - wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+    https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip
     - unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
     - export PATH $CHROMEDRIVER_DIR:$PATH
     - chromedriver --version
