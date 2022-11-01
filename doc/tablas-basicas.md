@@ -89,6 +89,13 @@ A nivel de tabla en la base de datos tiene por lo menos:
 
 El modelo en Rails debe incluir el módulo ```Msip::Basica``` que tendrá en cuenta esto y otros detalles.  Si una tabla básica no requiere unicidad de nombres debe definirse la constante ```Nombresunicos=false```  Ver por ejemplo tablas básicas, departamentos, municipios y clases.
 
+Por omisión en cada registro de una tabla básica el campo nombre se convierte automaticamente a mayúsculas. Si prefiere que esto no ocurra, sino mantener la capitalización suministrada por el usuario, defina en el modelo:
+```
+def nombre=(val)                                                             
+  self[:nombre] = val.squish                                                 
+end 
+```
+
 # 3. Datos por omisión
 
 Se recomienda ubicar datos básicos de las tablas propias del motor en ```db/datos-basicas.rb```
