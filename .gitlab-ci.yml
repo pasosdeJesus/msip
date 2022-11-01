@@ -5,6 +5,8 @@ image: "ruby:3.1.2"
 services:
   - name: vtamara/postgis-es_co:13.3-1
     alias: postgres
+  - name: selenium/standalone-chrome
+    alias: chrome
 
 variables:
   RAILS_ENV: test
@@ -15,6 +17,7 @@ variables:
   POSTGRES_HOST_AUTH_METHOD: trust
   NOKOGIRI_USE_SYSTEM_LIBRARIES: 'true'
   CC_TEST_REPORTER_ID: "e83ead47cfc0912ab49acb6658bf8a22bd4257d73c5ddcd8eebfb450efd51640"
+  SELENIUM_REMOTE_URL: http://chrome:4444/wd/hub
 
 
 stages:
