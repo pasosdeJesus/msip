@@ -1,6 +1,8 @@
-<div class='campos_persona'>
+<div class='campos_persona' data-controller='msip--sindocaut'>
   <!-- %= f.input :id, readonly: true %-->
-  <%= f.input :id, as: :hidden %>
+  <%= f.input :id, as: :hidden,
+    input_html: {"data-msip--sindocaut-target": "id"}
+  %>
 
   <%= render partial: 'msip/personas/campo_nombres', 
     locals: {f: f} %>
@@ -45,6 +47,6 @@
   <%= render partial: 'msip/personas/campo_id_municipio', 
     locals: {f: f} %>
 
-  <%= render partial: 'msip/personas/campo_id_clase', 
+  <%= render partial: 'sip/personas/campo_id_clase', 
     locals: {f: f} %>
 </div>

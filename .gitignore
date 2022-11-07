@@ -48,3 +48,6 @@ coverage/
 # Otros
 test/dummy/db/datos-basicas.sql
 msip-*.gem
+test/dummy/app/javascript/controllers/sip
+.yardoc/
+yard_doc/
