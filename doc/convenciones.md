@@ -20,12 +20,54 @@ Si algún componente resulta muy popular como para ser usado por hablantes
 de otros idiomas, esperamos su ayuda o financiación para traducir a inglés.
 
 
-# Configuración con variables de ambiente
+# Variables de configuración de la aplicación
 
-Es un lineamiento de <https://12factor.net/>
-La forma particular de lograrlo en cada lenguaje y ambiente varía, pero
-se mantienen en .env  (plantilla .env), y cuando alguna es específica
-de un motor se pone como prefijo una identificación del motor.
+Manejamos 3:
+
+* En el espacio de nombre msip.config
+* En el espacio de nombres config.x
+* Variables de ambiente, como recomienda <https://12factor.net/>, que se
+  esperan en un archivo .env
+
+Los valores de las dos primeras van en el código fuente de la aplicación.
+
+Respecto a las terceras:
+
+* Deja las variables de configuración como variables de ambiente en 
+  `.env.plantilla` (que en la  primera configuración debe copiarse 
+  en `.env`) y usalas a lo largo de las fuentes. 
+  * Puedes iniciar el archivo `.env.plantilla` copiandolo de otra motor
+    o aplicación similar o en su defecto de msip.
+  * Predefine cada variable en un bloque de la 
+    forma siguiente (cambia `BD_USUARIO` por el nombre de la variable 
+    y su valor predeterminado en lugar de `msipdes`):
+    ```
+    if (test "$BD_USUARIO" = "") then {
+      export BD_USUARIO=msipdes
+    } fi
+    ```
+  * En lugar de archivos plantilla agrega variables de ambiente en donde 
+    puede haber configuraciones variables a lo largo de la aplicación. Si 
+    necesitas introducir variables, recomendamos que sea en mayúscula, 
+    remplazando espacios por _ y que comiencen con el nombre del motor 
+    (e.g `MSIP_FORMATO_FECHA`). Recuerda definir los valores predeterminados
+    en `.env.plantilla` y además en el código ruby en lugar de 
+    `ENV['MIMOTOR_VAR']` mejor emplea 
+    `ENV.fetch('MIMOTOR_VAR', 'valor predeterminado')` o si la aplicación 
+    debe fallar si no está definida usa `ENV.fetch('MIMOTOR_VAR')`. 
+    La idea es que al final del proceso todas las configuraciones que no
+    convenga incluir en las fuentes se concentren en `.env.plantilla` 
+    y en lo posible que sea el único archivo plantilla.
+
+* Emplea la gema `dotenv-rails` para leer las variables de ambiente
+  en modos de desarrollo y producción y el sistema operativo para 
+  garantizarlas en modo producción.
+  * Agrega la gema `dotenv-rails` en una sección sólo para modos 
+  `development` y `test` de tu `Gemfile`
+
+*  Copia de `msip/test/dummy` los scripts `bin/corre`, `bin/detiene` y 
+   `bin/migra` en el directorio `bin.`
+
 
 
 # SQL
@@ -65,20 +107,26 @@ la convención de controladores y vistas en plural.
 # Ruby
 
 ## Diseño
-En nuevos sistemas de información emplear motores tanto como sea posible. Se recomienda que sean descendientes de msip, que da unidad en manejo de tablas básicas, usuarios y autenticación.
+En nuevos sistemas de información emplear motores tanto como sea posible. 
+Se recomienda que sean descendientes de msip, que da unidad en manejo de 
+tablas básicas, usuarios y autenticación.
 
-Por ejemplo algunas de las aplicaciones en el repositorio de Pasos de Jesús en gitlab dependen de msip así:
+Por ejemplo algunas de las aplicaciones en el repositorio de Pasos de Jesús 
+en gitlab dependen de msip así:
 ![Dependencias](https://gitlab.com/pasosdeJesus/msip/raw/main/doc/dependencias.png)
 
 ## Control de acceso
 
-En los motores y aplicaciones genéricas se especifica con brevedad el control de acceso 
-llamando métodos de motores en la función initialize de `app/modles/ability.rb` 
-(e.g `initialize_msip`, `initialize_mr519_gen`, `initialize_heb412_gen` e `initialize_sivel2_gen`). 
-En aplicaciones finales con exactamente el mismo control de acceso de las aplicaciones genéricas 
-pueden llamarse esas funciones. Pero en aplicaciones que mezclen varios motoros se recomienda
-escribir completas las reglas en el archivo `app/models/ability.rb` para facilitar auditoria
-y evitar cambios inesperados al actualizar motores.
+En los motores y aplicaciones genéricas se especifica con brevedad el control 
+de acceso llamando métodos de motores en la función `initialize` de 
+`app/modles/ability.rb` 
+(e.g `initialize_msip`, `initialize_mr519_gen`, `initialize_heb412_gen` e 
+`initialize_sivel2_gen`). 
+En aplicaciones finales con exactamente el mismo control de acceso de las 
+aplicaciones genéricas pueden llamarse esas funciones. Pero en aplicaciones 
+que mezclen varios motores se recomienda escribir completas las reglas en el 
+archivo `app/models/ability.rb` para facilitar auditoria y evitar cambios 
+inesperados al actualizar motores.
 
 ## Fuentes
 
@@ -106,7 +154,7 @@ y evitar cambios inesperados al actualizar motores.
       sectorsocialsec: Sectores sociales secundarios
 
 * Usar en fuentes codificación UTF-8
-* Terminar líneas sólo con \n (como es típico en el mundo Unix).
+* Terminar líneas sólo con `\n` (como es típico en el mundo Unix).
 * 2 espacios de indentación.
 * Para configurarlo en vim, agregue al final de ```~/.vim/ftplugin/ruby.vim```:
 ``` vim
@@ -116,65 +164,29 @@ set expandtab
 set autoindent
 ```
 
-http://betterspecs.org/
-http://www.caliban.org/ruby/rubyguide.shtml
-https://hakiri.io/blog/ruby-security-tools-and-resources
+* <http://betterspecs.org/>
+* <http://www.caliban.org/ruby/rubyguide.shtml>
+* <https://hakiri.io/blog/ruby-security-tools-and-resources>
 
 
-## Configuración de aplicacíon Ruby on Rails con variables de ambiente
 
-* Deja las variables de configuración como variables de ambiente en 
-  `.env.plantilla` (que en la  primera configuración debe copiarse 
-  en `.env`) y usalas a lo largo de las fuentes. 
-  * Puedes iniciar el archivo `.env.plantilla` copiandolo de otra motor
-    o aplicación similar o en su defecto de msip.
-  * Predefine cada variable en un bloque de la 
-    forma siguiente (cambia `BD_USUARIO` por el nombre de la variable 
-    y su valor predeterminado en lugar de `msipdes`):
-  ```
-  if (test "$BD_USUARIO" = "") then {
-    export BD_USUARIO=msipdes
-  } fi
-  ```
-  * En lugar de archivos plantilla agrega variables de ambiente en donde 
-    puede haber configuraciones variables a lo largo de la aplicación. Si 
-    necesitas introducir variables, recomendamos que sea en mayúscula, 
-    remplazando espacios por _ y que comiencen con el nombre del motor 
-    (e.g `MSIP_FORMATO_FECHA`). Recuerda definir los valores predeterminados
-    en `.env.plantilla` y además en el código ruby en lugar de 
-    `ENV['MIMOTOR_VAR']` mejor emplea 
-    `ENV.fetch('MIMOTOR_VAR', 'valor predeterminado')` o si la aplicación 
-    debe fallar si no está definida usa `ENV.fetch('MIMOTOR_VAR')`. 
-    La idea es que al final del proceso todas las configuraciones se 
-    concentren en `.env.plantilla` y en lo posible que sea el único archivo 
-    plantilla.
+# Javascript
 
-* Emplea la gema `dotenv-rails` para leer las variables de ambiente
-  en modos de desarrollo y producción y el sistema operativo para 
-  garantizarlas en modo producción.
-  * Agrega la gema `dotenv-rails` en una sección sólo para modos 
-  `development` y `test` de tu `Gemfile`
-
-*  Copia de `msip/test/dummy` los scripts `bin/corre`, `bin/detiene` y 
-   `bin/migra` en el directorio `bin.`
-
-
-# Javascript/Coffeescript
-
-Seguir sugerencias de https://github.com/thoughtbot/guides/blob/main/javascript/README.md
+Seguir sugerencias de 
+<https://github.com/thoughtbot/guides/blob/main/javascript/README.md>
 
 * Para localizar elementos en el DOM preferir ids y clases (o atributos data) 
   en lugar de posiciones.  Así pueden moverse los elementos en la página sin 
   requrir cambios en el javascript.
 
 
-Si tiene instalado coffeescript 2, podrá verificar sintaxis de archivos 
-del directorio `app/assets/javascript/` con:
+Podrá verificar sintaxis de archivos del directorio `app/assets/javascript/` 
+con:
 ```sh
   make
 ```
 
-En adJ para instalar coffeescript basta:
+Mientras remplazamos Coffescript, en adJ para instalar coffeescript basta:
 ```sh
   sudo yarn global add coffeescript
 ```
