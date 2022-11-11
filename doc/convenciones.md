@@ -22,16 +22,20 @@ de otros idiomas, esperamos su ayuda o financiación para traducir a inglés.
 
 # Variables de configuración de la aplicación
 
-Manejamos 3:
+Manejamos 4:
 
-* En el espacio de nombre msip.config
-* En el espacio de nombres config.x
+* En el espacio de nombre `msip.config.nombre` 
+* En el espacio de nombres `config.x.motor_nombre`
+* Como funciones de clase que retornan una constante preferiblemente en algunos modelos por ejemplo `Sip::Persona::convencion_sexo` o `Cor1440Gen::Proyectofinanciero::actividades_comunes_id`
 * Variables de ambiente, como recomienda <https://12factor.net/>, que se
-  esperan en un archivo .env
+  esperan en un archivo `.env`
 
-Los valores de las dos primeras van en el código fuente de la aplicación.
+Los valores de las tres primeras van en el código fuente de la aplicación.
 
-Respecto a las terceras:
+Las últimas las detallamos en la siguiente sección.
+
+## Variables de configuración como variables de ambiente
+
 
 * Deja las variables de configuración como variables de ambiente en 
   `.env.plantilla` (que en la  primera configuración debe copiarse 
