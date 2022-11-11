@@ -24,9 +24,9 @@ de otros idiomas, esperamos su ayuda o financiación para traducir a inglés.
 
 Manejamos 4:
 
-* En el espacio de nombre `msip.config.nombre` 
-* En el espacio de nombres `config.x.motor_nombre`
-* Como funciones de clase que retornan una constante preferiblemente en algunos modelos por ejemplo `Sip::Persona::convencion_sexo` o `Cor1440Gen::Proyectofinanciero::actividades_comunes_id`
+* Unas pocas en el espacio de nombre `msip.config.nombrevar`.
+* Unas pocas en el espacio de nombres `config.x.nombrevar` o `config.x.motor_nombrevar`
+* Otras como funciones de clase que retornan constantes principalmente en modelos relacionados con la funcionalidad por ejemplo `Sip::Persona::convencion_sexo` o `Cor1440Gen::Proyectofinanciero::actividades_comunes_id` y que deben documentarse.
 * Variables de ambiente, como recomienda <https://12factor.net/>, que se
   esperan en un archivo `.env`
 
