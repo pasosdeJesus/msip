@@ -153,5 +153,7 @@ if (test "$SALTAMIND" != "1") then {
 # Usan 4 motores
 #actuno si_jrslac; 
 #actuno sivel2_sjrven; 
-actuno si_jrscol
+if (test "$SALTASIJRSCOL" != "1") then {
+  actuno si_jrscol
+} fi;
 
