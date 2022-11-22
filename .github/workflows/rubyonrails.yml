@@ -1,0 +1,61 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          BD_CLAVE: password
+          BD_USUARIO: rails
+          BD_PRUEBA: rails_test
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Sacar código fuente
+        uses: actions/checkout@v3
+      # Agregue o remplace pasos de depencicas aquí
+      - name: Instalar Ruby y gemas
+        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
+        with:
+          bundler-cache: true
+      # Agregue o remplace configuración de base de datos
+      - name: Configurar esquema de base de datos
+        run: (cd test/dummy; cp .env.plantilla .env; bin/rails db:schema:load)
+      # Agregue o remplace ejecutores de pruebas aquí
+      - name: Ejecutar pruebas
+        run: CONFIG_HOSTS=www.example.com bin/rails test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sacar código fuente
+        uses: actions/checkout@v3
+      - name: Instalar Ruby y gemas
+        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
+        with:
+          bundler-cache: true
+      # Agregue o remplace verificadores 
+      - name: Auditoria de dependencias de seguridad
+        run: bin/bundler-audit --update
+      - name: Auditoria de seguridad a código de la aplicación
+        run: bin/brakeman -q -w2
+      - name: Archivos para verificar formato de Ruby
+        run: bin/rubocop --parallel

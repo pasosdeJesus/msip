@@ -3,38 +3,46 @@
 #
 # You may wish to alter this file to override the set of languages analyzed,
 # or to provide custom queries or build logic.
+#
+# ******** NOTE ********
+# We have attempted to detect the languages in your repository. Please check
+# the `language` matrix defined below to confirm you have the correct set of
+# supported CodeQL languages.
+#
 name: "CodeQL"
 
 on:
   push:
-    branches: [master]
+    branches: [ main ]
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [master]
+    # Las ramas siguientes deben ser subconjunto de las ramas de arriba
+    branches: [ main ]
   schedule:
-    - cron: '0 3 * * 0'
+    - cron: '28 5 * * 2'
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analizar
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     strategy:
       fail-fast: false
       matrix:
-        # Override automatic language detection by changing the below list
-        # Supported options are ['csharp', 'cpp', 'go', 'java', 'javascript', 'python']
-        language: ['javascript']
-        # Learn more...
-        # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
+        language: [ 'javascript', 'ruby' ]
+        # CodeQL soporta [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Aprenda más del soporte de lenguajes de CodeQL en https://git.io/codeql-language-support
 
     steps:
-    - name: Checkout repository
+    - name: Sacar repositorio
       uses: actions/checkout@v2
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+    # Inicializa herramientas de CodeQL para el sondeo
+    - name: Inicializar CodeQL
+      uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
         # If you wish to specify custom queries, you can do so here or in a config file.
@@ -44,8 +52,8 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    - name: Autoconstrucción
+      uses: github/codeql-action/autobuild@v2
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
@@ -58,5 +66,5 @@ jobs:
     #   make bootstrap
     #   make release
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+    - name: Realizar análisis de CodeQL
+      uses: github/codeql-action/analyze@v2
