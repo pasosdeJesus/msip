@@ -1,13 +1,18 @@
 # Convenciones respecto al código fuente
 
-Respecto a licenciamiento y uso de gitlab por favor ver 
-<https://gitlab.com/pasosdeJesus/msip/blob/main/CONTRIBUTING.md>
+Respecto a licenciamiento y uso de github por favor ver 
+<https://github.com/pasosdeJesus/sip/blob/master/CONTRIBUTING.md>
 
-En general adoptamos las de thoughtbot:
+
+En general adoptamos las de thoughtbot:    
 <https://github.com/thoughtbot/guides>
 
 
-A continuación enfatizamos o cambiamos algunas:
+Junto con la guía de estilo de Shopify:
+<https://ruby-style-guide.shopify.dev/>
+
+En las siguientes secciones enfatizamos o cambiamos algunas convenciones.
+
 
 # Uso de español en fuentes
 
