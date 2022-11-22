@@ -51,3 +51,4 @@ msip-*.gem
 test/dummy/app/javascript/controllers/sip
 .yardoc/
 yard_doc/
+creaparchesip.sh

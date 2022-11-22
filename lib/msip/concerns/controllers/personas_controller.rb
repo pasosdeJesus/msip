@@ -51,20 +51,8 @@ module Msip
             return a
           end
 
-
-          def new
-            @encform_html = {
-              'data-controller': 'msip--sindocaut'
-            }
-            new_gen
-            render layout: 'application'
-          end
-
-          def edit
-            @encform_html = {
-              'data-controller': 'msip--sindocaut'
-            }
-            edit_gen
+          def atributos_html_encabezado_formulario
+            { 'data-controller': 'msip--sindocaut' }
           end
 
           def index_msip(c = nil)
