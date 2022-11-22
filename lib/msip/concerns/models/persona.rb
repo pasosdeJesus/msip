@@ -30,6 +30,8 @@ module Msip
             }
           }
 
+          # Retorna cadena con convención para sexo en base
+          # Bien FMS o bien MHS
           def self.convencion_sexo_abreviada
             # La convención se almacena en base de datos en la constraint
             # persona_sexo_check de tabla msip_persona
