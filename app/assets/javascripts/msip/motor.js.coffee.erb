@@ -1046,7 +1046,7 @@ if (typeof String.prototype.endsWith != 'function')
   
 @msip_ejecutarAlCargarPagina = (root) ->
   console.log('Msip: Ejecutando al cargar pagina')
-  if typeof(window.formato_fecha) == 'undefined'
+  if typeof(window.formato_fecha) == 'undefined' || window.formato_fecha == '{}'
     msip_inicializaMotor()
 
 
