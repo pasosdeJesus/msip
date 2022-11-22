@@ -6,3 +6,9 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import Msip__CancelarVacioEsEliminarController from "./msip/cancelar_vacio_es_eliminar_controller"
+application.register("msip--cancelar-vacio-es-eliminar", Msip__CancelarVacioEsEliminarController)
+
+import Msip__SindocautController from "./msip/sindocaut_controller"
+application.register("msip--sindocaut", Msip__SindocautController)

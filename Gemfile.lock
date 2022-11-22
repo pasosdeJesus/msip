@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kreeti/kt-paperclip.git
-  revision: 705092aa709076fc2d8d066f23e678f4d9323bc4
+  revision: 11abf222dc31bff71160a1d138b445214f434b2b
   specs:
     kt-paperclip (7.1.1)
       activemodel (>= 4.2.0)
@@ -96,7 +96,11 @@ GEM
     bindex (0.8.1)
     bootsnap (1.14.0)
       msgpack (~> 1.2)
+    brakeman (5.4.0)
     builder (3.2.4)
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     camertron-eprun (1.1.1)
     cancancan (3.4.0)
     capybara (3.38.0)
@@ -156,7 +160,7 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.5.11)
-    irb (1.4.3)
+    irb (1.5.0)
       reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -271,6 +275,14 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.23.0)
       parser (>= 3.1.1.0)
+    rubocop-minitest (0.23.2)
+      rubocop (>= 0.90, < 2.0)
+    rubocop-rails (2.17.3)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+    rubocop-shopify (2.10.1)
+      rubocop (~> 1.35)
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.11.0)
@@ -338,6 +350,8 @@ PLATFORMS
 DEPENDENCIES
   babel-transpiler
   bootsnap (>= 1.4.4)
+  brakeman
+  bundler-audit
   cancancan (~> 3.4)
   capybara
   cocoon!
@@ -363,6 +377,9 @@ DEPENDENCIES
   rails-erd
   rails-i18n (~> 7.0)
   redis
+  rubocop-minitest
+  rubocop-rails
+  rubocop-shopify
   sassc-rails (~> 2.1)
   simple_form (~> 5.1)
   simplecov (~> 0.10, < 0.18)
