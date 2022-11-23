@@ -1,9 +1,9 @@
 class ArreglaFuncionEdadDeFechanacFecharef < ActiveRecord::Migration[7.0]
   def up
-    # Se sigue implementación de app/helpers/msip/edad_sexo_helper.rb para que
+    # Se sigue implemntación de app/helpers/sip/edad_sexo_helper.rb para que
     # coincida lo hecho en ruby y en SQL
     execute <<-SQL
-    CREATE OR REPLACE FUNCTION public.msip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
+    CREATE OR REPLACE FUNCTION public.sip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
         LANGUAGE sql IMMUTABLE
         AS $$
             SELECT CASE 
@@ -30,7 +30,7 @@ class ArreglaFuncionEdadDeFechanacFecharef < ActiveRecord::Migration[7.0]
   end
   def down
     execute <<-SQL
-    CREATE OR REPLACE FUNCTION public.msip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
+    CREATE OR REPLACE FUNCTION public.sip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
         LANGUAGE sql IMMUTABLE
         AS $$
             SELECT CASE 
