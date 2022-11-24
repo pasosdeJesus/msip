@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   class AnexosController < ApplicationController
     load_and_authorize_resource class: Msip::Anexo

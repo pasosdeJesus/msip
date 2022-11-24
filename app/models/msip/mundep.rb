@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ideas de https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/
 module Msip
   class Mundep < ActiveRecord::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "msip/concerns/controllers/paises_controller"
 
 module Msip

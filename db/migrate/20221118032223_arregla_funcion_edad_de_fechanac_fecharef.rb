@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArreglaFuncionEdadDeFechanacFecharef < ActiveRecord::Migration[7.0]
   def up
     # Se sigue implemntación de app/helpers/sip/edad_sexo_helper.rb para que

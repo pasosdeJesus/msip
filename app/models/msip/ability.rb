@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   class Ability
     include CanCan::Ability

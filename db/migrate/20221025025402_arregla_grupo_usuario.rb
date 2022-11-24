@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArreglaGrupoUsuario < ActiveRecord::Migration[7.0]
   def up
     if column_exists?(:msip_grupo_usuario, :sip_grupo_id)

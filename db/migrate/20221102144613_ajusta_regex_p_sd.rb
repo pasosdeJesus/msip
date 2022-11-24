@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AjustaRegexPSd < ActiveRecord::Migration[7.0]
   def up
     p = Sip::Tdocumento.where(sigla: "P").take

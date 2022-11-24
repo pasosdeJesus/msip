@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "msip/concerns/models/ubicacion"
 
 module Msip

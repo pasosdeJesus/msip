@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   class Respaldo7z
     include ActiveModel::Model

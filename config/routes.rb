@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Msip::Engine.routes.draw do
   get "/acercade" => "hogar#acercade", as: "acercade"
   get "/anexos/descarga_anexo/:id", to: "anexos#descarga_anexo",

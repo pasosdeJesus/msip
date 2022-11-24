@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AgregaAyudaTdocumento < ActiveRecord::Migration[7.0]
   def change
     unless column_exists?(:sip_tdocumento, :ayuda)

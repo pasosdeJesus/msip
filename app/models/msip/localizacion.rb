@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Agrega metodos de clase para facilitar detalles de
 # localización no suficientemente cubiertos en Rails:
 # - Formato de fecha (concordante con Datepicker)

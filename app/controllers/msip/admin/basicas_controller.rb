@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Admin
     class BasicasController < Msip::ModelosController

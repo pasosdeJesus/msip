@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SipAMsip < ActiveRecord::Migration[7.0]
   include Msip::SqlHelper
 

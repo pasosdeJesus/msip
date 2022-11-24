@@ -46,7 +46,7 @@ class String
   # cada palabra mayúscula y las demás de la palabra en minúsculas.
   def altas_bajas
     inip = true
-    r = "".dup #descongela
+    r = "".dup # descongela
     each_char do |c|
       r << if inip
         c.upcase

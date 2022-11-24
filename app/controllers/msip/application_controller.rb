@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   class ApplicationController < ActionController::Base
     # sin autorizacion porque es utilidad para otros controladores
