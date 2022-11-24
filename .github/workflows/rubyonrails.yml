@@ -38,7 +38,7 @@ jobs:
           bundler-cache: true
       # Agregue o remplace configuración de base de datos
       - name: Configurar esquema de base de datos
-        run: (cd test/dummy; cp .env.plantilla .env; bin/rails db:schema:load)
+        run: (cd test/dummy; cp .env.plantilla .env; bin/rails db:drop db:create db:setup db:seeds msip:indices)
       # Agregue o remplace ejecutores de pruebas aquí
       - name: Ejecutar pruebas
         run: CONFIG_HOSTS=www.example.com bin/rails test
