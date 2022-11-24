@@ -41,7 +41,7 @@ module Msip
     def buscar_rango_edad(edad, modelorango)
       if !modelorango || !defined?(modelorango.constantize) ||
           !defined?(!modelorango.constantize.habilitados)
-        puts "No se pudo usar modelorango"
+        Rails.logger.debug("No se pudo usar modelorango")
         return -1
       end
       t = modelorango.constantize.habilitados
@@ -55,9 +55,9 @@ module Msip
         .where("(limitesuperior IS NULL) OR (? <= limitesuperior)", edad)
       ret = idsin
       if c.count == 0
-        puts "No se encontró edad #{edad} en tabla #{modelorango}"
+        Rails.logger.debug { "No se encontró edad #{edad} en tabla #{modelorango}" }
       elsif c.count > 1
-        puts "Traslape de #{c.count} rangos en edad #{edad}"
+        Rails.logger.debug { "Traslape de #{c.count} rangos en edad #{edad}" }
       else # c.count == 1
         ret = c.take.id
       end

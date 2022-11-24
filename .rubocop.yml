@@ -12,7 +12,10 @@ Style/FrozenStringLiteralComment:
 Minitest/MultipleAssertions:
   Enabled: false
 
+Rails/ApplicationRecord:
+  Enabled: false
 
 AllCops:
   NewCops: enable
+
 

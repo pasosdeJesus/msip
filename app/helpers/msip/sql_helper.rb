@@ -4,7 +4,7 @@ module Msip
   module SqlHelper
     # Pone cotejación dada a una columna tipo varchar (longitud long)
     def cambiar_cotejacion(tabla, columna, long, cotejacion)
-      execute(<<-SQL)
+      execute(<<-SQL.squish)
       ALTER TABLE #{tabla}
         ALTER COLUMN #{columna} SET DATA TYPE#{" "}
           VARCHAR(#{long.to_i}) COLLATE "#{cotejacion}";
@@ -17,9 +17,9 @@ module Msip
 
     def ejecuta_sql(sql, eco = false)
       if eco
-        puts "ejecuta_sql: #{sql}"
+        Rails.logger.debug { "ejecuta_sql: #{sql}" }
       end
-      Msip::Persona.connection.execute(<<-SQL)
+      Msip::Persona.connection.execute(<<-SQL.squish)
       #{sql}
       SQL
     end
@@ -28,7 +28,7 @@ module Msip
     # Cambia convención para sexo
     def cambiar_convencion_sexo(convencion_final)
       unless Msip::Persona::CONVENCIONES_SEXO.keys.include?(convencion_final)
-        puts "Conveción desconocida: #{convecion_final}"
+        Rails.logger.debug { "Conveción desconocida: #{convecion_final}" }
         exit(1)
       end
       convencion_inicial = Msip::Persona.convencion_sexo_abreviada
@@ -37,7 +37,7 @@ module Msip
       end
 
       if convencion_final != "FMS" && convencion_final != "MHS"
-        puts "Se espera cambio  a convencion desconocida #{convencion_final}"
+        Rails.logger.debug { "Se espera cambio  a convencion desconocida #{convencion_final}" }
         return
       end
       ejecuta_sql("ALTER TABLE msip_persona DROP CONSTRAINT persona_sexo_check",
@@ -186,8 +186,10 @@ module Msip
         c = Msip::Clase.find(id)
         if c.id_municipio != municipio_id || c.id_clalocal != id_clalocal ||
             c.nombre != nombre
-          puts "Se espera que centro poblado #{id} fuera #{nombre} "\
-            " en municipio #{municipio_id} con id_clalocal #{id_clalocal}"
+          Rails.logger.debug do
+            "Se espera que centro poblado #{id} fuera #{nombre} "\
+              " en municipio #{municipio_id} con id_clalocal #{id_clalocal}"
+          end
           exit(1)
         end
         c.fechadeshabilitacion = nil

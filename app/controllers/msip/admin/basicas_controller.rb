@@ -27,10 +27,10 @@ module Msip
 
       def atributos_transf_habilitado
         r = atributos_index - ["habilitado", :habilitado]
-        if !r.include?("fechadeshabilitacion_localizada") &&
-            !r.include?(:fechadeshabilitacion_localizada) &&
-            !r.include?(:fechadeshabilitacion) &&
-            !r.include?("fechadeshabilitacion")
+        if r.exclude?("fechadeshabilitacion_localizada") &&
+            r.exclude?(:fechadeshabilitacion_localizada) &&
+            r.exclude?(:fechadeshabilitacion) &&
+            r.exclude?("fechadeshabilitacion")
           r << "fechadeshabilitacion_localizada"
         end
         r

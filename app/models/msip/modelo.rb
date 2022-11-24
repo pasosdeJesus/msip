@@ -21,9 +21,9 @@ module Msip
           a = reflect_on_all_associations
           r = a.select { |ua| ua.name.to_s == na }[0]
           if r.nil?
-            msg = "Aunque #{atr} es como nombre de asociación combinada, " +
+            msg = "Aunque #{atr} es como nombre de asociación combinada, " \
               "no se encontró #{na} entre las de #{self}"
-            puts msg
+            Rails.logger.debug(msg)
             raise msg
           end
         else
@@ -110,7 +110,7 @@ module Msip
       # para que resulten ordenados según presenta_nombre
       # Debe coincidir con presenta_nombre
       def self.orden_presenta_nombre
-        if columns && columns.map(&:name).include?("nombre")
+        if columns&.map(&:name)&.include?("nombre")
           ["lower(nombre)"]
         else
           [:id]
@@ -205,7 +205,7 @@ module Msip
             asig = ll.to_s + "="
             if respond_to?(asig)
               rll = send(ll.to_s)
-              if rll && rll.class &&
+              if rll&.class &&
                   rll.class.ancestors.include?(Msip::Modelo)
                 consr = rll.class.all.where("LOWER(UNACCENT(nombre))=LOWER(UNACCENT(?))", datosent[ll.to_sym])
                 if consr.count > 0
@@ -222,8 +222,8 @@ module Msip
                 end
               end
             else
-              menserror << " No se conoce como importar atributo " +
-                "'#{ll}' con valor '#{datosent[ll.to_sym]}' " +
+              menserror << " No se conoce como importar atributo " \
+                "'#{ll}' con valor '#{datosent[ll.to_sym]}' " \
                 "en controlador '#{self.class}'."
               return nil
             end

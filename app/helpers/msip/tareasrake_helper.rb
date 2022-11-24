@@ -40,7 +40,7 @@ module Msip
 
     # Nombre de archivo con copia de volcado de base de hoy
     def nombre_volcado(ruta_volcados, rapido = false)
-      dia = DateTime.now.strftime("%d")
+      dia = Time.zone.now.strftime("%d")
       asegura_varambiente_bd
       crapido = rapido ? "-rapido" : ""
       ruta_volcados + "/" + ENV.fetch("BD_NOMBRE") +

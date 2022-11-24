@@ -60,7 +60,7 @@ module Msip
         if menserror
           menserror << "  Formato de fecha en locale de colombia desconocido: #{f}"
         else
-          puts "Formato de fecha en locale de colombia desconocido: #{f}"
+          Rails.logger.debug { "Formato de fecha en locale de colombia desconocido: #{f}" }
         end
         return nil
         # nf = Date.strptime(f, "%d-%M-%Y").strftime("%Y-%m-%d")
@@ -108,7 +108,7 @@ module Msip
           if menserror
             menserror << "  Formato de fecha en locale de colombia desconocido: #{f}"
           else
-            puts "Formato de fecha en locale de colombia desconocido: #{f}"
+            Rails.logger.debug { "Formato de fecha en locale de colombia desconocido: #{f}" }
           end
         end
       end
@@ -197,7 +197,7 @@ module Msip
         if menserror
           menserror << "  Formato de fecha desconocido: #{f}"
         else
-          puts "Formato de fecha desconocido: #{f}"
+          Rails.logger.debug { "Formato de fecha desconocido: #{f}" }
         end
       end
 

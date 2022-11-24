@@ -86,7 +86,7 @@ module Msip
       end
       claseli = "pc-item"
       flecha = ""
-      if !opciones.keys.include?(:sinflecha)
+      if opciones.keys.exclude?(:sinflecha)
         flecha = content_tag(:span, class: "pc-arrow") do
           content_tag(:i, "data-feather" => "chevron-right") do
           end

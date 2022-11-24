@@ -21,8 +21,8 @@ module Msip
     ]
 
     ROLES_CA = [
-      "Crear copias de respaldo cifradas. " +
-        "Administrar usuarios. " +
+      "Crear copias de respaldo cifradas. " \
+        "Administrar usuarios. " \
         "Administrar tablas básicas. ",
       "", # 2
       "", # 3
@@ -180,7 +180,7 @@ module Msip
       can(:nuevo, Msip::Ubicacion)
       can(:read, Msip::Ubicacionpre)
 
-      if usuario && usuario.rol
+      if usuario&.rol
 
         can(:read, [Msip::Persona])
         case usuario.rol

@@ -48,25 +48,25 @@ module Msip
         fields.each do |f|
           define_method("#{f}_anio") do
             val = self[f]
-            return val && val.year ? val.year : nil
+            return val&.year ? val.year : nil
           end # define_method
 
           define_method("#{f}_anio=") do |a|
             val = self[f]
-            mes = val && val.month && val.month.to_i > 0 && val.month.to_i <= 12 ? val.month.to_i : 6
+            mes = val&.month && val.month.to_i > 0 && val.month.to_i <= 12 ? val.month.to_i : 6
             anio = a && a.to_i > 0 ? a.to_i : Date.today.year
             return self[f] = Date.new(anio, mes, 15)
           end # define_method
 
           define_method("#{f}_mes") do
             val = self[f]
-            return val && val.month ? val.month : nil
+            return val&.month ? val.month : nil
           end # define_method
 
           define_method("#{f}_mes=") do |m|
             val = self[f]
             mes = m && m.to_i > 0 && m.to_i <= 12 ? m.to_i : 6
-            anio = if val && val.year && val.year.to_i > 0
+            anio = if val&.year && val.year.to_i > 0
               val.year.to_i
             else
               Date.today.year
@@ -76,7 +76,7 @@ module Msip
 
           define_method("#{f}_mesaniolocalizado") do
             val = self[f]
-            if val && val.year && val.month
+            if val&.year && val.month
               return val.year.to_s + "-" + val.month.to_s
             else
               return ""

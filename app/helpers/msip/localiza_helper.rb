@@ -48,7 +48,7 @@ module Msip
     def capitaliza_titulo(t)
       r = ""
       n = t.split(/\s+/)
-      if n.length > 0
+      unless n.empty?
         r = n[0].titleize
         (1..n.length - 1).each do |i|
           m = minusculas(n[i])

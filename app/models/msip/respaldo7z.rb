@@ -15,7 +15,7 @@ module Msip
     validate :existe_7z
     def existe_7z
       if Msip::TareasrakeHelper.which("7z").nil?
-        errors[:base] << "No se encontró el programa 7z en el servidor"
+        errors.add(:base, "No se encontró el programa 7z en el servidor")
       end
     end
   end

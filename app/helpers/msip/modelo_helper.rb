@@ -59,7 +59,7 @@ module Msip
           r = main_app.send(n)
           return ["main_app.#{n}", r]
         rescue NoMethodError
-          for cr in Rails.application.routes.routes.custom_routes.map(&:name)
+          Rails.application.routes.routes.custom_routes.map(&:name).each do |cr|
             next unless cr
 
             begin
@@ -90,7 +90,7 @@ module Msip
           r = main_app.send(n, p)
           return ["main_app.#{n}", r]
         rescue NoMethodError
-          for cr in Rails.application.routes.routes.custom_routes.map(&:name)
+          Rails.application.routes.routes.custom_routes.map(&:name).each do |cr|
             next unless cr
 
             begin
@@ -253,12 +253,12 @@ module Msip
     #  ['RECHAZADO', :R],
     #  ['TERMINADO', :T]]
     def self.etiqueta_coleccion(a, l)
-      return "" if l.nil? or l == ""
+      return "" if l.nil? || (l == "")
 
       res = a.select do |r|
         r[1].to_s == l.to_s
       end
-      if res.length == 0
+      if res.empty?
         return "ERROR-CON-#{a}-Y-#{l}-FAVOR-REPORTAR"
       end
 
@@ -322,7 +322,7 @@ module Msip
         elsif f.object.respond_to?("#{campo}_ids")
           ids2 = f.object.send("#{campo}_ids")
           if ids2.nil?
-            ids2 = [f.object.send("#{campo}")]
+            ids2 = [f.object.send(campo.to_s)]
           end
         elsif r.respond_to?(:id)
           ids2 = [r.id]
