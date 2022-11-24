@@ -1,10 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.  They are
-# provided by a third-party and are governed by separate terms of service,
-# privacy policy, and support documentation.
+# Este flujo de trabajo emplea acciones que no están certificadas por Github.
+# Son proveidas por un tercero y están gobernadas por diferentes
+# términos de servicio, política de privacidad y documentación.
 #
-# This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
-name: "Ruby on Rails CI"
+# Este flujo de trabajo instalará una versión preconstruida de Ruby,
+# instalará dependencias y ejecutará pruebas y verificadores.
+name: "IC para Ruby on Rails"
 on:
   push:
     branches: [ "main" ]
@@ -53,9 +53,9 @@ jobs:
         with:
           bundler-cache: true
       # Agregue o remplace verificadores 
-      - name: Auditoria de dependencias de seguridad
+      - name: Verificación de seguridad a dependencias ruby
         run: bin/bundler-audit --update
-      - name: Auditoria de seguridad a código de la aplicación
+      - name: Verificación de seguridad a código Ruby de la aplicación
         run: bin/brakeman -q -w2
-      - name: Archivos para verificar formato de Ruby
+      - name: Verificación al formato de código Ruby
         run: bin/rubocop --parallel
