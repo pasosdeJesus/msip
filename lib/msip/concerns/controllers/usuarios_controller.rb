@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "bcrypt"
 
 module Msip
@@ -69,7 +71,7 @@ module Msip
           end
 
           def editar_intermedio(registro, usuario_actual_id)
-            registro.encrypted_password = ""  # Si es vacía no se cambiará
+            registro.encrypted_password = "" # Si es vacía no se cambiará
           end
 
           def msip_pre_create

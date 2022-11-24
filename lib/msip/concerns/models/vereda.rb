@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Concerns
     module Models
@@ -6,7 +8,7 @@ module Msip
 
         include Msip::Basica
         included do
-          Nombresunicos = false  # Por ejemplo hay vereda SAN ANTONIO en 146 municipios
+          Nombresunicos = false # Por ejemplo hay vereda SAN ANTONIO en 146 municipios
           self.table_name = "msip_vereda"
 
           belongs_to :municipio,

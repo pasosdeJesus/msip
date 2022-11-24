@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Concerns
     module Models
@@ -6,7 +8,7 @@ module Msip
 
         include Msip::Basica
         included do
-          Nombresunicos = false  # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
+          Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_municipio"
 
           has_many :clase, foreign_key: "id_municipio", validate: true,

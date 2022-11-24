@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Agrega accesores del estilo prefijo_pais_id, prefijo_departamento_id... etc
 # A un modelo que tiene un campo ubicacionpre de nombre prefijoubicacionpre_id
 #

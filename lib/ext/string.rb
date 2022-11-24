@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class String
   # Basado en soluciones de
   # http://stackoverflow.com/questions/6541209/decimals-and-commas-when-entering-a-number-into-a-ruby-on-rails-form
@@ -44,7 +46,7 @@ class String
   # cada palabra mayúscula y las demás de la palabra en minúsculas.
   def altas_bajas
     inip = true
-    r = ""
+    r = "".dup #descongela
     each_char do |c|
       r << if inip
         c.upcase

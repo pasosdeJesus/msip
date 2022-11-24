@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NilClass
   def a_decimal_localizado
     "0,0"

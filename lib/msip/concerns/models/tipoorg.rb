@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Concerns
     module Models
@@ -9,7 +11,7 @@ module Msip
           ORGACOMP   = 1
           ORGNOACOMP = 2
           ORGCIVIL   = 2
-          INSTCIVIL  = 3  # Institución Civil
+          INSTCIVIL  = 3 # Institución Civil
           ESTADO     = 3
           # ORGFP = 4     # Fuerza pública es parte de estado
           ORGINT     = 5 # Organismo internacional
