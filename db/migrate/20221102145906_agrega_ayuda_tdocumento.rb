@@ -5,7 +5,7 @@ class AgregaAyudaTdocumento < ActiveRecord::Migration[7.0]
     unless column_exists?(:sip_tdocumento, :ayuda)
       add_column(:sip_tdocumento, :ayuda, :string, limit: 1000)
 
-      execute(<<-SQL)
+      execute(<<-SQL.squish)
         UPDATE sip_tdocumento SET ayuda='Debe constar solo de digitos. Por ejemplo 323948' WHERE formatoregex='[0-9]*';
         UPDATE sip_tdocumento SET ayuda='Debe constar de una letra mayúscula, un guión y dígitos. Por ejemplo S-323948' WHERE formatoregex='[A-Z]-[0-9]*';
         UPDATE sip_tdocumento SET ayuda='Cualquier cadena sirve de identificación (sin restricción en formato)' WHERE formatoregex='';
