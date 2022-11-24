@@ -137,7 +137,7 @@ module Msip
             c = filtrar_ca(c)
             # Autocompletar
             if params && params[:term] && params[:term] != ''
-              term = params[:term]
+              term = ActiveRecord::Base.connection.quote_string(params[:term])
               consNom = term.downcase.strip #sin_tildes
               consNom.gsub!(/ +/, ":* & ")
               if consNom.length > 0
