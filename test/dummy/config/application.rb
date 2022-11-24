@@ -45,7 +45,7 @@ module Dummy
       ENV.fetch("CONFIG_HOSTS", "defensor.info").downcase.split(";"),
     )
 
-    # config.web_console.whitelisted_ips = ['186.154.35.237']
+    # config.web_console.permissions = ['186.154.35.237']
 
     # La siguiente puede producir rutas /msip/msip en las pruebas
     # En general debe bastar dejarla solo en

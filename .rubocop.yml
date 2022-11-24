@@ -9,6 +9,12 @@ Style/FrozenStringLiteralComment:
   Enabled: true
     #  SafeAutoCorrect: false
 
+Minitest/MultipleAssertions:
+  Enabled: false
+
+
 AllCops:
-    NewCops: enable
+  NewCops: enable
+  Exclude:
+    - test/dummy/config/initializers/msip.rb
 
