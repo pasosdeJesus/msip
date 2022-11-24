@@ -52,18 +52,18 @@ module Msip
       begin
         r = send(n)
         return [n, r]
-      rescue NoMethodError => e
+      rescue NoMethodError
         begin
           r = main_app.send(n)
           return ["main_app.#{n}", r]
-        rescue NoMethodError => e
+        rescue NoMethodError
           for cr in Rails.application.routes.routes.custom_routes.map(&:name)
             next unless cr
 
             begin
               r = send(cr).send(n)
               return [cr + "." + n, r]
-            rescue NoMethodError => e1
+            rescue NoMethodError
             end
           end
         end
@@ -83,18 +83,18 @@ module Msip
       begin
         r = send(n, p)
         return [n, r]
-      rescue NoMethodError => e
+      rescue NoMethodError
         begin
           r = main_app.send(n, p)
           return ["main_app.#{n}", r]
-        rescue NoMethodError => e
+        rescue NoMethodError
           for cr in Rails.application.routes.routes.custom_routes.map(&:name)
             next unless cr
 
             begin
               r = send(cr).send(n, p)
               return [cr + "." + n, r]
-            rescue NoMethodError => e1
+            rescue NoMethodError
             end
           end
         end

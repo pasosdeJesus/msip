@@ -113,7 +113,6 @@ module Msip
             url, copiaop.merge({ class: "pc-link",
                                 id: "navbarDropdown" + opab, })
           ) do
-            s = ""
             unless bloque.nil?
             end
 
@@ -216,7 +215,7 @@ module Msip
     def item_acordeon_bs(
       acid, idit, titulo, expandido = false, opciones = {}, &bloque
     )
-      r = content_tag(
+      content_tag(
         :div,
         class: "accordion-item " + opciones.fetch("clase_accordion-item", ""),
       ) do
@@ -277,7 +276,7 @@ module Msip
     # @param bloque Que se presenta al expandir
     def item_nav_pestaña_bs(idit, titulo, elegida = false,
       clase_boton = "", &bloque)
-      r = content_tag(
+      content_tag(
         :li,
         class: "nav-item",
         role: "presentation",
