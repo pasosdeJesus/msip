@@ -1,5 +1,5 @@
 
-valida: valida-js valida-ruby
+valida: valida-js valida-ruby bundler-audit brakeman rubocop
 
 valida-js:
 	for i in `find app/assets/javascripts/ -name "*js" -or -name "*es6"`; do \
@@ -26,3 +26,12 @@ erd:
 doc/dependencias.png: doc/dependencias.dot
 	dot -Tpng doc/dependencias.dot  > doc/dependencias.png
 
+
+bundler-audit:
+	bin/bundler-audit
+
+brakeman:
+	bin/brakeman
+
+rubocop:
+	bin/rubocop

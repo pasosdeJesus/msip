@@ -7,7 +7,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/controllers/msip/respaldo7z_controller.rb",
-      "line": 32,
+      "line": 34,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`du -s #{Msip.ruta_anexos}`",
       "render_path": null,
@@ -30,7 +30,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/ubicacionespre_controller.rb",
-      "line": 94,
+      "line": 92,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.select_all((\"SELECT TRIM(nombre) AS value, id AS id \" + \"WHERE #{(\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre)) \" + \"@@ to_tsquery('spanish', '#{(Msip::Ubicacionpre.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\"))",
       "render_path": null,
@@ -49,11 +49,34 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "0dcfc97015641dda38d61b3e0979cf2a03c13fb25845b9373cb5c0fc71e65b58",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/msip/gruposper_controller.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre) AS value, grupoper.id AS id\\n                FROM public.msip_grupoper AS grupoper\\n                WHERE #{(\" to_tsvector('spanish', unaccent(grupoper.nombre)) @@ \" + \"to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::GruposperController",
+        "method": "index"
+      },
+      "user_input": "Msip::Ubicacion.connection.quote_string(params[:term])",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "2415a415aecc576e49da84b2e57addbd13a306643ea0359441eaa5dfbaa1ae96",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 152,
+      "line": 157,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -76,7 +99,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 155,
+      "line": 160,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -99,7 +122,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 158,
+      "line": 163,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -122,7 +145,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 168,
+      "line": 173,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -145,7 +168,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 174,
+      "line": 181,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -168,7 +191,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/modelos_controller.rb",
-      "line": 192,
+      "line": 199,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -210,11 +233,34 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "3f93f51c27cac6c8e32aedda0e5cdc9f26129e16ec57dc83db69b10e4e7aadee",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/msip/personas_controller.rb",
+      "line": 92,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(#{(\"\" + (\"\" + :BRAKEMAN_SAFE_LITERAL))}) AS value, #{(\" persona.id \" + (\" || ';' || \" + \"char_length(#{:BRAKEMAN_SAFE_LITERAL})\"))} AS id\\n              FROM public.msip_persona AS persona\\n              WHERE #{(\" to_tsvector('spanish', unaccent(persona.nombres) \" + \"to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::PersonasController",
+        "method": "index_msip"
+      },
+      "user_input": "Msip::Ubicacion.connection.quote_string(params[:term])",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "50eeb815a7dd2d921095348ef09e4065d647c8621dffe2ba364f4b035d7c2c34",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/msip/ubicacionespre_controller.rb",
-      "line": 66,
+      "line": 64,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.select_all(((\"SELECT TRIM(nombre_sin_pais) AS value, id AS id \" + \"WHERE #{(\" to_tsvector('spanish', \" + \"@@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} AND pais_id=170 \") + \"AND clase_id IS NULL AND lugar IS NULL \"))",
       "render_path": null,
@@ -233,11 +279,34 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "51086c2f333e8840f88314b47465cf137b7b013d4177cb1afd33f76807c43849",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "lib/msip/concerns/controllers/gruposper_controller.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre) AS value, grupoper.id AS id\\n                FROM public.msip_grupoper AS grupoper\\n                WHERE #{(\" to_tsvector('spanish', unaccent(grupoper.nombre)) @@ \" + \"to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::Concerns::Controllers::GruposperController",
+        "method": "index"
+      },
+      "user_input": "Msip::Ubicacion.connection.quote_string(params[:term])",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "63e4bc06b0345c1a8d422e6351645c1a226c0de3a255189dc72067c38110e78c",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "lib/msip/concerns/controllers/ubicacionespre_controller.rb",
-      "line": 94,
+      "line": 92,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.select_all((\"SELECT TRIM(nombre) AS value, id AS id \" + \"WHERE #{(\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre)) \" + \"@@ to_tsquery('spanish', '#{(Msip::Ubicacionpre.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\"))",
       "render_path": null,
@@ -250,6 +319,29 @@
       "confidence": "High",
       "cwe_id": [
         89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "a5f777ba1982ea5d859613746ce6e9a42ccb0556472683a87be8f16054cbf104",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/msip/anexos_controller.rb",
+      "line": 32,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(format((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :disposition => :inline)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::AnexosController",
+        "method": "abre_anexo"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
       ],
       "note": ""
     },
@@ -283,7 +375,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "lib/msip/concerns/controllers/ubicacionespre_controller.rb",
-      "line": 66,
+      "line": 64,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.select_all(((\"SELECT TRIM(nombre_sin_pais) AS value, id AS id \" + \"WHERE #{(\" to_tsvector('spanish', \" + \"@@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} AND pais_id=170 \") + \"AND clase_id IS NULL AND lugar IS NULL \"))",
       "render_path": null,
@@ -375,7 +467,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/msip/sql_helper.rb",
-      "line": 24,
+      "line": 23,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Msip::Persona.connection.execute(\"      #{sql}\\n\")",
       "render_path": null,
@@ -398,7 +490,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "lib/msip/concerns/controllers/modelos_controller.rb",
-      "line": 152,
+      "line": 157,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
@@ -409,6 +501,29 @@
       },
       "user_input": "filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
       "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "e7adafcdc9294f68eb6050abf0abe4e6d00086c70070b6d4111bf97f0bcf540f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "lib/msip/concerns/controllers/personas_controller.rb",
+      "line": 92,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(#{(\"\" + (\"\" + :BRAKEMAN_SAFE_LITERAL))}) AS value, #{(\" persona.id \" + (\" || ';' || \" + \"char_length(#{:BRAKEMAN_SAFE_LITERAL})\"))} AS id\\n              FROM public.msip_persona AS persona\\n              WHERE #{(\" to_tsvector('spanish', unaccent(persona.nombres) \" + \"to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\")} ORDER BY 1 LIMIT 10\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::Concerns::Controllers::PersonasController",
+        "method": "index_msip"
+      },
+      "user_input": "Msip::Ubicacion.connection.quote_string(params[:term])",
+      "confidence": "High",
       "cwe_id": [
         89
       ],
@@ -459,8 +574,31 @@
         89
       ],
       "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "fbb55f41b8dba36e29e3b5f166e5963bff9ec15ddbe33483864e9a64f611d2b8",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/msip/anexos_controller.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(format((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :x_sendfile => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::AnexosController",
+        "method": "descarga_anexo"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
     }
   ],
-  "updated": "2022-11-24 05:10:17 -0500",
+  "updated": "2022-11-24 08:07:02 -0500",
   "brakeman_version": "5.4.0"
 }
