@@ -17,13 +17,14 @@ module Msip
     class_option :test, type: :boolean, default: true,
       desc: "Genera prueba minitest para asociacion"
     class_option :belongs_to, type: :boolean, default: true,
-      desc: "Crea un belongs_to en un tabla2 --selección simple-- de lo contrario tabla combinada y has_many --selección múltiple"
+      desc: "Crea un belongs_to en un tabla2 --selección simple-- "\
+        "de lo contrario tabla combinada y has_many --selección múltiple"
 
     def genera_asociabasica
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
         Rails.logger.debug("Ejecutar con DISABLE_SPRING=1")
-        exit(1)
+        return
       end
       if options.belongs_to
         Rails.logger.debug { "Para asociar #{tablabasica} con belongs_to en #{tabla2}:" }
@@ -136,10 +137,23 @@ end
           "\\1\n    ['', '#{nom_arch}'],",
         )
       end
-      Rails.logger.debug("Aregue manualmente null:false en :nombre, :fechacreacion, :created_at y :update_at en migración")
-      Rails.logger.debug("Aregue manualmente infleccion no regular en config/initializers/inflections.rb al estilo:")
-      Rails.logger.debug { "  inflect.irregular '#{tablabasica}', '#{tablabasicaplural}' " }
-      Rails.logger.debug("Aregue nombre en español en config/locales/es.yml al estilo:")
+      Rails.logger.debug do
+        "Aregue manualmente null:false en :nombre, "\
+          ":fechacreacion, :created_at y :update_at "\
+          "en migración"
+      end
+      Rails.logger.debug do
+        "Aregue manualmente infleccion no regular en "\
+          "config/initializers/inflections.rb al estilo:"
+      end
+      Rails.logger.debug do
+        "  inflect.irregular '#{tablabasica}', "\
+          "'#{tablabasicaplural}' "
+      end
+      Rails.logger.debug do
+        "Aregue nombre en español en config/locales/es.yml "\
+          "al estilo:"
+      end
       Rails.logger.debug { "    \"#{tablabasica}\":" }
       Rails.logger.debug { "      #{tablabasica}: Descripción singular" }
       Rails.logger.debug { "      #{tablabasicaplural}: Descripción plural" }

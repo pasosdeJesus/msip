@@ -20,11 +20,11 @@ module Msip
     def genera_modelo
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
-        Rails.logger.debug("Ejecutar con DISABLE_SPRING=1")
+        puts "Ejecutar con DISABLE_SPRING=1"
         exit(1)
       end
       if modelo == modeloplural
-        Rails.logger.debug("El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros")
+        puts "El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros"
         exit(1)
       end
       genera_modelom if options.modelo
@@ -43,14 +43,17 @@ module Msip
       unless File.exist?(ab)
         ab = "spec/dummy/app/models/ability.rb"
       end
-      Rails.logger.debug("Modifique la tabla en la migración")
-      Rails.logger.debug { "Ponga autorizaciones en #{ab}" }
-      Rails.logger.debug("Aregue manualmente inflección no regular en config/initializers/inflections.rb al estilo:")
-      Rails.logger.debug { "  inflect.irregular '#{modelo}', '#{modeloplural}' " }
-      Rails.logger.debug("Aregue nombre en español en config/locales/es.yml al estilo:")
-      Rails.logger.debug { "    \"#{modelo}\":" }
-      Rails.logger.debug { "      #{modelo.capitalize}: Descripción singular" }
-      Rails.logger.debug { "      #{modeloplural.capitalize}: Descripción plural" }
+      puts <<~EOF
+        Modifique la tabla en la migración
+        Ponga autorizaciones en #{ab}
+        Aregue manualmente inflección no regular en
+        config/initializers/inflections.rb al estilo:
+          inflect.irregular '#{modelo}', '#{modeloplural}'
+        Aregue nombre en español en config/locales/es.yml al estilo:
+          #{modelo}":
+            #{modelo.capitalize}: Descripción singular
+            #{modeloplural.capitalize}: Descripción plural"
+      EOF
     end
 
     def genera_controlador

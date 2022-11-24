@@ -77,8 +77,8 @@ module Msip
   self.longitud_nusuario = 15
   self.paginador = :will_paginate
   self.paisomision = 170
-  self.ruta_anexos = "#{Rails.root}/archivos/anexos"
-  self.ruta_volcados = "#{Rails.root}/archivos/bd"
+  self.ruta_anexos = "#{Rails.root.to_s}/archivos/anexos"
+  self.ruta_volcados = "#{Rails.root.to_s}/archivos/bd"
   self.titulo = "msip"
   self.descripcion = "Motor para Sistemas de Información estilo Pasos de Jesús"
   self.codigofuente = "https://gitlab.com/pasosdeJesus/msip"
@@ -136,7 +136,9 @@ más puede.
 
   self.prosidebar_colapsada = false
 
-  def self.setup(&block)
-    yield self
+  class << self
+    def setup(&block)
+      yield self
+    end
   end
 end

@@ -35,3 +35,8 @@ brakeman:
 
 rubocop:
 	bin/rubocop
+
+corrigebrakeman:
+	bin/brakeman -I
+
+

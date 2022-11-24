@@ -15,6 +15,30 @@ Minitest/MultipleAssertions:
 Rails/ApplicationRecord:
   Enabled: false
 
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - lib/msip/engine.rb
+
+Rails/Exit:
+  Exclude:
+    - lib/generators/msip/*
+
+Rails/Output:
+  Exclude:
+    - lib/generators/msip/*
+
+# En generadores Rails.root es nil
+Rails/FilePath:
+  Exclude:
+    - lib/msip/engine.rb
+
+Lint/RedundantStringCoercion:
+  Exclude:
+    - lib/msip/engine.rb
+
 AllCops:
   NewCops: enable
 
