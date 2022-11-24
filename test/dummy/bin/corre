@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Ejecuta aplicación usando Procfile de ser posible
 # Si hay un archivo .env toma variables de configuración de ese
 # Las variables usadas son:
@@ -100,7 +102,7 @@ FileUtils.chdir(RAIZ_AP) do
       end
       ord += "-b '#{ENV["IPDES"]}' "
     end
-    puts "#{ord}"
+    puts ord.to_s
   elsif ENV["RAILS_ENV"] == "production"
     if File.exist?("bin/corre-local")
       system!("bin/corre-local")

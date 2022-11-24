@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV["RAILS_ENV"] ||= "test"
 
 require "simplecov"
@@ -5,7 +7,13 @@ SimpleCov.start
 require_relative "dummy/config/environment"
 require "rails/test_help"
 
-class ActiveSupport::TestCase
+module ActiveSupport
+  class TestCase
+  end
+end
+
+def verifica_formulario_usuario
+  assert_select("#usuario_email[name=?]", "usuario[email]")
 end
 
 # En motores no funcionan fixtures como quedó documentado en

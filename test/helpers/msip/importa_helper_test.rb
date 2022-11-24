@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../../test_helper"
 require "msip/importa_helper"
 
@@ -6,7 +8,7 @@ module Msip
     include ImportaHelper
 
     test "nombre_en_tabla_basica" do
-      menserror = ""
+      menserror = "".dup # descongela
 
       assert_equal "Colombia", nombre_en_tabla_basica(
         Msip::Pais, "Colombia", menserror
@@ -15,7 +17,7 @@ module Msip
     end
 
     test "fecha_local_colombia_a_date" do
-      menserror = ""
+      menserror = "".dup # descongela
 
       assert_equal Date.new(2021, 10, 14),
         fecha_local_colombia_a_date("14/Oct/2021", menserror)

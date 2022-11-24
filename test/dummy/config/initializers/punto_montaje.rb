@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Dummy::Application.config.relative_url_root = ENV.fetch(
   "RUTA_RELATIVA", "msip"
 )

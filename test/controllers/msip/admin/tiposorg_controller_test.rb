@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 # Esta prueba supone que en la tabla básica hay un registro con id 1

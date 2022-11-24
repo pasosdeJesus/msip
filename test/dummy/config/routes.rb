@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   rutarel = ENV.fetch("RUTA_RELATIVA", "msip/")
   scope rutarel do

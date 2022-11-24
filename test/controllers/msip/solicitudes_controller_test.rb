@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module Msip
@@ -48,7 +50,7 @@ module Msip
 
     test "debe crear nueva" do
       # Arreglamos indice
-      Msip::Solicitud.connection.execute(<<-SQL)
+      Msip::Solicitud.connection.execute(<<-SQL.squish)
         SELECT setval('public.msip_solicitud_id_seq', MAX(id))#{" "}
           FROM public.msip_solicitud;
       SQL

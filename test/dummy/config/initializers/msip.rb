@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "msip/version"
 
 Msip.setup do |config|

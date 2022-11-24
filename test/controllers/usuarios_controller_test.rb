@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../test_helper"
 
 module Msip
@@ -64,7 +66,7 @@ module Msip
       assert_template "edit"
       assert_select "form[action=?][method=?]", usuario_path(usuario),
         "post" do
-        verifica_formulario
+        verifica_formulario_usuario
       end
     end
 
@@ -120,16 +122,12 @@ module Msip
       assert_redirected_to Usuario.last
     end
 
-    def verifica_formulario
-      assert_select("#usuario_email[name=?]", "usuario[email]")
-    end
-
     test "vuelve a presentar la plantilla 'nueva'" do
       post usuarios_url, params: { usuario: ATRIBUTOS_INVALIDOS }
 
       assert_template "new"
       assert_select "form[action=?][method=?]", usuarios_path, "post" do
-        verifica_formulario
+        verifica_formulario_usuario
       end
     end
 
