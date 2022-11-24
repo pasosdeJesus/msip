@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module UbicacionHelper
     def formato_ubicacion_partes(pais_id, departamento_id, municipio_id,

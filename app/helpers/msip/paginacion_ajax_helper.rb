@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Msip.paginador && Msip.paginador == :will_paginate
   require "will_paginate/view_helpers/action_view"
 end

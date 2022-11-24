@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module TemasHelper
     def tema_usuario(current_usuario)

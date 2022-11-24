@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Funciones auxiliares para Fontawesome basadas en las de la gema
 # fontawesome-rails.
 module Msip

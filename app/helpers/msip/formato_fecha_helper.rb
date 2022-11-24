@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module FormatoFechaHelper
     MESES = ["",
@@ -61,7 +63,7 @@ module Msip
           puts "Formato de fecha en locale de colombia desconocido: #{f}"
         end
         return nil
-        #nf = Date.strptime(f, "%d-%M-%Y").strftime("%Y-%m-%d")
+        # nf = Date.strptime(f, "%d-%M-%Y").strftime("%Y-%m-%d")
       else
         return nil unless pf[1]
 

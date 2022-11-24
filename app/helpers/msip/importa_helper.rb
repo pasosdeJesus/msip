@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module ImportaHelper
     def nombre_en_tabla_basica(tbasica, nombre, menserror,

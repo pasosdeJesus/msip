@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ayudadores para Bootstrap 5 basados en los ayudadores para
 # Bootstrap 3 de la gema twitter-bootstrap-rails
 module Msip
@@ -176,7 +178,7 @@ module Msip
     module_function :nav_bar
 
     def anuncios_bootstrap
-      r = ""
+      r = "".dup
       flash.each do |tipo, mensaje|
         tal = case tipo.to_sym
         when :success, :notice

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module SqlHelper
     # Pone cotejación dada a una columna tipo varchar (longitud long)

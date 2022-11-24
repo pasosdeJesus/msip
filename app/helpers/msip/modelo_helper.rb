@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module ModeloHelper
     include ActionView::Helpers::TextHelper

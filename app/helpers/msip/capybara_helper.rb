@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module CapybaraHelper
     # Llamar desde una prueba minitest así:

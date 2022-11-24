@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module TareasrakeHelper
     # Asegura que están establecidas variables de ambiente con información

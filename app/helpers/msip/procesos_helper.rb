@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module ProcesosHelper
     # Retorna lista de procesos que corren en OpenBSD/adJ

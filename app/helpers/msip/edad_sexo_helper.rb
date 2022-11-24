@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module EdadSexoHelper
     # Opciones de sexo están en Msip::Persona::SEXO_OPCIONES

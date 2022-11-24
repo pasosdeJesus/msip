@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module ControladorHelper
     # Convierte un arreglo de nombres a diccionario y asigna el valor v
