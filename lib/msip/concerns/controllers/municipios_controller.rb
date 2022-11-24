@@ -75,7 +75,7 @@ module Msip
               term = Msip::Municipio.connection.quote_string(params[:term])
               consNom = term.downcase.strip # sin_tildes
               consNom.gsub!(/ +/, ":* & ")
-              if consNom.length > 0
+              unless consNom.empty?
                 consNom += ":*"
               end
               # autocomplete de jquery requiere label, val

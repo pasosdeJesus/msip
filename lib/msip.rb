@@ -68,7 +68,7 @@ module Msip
   def self.renombra_secuencia(conexion, anterior, nuevo)
     if Msip.existe_secuencia?(conexion, anterior) &&
         !Msip.existe_secuencia?(conexion, nuevo)
-      conexion.execute(<<-SQL)
+      conexion.execute(<<-SQL.squish)
         ALTER SEQUENCE #{anterior}
           RENAME TO #{nuevo};
       SQL

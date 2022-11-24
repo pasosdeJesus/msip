@@ -44,7 +44,7 @@ module Msip
             )[0]["substring"]
 
             unless CONVENCIONES_SEXO.keys.include?(r)
-              STDERR.puts "** Convención en base para sexo desconocida: #{r}, usando FMS"
+              $stderr.puts "** Convención en base para sexo desconocida: #{r}, usando FMS"
               r = "FMS"
             end
 
@@ -232,7 +232,7 @@ module Msip
               ds = Msip::Persona.sexo_opciones_diccionario
               ds[sexo.to_sym] || "Sexo desconocido"
             when "tdoc"
-              tdocumento.sigla if tdocumento
+              tdocumento&.sigla
             else
               presenta_gen(atr)
             end
@@ -369,8 +369,8 @@ module Msip
           }
 
           scope :filtro_numerodocumento, lambda { |n|
-            where("unaccent(numerodocumento) ILIKE '%' || " +
-                  "unaccent(?) || '%'", n)
+            where("unaccent(numerodocumento) ILIKE '%' || " \
+              "unaccent(?) || '%'", n)
           }
 
           scope :filtro_tdocumento, lambda { |tid|

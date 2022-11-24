@@ -51,7 +51,7 @@ module Msip
           }
 
           scope :filtro_etiqueta_ids, lambda { |e|
-            joins(:etiqueta).where("msip_etiqueta.id = ?", e)
+            joins(:etiqueta).where(msip_etiqueta: { id: e })
           }
 
           scope :filtro_tipomun, lambda { |t|

@@ -69,9 +69,9 @@ namespace :msip do
       tb.each do |t|
         printf "%s:%s - ", t[0], t[1]
         if t[0] == modobj
-          command = "pg_dump --inserts --data-only --no-privileges " +
-            "--no-owner --column-inserts --table=#{Ability.tb_modelo(t)} " +
-            "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " +
+          command = "pg_dump --inserts --data-only --no-privileges " \
+            "--no-owner --column-inserts --table=#{Ability.tb_modelo(t)} " \
+            "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
             "| sed -e \"s/SET lock_timeout = 0;//g\" > #{archt.to_path}"
           puts command.green
           raise "Error al volcar tabla #{Ability.tb_modelo(t)}" unless Kernel.system(command)
@@ -132,13 +132,13 @@ EOF
   task vuelca: :environment do
     puts "msip - vuelca"
     Msip::TareasrakeHelper.asegura_varambiente_bd
-    fecha = DateTime.now.strftime("%Y-%m-%d")
+    fecha = Time.zone.now.strftime("%Y-%m-%d")
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
-    command = "pg_dump --encoding=UTF8 -cO --column-inserts " +
-      "#{maq} " +
-      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " +
+    command = "pg_dump --encoding=UTF8 -cO --column-inserts " \
+      "#{maq} " \
+      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
       " > #{Shellwords.escape(archcopia)}"
     puts command
     raise "Error al volcar" unless Kernel.system(command)
@@ -148,13 +148,13 @@ EOF
   task vuelcarapido: :environment do
     puts "msip - vuelcarapido"
     Msip::TareasrakeHelper.asegura_varambiente_bd
-    fecha = DateTime.now.strftime("%Y-%m-%d")
+    fecha = Time.zone.now.strftime("%Y-%m-%d")
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados, true)
     File.open(archcopia, "w") { |f| f << "-- Volcado rápido del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
-    command = "pg_dump --encoding=UTF8 " +
-      "#{maq} " +
-      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " +
+    command = "pg_dump --encoding=UTF8 " \
+      "#{maq} " \
+      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
       " > #{Shellwords.escape(archcopia)}"
     puts command
     raise "Error al volcar" unless Kernel.system(command)
@@ -166,8 +166,8 @@ EOF
     puts "Restaurar #{arch} en ambiente"
     Msip::TareasrakeHelper.asegura_varambiente_bd
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
-    command = "psql " +
-      "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " +
+    command = "psql " \
+      "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
       " -f #{Shellwords.escape(arch)}"
     puts command
     raise "Error al restaurar #{arch}" unless Kernel.system(command)
@@ -204,7 +204,7 @@ EOF
         end
       end
       FileUtils.ln_sf(rutac, nr)
-      if cgitignore != [] && !cgitignore.include?(rr)
+      if cgitignore != [] && cgitignore.exclude?(rr)
         pora << rr
       end
     end
@@ -230,7 +230,7 @@ EOF
     end
     puts "Ejecutando stimulus:manifest:update"
     Rake::Task["stimulus:manifest:update"].invoke
-    if pora.length > 0
+    unless pora.empty?
       puts "\n===================================="
       puts "Se recomienda añadir a su .gitignore:"
       puts pora.join('\n')

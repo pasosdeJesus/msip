@@ -139,7 +139,7 @@ module Msip
                 Msip::Departamento.where(id: departamento_id.to_i,
                   id_pais: opais.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts "Problema, no se encontró ubicación esperada " + w.to_s
+                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id # SIN INFORMACIÓN
@@ -157,7 +157,7 @@ module Msip
                 Msip::Municipio.where(id: municipio_id.to_i,
                   id_departamento: odepartamento.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts "Problema, no se encontró ubicación esperada " + w.to_s
+                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
@@ -175,7 +175,7 @@ module Msip
                 Msip::Clase.where(id: clase_id.to_i,
                   id_municipio: omunicipio.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts "Problema, no se encontró ubicación esperada " + w.to_s
+                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
@@ -195,7 +195,7 @@ module Msip
 
             if lugar.to_s.strip == ""
               if Msip::Ubicacionpre.where(w).count == 0
-                puts "Problema, no se encontró ubicación esperada " + w.to_s
+                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
@@ -220,27 +220,33 @@ module Msip
                 id_municipio: omunicipio.id).first
               clase_id = w[:clase_id] = oclase.id
               if Msip::Ubicacionpre.where(w).count == 0
-                puts "Problema, no se encontró ubicación esperada " + w
+                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w)
                 return nil
               end
               if sitio.to_s.strip == ""
-                puts "Ajustando ubicacion sin centro poblado, ni sitio pero con "\
-                  "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', "\
-                  "para que coincida con centro poblado del mismo nombre. "
+                Rails.logger.debug do
+                  "Ajustando ubicacion sin centro poblado, ni sitio pero con "\
+                    "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', "\
+                    "para que coincida con centro poblado del mismo nombre. "
+                end
                 if tsitio_id != 2
-                  puts "** Ignorando tsitio_id errado"
+                  Rails.logger.debug("** Ignorando tsitio_id errado")
                 end
                 if latitud.to_f != oclase.latitud || longitud.to_f != oclase.longitud
-                  puts "** Ignorando (latitud, longitud) erradas "\
-                    "(#{latitud.to_f}, #{longitud.to_f})"
+                  Rails.logger.debug do
+                    "** Ignorando (latitud, longitud) erradas "\
+                      "(#{latitud.to_f}, #{longitud.to_f})"
+                  end
                 end
                 return Msip::Ubicacionpre.where(w).take.id
               else
-                puts "** Ajustando ubicacion sin centro poblado, pero con sitio y "\
-                  "con lugar igual a centro poblado "\
-                  "'#{sitio.to_s.strip} / #{lugar.to_s.strip} / #{omunicipio.nombre}', "\
-                  "para que el sitio sea lugar y lugar sea centro poblado "\
-                  "necesitamos nombres únicos para ubicaciones/polígonos diferentes."
+                Rails.logger.debug do
+                  "** Ajustando ubicacion sin centro poblado, pero con sitio y "\
+                    "con lugar igual a centro poblado "\
+                    "'#{sitio.to_s.strip} / #{lugar.to_s.strip} / #{omunicipio.nombre}', "\
+                    "para que el sitio sea lugar y lugar sea centro poblado "\
+                    "necesitamos nombres únicos para ubicaciones/polígonos diferentes."
+                end
                 lugar = sitio.to_s.strip
                 sitio = ""
               end
@@ -248,7 +254,7 @@ module Msip
             # Preparamos tsitio_id
             tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
-              puts "Problema, no se encontró tsitio_id esperado " + tsitio_id
+              Rails.logger.debug("Problema, no se encontró tsitio_id esperado " + tsitio_id)
               return nil
             end
 
@@ -266,7 +272,7 @@ module Msip
                 if ubi[0].save
                   return ubi[0].id
                 else
-                  puts "Problema salvando ubi #{ubi[0]}"
+                  Rails.logger.debug { "Problema salvando ubi #{ubi[0]}" }
                   return nil
                 end
               end
@@ -285,7 +291,7 @@ module Msip
                 if ubi[0].save
                   return ubi[0].id
                 else
-                  puts "Problema salvando ubi #{ubi[0]}"
+                  Rails.logger.debug { "Problema salvando ubi #{ubi[0]}" }
                   return nil
                 end
               end
@@ -306,14 +312,16 @@ module Msip
               w[:sitio],
             )
             if Msip::Ubicacionpre.where(nombre: w[:nombre]).count == 1
-              puts "Problema, ya hay una ubicación con el nombre #{w[:nombre]}. "\
-                "Proveniente de #{w.inspect}. Se usará esa ignorando la "\
-                "informacińo recibida"
+              Rails.logger.debug do
+                "Problema, ya hay una ubicación con el nombre #{w[:nombre]}. "\
+                  "Proveniente de #{w.inspect}. Se usará esa ignorando la "\
+                  "informacińo recibida"
+              end
               return Msip::Ubicacionpre.where(nombre: w[:nombre]).first.id
             end
             nubi = Msip::Ubicacionpre.create!(w)
             unless nubi
-              puts "Problema creando ubi #{nubi}"
+              Rails.logger.debug { "Problema creando ubi #{nubi}" }
               return nil
             end
 

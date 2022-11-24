@@ -63,7 +63,7 @@ module Msip
               probex = e.message + e.backtrace.inspect
             end
             if b.errors.messages != {} || probex != ""
-              STDERR.puts "** No se puede escribir en bitácora: " +
+              $stderr.puts "** No se puede escribir en bitácora: " \
                 "#{b.errors.messages} " + probex
             end
           end
@@ -112,7 +112,7 @@ module Msip
           end
 
           def presenta_nombre
-            "#{id}"
+            id.to_s
           end
         end
       end

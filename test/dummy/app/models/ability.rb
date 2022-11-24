@@ -4,7 +4,7 @@ class Ability < Msip::Ability
   # Se definen habilidades con cancancan
   # @usuario Usuario que hace petición
   def initialize(usuario = nil)
-    super(usuario)
+    super()
     initialize_msip(usuario)
   end
 end

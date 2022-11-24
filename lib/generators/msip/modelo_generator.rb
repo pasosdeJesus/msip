@@ -20,11 +20,11 @@ module Msip
     def genera_modelo
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
-        puts "Ejecutar con DISABLE_SPRING=1"
+        Rails.logger.debug("Ejecutar con DISABLE_SPRING=1")
         exit(1)
       end
       if modelo == modeloplural
-        puts "El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros"
+        Rails.logger.debug("El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros")
         exit(1)
       end
       genera_modelom if options.modelo
@@ -37,20 +37,20 @@ module Msip
     def genera_modelom
       template("modelo.rb.erb",
         "app/models/#{nom_arch}.rb")
-      generate("migration", "Create#{nom_arch.camelize} " +
-         "created_at:timestamp updated_at:timestamp")
+      generate("migration", "Create#{nom_arch.camelize} " \
+        "created_at:timestamp updated_at:timestamp")
       ab = "app/models/ability.rb"
       unless File.exist?(ab)
         ab = "spec/dummy/app/models/ability.rb"
       end
-      puts "Modifique la tabla en la migración"
-      puts "Ponga autorizaciones en #{ab}"
-      puts "Aregue manualmente inflección no regular en config/initializers/inflections.rb al estilo:"
-      puts "  inflect.irregular '#{modelo}', '#{modeloplural}' "
-      puts "Aregue nombre en español en config/locales/es.yml al estilo:"
-      puts "    \"#{modelo}\":"
-      puts "      #{modelo.capitalize}: Descripción singular"
-      puts "      #{modeloplural.capitalize}: Descripción plural"
+      Rails.logger.debug("Modifique la tabla en la migración")
+      Rails.logger.debug { "Ponga autorizaciones en #{ab}" }
+      Rails.logger.debug("Aregue manualmente inflección no regular en config/initializers/inflections.rb al estilo:")
+      Rails.logger.debug { "  inflect.irregular '#{modelo}', '#{modeloplural}' " }
+      Rails.logger.debug("Aregue nombre en español en config/locales/es.yml al estilo:")
+      Rails.logger.debug { "    \"#{modelo}\":" }
+      Rails.logger.debug { "      #{modelo.capitalize}: Descripción singular" }
+      Rails.logger.debug { "      #{modeloplural.capitalize}: Descripción plural" }
     end
 
     def genera_controlador

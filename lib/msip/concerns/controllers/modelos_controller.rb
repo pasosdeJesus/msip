@@ -54,7 +54,7 @@ module Msip
             end.flatten
             latr = latr1 + latr2
             quedan = params_filtro.keys
-            for ai in latr do
+            latr.each do |ai|
               i = nom_filtro(ai)
               if params_filtro["bus#{i}"] &&
                   params_filtro["bus#{i}"] != "" &&
@@ -82,14 +82,14 @@ module Msip
             # por ejemplo con un URL con parámetro filtro[ids]=3,4
             if params_filtro["ids"]
               lids1 = params_filtro["ids"].split(",")
-              lids = lids1.map { |id| id.to_i }
-              if lids.length > 0 && lids[0] > 0
-                reg = reg.where("id IN (?)", lids)
+              lids = lids1.map(&:to_i)
+              if !lids.empty? && lids[0] > 0
+                reg = reg.where(id: lids)
               end
               quedan -= ["ids"]
             end
             quedan2 = params_filtro.clone.delete_if do |l, v|
-              v == "" || !quedan.include?(l)
+              v == "" || quedan.exclude?(l)
             end
             if reg.respond_to?("filtrar_alterno")
               reg = reg.filtrar_alterno(quedan2)
@@ -113,12 +113,14 @@ module Msip
             if !c.nil?
               if c.class.to_s.end_with?("ActiveRecord_Relation")
                 if clase.constantize.to_s != c.klass.to_s
-                  puts "No concuerdan #{clase.constantize} y " +
-                    "klass #{c.klass}"
+                  Rails.logger.debug do
+                    "No concuerdan #{clase.constantize} y " \
+                      "klass #{c.klass}"
+                  end
                   # return
                 end
               elsif clase.constantize.to_s != c.class.to_s
-                puts "No concuerdan #{clase.constantize} y class #{c.class}"
+                Rails.logger.debug { "No concuerdan #{clase.constantize} y class #{c.class}" }
                 # return
               end
             else
@@ -145,7 +147,7 @@ module Msip
               term = ActiveRecord::Base.connection.quote_string(params[:term])
               consNom = term.downcase.strip # sin_tildes
               consNom.gsub!(/ +/, ":* & ")
-              if consNom.length > 0
+              unless consNom.empty?
                 consNom += ":*"
               end
               #  El caso de uso tipico es autocompletación
@@ -170,11 +172,9 @@ module Msip
                   0, "listar", "")
               end
               format.html do
-                @registros = @registro = if c
-                               c.paginate(
-                                 page: params[:pagina], per_page: 20,
-                               )
-                             end
+                @registros = @registro = c&.paginate(
+                  page: params[:pagina], per_page: 20,
+                )
                 render(:index, layout: "layouts/application")
                 return
               end
@@ -196,11 +196,9 @@ module Msip
               end
               format.js do
                 if params[:_msip_enviarautomatico]
-                  @registros = @registro = if c
-                                 c.paginate(
-                                   page: params[:pagina], per_page: 20,
-                                 )
-                               end
+                  @registros = @registro = c&.paginate(
+                    page: params[:pagina], per_page: 20,
+                  )
                   render(:index, layout: "layouts/application")
                 else
                   render(:index, json: regjson)
@@ -264,7 +262,7 @@ module Msip
               @registro.current_usuario = current_usuario
             end
             if @registro.respond_to?(:fechacreacion)
-              @registro.fechacreacion = DateTime.now.strftime("%Y-%m-%d")
+              @registro.fechacreacion = Time.zone.now.strftime("%Y-%m-%d")
             end
 
             nuevo_intermedio(@registro)
@@ -334,7 +332,7 @@ module Msip
               @registro = clase.constantize.new(pf)
             end
             if @registro.respond_to?(:fechacreacion)
-              @registro.fechacreacion = DateTime.now.strftime("%Y-%m-%d")
+              @registro.fechacreacion = Time.zone.now.strftime("%Y-%m-%d")
             end
             if @registro.respond_to?("current_usuario=")
               @registro.current_usuario = current_usuario
@@ -471,9 +469,9 @@ module Msip
                 next unless rel.count > 0
 
                 nom = rel[0].class.human_attribute_name(r.name)
-                mens += " Este registro se relaciona con " +
-                  "#{rel.count} registro(s) '#{nom}' (con id(s) " +
-                  "#{rel.map(&:id).join(", ")}), " +
+                mens += " Este registro se relaciona con " \
+                  "#{rel.count} registro(s) '#{nom}' (con id(s) " \
+                  "#{rel.map(&:id).join(", ")}), " \
                   "no puede eliminarse aún. "
               end
               m = @registro.class.reflect_on_all_associations(:has_and_belongs_to_many)
@@ -484,9 +482,9 @@ module Msip
                 next unless rel.count > 0
 
                 nom = rel[0].class.human_attribute_name(r.name)
-                mens += " Este registro se relaciona con " +
-                  "#{rel.count} registro(s) '#{nom}' (con id(s) " +
-                  "#{rel.map(&:id).join(", ")}), " +
+                mens += " Este registro se relaciona con " \
+                  "#{rel.count} registro(s) '#{nom}' (con id(s) " \
+                  "#{rel.map(&:id).join(", ")}), " \
                   "no puede eliminarse aún. "
               end
 

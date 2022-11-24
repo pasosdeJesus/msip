@@ -15,6 +15,4 @@ Minitest/MultipleAssertions:
 
 AllCops:
   NewCops: enable
-  Exclude:
-    - test/dummy/config/initializers/msip.rb
 

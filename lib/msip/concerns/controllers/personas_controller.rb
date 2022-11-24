@@ -63,12 +63,12 @@ module Msip
               term = Msip::Ubicacion.connection.quote_string(params[:term])
               consNomvic = term.downcase.strip # sin_tildes
               consNomvic.gsub!(/ +/, ":* & ")
-              if consNomvic.length > 0
+              unless consNomvic.empty?
                 consNomvic += ":*"
               end
-              where = " to_tsvector('spanish', unaccent(persona.nombres) " +
-                " || ' ' || unaccent(persona.apellidos) " +
-                " || ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " +
+              where = " to_tsvector('spanish', unaccent(persona.nombres) " \
+                " || ' ' || unaccent(persona.apellidos) " \
+                " || ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " \
                 "to_tsquery('spanish', '#{consNomvic}')"
 
               partes = [
@@ -152,7 +152,7 @@ module Msip
             end
             ndoc = Msip::PersonasController
               .nueva_persona_sd_posible_numerodocumento(pid)
-            puts "OJO ndoc=#{ndoc}"
+            Rails.logger.debug { "OJO ndoc=#{ndoc}" }
             respond_to do |format|
               format.json do
                 render(inline: ndoc)
@@ -173,7 +173,7 @@ module Msip
               tdocumento_id: 11, numerodocumento: numerodocumento,
             ).where("id<>?", persona_id).count > 0
               numerodocumento = numerodocumento.to_s
-              if numerodocumento.length > 0 && numerodocumento[-1] >= "A" &&
+              if !numerodocumento.empty? && numerodocumento[-1] >= "A" &&
                   numerodocumento[-1] < "Z"
                 ul = numerodocumento[-1].ord + 1
                 numerodocumento = numerodocumento[0..-2] + ul.chr(Encoding::UTF_8)
@@ -186,7 +186,7 @@ module Msip
 
           def self.nueva_persona_sd_posible_numerodocumento(persona_id)
             if persona_id.nil?
-              ruid = Msip::Persona.connection.execute(<<-SQL)
+              ruid = Msip::Persona.connection.execute(<<-SQL.squish)
                   SELECT last_value FROM msip_persona_id_seq;
               SQL
               persona_id = ruid[0]["last_value"] + 1

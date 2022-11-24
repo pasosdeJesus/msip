@@ -18,8 +18,6 @@ module Msip
           has_one :pais, through: :departamento,
             class_name: "Msip::Pais", source: :pais
 
-          validates :municipio_id, presence: true
-
           validates_uniqueness_of :verlocal_id,
             scope: :municipio_id,
             message: "debe ser único en el municipio",

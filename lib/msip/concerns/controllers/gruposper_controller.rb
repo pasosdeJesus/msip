@@ -20,10 +20,10 @@ module Msip
               term = Msip::Ubicacion.connection.quote_string(params[:term])
               consNomvic = term.downcase.strip # sin_tildes
               consNomvic.gsub!(/ +/, ":* & ")
-              if consNomvic.length > 0
+              unless consNomvic.empty?
                 consNomvic += ":*"
               end
-              where = " to_tsvector('spanish', unaccent(grupoper.nombre)) @@ " +
+              where = " to_tsvector('spanish', unaccent(grupoper.nombre)) @@ " \
                 "to_tsquery('spanish', '#{consNomvic}')"
 
               partes = [

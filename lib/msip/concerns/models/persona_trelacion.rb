@@ -18,10 +18,6 @@ module Msip
           accepts_nested_attributes_for :personados, reject_if: :all_blank
           accepts_nested_attributes_for :trelacion, reject_if: :all_blank
 
-          validates :personauno, presence: true
-          validates :personados, presence: true
-          validates :trelacion, presence: true
-
           validates_uniqueness_of :persona1, scope: [:persona2, :id_trelacion]
         end
       end

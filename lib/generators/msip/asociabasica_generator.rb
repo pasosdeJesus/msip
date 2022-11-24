@@ -22,46 +22,58 @@ module Msip
     def genera_asociabasica
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
-        puts "Ejecutar con DISABLE_SPRING=1"
+        Rails.logger.debug("Ejecutar con DISABLE_SPRING=1")
         exit(1)
       end
       if options.belongs_to
-        puts "Para asociar #{tablabasica} con belongs_to en #{tabla2}:"
-        puts "Cree migracion que incluya
+        Rails.logger.debug { "Para asociar #{tablabasica} con belongs_to en #{tabla2}:" }
+        Rails.logger.debug do
+          "Cree migracion que incluya
           add_column :#{tabla2}, :#{nom_arch}_id, :integer
           add_foreign_key :#{tabla2}, :#{nom_arch}, column: #{nom_arch}_id"
-        if File.readlines("app/models/#{tabla2}.rb").grep(/#{nom_arch}/).size == 0
-          puts "Aregue a 'app/models/#{tabla2}.rb'
+        end
+        if File.readlines("app/models/#{tabla2}.rb").grep(/#{nom_arch}/).empty?
+          Rails.logger.debug do
+            "Aregue a 'app/models/#{tabla2}.rb'
             belongs_to :#{nom_arch}, class_name: \"#{nom_clase}\",
               foreign_key: \"#{nom_arch}_id\", validate: true"
-          puts "Aregue a 'app/models/#{nom_arch}.rb'
+          end
+          Rails.logger.debug do
+            "Aregue a 'app/models/#{nom_arch}.rb'
             has_many :#{tabla2},
               class_name: \"#{tabla2.capitalize}\",
               foreign_key: \"#{nom_arch}_id\",
               validate: true"
+          end
         end
-        puts "Modifique la vista que edita el modelo agregando
+        Rails.logger.debug do
+          "Modifique la vista que edita el modelo agregando
           <%= f.association :#{nom_arch},
             collection: ::#{nom_clase}.habilitados,
             include_blank: false,
             label_method: :nombre,
             value_method: :id
           %> "
-        puts "Modifique funcion estilo #{tabla2}_params en " +
-          "el controlador de la vista cambiada para agregar #{nom_arch}"
-        puts "Modifique la vista show de #{tabla2} y otras que la presenten"
+        end
+        Rails.logger.debug do
+          "Modifique funcion estilo #{tabla2}_params en " \
+            "el controlador de la vista cambiada para agregar #{nom_arch}"
+        end
       else
-        puts "Para asociar #{tablabasica} con has_many en #{tabla2}:"
-        puts "Cree migracion que incluya
+        Rails.logger.debug { "Para asociar #{tablabasica} con has_many en #{tabla2}:" }
+        Rails.logger.debug do
+          "Cree migracion que incluya
             create_join_table :#{tabla2}, :#{tablabasica},
               table_name: :#{tabla2}_#{tablabasica}
             add_foreign_key :#{tabla2}_#{tablabasica}, :#{tablabasica},
               column: :#{tabla2}_id
             add_foreign_key :#{tabla2}_#{tablabasica}, :#{tabla2},
               column: :#{tabla2}_id, primary_key: :id"
-        puts "Y de requerirse migre datos existentes"
-        puts "Cree modelo para tabal combinada con"
-        puts "
+        end
+        Rails.logger.debug("Y de requerirse migre datos existentes")
+        Rails.logger.debug("Cree modelo para tabal combinada con")
+        Rails.logger.debug do
+          "
 class AcompanamientoCasosjr < ActiveRecord::Base
 	belongs_to :sivel2_sjr_casosjr, class_name: 'Sivel2Sjr::Casosjr',
     foreign_key: 'sivel2_sjr_casosjr_id', validate: true
@@ -69,27 +81,34 @@ class AcompanamientoCasosjr < ActiveRecord::Base
     foreign_key: 'acompanamiento_id', validate: true
 end
           "
-        puts "Agregue titulos por presentar en vistas en config/locale/es.yml"
-        if File.readlines("app/models/#{tabla2}.rb").grep(/#{nom_arch}/).size == 0
-          puts "Aregue a 'app/models/#{tabla2}.rb'
+        end
+        Rails.logger.debug("Agregue titulos por presentar en vistas en config/locale/es.yml")
+        if File.readlines("app/models/#{tabla2}.rb").grep(/#{nom_arch}/).empty?
+          Rails.logger.debug do
+            "Aregue a 'app/models/#{tabla2}.rb'
             has_many :#{tabla2}_#{tablabasica},
               class_name: \"::#{tabla2}#{nom_clase}\",
               foreign_key: \"#{tabla2}_id\", validate: true
             has_many :#{tablabasica}, through: :#{tabla2}_#{tablabasica},
               class_name: \"::#{nom_clase}\" "
+          end
         end
-        puts "Modifique la vista que edita el modelo #{tabla2} agregando
+        Rails.logger.debug do
+          "Modifique la vista que edita el modelo #{tabla2} agregando
           <%= f.association :#{nom_arch},
             collection: ::#{nom_clase}.habilitados,
             include_blank: false,
             label_method: :nombre,
             value_method: :id
           %> "
-        puts "Modifique funcion estilo #{tabla2}_params en " +
-          "el controlador de la vista cambiada para agregar #{nom_arch}_ids => []"
-        puts "Modifique la vista show de #{tabla2} y otras que la presenten"
+        end
+        Rails.logger.debug do
+          "Modifique funcion estilo #{tabla2}_params en " \
+            "el controlador de la vista cambiada para agregar #{nom_arch}_ids => []"
+        end
 
       end
+      Rails.logger.debug { "Modifique la vista show de #{tabla2} y otras que la presenten" }
 
       # genera_test if options.test
       # genera_factory if options.factory
@@ -101,29 +120,29 @@ end
     def genera_modelo
       template("tablabasica.rb.erb",
         "app/models/#{nom_arch}.rb")
-      generate("migration", "Create#{nom_arch.camelize} " +
-         "nombre:string{500} observaciones:string{5000} " +
-         "fechacreacion:date fechadeshabilitacion:date " +
-         "created_at:timestamp updated_at:timestamp")
+      generate("migration", "Create#{nom_arch.camelize} " \
+        "nombre:string{500} observaciones:string{5000} " \
+        "fechacreacion:date fechadeshabilitacion:date " \
+        "created_at:timestamp updated_at:timestamp")
       ab = "app/models/ability.rb"
       unless File.exist?(ab)
         ab = "spec/dummy/app/models/ability.rb"
       end
       if File.exist?(ab) &&
-          File.readlines(ab).grep(/#{nom_arch}/).size == 0
+          File.readlines(ab).grep(/#{nom_arch}/).empty?
         gsub_file(
           ab,
           /(BASICAS_PROPIAS = \[.*)/,
           "\\1\n    ['', '#{nom_arch}'],",
         )
       end
-      puts "Aregue manualmente null:false en :nombre, :fechacreacion, :created_at y :update_at en migración"
-      puts "Aregue manualmente infleccion no regular en config/initializers/inflections.rb al estilo:"
-      puts "  inflect.irregular '#{tablabasica}', '#{tablabasicaplural}' "
-      puts "Aregue nombre en español en config/locales/es.yml al estilo:"
-      puts "    \"#{tablabasica}\":"
-      puts "      #{tablabasica}: Descripción singular"
-      puts "      #{tablabasicaplural}: Descripción plural"
+      Rails.logger.debug("Aregue manualmente null:false en :nombre, :fechacreacion, :created_at y :update_at en migración")
+      Rails.logger.debug("Aregue manualmente infleccion no regular en config/initializers/inflections.rb al estilo:")
+      Rails.logger.debug { "  inflect.irregular '#{tablabasica}', '#{tablabasicaplural}' " }
+      Rails.logger.debug("Aregue nombre en español en config/locales/es.yml al estilo:")
+      Rails.logger.debug { "    \"#{tablabasica}\":" }
+      Rails.logger.debug { "      #{tablabasica}: Descripción singular" }
+      Rails.logger.debug { "      #{tablabasicaplural}: Descripción plural" }
     end
 
     def genera_controlador

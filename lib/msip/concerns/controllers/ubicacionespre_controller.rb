@@ -43,22 +43,22 @@ module Msip
               term = Msip::Ubicacion.connection.quote_string(params[:term])
               consNomubi = term.downcase.strip # sin_tildes
               consNomubi.gsub!(/ +/, ":* & ")
-              if consNomubi.length > 0
+              unless consNomubi.empty?
                 consNomubi += ":*"
               end
               # Usamos la funcion f_unaccent definida con el indice
               # en db/migrate/20200916022934_indice_ubicacionpre.rb
-              where = " to_tsvector('spanish', " +
-                "f_unaccent(ubicacionpre.nombre_sin_pais)) " +
+              where = " to_tsvector('spanish', " \
+                "f_unaccent(ubicacionpre.nombre_sin_pais)) " \
                 "@@ to_tsquery('spanish', '#{consNomubi}')"
 
-              cons = "SELECT TRIM(nombre_sin_pais) AS value, id AS id " +
-                "FROM public.msip_ubicacionpre AS ubicacionpre " +
-                "WHERE #{where} AND pais_id=170 " +
-                "AND clase_id IS NULL " +
-                "AND departamento_id IS NOT NULL " +
-                "AND lugar IS NULL " +
-                "AND sitio IS NULL " +
+              cons = "SELECT TRIM(nombre_sin_pais) AS value, id AS id " \
+                "FROM public.msip_ubicacionpre AS ubicacionpre " \
+                "WHERE #{where} AND pais_id=170 " \
+                "AND clase_id IS NULL " \
+                "AND departamento_id IS NOT NULL " \
+                "AND lugar IS NULL " \
+                "AND sitio IS NULL " \
                 " ORDER BY 1 LIMIT 10"
 
               r = ActiveRecord::Base.connection.select_all(cons)
@@ -77,16 +77,16 @@ module Msip
               term = Msip::Ubicacionpre.connection.quote_string(params[:term])
               consNomubi = term.downcase.strip # sin_tildes
               consNomubi.gsub!(/ +/, ":* & ")
-              if consNomubi.length > 0
+              unless consNomubi.empty?
                 consNomubi += ":*"
               end
               # Usamos la funcion f_unaccent definida con el indice
               # en db/migrate/20200916022934_indice_ubicacionpre.rb
-              where = " to_tsvector('spanish', f_unaccent(ubicacionpre.nombre)) " +
+              where = " to_tsvector('spanish', f_unaccent(ubicacionpre.nombre)) " \
                 "@@ to_tsquery('spanish', '#{consNomubi}')"
 
-              cons = "SELECT TRIM(nombre) AS value, id AS id " +
-                "FROM public.msip_ubicacionpre AS ubicacionpre " +
+              cons = "SELECT TRIM(nombre) AS value, id AS id " \
+                "FROM public.msip_ubicacionpre AS ubicacionpre " \
                 "WHERE #{where} ORDER BY 1 LIMIT 10"
 
               r = ActiveRecord::Base.connection.select_all(cons)

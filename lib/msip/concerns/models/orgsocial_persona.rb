@@ -19,8 +19,6 @@ module Msip
           accepts_nested_attributes_for :persona, reject_if: :all_blank
 
           belongs_to :perfilorgsocial, class_name: "Msip::Perfilorgsocial", validate: true, optional: true
-
-          validates :persona, presence: true
         end # included
       end
     end

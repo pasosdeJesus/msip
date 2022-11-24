@@ -22,11 +22,11 @@ module Msip
     def genera_tablabasica
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
-        puts "Ejecutar con DISABLE_SPRING=1"
+        Rails.logger.debug("Ejecutar con DISABLE_SPRING=1")
         exit(1)
       end
       if tablabasica == tablabasicaplural
-        puts "El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros a la tabla basica"
+        Rails.logger.debug("El nombre en singular debe ser diferente al nombre en plural para que opere bien agregar registros a la tabla basica")
         exit(1)
       end
       genera_modelo if options.modelo
@@ -40,28 +40,28 @@ module Msip
     def genera_modelo
       template("tablabasica.rb.erb",
         "app/models/#{nom_arch}.rb")
-      generate("migration", "Create#{nom_arch.camelize} " +
-         "nombre:string{500} observaciones:string{5000} " +
-         "fechacreacion:date fechadeshabilitacion:date ")
+      generate("migration", "Create#{nom_arch.camelize} " \
+        "nombre:string{500} observaciones:string{5000} " \
+        "fechacreacion:date fechadeshabilitacion:date ")
       ab = "app/models/ability.rb"
       unless File.exist?(ab)
         ab = "spec/dummy/app/models/ability.rb"
       end
       if File.exist?(ab) &&
-          File.readlines(ab).grep(/#{nom_arch}/).size == 0
+          File.readlines(ab).grep(/#{nom_arch}/).empty?
         gsub_file(
           ab,
           /(BASICAS_PROPIAS = \[.*)/,
           "\\1\n    ['', '#{nom_arch}'],",
         )
       end
-      puts "Aregue manualmente null:false en :nombre, :fechacreacion, :created_at y :update_at en migración"
-      puts "Aregue manualmente infleccion no regular en config/initializers/inflections.rb al estilo:"
-      puts "  inflect.irregular '#{tablabasica}', '#{tablabasicaplural}' "
-      puts "Aregue nombre en español en config/locales/es.yml al estilo:"
-      puts "    \"#{tablabasica}\":"
-      puts "      #{tablabasica.capitalize}: Descripción singular"
-      puts "      #{tablabasicaplural.capitalize}: Descripción plural"
+      Rails.logger.debug("Aregue manualmente null:false en :nombre, :fechacreacion, :created_at y :update_at en migración")
+      Rails.logger.debug("Aregue manualmente infleccion no regular en config/initializers/inflections.rb al estilo:")
+      Rails.logger.debug { "  inflect.irregular '#{tablabasica}', '#{tablabasicaplural}' " }
+      Rails.logger.debug("Aregue nombre en español en config/locales/es.yml al estilo:")
+      Rails.logger.debug { "    \"#{tablabasica}\":" }
+      Rails.logger.debug { "      #{tablabasica.capitalize}: Descripción singular" }
+      Rails.logger.debug { "      #{tablabasicaplural.capitalize}: Descripción plural" }
     end
 
     def genera_controlador
@@ -77,27 +77,35 @@ module Msip
     end
 
     def genera_asociacion
-      puts "Para asociarla en #{options.asocia}:"
-      puts "Cree migracion que incluya
+      Rails.logger.debug { "Para asociarla en #{options.asocia}:" }
+      Rails.logger.debug do
+        "Cree migracion que incluya
           add_column :#{options.asocia}, :#{nom_arch}_id, :integer
           add_foreign_key :#{options.asocia}, :#{nom_arch}, column: :#{nom_arch}_id"
-      if File.readlines("app/models/#{options.asocia}.rb").grep(/#{nom_arch}/).size == 0
-        puts "Aregue a 'app/models/#{options.asocia}.rb'
+      end
+      if File.readlines("app/models/#{options.asocia}.rb").grep(/#{nom_arch}/).empty?
+        Rails.logger.debug do
+          "Aregue a 'app/models/#{options.asocia}.rb'
             belongs_to :#{nom_arch}, class_name: \"#{nom_clase}\",
               foreign_key: \"#{nom_arch}_id\", validate: true"
-        puts "Aregue a 'app/models/#{nom_arch}.rb'
+        end
+        Rails.logger.debug do
+          "Aregue a 'app/models/#{nom_arch}.rb'
             has_many :#{options.asocia},
               class_name: \"#{options.asocia.capitalize}\",
               foreign_key: \"#{nom_arch}_id\",
               validate: true"
+        end
       end
-      puts "Modifique el controlador que edita el modelo y cambie atributos_index y/o atributos_show y/o atributos_form para incluir el campo, por ejemplo:
+      Rails.logger.debug do
+        "Modifique el controlador que edita el modelo y cambie atributos_index y/o atributos_show y/o atributos_form para incluir el campo, por ejemplo:
         def atributos_index
           [ :id,
             :nombre,
             :#{nom_arch}_id,
           ]
         end"
+      end
     end
 
     def nom_arch

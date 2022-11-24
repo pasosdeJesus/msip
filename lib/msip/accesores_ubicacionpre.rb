@@ -11,7 +11,7 @@ module Msip
     # expulsionubicacionpre_id, destinoubicacionpre_id o
     # llegadaubicacionpre_id.
     def accesores_ubicacionpre(prefijo)
-      send(:belongs_to, "#{prefijo}".to_sym,
+      send(:belongs_to, prefijo.to_s.to_sym,
         class_name: "Msip::Ubicacionpre",
         foreign_key: "#{prefijo}ubicacionpre_id",
         optional: true)
@@ -36,8 +36,8 @@ module Msip
       # flotante_localizado :ubicacionpre_longitud
 
       define_method("#{prefijo}_pais_id") do
-        if send("#{prefijo}")
-          send("#{prefijo}").pais_id
+        if send(prefijo.to_s)
+          send(prefijo.to_s).pais_id
         else
           ""
         end
@@ -49,23 +49,19 @@ module Msip
         optional: true)
 
       define_method("#{prefijo}_pais") do
-        if send("#{prefijo}")
-          send("#{prefijo}").pais
-        end
+        send(prefijo.to_s)&.pais
       end
 
       define_method("#{prefijo}_departamento_id") do
-        if send("#{prefijo}")
-          send("#{prefijo}").departamento_id
+        if send(prefijo.to_s)
+          send(prefijo.to_s).departamento_id
         else
           ""
         end
       end
 
       define_method("#{prefijo}_departamento") do
-        if send("#{prefijo}")
-          send("#{prefijo}").departamento
-        end
+        send(prefijo.to_s)&.departamento
       end
 
       send(:belongs_to, "#{prefijo}_departamento".to_sym,
@@ -74,17 +70,15 @@ module Msip
         optional: true)
 
       define_method("#{prefijo}_municipio_id") do
-        if send("#{prefijo}")
-          send("#{prefijo}").municipio_id
+        if send(prefijo.to_s)
+          send(prefijo.to_s).municipio_id
         else
           ""
         end
       end
 
       define_method("#{prefijo}_municipio") do
-        if send("#{prefijo}")
-          send("#{prefijo}").municipio
-        end
+        send(prefijo.to_s)&.municipio
       end
 
       send(:belongs_to, "#{prefijo}_municipio".to_sym,
@@ -93,17 +87,15 @@ module Msip
         optional: true)
 
       define_method("#{prefijo}_clase_id") do
-        if send("#{prefijo}")
-          send("#{prefijo}").clase_id
+        if send(prefijo.to_s)
+          send(prefijo.to_s).clase_id
         else
           ""
         end
       end
 
       define_method("#{prefijo}_clase") do
-        if send("#{prefijo}")
-          send("#{prefijo}").clase
-        end
+        send(prefijo.to_s)&.clase
       end
 
       send(:belongs_to, "#{prefijo}_clase".to_sym,
@@ -112,33 +104,31 @@ module Msip
         optional: true)
 
       define_method("#{prefijo}_lugar") do
-        if send("#{prefijo}")
-          send("#{prefijo}").lugar
+        if send(prefijo.to_s)
+          send(prefijo.to_s).lugar
         else
           ""
         end
       end
 
       define_method("#{prefijo}_sitio") do
-        if send("#{prefijo}")
-          send("#{prefijo}").sitio
+        if send(prefijo.to_s)
+          send(prefijo.to_s).sitio
         else
           ""
         end
       end
 
       define_method("#{prefijo}_tsitio_id") do
-        if send("#{prefijo}")
-          send("#{prefijo}").tsitio_id
+        if send(prefijo.to_s)
+          send(prefijo.to_s).tsitio_id
         else
           ""
         end
       end
 
       define_method("#{prefijo}_tsitio") do
-        if send("#{prefijo}")
-          send("#{prefijo}").tsitio
-        end
+        send(prefijo.to_s)&.tsitio
       end
 
       send(:belongs_to, "#{prefijo}_tsitio".to_sym,
@@ -147,16 +137,16 @@ module Msip
         optional: true)
 
       define_method("#{prefijo}_latitud") do
-        if send("#{prefijo}")
-          send("#{prefijo}").latitud
+        if send(prefijo.to_s)
+          send(prefijo.to_s).latitud
         else
           ""
         end
       end
 
       define_method("#{prefijo}_longitud") do
-        if send("#{prefijo}")
-          send("#{prefijo}").longitud
+        if send(prefijo.to_s)
+          send(prefijo.to_s).longitud
         else
           ""
         end
