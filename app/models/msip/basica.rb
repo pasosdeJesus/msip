@@ -1,4 +1,3 @@
-
 module Msip
   module Basica
     extend ActiveSupport::Concern
@@ -7,7 +6,7 @@ module Msip
       include Msip::Localizacion
       include Msip::Modelo
 
-      scope :habilitados, -> (campoord = "nombre") {
+      scope :habilitados, ->(campoord = "nombre") {
         where(fechadeshabilitacion: nil).order(campoord.to_sym)
       }
 
@@ -16,7 +15,7 @@ module Msip
 
       campofecha_localizado :fechacreacion
       campofecha_localizado :fechadeshabilitacion
-      validates :nombre, presence: true, allow_blank: false, 
+      validates :nombre, presence: true, allow_blank: false,
         length: { maximum: 500 }
       validates :observaciones, length: { maximum: 5000 }
       validates :fechacreacion, presence: true, allow_blank: false
@@ -24,21 +23,21 @@ module Msip
       # Las tablas basicas que tengan repetido deben definir la constante
       # Nombresunicos=false
       # Ver por ejemplo departamento
-      validates_uniqueness_of :nombre, case_sensitive: false, if: Proc.new {
-        |rb| !(defined? rb.class::Nombresunicos) || rb.class::Nombresunicos
-      }
+      validates :nombre, uniqueness: { case_sensitive: false, if: proc { |rb|
+        !(defined? rb.class::Nombresunicos) || rb.class::Nombresunicos
+      }, }
 
       validate :fechacreacion_posible?
       def fechacreacion_posible?
-        if !fechacreacion || fechacreacion < Date.new(2000,1,1)
-          errors.add(:fechacreacion, 'Debe ser reciente (posterior a 2000)')
+        if !fechacreacion || fechacreacion < Date.new(2000, 1, 1)
+          errors.add(:fechacreacion, "Debe ser reciente (posterior a 2000)")
         end
       end
 
       validate :fechadeshabilitacion_posible?
       def fechadeshabilitacion_posible?
-        if (!fechadeshabilitacion.blank? && fechadeshabilitacion < fechacreacion)
-          errors.add(:fechadeshabilitacion, 'Debe ser posterior a la de creación')
+        if fechadeshabilitacion.present? && fechadeshabilitacion < fechacreacion
+          errors.add(:fechadeshabilitacion, "Debe ser posterior a la de creación")
         end
       end
 
@@ -57,23 +56,23 @@ module Msip
         if atr.is_a?(Hash) && atr.first[0].to_s.ends_with?("_ids")
           na = atr.first[0].to_s.chomp("_ids")
           a = self.class.reflect_on_all_associations
-          r = a.select { |ua| ua.name.to_s == na }[0] 
+          r = a.select { |ua| ua.name.to_s == na }[0]
           return r
         end
-        return nil
+        nil
       end
 
       # Si atr es llave foranea retorna asociación a este modelo
       # en otro caso retorna nil
       def asociacion_llave_foranea(atr)
         aso = self.class.reflect_on_all_associations
-        bel = aso.select { |a| a.macro == :belongs_to } 
+        bel = aso.select { |a| a.macro == :belongs_to }
         fk = bel.map(&:foreign_key)
-        if fk.include? atr
-          r = aso.select { |a| a.foreign_key == atr }[0] 
+        if fk.include?(atr)
+          r = aso.select { |a| a.foreign_key == atr }[0]
           return r
         end
-        return nil
+        nil
       end
 
       # Si atr es atributo que es llave foranea retorna su clase
@@ -83,75 +82,76 @@ module Msip
         if r
           return r.class_name.constantize
         end
-        return nil
+
+        nil
       end
 
       # Presentar nombre del registro en index y show
       def presenta_nombre
-        self['nombre']
+        self["nombre"]
       end
 
       # Presentar campo atr del registro en index y show genérico (no sobrec)
-#      def presenta_gen(atr)
-#        clf = clase_llave_foranea(atr)
-#        if self.class.columns_hash && self.class.columns_hash[atr] && 
-#          self.class.columns_hash[atr].type == :boolean 
-#          self[atr] ? "Si" : "No" 
-#        elsif asociacion_combinada(atr)
-#          ac = asociacion_combinada(atr).name.to_s
-#          e = self.send(ac)
-#          e.inject("") { |memo, i| 
-#            (memo == "" ? "" : memo + "; ") + i.presenta_nombre 
-#          }
-#        elsif clf
-#          if (self[atr.to_s])
-#            clf.find(self[atr.to_s]).presenta_nombre
-#          else
-#            ""
-#          end
-#        elsif self.respond_to?(atr) && self[atr.to_s].nil?
-#          self.send(atr).to_s
-#        else
-#          self[atr.to_s].to_s
-#        end
-#      end
-#
-#      # Presentar campo atr del registro en index y show para sobrecargar
-#      def presenta(atr)
-#        presenta_gen(atr)
-#      end
+      #      def presenta_gen(atr)
+      #        clf = clase_llave_foranea(atr)
+      #        if self.class.columns_hash && self.class.columns_hash[atr] &&
+      #          self.class.columns_hash[atr].type == :boolean
+      #          self[atr] ? "Si" : "No"
+      #        elsif asociacion_combinada(atr)
+      #          ac = asociacion_combinada(atr).name.to_s
+      #          e = self.send(ac)
+      #          e.inject("") { |memo, i|
+      #            (memo == "" ? "" : memo + "; ") + i.presenta_nombre
+      #          }
+      #        elsif clf
+      #          if (self[atr.to_s])
+      #            clf.find(self[atr.to_s]).presenta_nombre
+      #          else
+      #            ""
+      #          end
+      #        elsif self.respond_to?(atr) && self[atr.to_s].nil?
+      #          self.send(atr).to_s
+      #        else
+      #          self[atr.to_s].to_s
+      #        end
+      #      end
+      #
+      #      # Presentar campo atr del registro en index y show para sobrecargar
+      #      def presenta(atr)
+      #        presenta_gen(atr)
+      #      end
 
       # Para búsquedas tipo autocompletacion en base de datos campos a observar
       def self.busca_etiqueta_campos
-        ['nombre']
+        ["nombre"]
       end
 
       # Para búsquedas tipo autocompletacion etiqueta que se retorna
       def busca_etiqueta
-        v = self.class.busca_etiqueta_campos.map { |c|
+        v = self.class.busca_etiqueta_campos.map do |c|
           self[c]
-        }
-        return v.join(" ")
+        end
+        v.join(" ")
       end
 
       # Para búsquedas tipo autocompletacion valor que se retorna
       def busca_valor
-        self['id']
+        self["id"]
       end
 
       attr_accessor :habilitado
 
       def habilitado
-        fechadeshabilitacion.nil? ? 'Si' : 'No'
+        fechadeshabilitacion.nil? ? "Si" : "No"
       end
 
-      scope :filtro_habilitado, lambda {|o|
-        if o.upcase.strip == 'SI'
+      scope :filtro_habilitado, lambda { |o|
+        if o.upcase.strip == "SI"
           where("#{table_name}.fechadeshabilitacion IS NULL")
-        elsif o.upcase.strip == 'NO'
+        elsif o.upcase.strip == "NO"
           where.not("#{table_name}.fechadeshabilitacion IS NULL")
-          #where.not(fechadeshabilitacion: nil)
-        end 
+          # where.not(fechadeshabilitacion: nil)
+        end
       }
 
       scope :filtro_nombre, lambda { |n|
@@ -163,17 +163,14 @@ module Msip
       }
 
       scope :filtro_fechacreacionini, lambda { |f|
-        where('fechacreacion >= ?', f)
+        where("fechacreacion >= ?", f)
         # El control de fecha HTML estándar retorna la fecha
         # en formato yyyy-mm-dd siempre
       }
 
       scope :filtro_fechacreacionfin, lambda { |f|
-        where('fechacreacion <= ?', f)
+        where("fechacreacion <= ?", f)
       }
-
-
     end
-
   end
 end

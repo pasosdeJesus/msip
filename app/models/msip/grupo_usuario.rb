@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/grupo_usuario'
+require "msip/concerns/models/grupo_usuario"
 
 module Msip
   class GrupoUsuario < ActiveRecord::Base

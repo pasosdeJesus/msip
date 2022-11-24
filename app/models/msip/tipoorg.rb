@@ -1,4 +1,4 @@
-require 'msip/concerns/models/tipoorg'
+require "msip/concerns/models/tipoorg"
 
 module Msip
   class Tipoorg < ActiveRecord::Base

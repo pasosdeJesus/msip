@@ -5,31 +5,30 @@ module Msip
       helper BasicasHelpers
 
       # Nombre de la tabla básica
-      def clase 
+      def clase
         "Msip::BasicaCambiar"
       end
 
       # Nombre del campo con nombre que identifica cada registro
       def camponombre
-        return :nombre
+        :nombre
       end
 
       # Campos de la tabla
       def atributos_index
-        ["id", 
-         "nombre", 
-         "observaciones", 
-         "fechacreacion_localizada", 
-         "habilitado"
-        ]
+        ["id",
+         "nombre",
+         "observaciones",
+         "fechacreacion_localizada",
+         "habilitado",]
       end
 
       def atributos_transf_habilitado
-        r = atributos_index - ['habilitado', :habilitado]
+        r = atributos_index - ["habilitado", :habilitado]
         if !r.include?("fechadeshabilitacion_localizada") &&
-          !r.include?(:fechadeshabilitacion_localizada) &&
-          !r.include?(:fechadeshabilitacion) &&
-          !r.include?('fechadeshabilitacion')
+            !r.include?(:fechadeshabilitacion_localizada) &&
+            !r.include?(:fechadeshabilitacion) &&
+            !r.include?("fechadeshabilitacion")
           r << "fechadeshabilitacion_localizada"
         end
         r
@@ -49,8 +48,7 @@ module Msip
         c.reorder([:nombre])
       end
 
-
-      helper_method :clase, :atributos_index, :atributos_form, 
+      helper_method :clase, :atributos_index, :atributos_form,
         :genclase, :camponombre
     end
   end

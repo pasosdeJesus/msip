@@ -1,4 +1,4 @@
-require 'msip/concerns/models/estadosol'
+require "msip/concerns/models/estadosol"
 
 module Msip
   class Estadosol < ActiveRecord::Base

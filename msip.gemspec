@@ -18,27 +18,26 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 3"
 
   s.files = Dir.chdir(__dir__) do
-    `git ls-files -z`.split("\x0").reject do |f|
+    %x(git ls-files -z).split("\x0").reject do |f|
       (f == __FILE__) || f.match(%r{\A(?:(?:spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
 
   # Dejamos gemas representativas, el listado completo en Gemfile
-  s.add_runtime_dependency "cancancan", "~> 3"
-  s.add_runtime_dependency "devise", "~> 4"
-  s.add_runtime_dependency "devise-i18n", "~> 1"
-  s.add_runtime_dependency "kt-paperclip", "~> 7"
-  s.add_runtime_dependency "pg", "~> 1"
-  s.add_runtime_dependency "rails", "~> 7.0"
-  s.add_runtime_dependency "rails-i18n", "~> 7"
-  s.add_runtime_dependency "sassc-rails", "~> 2"
-  s.add_runtime_dependency "simple_form", "~> 5"
-  s.add_runtime_dependency "sprockets-rails", "~> 3"
-  s.add_runtime_dependency "stimulus-rails", "~> 1"
-  s.add_runtime_dependency "twitter_cldr", "~> 6"
-  s.add_runtime_dependency "will_paginate", "~> 3"
+  s.add_runtime_dependency("cancancan", "~> 3")
+  s.add_runtime_dependency("devise", "~> 4")
+  s.add_runtime_dependency("devise-i18n", "~> 1")
+  s.add_runtime_dependency("kt-paperclip", "~> 7")
+  s.add_runtime_dependency("pg", "~> 1")
+  s.add_runtime_dependency("rails", "~> 7.0")
+  s.add_runtime_dependency("rails-i18n", "~> 7")
+  s.add_runtime_dependency("sassc-rails", "~> 2")
+  s.add_runtime_dependency("simple_form", "~> 5")
+  s.add_runtime_dependency("sprockets-rails", "~> 3")
+  s.add_runtime_dependency("stimulus-rails", "~> 1")
+  s.add_runtime_dependency("twitter_cldr", "~> 6")
+  s.add_runtime_dependency("will_paginate", "~> 3")
 
-  s.add_development_dependency "minitest", "~> 5"
-  s.add_development_dependency "cuprite", "~> 0"
-
+  s.add_development_dependency("cuprite", "~> 0")
+  s.add_development_dependency("minitest", "~> 5")
 end

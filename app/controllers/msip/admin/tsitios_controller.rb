@@ -4,7 +4,7 @@ module Msip
       before_action :set_tsitio, only: [:show, :edit, :update, :destroy]
       load_and_authorize_resource class: Msip::Tsitio
 
-      def clase 
+      def clase
         "Msip::Tsitio"
       end
 
@@ -13,13 +13,12 @@ module Msip
       end
 
       def genclase
-        return 'M';
+        "M"
       end
 
       def tsitio_params
         params.require(:tsitio).permit(*atributos_form)
       end
-
     end
   end
 end

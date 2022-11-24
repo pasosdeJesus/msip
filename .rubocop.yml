@@ -5,6 +5,10 @@ require:
 inherit_gem:
     rubocop-shopify: rubocop.yml
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: false
+
 AllCops:
     NewCops: enable
 

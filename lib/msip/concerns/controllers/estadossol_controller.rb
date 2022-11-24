@@ -1,15 +1,13 @@
-
 module Msip
   module Concerns
     module Controllers
-      module EstadossolController 
+      module EstadossolController
         extend ActiveSupport::Concern
 
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-
-          def clase 
+          def clase
             "Msip::Estadosol"
           end
 
@@ -18,23 +16,22 @@ module Msip
           end
 
           def genclase
-            return 'M';
+            "M"
           end
 
           def atributos_index
             [
-              :id, 
-              :nombre, 
-              :observaciones, 
-              :fechacreacion_localizada, 
-              :habilitado
+              :id,
+              :nombre,
+              :observaciones,
+              :fechacreacion_localizada,
+              :habilitado,
             ]
           end
 
           def estadosol_params
-            params.require(:estadosol).permit( *(atributos_form))
+            params.require(:estadosol).permit(*atributos_form)
           end
-
         end
       end
     end

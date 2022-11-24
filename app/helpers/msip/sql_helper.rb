@@ -1,13 +1,11 @@
-
 module Msip
   module SqlHelper
-
-    # Pone cotejación dada a una columna tipo varchar (longitud long) 
+    # Pone cotejación dada a una columna tipo varchar (longitud long)
     def cambiar_cotejacion(tabla, columna, long, cotejacion)
-      execute <<-SQL
-      ALTER TABLE #{tabla.to_s}
-        ALTER COLUMN #{columna.to_s} SET DATA TYPE 
-          VARCHAR(#{long.to_i}) COLLATE "#{cotejacion.to_s}";
+      execute(<<-SQL)
+      ALTER TABLE #{tabla}
+        ALTER COLUMN #{columna} SET DATA TYPE#{" "}
+          VARCHAR(#{long.to_i}) COLLATE "#{cotejacion}";
       SQL
     end
     module_function :cambiar_cotejacion
@@ -15,58 +13,56 @@ module Msip
     alias_method :cambiaCotejacion, :cambiar_cotejacion
     module_function :cambiaCotejacion
 
-
     def ejecuta_sql(sql, eco = false)
-      if eco 
+      if eco
         puts "ejecuta_sql: #{sql}"
       end
-      Msip::Persona.connection.execute <<-SQL
+      Msip::Persona.connection.execute(<<-SQL)
       #{sql}
       SQL
     end
     module_function :ejecuta_sql
 
-
-    # Cambia convención para sexo 
+    # Cambia convención para sexo
     def cambiar_convencion_sexo(convencion_final)
-      if !Msip::Persona::CONVENCIONES_SEXO.keys.include?(convencion_final)
+      unless Msip::Persona::CONVENCIONES_SEXO.keys.include?(convencion_final)
         puts "Conveción desconocida: #{convecion_final}"
-        exit 1
+        exit(1)
       end
-      convencion_inicial = Msip::Persona::convencion_sexo_abreviada
+      convencion_inicial = Msip::Persona.convencion_sexo_abreviada
       if convencion_inicial == convencion_final
         return
       end
-      if convencion_final != 'FMS' && convencion_final != 'MHS'
+
+      if convencion_final != "FMS" && convencion_final != "MHS"
         puts "Se espera cambio  a convencion desconocida #{convencion_final}"
         return
       end
       ejecuta_sql("ALTER TABLE msip_persona DROP CONSTRAINT persona_sexo_check",
-                  true);
+        true)
 
       # Orden importa por ahora soporta bien FMS -> MHS y MHS->FMS
-      if convencion_inicial=='FMS' && convencion_final == 'MHS'
+      if convencion_inicial == "FMS" && convencion_final == "MHS"
         ejecuta_sql("UPDATE msip_persona SET sexo='H'"\
-                   " WHERE sexo='M';", true)
+          " WHERE sexo='M';", true)
         ejecuta_sql("UPDATE msip_persona SET sexo='M'"\
-                   " WHERE sexo='F';", true)
+          " WHERE sexo='F';", true)
         ejecuta_sql("UPDATE msip_persona SET sexo='S'"\
-                   " WHERE sexo='S';", true)
-      elsif convencion_inicial=='MHS' && convencion_final == 'FMS'
+          " WHERE sexo='S';", true)
+      elsif convencion_inicial == "MHS" && convencion_final == "FMS"
         ejecuta_sql("UPDATE msip_persona SET sexo='F'"\
-                   " WHERE sexo='M';", true)
+          " WHERE sexo='M';", true)
         ejecuta_sql("UPDATE msip_persona SET sexo='M'"\
-                   " WHERE sexo='H';", true)
+          " WHERE sexo='H';", true)
         ejecuta_sql("UPDATE msip_persona SET sexo='S'"\
-                   " WHERE sexo='S';", true)
+          " WHERE sexo='S';", true)
       end
 
       ejecuta_sql("ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check "\
-                  " CHECK (LENGTH(sexo)=1 "\
-                  " AND '#{convencion_final}' LIKE '%' || sexo || '%');", true)
+        " CHECK (LENGTH(sexo)=1 "\
+        " AND '#{convencion_final}' LIKE '%' || sexo || '%');", true)
     end
     module_function :cambiar_convencion_sexo
-
 
     ##
     # Agrega una nueva tabla al listado $t
@@ -75,10 +71,10 @@ module Msip
     # @param nt [String] Nueva tabla por agregar si falta
     #
     # @return [String] cadena t completada para asegurar tabla
-    #/
+    # /
     def agregar_tabla(t, nt)
-      at = t.split(',').map(&:strip)
-      if (!at.include? nt.strip)
+      at = t.split(",").map(&:strip)
+      unless at.include?(nt.strip)
         at << nt
       end
       t = at.join(",")
@@ -99,11 +95,12 @@ module Msip
     # @param [String]  con   con
     #
     # @return string cadena w completada con nueva condición
-    def ampliar_where(w, n, v, opcmp = '=', con='AND')
-      if (!v || v === '' || $v === ' ') 
+    def ampliar_where(w, n, v, opcmp = "=", con = "AND")
+      if !v || v === "" || $v === " "
         return
       end
-      if (w != "") 
+
+      if w != ""
         w += " #{con}"
       end
       w += " " + n + opcmp + Sivel2Gen::Caso.connection.quote(v)
@@ -113,7 +110,7 @@ module Msip
     module_function :consulta_and
 
     ##
-    # Como la función anterior sólo que el valor no lo pone entre 
+    # Como la función anterior sólo que el valor no lo pone entre
     # apostrofes y supone que ya viene escapado el valor $v
     #
     # @param w [String]     cadena con WHERE que se completa
@@ -123,9 +120,9 @@ module Msip
     # @param con [String]   conector
     #
     # @return [String] cadena w completada con nueva condición
-    #/
-    def ampliar_where_sinap(w, n, v, opcmp = '=', con = "AND")
-      if (w != "") 
+    # /
+    def ampliar_where_sinap(w, n, v, opcmp = "=", con = "AND")
+      if w != ""
         w += " " + con
       end
       w += " " + n + opcmp + v
@@ -134,7 +131,6 @@ module Msip
 
     alias_method :consulta_and_sinap, :ampliar_where_sinap
     module_function :consulta_and_sinap
-
 
     # Escapa la cadena c para usarla en consulta SQL
     def escapar(c)
@@ -146,29 +142,29 @@ module Msip
     module_function :cadena_escapa
 
     # Escapa el parámetro p (supone que es usable la variable global params)
-    def escapar_param(params, p, poromision = '')
-      if (p.is_a? String) || (p.is_a? Symbol) then
-        params[p] ? escapar(params[p]) : ''
-      elsif (p.is_a? Array) && p.length == 1 then
-        params[p[0]] ? espacar_cadena(params[p[0]]) : ''
-      elsif (p.is_a? Array) && p.length > 1 && params[p[0]] then
+    def escapar_param(params, p, poromision = "")
+      if p.is_a?(String) || p.is_a?(Symbol)
+        params[p] ? escapar(params[p]) : ""
+      elsif p.is_a?(Array) && p.length == 1
+        params[p[0]] ? espacar_cadena(params[p[0]]) : ""
+      elsif p.is_a?(Array) && p.length > 1 && params[p[0]]
         n = params[p[0]]
         i = 1
-        while i < (p.length - 2) do
-          if n[p[i]] then
+        while i < (p.length - 2)
+          if n[p[i]]
             n = n[p[i]]
           else
-            return ''
+            return ""
           end
           i += 1
         end
-        if n[p[i]] then
-          return escapar(n[p[i]])
+        if n[p[i]]
+          escapar(n[p[i]])
         else
-          return poromision
+          poromision
         end
       else
-        return poromision
+        poromision
       end
     end
     module_function :escapar_param
@@ -180,30 +176,31 @@ module Msip
     # e.g MORALES desapareció de DIVIPOLA 2018 y volvió a aprecer en
     # DIVIPOLA 2020
     def rehabilita_centropoblado(
-      id, municipio_id, id_clalocal, nombre, observacion, fechacreacion)
+      id, municipio_id, id_clalocal, nombre, observacion, fechacreacion
+    )
 
-      #byebug
+      # byebug
       if Msip::Clase.where(id: id).count > 0
         c = Msip::Clase.find(id)
-        if c.id_municipio != municipio_id || c.id_clalocal != id_clalocal || 
+        if c.id_municipio != municipio_id || c.id_clalocal != id_clalocal ||
             c.nombre != nombre
           puts "Se espera que centro poblado #{id} fuera #{nombre} "\
             " en municipio #{municipio_id} con id_clalocal #{id_clalocal}"
-          exit 1
+          exit(1)
         end
         c.fechadeshabilitacion = nil
-        c.observaciones << ((c.observaciones.to_s == '' ? '' : '. ') + observacion)
+        c.observaciones << ((c.observaciones.to_s == "" ? "" : ". ") + observacion)
         c.save!
       else
         c = Msip::Clase.new(
-          id: id, 
+          id: id,
           id_municipio: municipio_id,
           id_clalocal: id_clalocal,
           nombre: nombre,
           observaciones: observacion,
           fechacreacion: fechacreacion,
           created_at: fechacreacion,
-          updated_at: fechacreacion
+          updated_at: fechacreacion,
         )
       end
     end
@@ -214,8 +211,8 @@ module Msip
       c = "SELECT EXISTS("\
         "SELECT * FROM pg_proc WHERE proname = '#{f}'"\
         ");"
-      r=execute(c)
-      return r[0]['exists']
+      r = execute(c)
+      r[0]["exists"]
     end
     module_function :existe_función_pg?
 
@@ -227,14 +224,13 @@ module Msip
     end
     module_function :renombrar_función_pg
 
-
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
       c = "SELECT EXISTS("\
         "SELECT * FROM pg_constraint WHERE conname = '#{r}'"\
         ");"
-      r=execute(c)
-      return r[0]['exists']
+      r = execute(c)
+      r[0]["exists"]
     end
     module_function :existe_restricción_pg?
 
@@ -244,7 +240,7 @@ module Msip
     # @param nomfin Nombre final
     def renombrar_restricción_pg(tabla, nomini, nomfin)
       execute("ALTER TABLE #{tabla} "\
-              "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
+        "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
     end
     module_function :renombrar_restricción_pg
 
@@ -263,7 +259,5 @@ module Msip
       execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
     end
     module_function :renombrar_vistamat_pg
-
-
   end
 end

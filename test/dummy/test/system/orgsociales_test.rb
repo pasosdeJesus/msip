@@ -1,7 +1,6 @@
 require "application_system_test_case"
 
 class SectoresorgsocialTest < ApplicationSystemTestCase
-
   def quitar_chosen
     execute_script("$('.chosen-select').removeAttr('style')")
     execute_script("$('.chosen-container').remove()")
@@ -9,72 +8,80 @@ class SectoresorgsocialTest < ApplicationSystemTestCase
   end
 
   test "Agregar buscar y eliminar organizaciones sociales" do
+    Msip::CapybaraHelper.iniciar_sesion(self, root_path, "msip", "msip")
 
-    Msip::CapybaraHelper.iniciar_sesion(self, root_path, 'msip', 'msip')
+    click_link "Administrar"
+    click_link "Tablas básicas"
+    click_link "Sectores de organizaciones sociales"
 
-    click_link 'Administrar'
-    click_link 'Tablas básicas'
-    click_link 'Sectores de organizaciones sociales'
-    assert_content 'Sectores de organizaciones sociales'
-    click_link 'Nuevo'
-    fill_in 'Nombre', with: 'INDÍGENAS'
-    fill_in 'Observaciones', with: 'Trabajo con indígenas'
-    find_button('Crear').click
-    assert_content 'Msip::Sectororgsocial creado.'
+    assert_content "Sectores de organizaciones sociales"
+    click_link "Nuevo"
+    fill_in "Nombre", with: "INDÍGENAS"
+    fill_in "Observaciones", with: "Trabajo con indígenas"
+    find_button("Crear").click
 
-    click_link 'Organizaciones sociales'
-    click_link 'Nueva'
-    fill_in 'Nombre', with: 'ACIN'
-    fill_in 'Anotaciones', with: 'Organización de indígenas'
+    assert_content "Msip::Sectororgsocial creado."
+
+    click_link "Organizaciones sociales"
+    click_link "Nueva"
+    fill_in "Nombre", with: "ACIN"
+    fill_in "Anotaciones", with: "Organización de indígenas"
     # Quitamos chosen para facilitarle a capybara elegir de cuadro de selección
     quitar_chosen
-    select 'INDÍGENAS', from: 'Sector(es)'
-    find_button('Crear').click
-    assert_content 'Msip::Orgsocial creada.'
-    
-    click_link 'Editar'
-    click_link 'Añadir contacto'
-    find(:id, /persona_attributes_nombres$/).fill_in with: 'Juan'
-    find(:id, /persona_attributes_apellidos$/).fill_in with: 'Pérez'
-    find(:id, /persona_attributes_sexo$/).select 'M'
-    find_button('Actualizar').click
-    assert_content 'Msip::Orgsocial actualizada.'
+    select "INDÍGENAS", from: "Sector(es)"
+    find_button("Crear").click
 
-    click_link 'Organizaciones sociales'
-    assert_content 'Organizaciones sociales: 1'
-    click_link 'Editar'
-    if has_css?('.search-choice-close') then
+    assert_content "Msip::Orgsocial creada."
+
+    click_link "Editar"
+    click_link "Añadir contacto"
+    find(:id, /persona_attributes_nombres$/).fill_in(with: "Juan")
+    find(:id, /persona_attributes_apellidos$/).fill_in(with: "Pérez")
+    find(:id, /persona_attributes_sexo$/).select("M")
+    find_button("Actualizar").click
+
+    assert_content "Msip::Orgsocial actualizada."
+
+    click_link "Organizaciones sociales"
+
+    assert_content "Organizaciones sociales: 1"
+    click_link "Editar"
+    if has_css?(".search-choice-close")
       # Chosen cargado y operando
-      within '.orgsocial_sectororgsocial' do
-        find('.search-choice-close').click
+      within ".orgsocial_sectororgsocial" do
+        find(".search-choice-close").click
       end
-    else 
+    else
       # Chosen no operando aún(?)
-      unselect 'INDÍGENAS', from: 'Sector(es)'
+      unselect "INDÍGENAS", from: "Sector(es)"
     end
-    click_link 'Eliminar'
-    find_button('Actualizar').click
-    assert_content 'Msip::Orgsocial actualizada.'
+    click_link "Eliminar"
+    find_button("Actualizar").click
 
-    click_link 'Organizaciones sociales'
-    assert_content 'Organizaciones sociales: 1'
+    assert_content "Msip::Orgsocial actualizada."
+
+    click_link "Organizaciones sociales"
+
+    assert_content "Organizaciones sociales: 1"
     accept_confirm do
-      click_link 'Eliminar'
+      click_link "Eliminar"
     end
-    assert_content 'Msip::Orgsocial eliminada.'
 
-    click_link 'Administrar'
-    click_link 'Tablas básicas'
-    click_link 'Sectores de organizaciones sociales'
-    fill_in 'filtro_busnombre', with: 'INDÍGENAS'
-    assert_content 'Sectores de organizaciones sociales: 1'
-    find_button('Filtrar').click
-    assert_content 'Sectores de organizaciones sociales: 1'
+    assert_content "Msip::Orgsocial eliminada."
+
+    click_link "Administrar"
+    click_link "Tablas básicas"
+    click_link "Sectores de organizaciones sociales"
+    fill_in "filtro_busnombre", with: "INDÍGENAS"
+
+    assert_content "Sectores de organizaciones sociales: 1"
+    find_button("Filtrar").click
+
+    assert_content "Sectores de organizaciones sociales: 1"
     accept_confirm do
-      click_link 'Eliminar'
+      click_link "Eliminar"
     end
-    assert_content 'Msip::Sectororgsocial eliminado.'
 
+    assert_content "Msip::Sectororgsocial eliminado."
   end
-
 end

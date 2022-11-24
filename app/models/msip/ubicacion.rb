@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/ubicacion'
+require "msip/concerns/models/ubicacion"
 
 module Msip
   class Ubicacion < ActiveRecord::Base

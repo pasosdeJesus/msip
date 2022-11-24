@@ -1,4 +1,3 @@
-
 module Msip
   module Concerns
     module Models
@@ -7,13 +6,11 @@ module Msip
 
         include Msip::Basica
         included do
-          self.table_name = 'msip_tdocumento'
+          self.table_name = "msip_tdocumento"
           validates :sigla, length: { maximum: 100 }
           validates :formatoregex, length: { maximum: 500 }
         end
-
       end
     end
   end
 end
-

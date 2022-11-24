@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/perfilorgsocial'
+require "msip/concerns/models/perfilorgsocial"
 
 module Msip
   class Perfilorgsocial < ActiveRecord::Base

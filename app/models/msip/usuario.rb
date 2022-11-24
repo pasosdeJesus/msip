@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/usuario'
+require "msip/concerns/models/usuario"
 
 module Msip
   class Usuario < ActiveRecord::Base

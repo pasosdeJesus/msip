@@ -2,13 +2,12 @@ module Msip
   module Concerns
     module Controllers
       module OficinasController
-
         extend ActiveSupport::Concern
 
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-          def clase 
+          def clase
             "Msip::Oficina"
           end
 
@@ -19,9 +18,7 @@ module Msip
           def oficina_params
             params.require(:oficina).permit(*atributos_form)
           end
-
         end # do
-
       end
     end
   end

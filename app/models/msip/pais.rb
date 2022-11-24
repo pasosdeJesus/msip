@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/pais'
+require "msip/concerns/models/pais"
 
 module Msip
   class Pais < ActiveRecord::Base

@@ -1,13 +1,11 @@
-
 module Msip
   module TemasHelper
-
     def tema_usuario(current_usuario)
-      if !current_usuario || !current_usuario.tema_id
+      t = if !current_usuario || !current_usuario.tema_id
         if Msip::Tema.where(id: 1).count == 1
-          t = Msip::Tema.find(1)
+          Msip::Tema.find(1)
         else
-          t = Msip::Tema.new(
+          Msip::Tema.new(
             nav_ini: Msip.colorom_nav_ini,
             nav_fin: Msip.colorom_nav_fin,
             nav_fuente: Msip.colorom_nav_fuente,
@@ -32,11 +30,10 @@ module Msip
           )
         end
       else
-        t = current_usuario.tema
+        current_usuario.tema
       end
-      return t
-    end 
+      t
+    end
     module_function :tema_usuario
-
   end
 end

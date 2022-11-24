@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/municipio'
+require "msip/concerns/models/municipio"
 
 module Msip
   class Municipio < ActiveRecord::Base

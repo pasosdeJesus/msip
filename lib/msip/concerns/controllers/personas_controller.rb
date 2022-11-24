@@ -1,9 +1,7 @@
-
 module Msip
   module Concerns
     module Controllers
       module PersonasController
-
         extend ActiveSupport::Concern
 
         included do
@@ -17,29 +15,28 @@ module Msip
           end
 
           def genclase
-            return 'F'
+            "F"
           end
 
           def atributos_show_msip
-            [ :id, 
-              :nombres,
-              :apellidos,
-              :anionac,
-              :mesnac,
-              :dianac,
-              :sexo,
-              :pais,
-              :departamento,
-              :municipio,
-              :clase,
-              :nacionalde,
-              :tdocumento_id,
-              :numerodocumento
-            ]
+            [:id,
+             :nombres,
+             :apellidos,
+             :anionac,
+             :mesnac,
+             :dianac,
+             :sexo,
+             :pais,
+             :departamento,
+             :municipio,
+             :clase,
+             :nacionalde,
+             :tdocumento_id,
+             :numerodocumento,]
           end
 
           def atributos_show
-            self.atributos_show_msip
+            atributos_show_msip
           end
 
           def atributos_index
@@ -47,22 +44,22 @@ module Msip
           end
 
           def atributos_form
-            a = atributos_show 
-            return a
+            a = atributos_show
+            a
           end
 
           def atributos_html_encabezado_formulario
-            { 'data-controller': 'msip--sindocaut' }
+            { "data-controller": "msip--sindocaut" }
           end
 
           def index_msip(c = nil)
-            if c == nil
+            if c.nil?
               c = Msip::Persona.all
             end
             if params[:term]
               # usado en autocompletación limitado a 10
               term = Msip::Ubicacion.connection.quote_string(params[:term])
-              consNomvic = term.downcase.strip #sin_tildes
+              consNomvic = term.downcase.strip # sin_tildes
               consNomvic.gsub!(/ +/, ":* & ")
               if consNomvic.length > 0
                 consNomvic += ":*"
@@ -70,30 +67,30 @@ module Msip
               where = " to_tsvector('spanish', unaccent(persona.nombres) " +
                 " || ' ' || unaccent(persona.apellidos) " +
                 " || ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " +
-                "to_tsquery('spanish', '#{consNomvic}')";
+                "to_tsquery('spanish', '#{consNomvic}')"
 
               partes = [
-                'nombres',
-                'apellidos',
-                'COALESCE(numerodocumento::TEXT, \'\')'
+                "nombres",
+                "apellidos",
+                "COALESCE(numerodocumento::TEXT, '')",
               ]
-              s = "";
-              l = " persona.id ";
-              seps = "";
-              sepl = " || ';' || ";
+              s = ""
+              l = " persona.id "
+              seps = ""
+              sepl = " || ';' || "
               partes.each do |p|
-                s += seps + p;
-                l += sepl + "char_length(#{p})";
-                seps = " || ' ' || ";
+                s += seps + p
+                l += sepl + "char_length(#{p})"
+                seps = " || ' ' || "
               end
-              qstring = "SELECT TRIM(#{s}) AS value, #{l} AS id 
+              qstring = "SELECT TRIM(#{s}) AS value, #{l} AS id
               FROM public.msip_persona AS persona
-              WHERE #{where} ORDER BY 1 LIMIT 10";
+              WHERE #{where} ORDER BY 1 LIMIT 10"
 
-              r = ActiveRecord::Base.connection.select_all qstring
+              r = ActiveRecord::Base.connection.select_all(qstring)
               respond_to do |format|
-                format.json { render :json, inline: r.to_json }
-                format.html { render inline: 'No responde con parametro term' }
+                format.json { render(:json, inline: r.to_json) }
+                format.html { render(inline: "No responde con parametro term") }
               end
             else
               super(c)
@@ -110,33 +107,37 @@ module Msip
 
           # API
           def datos
-            return if !params[:id_persona] 
+            return unless params[:id_persona]
+
             @persona = Msip::Persona.find(params[:id_persona].to_i)
-            authorize! :read, @persona
-            oj = { 
+            authorize!(:read, @persona)
+            oj = {
               id: @persona.id,
               nombres: @persona.nombres,
               apellidos: @persona.apellidos,
               sexo: @persona.sexo,
-              tdocumento: @persona.tdocumento ? @persona.tdocumento.sigla :
-               '',
+              tdocumento: if @persona.tdocumento
+                            @persona.tdocumento.sigla
+                          else
+                            ""
+                          end,
               numerodocumento: @persona.numerodocumento,
               dianac: @persona.dianac,
               mesnac: @persona.mesnac,
-              anionac: @persona.anionac 
+              anionac: @persona.anionac,
             }
             ## Si está autocompletando una persona de orgsocial persona
             # entonces autcompletar cargo y correo
             if params[:ac_orgsocial_persona]
               orgsocial_persona = Msip::OrgsocialPersona.find_by(persona_id: @persona.id)
               if orgsocial_persona
-                oj[:cargo] = orgsocial_persona.cargo 
-                oj[:correo] = orgsocial_persona.cargo 
+                oj[:cargo] = orgsocial_persona.cargo
+                oj[:correo] = orgsocial_persona.cargo
               end
             end
             respond_to do |format|
-              format.json { render json: oj, status: :ok }
-              format.html { render inilne: oj.to_s, status: :ok }
+              format.json { render(json: oj, status: :ok) }
+              format.html { render(inilne: oj.to_s, status: :ok) }
             end
           end
 
@@ -144,21 +145,21 @@ module Msip
           # para una persona en base
           def identificacionsd
             pid = nil
-            if params && params[:persona_id] && params[:persona_id] != ''
+            if params && params[:persona_id] && params[:persona_id] != ""
               pid = params[:persona_id].to_i
             end
-            ndoc = Msip::PersonasController.
-              nueva_persona_sd_posible_numerodocumento(pid)
+            ndoc = Msip::PersonasController
+              .nueva_persona_sd_posible_numerodocumento(pid)
             puts "OJO ndoc=#{ndoc}"
             respond_to do |format|
-              format.json {
-                render inline: ndoc
+              format.json do
+                render(inline: ndoc)
                 return
-              }
-              format.html {
-                render inline: ndoc
+              end
+              format.html do
+                render(inline: ndoc)
                 return
-              }
+              end
             end
           end
 
@@ -167,49 +168,50 @@ module Msip
           def self.mejora_nuevo_numerodocumento_sindoc(persona_id)
             numerodocumento = persona_id
             while Msip::Persona.where(
-                tdocumento_id: 11, numerodocumento: numerodocumento
-            ).where('id<>?', persona_id).count > 0 do
+              tdocumento_id: 11, numerodocumento: numerodocumento,
+            ).where("id<>?", persona_id).count > 0
               numerodocumento = numerodocumento.to_s
-              if numerodocumento.length > 0 && numerodocumento[-1] >= 'A' && 
-                  numerodocumento[-1] < 'Z'
+              if numerodocumento.length > 0 && numerodocumento[-1] >= "A" &&
+                  numerodocumento[-1] < "Z"
                 ul = numerodocumento[-1].ord + 1
                 numerodocumento = numerodocumento[0..-2] + ul.chr(Encoding::UTF_8)
               else
-                numerodocumento += 'A'
+                numerodocumento += "A"
               end
             end
-            return numerodocumento
-            end
+            numerodocumento
+          end
 
-            def self.nueva_persona_sd_posible_numerodocumento(persona_id)
-              if persona_id.nil?
-                ruid = Msip::Persona.connection.execute <<-SQL
+          def self.nueva_persona_sd_posible_numerodocumento(persona_id)
+            if persona_id.nil?
+              ruid = Msip::Persona.connection.execute(<<-SQL)
                   SELECT last_value FROM msip_persona_id_seq;
-                SQL
-                persona_id = ruid[0]['last_value'] + 1
-              end
-              numerodocumento = self.mejora_nuevo_numerodocumento_sindoc(
-                persona_id)
-              return numerodocumento
+              SQL
+              persona_id = ruid[0]["last_value"] + 1
             end
+            numerodocumento = mejora_nuevo_numerodocumento_sindoc(
+              persona_id,
+            )
+            numerodocumento
+          end
 
-            def self.nueva_persona_valores_predeterminados(menserror)
-              numerodocumento = self.nueva_persona_sd_posible_numerodocumento(
-                nil)
-              persona = Msip::Persona.create(
-                nombres: 'N',
-                apellidos: 'N',
-                sexo: 'S',
-                tdocumento_id: 11, # SIN DOCUMENTO
-                numerodocumento: numerodocumento
-              )
-              if !persona.save(validate: false)
-                menserror << 'No pudo crear persona'
-                return nil
-              end
-              return persona
+          def self.nueva_persona_valores_predeterminados(menserror)
+            numerodocumento = nueva_persona_sd_posible_numerodocumento(
+              nil,
+            )
+            persona = Msip::Persona.create(
+              nombres: "N",
+              apellidos: "N",
+              sexo: "S",
+              tdocumento_id: 11, # SIN DOCUMENTO
+              numerodocumento: numerodocumento,
+            )
+            unless persona.save(validate: false)
+              menserror << "No pudo crear persona"
+              return nil
             end
-
+            persona
+          end
 
           def set_persona
             @persona = Msip::Persona.find(params[:id])
@@ -222,7 +224,7 @@ module Msip
               :id_departamento,
               :id_municipio,
               :id_clase,
-              :tdocumento_id
+              :tdocumento_id,
             ]
           end
 
@@ -233,13 +235,10 @@ module Msip
           def persona_params
             params.require(:persona).permit(lista_params)
           end
-
-
         end # include
 
         class_methods do
         end
-
       end
     end
   end

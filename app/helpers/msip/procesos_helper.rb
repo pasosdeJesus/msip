@@ -1,7 +1,5 @@
-
 module Msip
   module ProcesosHelper
-
     # Retorna lista de procesos que corren en OpenBSD/adJ
     # Cada entrada es un registro con campos:
     #   pid: # de proceso
@@ -16,8 +14,8 @@ module Msip
     #   command: orden y argumentos
     def procesos_OpenBSD
       rproc = []
-      p=`ps axwwj`
-      l=p.split("\n")
+      p = %x(ps axwwj)
+      l = p.split("\n")
       l[1..-1].each do |p|
         pp = p.split(" ")
         rproc.push({
@@ -30,12 +28,11 @@ module Msip
           stat: pp[6],
           tt: pp[7],
           time: pp[8],
-          command: pp[9..-1].join(' ')
+          command: pp[9..-1].join(" "),
         })
       end
-      return rproc
-    end 
+      rproc
+    end
     module_function :procesos_OpenBSD
-
   end
 end

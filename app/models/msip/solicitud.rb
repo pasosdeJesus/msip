@@ -1,4 +1,4 @@
-require 'msip/concerns/models/solicitud'
+require "msip/concerns/models/solicitud"
 
 module Msip
   class Solicitud < ActiveRecord::Base

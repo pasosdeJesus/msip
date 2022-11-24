@@ -2,10 +2,9 @@ require "devise"
 require "msip/engine"
 
 module Msip
-
   # Carga un archivo con semillas SQL de un motor, ruta o app
   # @param conexion [Object] Tipicamente ActiveRecord::Base.connection()
-  # @param motor [String] motor del cual cargar, o cadena con ruta 
+  # @param motor [String] motor del cual cargar, o cadena con ruta
   #   o nil para que sea de aplicación
   # @param tipoarchivo [String] 'cambios' o 'datos' para indicar si se carga
   #     cambios-basica.sql o datos-basica.sql. El primero debería tener cambios
@@ -15,16 +14,17 @@ module Msip
   #
   # @return [void] Si el archivo existe lo ejecuta
   def self.carga_semillas_sql(conexion, motor, tipoarchivo, patexcluye = nil)
-    if (tipoarchivo.to_s != 'datos' && tipoarchivo.to_s != 'cambios')
-      raise 'Las semillas solo pueden ser cambios o datos'
+    if tipoarchivo.to_s != "datos" && tipoarchivo.to_s != "cambios"
+      raise "Las semillas solo pueden ser cambios o datos"
     end
-    if motor 
+
+    if motor
       if Gem.loaded_specs[motor.to_s]
-        motor = Gem.loaded_specs[motor.to_s].full_gem_path + "/" 
-      else  # Ruta
+        motor = Gem.loaded_specs[motor.to_s].full_gem_path + "/"
+      else # Ruta
         motor = motor.to_s + "/"
-        if !File.exists?("#{motor}db/#{tipoarchivo.to_s}-basicas.sql") && 
-            motor == '../../' && ENV['RAILS_ENV'] == 'test'
+        if !File.exist?("#{motor}db/#{tipoarchivo}-basicas.sql") &&
+            motor == "../../" && ENV["RAILS_ENV"] == "test"
           # En motores se ejecutan pruebas desde directorio del motor
           # y no desde test/dummy
           motor = ""
@@ -33,10 +33,10 @@ module Msip
     else
       motor = "" # Aplicacion
     end
-    n = "#{motor}db/#{tipoarchivo.to_s}-basicas.sql"
-    if File.exist?(n) then
+    n = "#{motor}db/#{tipoarchivo}-basicas.sql"
+    if File.exist?(n)
       l = File.readlines(n)
-      if (patexcluye) 
+      if patexcluye
         l = l.select { |u| !u[patexcluye] }
       end
       conexion.execute(l.join("\n"))
@@ -45,33 +45,33 @@ module Msip
 
   # PostgreSQL
 
-  # Determina si existe una secuencia 
-  # Considerar https://rubygems.org/gems/activerecord-postgresql-extensions 
+  # Determina si existe una secuencia
+  # Considerar https://rubygems.org/gems/activerecord-postgresql-extensions
   # (aunque parece no proveer algo como primary_key_exists?)
   # http://stackoverflow.com/questions/11905868/Check-if-sequence-exists-in-Postgres-plpgsql/11919600#11919600
   def self.existe_secuencia?(conexion, nombre)
-    cs = conexion.select_all "SELECT c.relkind
+    cs = conexion.select_all("SELECT c.relkind
       FROM   pg_catalog.pg_namespace n
       JOIN   pg_catalog.pg_class c ON c.relnamespace = n.oid
       WHERE  n.nspname = current_schema
-      AND c.relname = '#{nombre}' 
-      AND c.relkind = 'S'"
+      AND c.relname = '#{nombre}'
+      AND c.relkind = 'S'")
     return true if cs.count > 0
-    return false
+
+    false
   end
 
   # Renombra una secuncia
   # @return bool true sii puede renombrar
   def self.renombra_secuencia(conexion, anterior, nuevo)
-    if Msip::existe_secuencia?(conexion, anterior) && 
-        !Msip::existe_secuencia?(conexion, nuevo)
-      conexion.execute <<-SQL
+    if Msip.existe_secuencia?(conexion, anterior) &&
+        !Msip.existe_secuencia?(conexion, nuevo)
+      conexion.execute(<<-SQL)
         ALTER SEQUENCE #{anterior}
           RENAME TO #{nuevo};
       SQL
       return true
     end
-    return false
+    false
   end
-
 end

@@ -1,4 +1,3 @@
-
 module Msip
   module Concerns
     module Models
@@ -6,100 +5,88 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-
-          include Msip::Modelo 
+          include Msip::Modelo
           include Msip::Localizacion
 
+          self.table_name = "msip_ubicacionpre"
 
-          self.table_name = 'msip_ubicacionpre'
-
-          belongs_to :pais, class_name: "Msip::Pais",
-            foreign_key: "pais_id", validate: true, optional: true
-          belongs_to :departamento, class_name: "Msip::Departamento",
-            foreign_key: "departamento_id", validate: true, optional: true
-          belongs_to :municipio, class_name: "Msip::Municipio",
-            foreign_key: "municipio_id", validate: true, optional: true
-          belongs_to :clase, class_name: "Msip::Clase",
-            foreign_key: "clase_id", validate: true, optional: true
-          belongs_to :tsitio, class_name: "Msip::Tsitio",
-            foreign_key: "tsitio_id", validate: true, optional: true
+          belongs_to :pais, class_name: "Msip::Pais", validate: true, optional: true
+          belongs_to :departamento, class_name: "Msip::Departamento", validate: true, optional: true
+          belongs_to :municipio, class_name: "Msip::Municipio", validate: true, optional: true
+          belongs_to :clase, class_name: "Msip::Clase", validate: true, optional: true
+          belongs_to :tsitio, class_name: "Msip::Tsitio", validate: true, optional: true
 
           flotante_localizado :latitud
           flotante_localizado :longitud
 
           validates :nombre, uniqueness: true, presence: true,
             length: { maximum: 2000 }
-          validates :lugar, length: { maximum: 500 } 
-          validates :sitio, length: { maximum: 500 } 
-
+          validates :lugar, length: { maximum: 500 }
+          validates :sitio, length: { maximum: 500 }
 
           def poner_nombre_estandar
-            self.nombre, self.nombre_sin_pais = Msip::Ubicacionpre::nomenclatura(
-              self.pais.nombre, 
-              self.departamento ? self.departamento.nombre : '',
-              self.municipio ? self.municipio.nombre : '',
-              self.clase ? self.clase.nombre : '',
-              self.lugar, self.sitio)
-            return self.save
+            self.nombre, self.nombre_sin_pais = Msip::Ubicacionpre.nomenclatura(
+              pais.nombre,
+              departamento ? departamento.nombre : "",
+              municipio ? municipio.nombre : "",
+              clase ? clase.nombre : "",
+              lugar, sitio
+            )
+            save
           end
-
         end # include
 
-
-
         class_methods do
-
           def nomenclatura(pais, departamento, municipio,
-                           clase, lugar, sitio)
-            if pais.to_s.strip == ''
+            clase, lugar, sitio)
+            if pais.to_s.strip == ""
               nombre = nil
               nombre_sinp = nil
-            elsif departamento.to_s.strip == ''
+            elsif departamento.to_s.strip == ""
               nombre = pais.to_s
               nombre_sinp = nil
-            elsif municipio.to_s == ''
-              nombre = departamento.to_s.strip + ' / ' +
+            elsif municipio.to_s == ""
+              nombre = departamento.to_s.strip + " / " +
                 pais.to_s
               nombre_sinp = departamento.to_s
-            elsif lugar.to_s.strip == ''
-              nombre = (clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-                municipio.to_s.strip + ' / ' +
-                departamento.to_s.strip + ' / ' +
+            elsif lugar.to_s.strip == ""
+              nombre = (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s.strip + " / " +
                 pais.to_s
               nombre_sinp = (
-                clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-               municipio.to_s.strip + ' / ' +
-               departamento.to_s
-            elsif sitio.to_s.strip == ''
-              nombre = lugar.to_s + ' / ' +
-                (clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-                municipio.to_s.strip + ' / ' +
-                departamento.to_s.strip + ' / ' +
+                clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s
+            elsif sitio.to_s.strip == ""
+              nombre = lugar.to_s + " / " +
+                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s.strip + " / " +
                 pais.to_s
-              nombre_sinp = lugar.to_s + ' / ' +
-                (clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-                municipio.to_s.strip + ' / ' +
-                departamento.to_s 
+              nombre_sinp = lugar.to_s + " / " +
+                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s
             else
-              nombre = sitio.to_s + ' / ' +
-                lugar.to_s + ' / ' +
-                (clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-                municipio.to_s.strip + ' / ' +
-                departamento.to_s.strip + ' / ' +
+              nombre = sitio.to_s + " / " +
+                lugar.to_s + " / " +
+                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s.strip + " / " +
                 pais.to_s
-              nombre_sinp = sitio.to_s + ' / ' +
-                lugar.to_s + ' / ' +
-                (clase.to_s.strip == '' ? '' : clase.to_s.strip + ' / ') +
-                municipio.to_s.strip + ' / ' +
-                departamento.to_s 
+              nombre_sinp = sitio.to_s + " / " +
+                lugar.to_s + " / " +
+                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                municipio.to_s.strip + " / " +
+                departamento.to_s
             end
 
-            return [nombre, nombre_sinp]
+            [nombre, nombre_sinp]
           end
 
-
           # A partir de datos como para ubicacinpre los valida
-          # y crea una ubicacionpre y retorna su id o retorna id de una 
+          # y crea una ubicacionpre y retorna su id o retorna id de una
           # ubicación existente hasta donde logre validar.
           # Si usa_latlon es falso y la ubicación con lugar
           # es válida ignora las que recibe y pone unas
@@ -107,21 +94,22 @@ module Msip
           # La latitud y longitud que recibe no debe estar localizadas
           # Retorna id de ubicación que encuentra o que crea o nil si tiene problema
           def buscar_o_agregar(pais_id, departamento_id, municipio_id,
-                                    clase_id, lugar, sitio, tsitio_id,
-                                    latitud, longitud, 
-                                    usa_latlon = true)
+            clase_id, lugar, sitio, tsitio_id,
+            latitud, longitud,
+            usa_latlon = true)
 
             longitud = usa_latlon ? longitud.to_f : 0.0
 
             if !pais_id || Msip::Pais.where(id: pais_id.to_i).count == 0
-              return nil 
+              return nil
             end
+
             opais = Msip::Pais.find(pais_id.to_i)
-            # Aquí debería chequearse que la latitud y longitud estén 
+            # Aquí debería chequearse que la latitud y longitud estén
             # dentro del país
-            if (latitud.to_f == 0.0 && 
-                longitud.to_f == 0.0) || 
-               !usa_latlon
+            if (latitud.to_f == 0.0 &&
+                longitud.to_f == 0.0) ||
+                !usa_latlon
               latitud = opais.latitud
               longitud = opais.longitud
             end
@@ -133,37 +121,37 @@ module Msip
               clase_id: nil,
               lugar: nil,
               sitio: nil,
-              tsitio_id: nil # SIN INFORMACIÓN
+              tsitio_id: nil, # SIN INFORMACIÓN
             }
-            if !departamento_id || 
+            if !departamento_id ||
                 Msip::Departamento.where(id: departamento_id.to_i,
-                                        id_pais: opais.id).count == 0
+                  id_pais: opais.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts 'Problema, no se encontró ubicación esperada ' + w.to_s
+                puts "Problema, no se encontró ubicación esperada " + w.to_s
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id # SIN INFORMACIÓN
             end
             odepartamento = Msip::Departamento.find(departamento_id.to_i)
-            if (latitud.to_f == opais.latitud && 
-                longitud.to_f == opais.longitud) || 
+            if (latitud.to_f == opais.latitud &&
+                longitud.to_f == opais.longitud) ||
                 !usa_latlon
               latitud = odepartamento.latitud
               longitud = odepartamento.longitud
             end
             w[:departamento_id] = odepartamento.id
 
-            if !municipio_id || 
+            if !municipio_id ||
                 Msip::Municipio.where(id: municipio_id.to_i,
-                                     id_departamento: odepartamento.id).count == 0
+                  id_departamento: odepartamento.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts 'Problema, no se encontró ubicación esperada ' + w.to_s
+                puts "Problema, no se encontró ubicación esperada " + w.to_s
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
             end
             omunicipio = Msip::Municipio.find(municipio_id.to_i)
-            if (latitud == odepartamento.latitud && 
+            if (latitud == odepartamento.latitud &&
                 longitud == odepartamento.longitud) || !usa_latlon
               latitud = omunicipio.latitud
               longitud = omunicipio.longitud
@@ -173,19 +161,19 @@ module Msip
             # clase debe ser NULL para ubicaciones rurales
             if clase_id.to_i > 0 &&
                 Msip::Clase.where(id: clase_id.to_i,
-                                 id_municipio: omunicipio.id).count == 0
+                  id_municipio: omunicipio.id).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
-                puts 'Problema, no se encontró ubicación esperada ' + w.to_s
+                puts "Problema, no se encontró ubicación esperada " + w.to_s
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
             end
 
-            w[:clase_id] = nil  # Posiblemente Rural
+            w[:clase_id] = nil # Posiblemente Rural
             if clase_id.to_i > 0
               w[:clase_id] = clase_id.to_i # Urbana
               oclase = Msip::Clase.find(clase_id.to_i)
-              if (latitud == omunicipio.latitud && 
+              if (latitud == omunicipio.latitud &&
                   longitud == omunicipio.longitud &&
                   oclase.latitud && oclase.longitud) || !usa_latlon
                 latitud = oclase.latitud
@@ -193,16 +181,16 @@ module Msip
               end
             end
 
-            if lugar.to_s.strip == ''
+            if lugar.to_s.strip == ""
               if Msip::Ubicacionpre.where(w).count == 0
-                puts 'Problema, no se encontró ubicación esperada ' + w.to_s
+                puts "Problema, no se encontró ubicación esperada " + w.to_s
                 return nil
               end
               return Msip::Ubicacionpre.where(w).take.id
             end
 
-            # Latitud, longitud, tipo de sitio no modificables por usuario 
-            # para ubicaciones hasta centro poblado.  
+            # Latitud, longitud, tipo de sitio no modificables por usuario
+            # para ubicaciones hasta centro poblado.
             # En ubicaciones con lugar y/o sitio modificables por cualquier
             # usuario del sistema.
             # Al buscar lugar y sitio se ignora capitalización así como
@@ -215,15 +203,15 @@ module Msip
             # como lugar un centro poblado y en tal caso se retorna el centro
             # poblado
             if !w[:clase_id] && Msip::Clase.where(nombre: lugar.to_s.strip,
-                id_municipio: omunicipio.id).count == 1
+              id_municipio: omunicipio.id).count == 1
               oclase = Msip::Clase.where(nombre: lugar.to_s.strip,
-                                        id_municipio: omunicipio.id).first
+                id_municipio: omunicipio.id).first
               clase_id = w[:clase_id] = oclase.id
               if Msip::Ubicacionpre.where(w).count == 0
-                puts 'Problema, no se encontró ubicación esperada ' + w
+                puts "Problema, no se encontró ubicación esperada " + w
                 return nil
               end
-              if sitio.to_s.strip == ''
+              if sitio.to_s.strip == ""
                 puts "Ajustando ubicacion sin centro poblado, ni sitio pero con "\
                   "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', "\
                   "para que coincida con centro poblado del mismo nombre. "
@@ -242,22 +230,22 @@ module Msip
                   "para que el sitio sea lugar y lugar sea centro poblado "\
                   "necesitamos nombres únicos para ubicaciones/polígonos diferentes."
                 lugar = sitio.to_s.strip
-                sitio = ''
+                sitio = ""
               end
             end
             # Preparamos tsitio_id
             tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
-              puts 'Problema, no se encontró tsitio_id esperado ' + tsitio_id
+              puts "Problema, no se encontró tsitio_id esperado " + tsitio_id
               return nil
             end
 
-            if sitio.to_s.strip == ''
-              ubi = Msip::Ubicacionpre.where(w).
-                where('lugar ILIKE ?', lugar.strip.gsub(/  */, ' ')).
-                where("sitio IS NULL OR sitio=''")
-              #puts w
-              #puts ubi.to_sql
+            if sitio.to_s.strip == ""
+              ubi = Msip::Ubicacionpre.where(w)
+                .where("lugar ILIKE ?", lugar.strip.gsub(/  */, " "))
+                .where("sitio IS NULL OR sitio=''")
+              # puts w
+              # puts ubi.to_sql
               if ubi.count > 0
                 # modificando existente
                 ubi[0].tsitio_id = tsitio_id
@@ -271,12 +259,12 @@ module Msip
                 end
               end
               # Preparamos para añadir nuevo
-              w[:lugar] = lugar.strip.gsub(/  */, ' ')
-              w[:sitio] = ''
+              w[:lugar] = lugar.strip.gsub(/  */, " ")
+              w[:sitio] = ""
             else # Tiene sitio
-              ubi = Msip::Ubicacionpre.where(w).
-                where('lugar ILIKE ?', lugar.strip.gsub(/  */, ' ')).
-                where('sitio ILIKE ?', sitio.strip.gsub(/  */, ' '))
+              ubi = Msip::Ubicacionpre.where(w)
+                .where("lugar ILIKE ?", lugar.strip.gsub(/  */, " "))
+                .where("sitio ILIKE ?", sitio.strip.gsub(/  */, " "))
               if ubi.count > 0
                 # modificando existente
                 ubi[0].tsitio_id = tsitio_id
@@ -289,41 +277,38 @@ module Msip
                   return nil
                 end
               end
-              w[:lugar] = lugar.strip.gsub(/  */, ' ')
-              w[:sitio] = sitio.strip.gsub(/  */, ' ')
+              w[:lugar] = lugar.strip.gsub(/  */, " ")
+              w[:sitio] = sitio.strip.gsub(/  */, " ")
             end
-            # Intentamos añadir nuevo teniendo en cuenta que lugar y sitio 
+            # Intentamos añadir nuevo teniendo en cuenta que lugar y sitio
             # ya estan dilig.
             w[:tsitio_id] = tsitio_id
             w[:latitud] = latitud
             w[:longitud] = longitud
-            w[:nombre], w[:nombre_sin_pais] = Msip::Ubicacionpre::nomenclatura(
-              opais.nombre, 
+            w[:nombre], w[:nombre_sin_pais] = Msip::Ubicacionpre.nomenclatura(
+              opais.nombre,
               odepartamento.nombre,
               omunicipio.nombre,
-              oclase ? oclase.nombre : '',
+              oclase ? oclase.nombre : "",
               w[:lugar],
-              w[:sitio]
+              w[:sitio],
             )
-            if Msip::Ubicacionpre.where(nombre: w[:nombre]).count == 1 
+            if Msip::Ubicacionpre.where(nombre: w[:nombre]).count == 1
               puts "Problema, ya hay una ubicación con el nombre #{w[:nombre]}. "\
                 "Proveniente de #{w.inspect}. Se usará esa ignorando la "\
                 "informacińo recibida"
               return Msip::Ubicacionpre.where(nombre: w[:nombre]).first.id
             end
             nubi = Msip::Ubicacionpre.create!(w)
-            if !nubi
+            unless nubi
               puts "Problema creando ubi #{nubi}"
               return nil
             end
 
-            return nubi.id
+            nubi.id
           end
-
-
         end # class_methods
       end
     end
   end
 end
-

@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/clase'
+require "msip/concerns/models/clase"
 
 module Msip
   class Clase < ActiveRecord::Base

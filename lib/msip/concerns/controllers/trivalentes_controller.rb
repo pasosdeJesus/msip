@@ -2,17 +2,16 @@ module Msip
   module Concerns
     module Controllers
       module TrivalentesController
-
         extend ActiveSupport::Concern
 
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-          before_action :set_trivalente, 
+          before_action :set_trivalente,
             only: [:show, :edit, :update, :destroy]
-          load_and_authorize_resource  class: Msip::Trivalente
+          load_and_authorize_resource class: Msip::Trivalente
 
-          def clase 
+          def clase
             "Msip::Trivalente"
           end
 
@@ -22,26 +21,23 @@ module Msip
 
           def atributos_index
             [
-              :id, 
-              :nombre, 
-              :observaciones, 
-              :fechacreacion_localizada, 
-              :habilitado
+              :id,
+              :nombre,
+              :observaciones,
+              :fechacreacion_localizada,
+              :habilitado,
             ]
           end
 
           def genclase
-            'M'
+            "M"
           end
 
           def trivalente_params
             params.require(:trivalente).permit(*atributos_form)
           end
-
         end # included
-
       end
     end
   end
 end
-

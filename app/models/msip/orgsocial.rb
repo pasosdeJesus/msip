@@ -1,4 +1,4 @@
-require 'msip/concerns/models/orgsocial'
+require "msip/concerns/models/orgsocial"
 
 module Msip
   class Orgsocial < ActiveRecord::Base

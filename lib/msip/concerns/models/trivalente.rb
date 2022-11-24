@@ -1,4 +1,3 @@
-
 module Msip
   module Concerns
     module Models
@@ -8,10 +7,8 @@ module Msip
         included do
           include Msip::Basica
 
-          self.table_name = 'msip_trivalente'
+          self.table_name = "msip_trivalente"
         end # included
-
-
       end
     end
   end

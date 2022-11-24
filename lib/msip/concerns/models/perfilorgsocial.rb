@@ -1,4 +1,3 @@
-
 module Msip
   module Concerns
     module Models
@@ -6,14 +5,12 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-          include Msip::Modelo 
+          include Msip::Modelo
           include Msip::Localizacion
           include Msip::Basica
 
-          self.table_name = 'msip_perfilorgsocial'
-
+          self.table_name = "msip_perfilorgsocial"
         end # included
-
       end
     end
   end

@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/sectororgsocial'
+require "msip/concerns/models/sectororgsocial"
 
 module Msip
   class Sectororgsocial < ActiveRecord::Base

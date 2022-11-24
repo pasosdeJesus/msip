@@ -1,4 +1,4 @@
-require 'msip/concerns/controllers/tiposorg_controller'
+require "msip/concerns/controllers/tiposorg_controller"
 
 module Msip
   module Admin
@@ -7,7 +7,6 @@ module Msip
       load_and_authorize_resource class: Msip::Tipoorg
 
       include Msip::Concerns::Controllers::TiposorgController
-
     end
   end
 end

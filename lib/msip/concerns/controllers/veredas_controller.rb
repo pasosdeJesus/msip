@@ -4,7 +4,6 @@ module Msip
   module Concerns
     module Controllers
       module VeredasController
-
         extend ActiveSupport::Concern
 
         included do
@@ -19,8 +18,9 @@ module Msip
             if params[:municipio_id] && params[:municipio_id].to_i > 0
               idmun = params[:municipio_id].to_i
               c = Msip::Vereda.where(
-                fechadeshabilitacion:nil,
-                municipio_id: idmun).all
+                fechadeshabilitacion: nil,
+                municipio_id: idmun,
+              ).all
             end
             Msip::Municipio.conf_presenta_nombre_con_departamento = true
             super(c)
@@ -42,27 +42,25 @@ module Msip
               :longitud,
               :observaciones,
               :fechacreacion_localizada,
-              :habilitado
+              :habilitado,
             ]
           end
 
           def atributos_form
             Msip::Municipio.conf_presenta_nombre_con_origen = true
             atributos_transf_habilitado -
-              [:id, 'id', :pais, 'pais,', :departamento, 'departamento']
+              [:id, "id", :pais, "pais,", :departamento, "departamento"]
           end
 
           def genclase
-            return 'F';
+            "F"
           end
 
           def vereda_params
-            params.require(:vereda).permit( *atributos_form)
+            params.require(:vereda).permit(*atributos_form)
           end
-
         end
       end
     end
   end
 end
-

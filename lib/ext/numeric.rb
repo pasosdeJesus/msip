@@ -1,5 +1,3 @@
-class Numeric 
-  def a_decimal_localizado
-    to_s.a_decimal_localizado
-  end 
+class Numeric
+  delegate :a_decimal_localizado, to: :to_s
 end

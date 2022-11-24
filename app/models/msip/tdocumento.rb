@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/tdocumento'
+require "msip/concerns/models/tdocumento"
 
 module Msip
   class Tdocumento < ActiveRecord::Base

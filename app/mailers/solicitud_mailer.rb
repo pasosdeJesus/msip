@@ -1,10 +1,8 @@
 class SolicitudMailer < ApplicationMailer
-  
-
   def solicitud
-    if !ENV['SMTP_MAQ']
+    unless ENV["SMTP_MAQ"]
       puts "No esta definida variable de ambiente SMTP_MAQ"
-      exit 1
+      exit(1)
     end
     puts "OJO solicitud"
     @objeto = params[:objeto]
@@ -21,12 +19,10 @@ class SolicitudMailer < ApplicationMailer
     puts "OJO cor_solicitado_a=#{@cor_solicitado_a}"
     @solicitud = params[:solicitud]
     puts "OJO solicitud=#{@solicitud}"
-    @para = @cor_solicitado_a.select {|c| !(c =~ /@localhost$/)}
+    @para = @cor_solicitado_a.select { |c| !(c =~ /@localhost$/) }
     puts "enviando con tema #{@que} a #{@para.count} receptores"
-    mail(to: @para, 
-         cc: 'vtamara@pasosdeJesus.org',
-         subject: "[SI-JRSCOL] Solicitud del usuario #{@solicitante}")
-
+    mail(to: @para,
+      cc: "vtamara@pasosdeJesus.org",
+      subject: "[SI-JRSCOL] Solicitud del usuario #{@solicitante}")
   end
-
 end

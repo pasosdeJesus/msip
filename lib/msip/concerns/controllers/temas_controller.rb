@@ -4,7 +4,6 @@ module Msip
   module Concerns
     module Controllers
       module TemasController
-
         extend ActiveSupport::Concern
 
         included do
@@ -12,10 +11,10 @@ module Msip
 
           before_action :set_tema, only: [:show, :edit, :update, :destroy]
 
-          load_and_authorize_resource  class: Msip::Tema, except: [:temausuario]
+          load_and_authorize_resource class: Msip::Tema, except: [:temausuario]
 
           def clase
-            'Msip::Tema'
+            "Msip::Tema"
           end
 
           def set_tema
@@ -49,14 +48,13 @@ module Msip
               :alerta_problema_fuente,
               :observaciones,
               :fechacreacion_localizada,
-              :habilitado
+              :habilitado,
             ]
           end
 
           def temausuario
-            t = ::Msip::TemasHelper.tema_usuario(defined?(current_usuario) ? 
-                                                current_usuario : nil) 
-            render json: {
+            t = ::Msip::TemasHelper.tema_usuario(defined?(current_usuario) ? current_usuario : nil)
+            render(json: {
               fondo: t.fondo,
               color_fuente: t.color_fuente,
               color_flota_subitem_fuente: t.color_flota_subitem_fuente,
@@ -77,22 +75,19 @@ module Msip
               alerta_exito_fondo: t.alerta_exito_fondo,
               alerta_exito_fuente: t.alerta_exito_fuente,
               alerta_problema_fondo: t.alerta_problema_fondo,
-              alerta_problema_fuente: t.alerta_problema_fuente
-            }, status: :ok
+              alerta_problema_fuente: t.alerta_problema_fuente,
+            }, status: :ok)
           end
 
           def genclase
-            'M'
+            "M"
           end
 
           def tema_params
             params.require(:tema).permit(*atributos_form)
           end
-
-        end #included
-
-      end 
+        end # included
+      end
     end
   end
 end
-

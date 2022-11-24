@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/departamento'
+require "msip/concerns/models/departamento"
 
 module Msip
   class Departamento < ActiveRecord::Base

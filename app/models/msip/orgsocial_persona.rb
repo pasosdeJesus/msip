@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/orgsocial_persona'
+require "msip/concerns/models/orgsocial_persona"
 
 module Msip
   class OrgsocialPersona < ActiveRecord::Base

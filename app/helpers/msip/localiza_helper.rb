@@ -1,8 +1,7 @@
 module Msip
   module LocalizaHelper
-
     # artículos y preposiciones
-    PARTICULASESP=[
+    PARTICULASESP = [
       "un",
       "una",
       "el",
@@ -32,7 +31,7 @@ module Msip
       "sobre",
       "tras",
       "versus",
-      "vía"
+      "vía",
     ]
 
     # Convierte palabra a minúsculas
@@ -45,18 +44,17 @@ module Msip
     # en mayúsculas y las demás en minúsculas, excepto partículas del español
     # que deja en minúsculas desde la segunda posición.
     def capitaliza_titulo(t)
-      r = ''
+      r = ""
       n = t.split(/\s+/)
       if n.length > 0
         r = n[0].titleize
-        (1..n.length-1).each do |i|
+        (1..n.length - 1).each do |i|
           m = minusculas(n[i])
-          r += ' ' + (PARTICULASESP.include?(m) ? m : n[i].titleize)
+          r += " " + (PARTICULASESP.include?(m) ? m : n[i].titleize)
         end
       end
-      return r
+      r
     end
     module_function :capitaliza_titulo
-
   end
 end

@@ -1,10 +1,10 @@
-require 'msip/version'
+require "msip/version"
 
 Msip.setup do |config|
-  config.ruta_anexos = ENV.fetch('MSIP_RUTA_ANEXOS', 
-                                 "#{Rails.root}/archivos/anexos")
-  config.ruta_volcados = ENV.fetch('MSIP_RUTA_VOLCADOS',
-                                   "#{Rails.root}/archivos/bd")
+  config.ruta_anexos = ENV.fetch("MSIP_RUTA_ANEXOS",
+    "#{Rails.root}/archivos/anexos")
+  config.ruta_volcados = ENV.fetch("MSIP_RUTA_VOLCADOS",
+    "#{Rails.root}/archivos/bd")
   config.titulo = "msip #{Msip::VERSION}"
   config.longitud_nusuario = 10
 end

@@ -1,4 +1,4 @@
-require 'msip/concerns/controllers/solicitudes_controller'
+require "msip/concerns/controllers/solicitudes_controller"
 
 module Msip
   class SolicitudesController < Msip::ModelosController
@@ -6,6 +6,5 @@ module Msip
     load_and_authorize_resource class: Msip::Solicitud
 
     include Msip::Concerns::Controllers::SolicitudesController
-
   end
 end

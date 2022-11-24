@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/grupoper'
+require "msip/concerns/models/grupoper"
 
 module Msip
   class Grupoper < ActiveRecord::Base

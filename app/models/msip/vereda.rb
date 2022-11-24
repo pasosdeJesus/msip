@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/vereda'
+require "msip/concerns/models/vereda"
 
 module Msip
   class Vereda < ActiveRecord::Base

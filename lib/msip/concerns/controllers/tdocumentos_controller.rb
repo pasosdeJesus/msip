@@ -1,14 +1,13 @@
 module Msip
   module Concerns
     module Controllers
-      module TdocumentosController 
+      module TdocumentosController
         extend ActiveSupport::Concern
 
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-
-          def clase 
+          def clase
             "Msip::Tdocumento"
           end
 
@@ -17,25 +16,24 @@ module Msip
           end
 
           def genclase
-            return 'M';
+            "M"
           end
 
           def atributos_index
             [
-              :id, 
-              :nombre, 
-              :sigla, 
-              :formatoregex, 
+              :id,
+              :nombre,
+              :sigla,
+              :formatoregex,
               :observaciones,
-              :fechacreacion_localizada, 
-              :habilitado
+              :fechacreacion_localizada,
+              :habilitado,
             ]
           end
 
           def tdocumento_params
-            params.require(:tdocumento).permit( *(atributos_form))
+            params.require(:tdocumento).permit(*atributos_form)
           end
-
         end
       end
     end

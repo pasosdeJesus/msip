@@ -7,7 +7,7 @@ module Msip
         include Msip::Basica
 
         included do
-          self.table_name = 'msip_estadosol'
+          self.table_name = "msip_estadosol"
 
           PENDIENTE = 1
           RESUELTO = 2

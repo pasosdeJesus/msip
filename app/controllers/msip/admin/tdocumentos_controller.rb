@@ -1,4 +1,4 @@
-require 'msip/concerns/controllers/tdocumentos_controller'
+require "msip/concerns/controllers/tdocumentos_controller"
 
 module Msip
   module Admin
@@ -7,7 +7,6 @@ module Msip
       load_and_authorize_resource class: Msip::Tdocumento
 
       include Msip::Concerns::Controllers::TdocumentosController
-
     end
   end
 end

@@ -1,4 +1,4 @@
-require 'msip/concerns/controllers/orgsociales_controller'
+require "msip/concerns/controllers/orgsociales_controller"
 
 module Msip
   class OrgsocialesController < Msip::ModelosController
@@ -6,6 +6,5 @@ module Msip
     load_and_authorize_resource class: Msip::Orgsocial
 
     include Msip::Concerns::Controllers::OrgsocialesController
-
   end
 end

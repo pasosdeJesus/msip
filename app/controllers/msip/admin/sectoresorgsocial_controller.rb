@@ -1,5 +1,4 @@
-
-require 'msip/concerns/controllers/sectoresorgsocial_controller'
+require "msip/concerns/controllers/sectoresorgsocial_controller"
 
 module Msip
   module Admin

@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/etiqueta'
+require "msip/concerns/models/etiqueta"
 
 module Msip
   class Etiqueta < ActiveRecord::Base

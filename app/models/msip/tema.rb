@@ -1,9 +1,7 @@
-
-require 'msip/concerns/models/tema'
+require "msip/concerns/models/tema"
 
 module Msip
   class Tema < ActiveRecord::Base
     include Msip::Concerns::Models::Tema
   end
 end
-

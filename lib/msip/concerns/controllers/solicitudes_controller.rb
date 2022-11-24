@@ -5,8 +5,7 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-
-          def clase 
+          def clase
             "Msip::Solicitud"
           end
 
@@ -16,28 +15,28 @@ module Msip
 
           def atributos_index
             [
-              :id, 
-              :usuario_id, 
+              :id,
+              :usuario_id,
               :fecha,
               :solicitud,
               :estadosol_id,
-              :usuarionotificar_ids
+              :usuarionotificar_ids,
             ]
           end
 
           def atributos_form
             [
-              :id, 
-              :usuario_id, 
+              :id,
+              :usuario_id,
               :fecha,
               :solicitud,
               :estadosol_id,
-              :usuarionotificar_ids
+              :usuarionotificar_ids,
             ]
           end
 
           def genclase
-            'F'
+            "F"
           end
 
           def params_lista
@@ -47,12 +46,8 @@ module Msip
           def solicitud_params
             params.require(:solicitud).permit(params_lista)
           end
-
-
-        end #included
-
+        end # included
       end
     end
   end
 end
-

@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/fuenteprensa'
+require "msip/concerns/models/fuenteprensa"
 
 module Msip
   class Fuenteprensa < ActiveRecord::Base

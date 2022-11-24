@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 # Esta prueba supone que en la tabla básica hay un registro con id 1
 # Si no lo hay agregar skip a pruebas que lo suponen o crear registro
@@ -8,19 +8,19 @@ module Msip
   module Admin
     class EstadossolControllerTest < ActionDispatch::IntegrationTest
       ESTADOSOL_NUEVA = {
-        nombre: 'X',
-        observaciones: 'y',
-        fechacreacion: '2022-06-23',
+        nombre: "X",
+        observaciones: "y",
+        fechacreacion: "2022-06-23",
         fechadeshabilitacion: nil,
-        created_at: '2022-06-23',
-        updated_at: '2022-06-23',
+        created_at: "2022-06-23",
+        updated_at: "2022-06-23",
       }
 
       include Rails.application.routes.url_helpers
       include Devise::Test::IntegrationHelpers
 
       def filtra_doble_ruta_relativa(s)
-        return s
+        s
       end
 
       setup do
@@ -35,49 +35,55 @@ module Msip
 
       test "debe presentar listado" do
         get filtra_doble_ruta_relativa(msip.admin_estadossol_path)
+
         assert_response :success
         assert_template :index
       end
 
       test "debe presentar resumen de existente" do
         get filtra_doble_ruta_relativa(msip.admin_estadosol_path(Estadosol.find(1)))
+
         assert_response :success
         assert_template :show
       end
 
       test "debe presentar formulario para nueva" do
         get filtra_doble_ruta_relativa(msip.new_admin_estadosol_path)
+
         assert_response :success
         assert_template :new
       end
 
       test "debe crear nueva" do
-        if Msip::Estadosol.where(nombre: 'X').count > 0
-          Msip::Estadosol.where(nombre: 'X').destroy_all
+        if Msip::Estadosol.where(nombre: "X").count > 0
+          Msip::Estadosol.where(nombre: "X").destroy_all
         end
-        assert_difference('Estadosol.count') do
-          post filtra_doble_ruta_relativa(msip.admin_estadossol_path), params: { 
-            estadosol: ESTADOSOL_NUEVA
+        assert_difference("Estadosol.count") do
+          post filtra_doble_ruta_relativa(msip.admin_estadossol_path), params: {
+            estadosol: ESTADOSOL_NUEVA,
           }
           puts response.body
         end
 
         assert_redirected_to filtra_doble_ruta_relativa(msip.admin_estadosol_path(
-          assigns(:estadosol)))
+          assigns(:estadosol),
+        ))
       end
 
       test "debe actualizar existente" do
         patch filtra_doble_ruta_relativa(msip.admin_estadosol_path(
-          Estadosol.find(1))),
-          params: { estadosol: { nombre: 'YY'}}
+          Estadosol.find(1),
+        )),
+          params: { estadosol: { nombre: "YY" } }
 
-          assert_redirected_to filtra_doble_ruta_relativa(msip.admin_estadosol_path(
-          assigns(:estadosol)))
+        assert_redirected_to filtra_doble_ruta_relativa(msip.admin_estadosol_path(
+        assigns(:estadosol),
+      ))
       end
 
       test "debe eliminar" do
         skip
-        assert_difference('Estadosol.count', -1) do
+        assert_difference("Estadosol.count", -1) do
           delete filtra_doble_ruta_relativa(msip.admin_estadosol_path(Estadosol.find(1)))
         end
 

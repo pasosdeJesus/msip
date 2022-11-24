@@ -19,7 +19,8 @@ module TurboAssertionsHelper
     redirect_expected = normalize_argument_to_redirection(options)
 
     message ||= "Expected response to be a Turbo visit to <#{redirect_expected}> but was a visit to <#{redirect_is}>"
-    assert_operator redirect_expected, :===, redirect_is, message
+
+    assert_operator(redirect_expected, :===, redirect_is, message)
   end
 
   # Rough heuristic to detect whether this was a Turbolinks request:
@@ -38,7 +39,7 @@ module TurboAssertionsHelper
 
   def turbo_visit_location_and_action
     if response.body =~ TURBO_VISIT
-      [ $1, $2 ]
+      [::Regexp.last_match(1), ::Regexp.last_match(2)]
     end
   end
 end

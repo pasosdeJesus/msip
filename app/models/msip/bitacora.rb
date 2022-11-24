@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/bitacora'
+require "msip/concerns/models/bitacora"
 
 module Msip
   class Bitacora < ActiveRecord::Base

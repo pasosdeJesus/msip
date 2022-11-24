@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/oficina'
+require "msip/concerns/models/oficina"
 
 module Msip
   class Oficina < ActiveRecord::Base

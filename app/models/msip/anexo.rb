@@ -1,4 +1,4 @@
-require 'msip/concerns/models/anexo'
+require "msip/concerns/models/anexo"
 
 module Msip
   class Anexo < ActiveRecord::Base

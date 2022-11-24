@@ -1,5 +1,4 @@
-
-require 'msip/concerns/models/trelacion'
+require "msip/concerns/models/trelacion"
 
 module Msip
   class Trelacion < ActiveRecord::Base

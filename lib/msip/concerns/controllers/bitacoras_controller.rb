@@ -1,15 +1,13 @@
-
 module Msip
   module Concerns
     module Controllers
       module BitacorasController
-
         extend ActiveSupport::Concern
 
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-          def clase 
+          def clase
             "Msip::Bitacora"
           end
 
@@ -23,27 +21,25 @@ module Msip
               :modelo,
               :modelo_id,
               :operacion,
-              :detalle
+              :detalle,
             ]
           end
 
           def atributos_form
-            atributos_index - [ :id ] + [ :params ]
+            atributos_index - [:id] + [:params]
           end
 
-
           def index_reordenar(registros)
-            return registros.order(created_at: :desc)
+            registros.order(created_at: :desc)
           end
 
           def new_modelo_path(o)
-            return new_bitacora_path()
+            new_bitacora_path
           end
 
           def genclase
-            return 'F'
+            "F"
           end
-
 
           private
 
@@ -55,13 +51,8 @@ module Msip
           def bitacora_params
             params.require(:bitacora).permit(*atributos_form)
           end
-
         end
-
-
       end
     end
   end
 end
-
-

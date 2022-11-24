@@ -1,5 +1,4 @@
-
-require 'msip/application_controller'
+require "msip/application_controller"
 class ApplicationController < Msip::ApplicationController
   include Turbo::Redirection
   # Previente ataques CSRF elevando una excepción
