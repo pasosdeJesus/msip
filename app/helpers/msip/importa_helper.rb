@@ -8,13 +8,15 @@ module Msip
         return nil
       end
 
-      d = tbasica.where("upper(unaccent(#{camponombre})) = upper(unaccent(?))",
-        nombre)
+      d = tbasica.where("upper(unaccent(#{camponombre})) = "\
+                        "upper(unaccent(?))", nombre)
       if d.count == 0
-        menserror << "  No se encontró '#{nombre}' en tabla básica #{tbasica} al buscar en el campo #{camponombre}."
+        menserror << "  No se encontró '#{nombre}' en tabla básica "\
+          "#{tbasica} al buscar en el campo #{camponombre}."
         nil
       elsif d.count > 1
-        menserror << "  En la tabla básica #{tbasica.class} hay #{d.count} registros cuyo campo #{camponombre} es #{nombre}."
+        menserror << "  En la tabla básica #{tbasica.class} hay #{d.count} "\
+          "registros cuyo campo #{camponombre} es #{nombre}."
         nil
       else # d.count == 1
         d.take
@@ -34,6 +36,7 @@ module Msip
       else
         d = Date.strptime(d, "%Y-%m-%d")
       end
+      d
     end
     module_function :fecha_local_colombia_a_date
 
@@ -66,7 +69,7 @@ module Msip
         apellidos = p[0] + " " + p[1] + " " + p[2] + " " + p[3]
         nombres = p[4] + " " + p[5] + " " + p[6]
       else
-        menserror = "No se esperaban tantas partes en nombre '#{n}'"
+        menserror << "No se esperaban tantas partes en nombre '#{n}'"
       end
       [nombres, apellidos]
     end

@@ -227,7 +227,7 @@ module Msip
     # Retorna fecha inicial del semestre anterior
     ##
     def inicio_semestre_ant
-      hoy = Date.today
+      hoy = Time.zone.today
       anio = hoy.year
       if hoy.mon >= 7 && hoy.mon < 12
         ini = anio.to_s + "-" + "01-01"
@@ -245,7 +245,7 @@ module Msip
     # Retorna fecha final del semestre anterior
     ##
     def fin_semestre_ant
-      hoy = Date.today
+      hoy = Time.zone.today
       anio = hoy.year
       if hoy.mon >= 7 && hoy.mon < 12
         fin = anio.to_s + "-" + "06-30"

@@ -27,12 +27,9 @@ module Msip
 
     # Retorna nombre de tabla a partir de objeto
     def nombreobj(o, plural = false)
-      r = ""
       r = if defined? o.name
-        # r = o.name.downcase
         o.name.demodulize.underscore
       else
-        # r = o.class.name.underscore.gsub(/\//, '_')
         o.class.name.demodulize.underscore
       end
       if r == "relation"
@@ -65,7 +62,8 @@ module Msip
             begin
               r = send(cr).send(n)
               return [cr + "." + n, r]
-            rescue NoMethodError
+            rescue NoMethodError => e
+              puts "NoMethodError e=#{e}"
             end
           end
         end

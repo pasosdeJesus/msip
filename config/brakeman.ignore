@@ -279,29 +279,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "a6c87c2adba8ccb1ad6db73aa03c53a6227c7366e3c663ad2b96ab9877374c61",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/helpers/msip/importa_helper.rb",
-      "line": 11,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "tbasica.where(\"upper(unaccent(#{camponombre})) = upper(unaccent(?))\", nombre)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Msip::ImportaHelper",
-        "method": "nombre_en_tabla_basica"
-      },
-      "user_input": "camponombre",
-      "confidence": "Weak",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "a733a52dcf2b88762aa92e9725c195897dd739fd6a134fde8541b5c62635c068",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -392,6 +369,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "fb566d897c69a9c27744d6460343bb023e700a3d2123734e599edcdce29bee2d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/importa_helper.rb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "tbasica.where(\"upper(unaccent(#{camponombre})) = upper(unaccent(?))\", nombre)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::ImportaHelper",
+        "method": "nombre_en_tabla_basica"
+      },
+      "user_input": "camponombre",
+      "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "File Access",
       "warning_code": 16,
       "fingerprint": "fbb55f41b8dba36e29e3b5f166e5963bff9ec15ddbe33483864e9a64f611d2b8",
@@ -415,6 +415,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-11-24 09:41:12 -0500",
+  "updated": "2022-11-24 10:41:59 -0500",
   "brakeman_version": "5.4.0"
 }
