@@ -90,11 +90,21 @@ module Msip
           # A partir de datos como para ubicacinpre los valida
           # y crea una ubicacionpre y retorna su id o retorna id de una
           # ubicación existente hasta donde logre validar.
-          # Si usa_latlon es falso y la ubicación con lugar
-          # es válida ignora las que recibe y pone unas
-          # de acuerdo al pais, departamento, municipio y clase
-          # La latitud y longitud que recibe no debe estar localizadas
-          # Retorna id de ubicación que encuentra o que crea o nil si tiene problema
+          # 
+          # @param pais_id id de país
+          # @param departamento_id id de departamento
+          # @param municipio_id id de municipio
+          # @param clase_id id del centro poblado
+          # @param lugar lugar
+          # @param sitio sitio
+          # @param tsitio_id tipo de sitio
+          # @param latitud Latitud no localizada
+          # @param longitud Longitud no localizada
+          # @param usa_latlon Si usa_latlon es falso y la ubicación con lugar
+          #   es válida ignora las que recibe y pone unas de acuerdo al pais, 
+          #   departamento, municipio y clase.
+          # @return id de ubicación que encuentra o que crea o nil si 
+          #   tiene problema
           def buscar_o_agregar(pais_id, departamento_id, municipio_id,
             clase_id, lugar, sitio, tsitio_id,
             latitud, longitud,
