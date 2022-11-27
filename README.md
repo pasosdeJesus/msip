@@ -1,6 +1,7 @@
 # Motor para Sistemas de Información estilo Pasos de Jesús - msip
 
-[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) [![Mantenibilidad](https://api.codeclimate.com/v1/badges/fa979bbb3fc3d52a9d6f/maintainability)](https://codeclimate.com/github/pasosdeJesus/msip/maintainability) [![Cobertura de Pruebas](https://api.codeclimate.com/v1/badges/fa979bbb3fc3d52a9d6f/test_coverage)](https://codeclimate.com/github/pasosdeJesus/msip/test_coverage) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip)
+[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FpasosdeJesus%2Fmsip.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FpasosdeJesus%2Fmsip?ref=badge_shield)
+Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) [![Mantenibilidad](https://api.codeclimate.com/v1/badges/fa979bbb3fc3d52a9d6f/maintainability)](https://codeclimate.com/github/pasosdeJesus/msip/maintainability) [![Cobertura de Pruebas](https://api.codeclimate.com/v1/badges/fa979bbb3fc3d52a9d6f/test_coverage)](https://codeclimate.com/github/pasosdeJesus/msip/test_coverage) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip)
 
 
 ![Logo de msip](https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/assets/images/logo.jpg)
@@ -129,3 +130,7 @@ Después de tener tu primer ejemplo puedes generar tablas básicas para
 tu aplicación, personalizar los modelos, vistas y controladores que `msip`
 ofrece. 
 Consulta: <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FpasosdeJesus%2Fmsip.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FpasosdeJesus%2Fmsip?ref=badge_large)
