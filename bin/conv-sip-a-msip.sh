@@ -22,7 +22,7 @@ for i in `git ls-tree -r main --name-only`; do
     if (test "$?" = "0") then {
       echo "Remplazando sip como palabra en $n";
       sed -i -e "s/\([^A-Za-z]\)\(sip[^A-Za-z]\)/\1m\2/g" $n
-      sed -i -e "s/^\(sip[^A-Za-z]\)/m\2/g" $n
+      sed -i -e "s/^\(sip[^A-Za-z]\)/m\1/g" $n
       sed -i -e "s/\([^A-Za-z]\)\(sip\)$/\1m\2/g" $n
     } fi;
     grep "Sip" $n > /dev/null
