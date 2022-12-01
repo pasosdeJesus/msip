@@ -220,14 +220,6 @@ module Msip
     end
     module_function :existe_función_pg?
 
-    # Renombra una función en base PostgreSQL
-    # @param nomini Nombre inicial
-    # @param nomfin Nombre final
-    def renombrar_función_pg(nomini, nomfin)
-      execute("ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
-    end
-    module_function :renombrar_función_pg
-
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
       c = "SELECT EXISTS("\
@@ -238,21 +230,68 @@ module Msip
     end
     module_function :existe_restricción_pg?
 
+    # Renombra una función en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_función_pg(nomini, nomfin)
+      reversible do |dir|
+        dir.up   {
+          execute("ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
+        }
+        dir.down {  
+          execute("ALTER FUNCTION #{nomfin} RENAME TO #{nomini};")
+        }
+      end
+    end
+    module_function :renombrar_función_pg
+
+
     # Renombra una restricción en base PostgreSQL
     # @param tabla Tabla con la restricción
     # @param nomini Nombre inicial de restricción
     # @param nomfin Nombre final
     def renombrar_restricción_pg(tabla, nomini, nomfin)
-      execute("ALTER TABLE #{tabla} "\
-        "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
+      reversible do |dir|
+        dir.up   {
+          execute("ALTER TABLE #{tabla} "\
+                  "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
+        }
+        dir.down {  
+          execute("ALTER TABLE #{tabla} "\
+                  "RENAME CONSTRAINT #{nomfin} TO #{nomini};")
+        }
+      end
     end
     module_function :renombrar_restricción_pg
+
+    # Renombra una secuencia en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_secuencia_pg(nomini, nomfin)
+       reversible do |dir|
+         dir.up   {
+           execute("ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
+         }
+         dir.down {  
+           execute("ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
+         }
+       end
+    end
+    module_function :renombrar_secuencia_pg
+
 
     # Renombra una vista en base PostgreSQL
     # @param nomini Nombre inicial
     # @param nomfin Nombre final
     def renombrar_vista_pg(nomini, nomfin)
-      execute("ALTER VIEW #{nomini} RENAME TO #{nomfin};")
+      reversible do |dir|
+        dir.up   {
+          execute("ALTER VIEW #{nomini} RENAME TO #{nomfin};")
+        }
+        dir.down {  
+          execute("ALTER VIEW #{nomfin} RENAME TO #{nomini};")
+        }
+      end
     end
     module_function :renombrar_vista_pg
 
@@ -260,7 +299,14 @@ module Msip
     # @param nomini Nombre inicial
     # @param nomfin Nombre final
     def renombrar_vistamat_pg(nomini, nomfin)
-      execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
+      reversible do |dir|
+        dir.up   {
+          execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
+        }
+        dir.down {  
+          execute("ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};")
+        }
+      end
     end
     module_function :renombrar_vistamat_pg
   end
