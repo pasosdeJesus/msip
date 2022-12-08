@@ -39,7 +39,7 @@ module ActiveRecord
             d = val[8, 2]
             meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul",
                      "Ago", "Sep", "Oct", "Nov", "Dic",]
-            return "#{d}/#{meses[m.to_i - 1]}/#{a}"
+            "#{d}/#{meses[m.to_i - 1]}/#{a}"
           end
           define_method("#{f}_ddMyyyy=") do |e|
             val = e.to_s

@@ -1,14 +1,15 @@
-class RenombraIndices < ActiveRecord::Migration[7.0]
+# frozen_string_literal: true
 
+class RenombraIndices < ActiveRecord::Migration[7.0]
   include Msip::SqlHelper
 
-  IND=[
-    ['sip_busca_mundep', 'msip_busca_mundep'],
-    ['sip_nombre_ubicacionpre_b', 'msip_nombre_ubicacionpre_b'],
-    ['sip_persona_anionac_ind', 'msip_persona_anionac_ind'],
-    ['sip_persona_sexo_ind', 'msip_persona_sexo_ind'],
-    ['trelacion_pkey', 'msip_trelacion_pkey'],
-    ['tclase_pkey', 'msip_tclase_pkey'],
+  IND = [
+    ["sip_busca_mundep", "msip_busca_mundep"],
+    ["sip_nombre_ubicacionpre_b", "msip_nombre_ubicacionpre_b"],
+    ["sip_persona_anionac_ind", "msip_persona_anionac_ind"],
+    ["sip_persona_sexo_ind", "msip_persona_sexo_ind"],
+    ["trelacion_pkey", "msip_trelacion_pkey"],
+    ["tclase_pkey", "msip_tclase_pkey"],
   ]
 
   def up

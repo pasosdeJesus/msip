@@ -34,12 +34,12 @@ module Msip
         fields.each do |f|
           define_method("#{f}_localizada") do
             val = self[f]
-            return fecha_estandar_local(val.to_s)
+            fecha_estandar_local(val.to_s)
           end # define_method
 
           define_method("#{f}_localizada=") do |e|
             r = fecha_local_estandar(e.to_s)
-            return self[f] = r
+            self[f] = r
           end # define_method
         end # fields.each
       end # def
@@ -48,19 +48,19 @@ module Msip
         fields.each do |f|
           define_method("#{f}_anio") do
             val = self[f]
-            return val&.year ? val.year : nil
+            val&.year ? val.year : nil
           end # define_method
 
           define_method("#{f}_anio=") do |a|
             val = self[f]
             mes = val&.month && val.month.to_i > 0 && val.month.to_i <= 12 ? val.month.to_i : 6
             anio = a && a.to_i > 0 ? a.to_i : Date.today.year
-            return self[f] = Date.new(anio, mes, 15)
+            self[f] = Date.new(anio, mes, 15)
           end # define_method
 
           define_method("#{f}_mes") do
             val = self[f]
-            return val&.month ? val.month : nil
+            val&.month ? val.month : nil
           end # define_method
 
           define_method("#{f}_mes=") do |m|
@@ -71,15 +71,15 @@ module Msip
             else
               Date.today.year
             end
-            return self[f] = Date.new(anio, mes, 15)
+            self[f] = Date.new(anio, mes, 15)
           end # define_method
 
           define_method("#{f}_mesaniolocalizado") do
             val = self[f]
             if val&.year && val.month
-              return val.year.to_s + "-" + val.month.to_s
+              val.year.to_s + "-" + val.month.to_s
             else
-              return ""
+              ""
             end
           end # define_method
         end

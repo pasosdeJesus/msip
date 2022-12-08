@@ -69,7 +69,7 @@ module Msip
               render(:new, layout: "application")
             end
           end
-          # format.html { redirect_to main_app.root_path, 
+          # format.html { redirect_to main_app.root_path,
           #   notice: "Respaldo creado, descarguelo de "\
           #     "<a href='#{desturl}'>desturl</a>" }
         else

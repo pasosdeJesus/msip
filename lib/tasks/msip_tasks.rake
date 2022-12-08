@@ -16,7 +16,7 @@ namespace :msip do
     puts "msip - indices"
     # Primero tablas basicas creadas en Rails
     # byebug
-    ab = ::Ability.new
+    ab = Ability.new
     tbn = ab.tablasbasicas - ab.basicas_id_noauto
     tbn.each do |t|
       # puts "OJO tbn, t=#{t}"
@@ -49,7 +49,7 @@ namespace :msip do
   task vuelcabasicas: :environment do
     puts "msip - vuelcabasicas"
     Msip::TareasrakeHelper.asegura_varambiente_bd
-    ab = ::Ability.new
+    ab = Ability.new
     # Volcar primero superbasicas y otras en orden correcto
     tb = ab.tablasbasicas_prio +
       (ab.tablasbasicas - ab.tablasbasicas_prio)

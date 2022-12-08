@@ -223,7 +223,7 @@ module Msip
     # Decide si existe un índice i en base PostgreSQL
     # https://stackoverflow.com/questions/45983169/checking-for-existence-of-index-in-postgresql
     def existe_índice_pg?(f)
-      r = execute <<~SQL
+      r = execute(<<~SQL)
         SELECT  EXISTS (SELECT i.relname AS index_name
           FROM pg_class i, pg_index ix
           WHERE i.oid = ix.indexrelid
@@ -233,7 +233,6 @@ module Msip
       r[0]["exists"]
     end
     module_function :existe_índice_pg?
-
 
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
@@ -250,12 +249,12 @@ module Msip
     # @param nomfin Nombre final
     def renombrar_función_pg(nomini, nomfin)
       reversible do |dir|
-        dir.up   {
+        dir.up   do
           execute("ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
-        }
-        dir.down {  
+        end
+        dir.down do
           execute("ALTER FUNCTION #{nomfin} RENAME TO #{nomini};")
-        }
+        end
       end
     end
     module_function :renombrar_función_pg
@@ -264,17 +263,16 @@ module Msip
     # @param nomini Nombre inicial
     # @param nomfin Nombre final
     def renombrar_índice_pg(nomini, nomfin)
-       reversible do |dir|
-         dir.up   {
-           execute("ALTER INDEX #{nomini} RENAME TO #{nomfin};")
-         }
-         dir.down {  
-           execute("ALTER INDEX #{nomfin} RENAME TO #{nomini};")
-         }
-       end
+      reversible do |dir|
+        dir.up   do
+          execute("ALTER INDEX #{nomini} RENAME TO #{nomfin};")
+        end
+        dir.down do
+          execute("ALTER INDEX #{nomfin} RENAME TO #{nomini};")
+        end
+      end
     end
     module_function :renombrar_índice_pg
-
 
     # Renombra una restricción en base PostgreSQL
     # @param tabla Tabla con la restricción
@@ -282,14 +280,14 @@ module Msip
     # @param nomfin Nombre final
     def renombrar_restricción_pg(tabla, nomini, nomfin)
       reversible do |dir|
-        dir.up   {
+        dir.up   do
           execute("ALTER TABLE #{tabla} "\
-                  "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
-        }
-        dir.down {  
+            "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
+        end
+        dir.down do
           execute("ALTER TABLE #{tabla} "\
-                  "RENAME CONSTRAINT #{nomfin} TO #{nomini};")
-        }
+            "RENAME CONSTRAINT #{nomfin} TO #{nomini};")
+        end
       end
     end
     module_function :renombrar_restricción_pg
@@ -298,29 +296,28 @@ module Msip
     # @param nomini Nombre inicial
     # @param nomfin Nombre final
     def renombrar_secuencia_pg(nomini, nomfin)
-       reversible do |dir|
-         dir.up   {
-           execute("ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
-         }
-         dir.down {  
-           execute("ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
-         }
-       end
+      reversible do |dir|
+        dir.up   do
+          execute("ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
+        end
+        dir.down do
+          execute("ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
+        end
+      end
     end
     module_function :renombrar_secuencia_pg
-
 
     # Renombra una vista en base PostgreSQL
     # @param nomini Nombre inicial
     # @param nomfin Nombre final
     def renombrar_vista_pg(nomini, nomfin)
       reversible do |dir|
-        dir.up   {
+        dir.up   do
           execute("ALTER VIEW #{nomini} RENAME TO #{nomfin};")
-        }
-        dir.down {  
+        end
+        dir.down do
           execute("ALTER VIEW #{nomfin} RENAME TO #{nomini};")
-        }
+        end
       end
     end
     module_function :renombrar_vista_pg
@@ -330,12 +327,12 @@ module Msip
     # @param nomfin Nombre final
     def renombrar_vistamat_pg(nomini, nomfin)
       reversible do |dir|
-        dir.up   {
+        dir.up   do
           execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
-        }
-        dir.down {  
+        end
+        dir.down do
           execute("ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};")
-        }
+        end
       end
     end
     module_function :renombrar_vistamat_pg

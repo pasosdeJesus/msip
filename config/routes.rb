@@ -62,7 +62,7 @@ Msip::Engine.routes.draw do
   #  resources :usuarios, path_names: { new: 'nuevo', edit: 'edita' }
 
   namespace :admin do
-    ab = ::Ability.new
+    ab = Ability.new
     ab.tablasbasicas.each do |t|
       next unless t[0] == "Msip"
 
