@@ -110,17 +110,20 @@ if (test "$SALTASIVEL2GEN" != "1") then {
   echo "**** sivel"
   actuno sivel2_gen-2.0 test/dummy; 
   actuno sivel2_gen test/dummy; 
+  actuno sivel2_gen-msip test/dummy; 
 } fi;
 
 if (test "$SALTAAPO214" != "1") then {
   echo "**** apo214"
   actuno apo214 test/dummy; 
+  actuno apo214-msip test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel"
   actuno sivel2-2.0; 
   actuno sivel2
+  actuno sivel2-msip
   actuno siaddhh;
   actuno si_bdhn
 } fi;
