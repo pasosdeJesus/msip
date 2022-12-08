@@ -87,6 +87,7 @@ if (test "$SALTAHEB412" != "1") then {
   echo "**** heb412"
   actuno heb412_gen-2.0 test/dummy; 
   actuno heb412_gen test/dummy; 
+  actuno heb412_gen-msip test/dummy; 
   actuno heb412
 } fi;
 
