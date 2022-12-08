@@ -9,6 +9,8 @@ class RenombraRestriccionesSipMsip < ActiveRecord::Migration[7.0]
         'msip_departamento_id_key'],
     ['msip_departamento', 'sip_departamento_id_pais_id_deplocal_unico',
         'msip_departamento_id_pais_id_deplocal_unico'],
+    ['msip_municipio', 'sip_municipio_id_departamento_fkey',
+        'msip_municipio_id_departamento_fkey'],
     ['msip_municipio', 'sip_municipio_id_departamento_id_munlocal_unico',
         'msip_municipio_id_departamento_id_munlocal_unico'],
     ['msip_pais', 'sip_pais_codiso_unico',

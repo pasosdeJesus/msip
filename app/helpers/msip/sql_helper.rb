@@ -220,6 +220,21 @@ module Msip
     end
     module_function :existe_función_pg?
 
+    # Decide si existe un índice i en base PostgreSQL
+    # https://stackoverflow.com/questions/45983169/checking-for-existence-of-index-in-postgresql
+    def existe_índice_pg?(f)
+      r = execute <<~SQL
+        SELECT  EXISTS (SELECT i.relname AS index_name
+          FROM pg_class i, pg_index ix
+          WHERE i.oid = ix.indexrelid
+            AND i.relname = #{ActiveRecord::Base.connection.quote(f)}
+        );
+      SQL
+      r[0]["exists"]
+    end
+    module_function :existe_índice_pg?
+
+
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
       c = "SELECT EXISTS("\
@@ -244,6 +259,21 @@ module Msip
       end
     end
     module_function :renombrar_función_pg
+
+    # Renombra un índice en base PostgreSQL
+    # @param nomini Nombre inicial
+    # @param nomfin Nombre final
+    def renombrar_índice_pg(nomini, nomfin)
+       reversible do |dir|
+         dir.up   {
+           execute("ALTER INDEX #{nomini} RENAME TO #{nomfin};")
+         }
+         dir.down {  
+           execute("ALTER INDEX #{nomfin} RENAME TO #{nomini};")
+         }
+       end
+    end
+    module_function :renombrar_índice_pg
 
 
     # Renombra una restricción en base PostgreSQL
