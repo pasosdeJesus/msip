@@ -80,6 +80,7 @@ if (test "$SALTAMR519" != "1") then {
   echo "**** mr519"
   actuno mr519_gen-2.0 test/dummy; 
   actuno mr519_gen test/dummy; 
+  actuno mr519_gen-msip test/dummy; 
 } fi;
 
 if (test "$SALTAHEB412" != "1") then {
