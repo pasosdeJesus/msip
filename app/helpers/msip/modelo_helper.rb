@@ -63,7 +63,7 @@ module Msip
               r = send(cr).send(n)
               return [cr + "." + n, r]
             rescue NoMethodError => e
-              puts "NoMethodError e=#{e}"
+              Rails.logger.debug { "NoMethodError e=#{e}" }
             end
           end
         end

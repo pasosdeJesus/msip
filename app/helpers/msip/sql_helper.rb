@@ -223,7 +223,7 @@ module Msip
     # Decide si existe un índice i en base PostgreSQL
     # https://stackoverflow.com/questions/45983169/checking-for-existence-of-index-in-postgresql
     def existe_índice_pg?(f)
-      r = execute(<<~SQL)
+      r = execute(<<~SQL.squish)
         SELECT  EXISTS (SELECT i.relname AS index_name
           FROM pg_class i, pg_index ix
           WHERE i.oid = ix.indexrelid

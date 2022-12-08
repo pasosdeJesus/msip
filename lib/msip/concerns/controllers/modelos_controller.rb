@@ -178,7 +178,7 @@ module Msip
                 render(:index, layout: "layouts/application")
                 return
               end
-              @registros = @registro = c ? c.all : nil
+              @registros = @registro = c&.all
               regjson = if params &&
                   ((params[:presenta_nombre] &&
                     params[:presenta_nombre] == "1") ||

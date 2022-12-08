@@ -18,6 +18,11 @@ for i in `git ls-tree -r main --name-only`; do
       echo "Cambiando archivo $i->$n"
       git mv $i $n
     } fi;
+    grep "sip_grupo_id" $n > /dev/null
+    if (test "$?" = "0") then {
+      echo "Remplazando sip_grupo_id por grupo_id en $n";
+      sed -i -e "s/sip_grupo_id/grupo_id/g" $n
+    } fi;
    grep "sip" $n > /dev/null
     if (test "$?" = "0") then {
       echo "Remplazando sip como palabra en $n";

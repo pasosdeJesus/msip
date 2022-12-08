@@ -13,7 +13,7 @@ module ActiveRecord
             else
               send(f) # read_attribute(f)
             end
-            val ? val.to_s.a_decimal_localizado : nil
+            val&.to_s&.a_decimal_localizado
           end
           define_method("#{f}_localizado=") do |e|
             if attribute_method?(f)
