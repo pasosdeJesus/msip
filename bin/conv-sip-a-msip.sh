@@ -23,7 +23,12 @@ for i in `git ls-tree -r main --name-only`; do
       echo "Remplazando sip_grupo_id por grupo_id en $n";
       sed -i -e "s/sip_grupo_id/grupo_id/g" $n
     } fi;
-   grep "sip" $n > /dev/null
+    grep "actividad_m?sip_anexo" $n > /dev/null
+    if (test "$?" = "0") then {
+      echo "Remplazando actividad_sip_anexo por actividad_anexo en $n";
+      sed -i -e "s/actividad_m?sip_anexo/actividad_anexo/g" $n
+    } fi;
+    grep "sip" $n > /dev/null
     if (test "$?" = "0") then {
       echo "Remplazando sip como palabra en $n";
       sed -i -e "s/\([^A-Za-z]\)\(sip[^A-Za-z]\)/\1m\2/g" $n
