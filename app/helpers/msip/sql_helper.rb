@@ -210,10 +210,11 @@ module Msip
     end
     module_function :rehabilita_centropoblado
 
-    # Decide si existe una funcón f en base PostgreSQL
+    # Decide si existe una función f en base PostgreSQL
     def existe_función_pg?(f)
       c = "SELECT EXISTS("\
-        "SELECT * FROM pg_proc WHERE proname = '#{f}'"\
+        "SELECT * FROM pg_proc "\
+        "WHERE proname = #{ActiveRecord::Base.connection.quote(f)}"\
         ");"
       r = execute(c)
       r[0]["exists"]
@@ -237,12 +238,27 @@ module Msip
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
       c = "SELECT EXISTS("\
-        "SELECT * FROM pg_constraint WHERE conname = '#{r}'"\
+        "SELECT * FROM pg_constraint "\
+        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}"\
         ");"
       r = execute(c)
       r[0]["exists"]
     end
     module_function :existe_restricción_pg?
+
+    # Decide si existe una secuencia s en base PostgreSQL
+    def existe_secuencia_pg?(s)
+      reversible do |dir|
+        c = "SELECT EXISTS("\
+          "SELECT * FROM pg_class c WHERE c.relkind = 'S' "\
+          "AND c.relname = #{ActiveRecord::Base.connection.quote(s)}"\
+          ");"
+        r = execute(c)
+        r[0]["exists"]
+      end
+    end
+    module_function :existe_secuencia_pg?
+
 
     # Renombra una función en base PostgreSQL
     # @param nomini Nombre inicial

@@ -176,6 +176,7 @@ module Msip
       can(:buscar, Msip::Ubicacion)
       can(:lista, Msip::Ubicacion)
       can(:descarga_anexo, Msip::Anexo)
+      can(:mostrar_portada, Msip::Anexo)
       can(:abre_anexo, Msip::Anexo)
       can(:nuevo, Msip::Ubicacion)
       can(:read, Msip::Ubicacionpre)
