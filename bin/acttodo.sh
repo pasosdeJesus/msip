@@ -94,6 +94,7 @@ if (test "$SALTAHEB412" != "1") then {
 if (test "$SALTACOR1440" != "1") then {
   echo "**** cor1440"
   actuno cor1440_gen test/dummy; 
+  actuno cor1440_gen-msip test/dummy; 
   actuno cor1440; 
   actuno cor1440_pdJ; 
   actuno si_codacop
@@ -102,8 +103,10 @@ if (test "$SALTACOR1440" != "1") then {
 if (test "$SALTASAL7711" != "1") then {
   echo "**** sal7711"
   actuno sal7711_gen test/dummy; 
+  actuno sal7711_gen-msip test/dummy; 
   actuno sal7711; 
   actuno sal7711_web test/dummy; 
+  actuno sal7711_web-msip test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2GEN" != "1") then {
@@ -148,6 +151,7 @@ if (test "$SALTASIFASOL" != "1") then {
 if (test "$SALTASIVELSJR" != "1") then {
   echo "**** sivelsjr"
   actuno sivel2_sjr test/dummy; 
+  actuno sivel2_sjr-msip test/dummy; 
 } fi;
 
 if (test "$SALTAMIND" != "1") then {
@@ -160,5 +164,6 @@ if (test "$SALTAMIND" != "1") then {
 #actuno sivel2_sjrven; 
 if (test "$SALTASIJRSCOL" != "1") then {
   actuno si_jrscol
+  actuno si_jrscol-msip
 } fi;
 
