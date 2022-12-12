@@ -18,6 +18,8 @@
     <% rutap1a = "admin/#{clase.pluralize.underscore}/show_campo_#{vatr}" %>
     <% rutap2 = "#{clase.pluralize.underscore}/show_#{vatr}" %>
     <% rutap2a = "admin/#{clase.pluralize.underscore}/show_#{vatr}" %>
+    <% (ri, rm, rd)=clase.pluralize.underscore.rpartition("/") %>
+    <% rutap3a = "#{ri}/admin/#{rd}/show_#{vatr}" %>
     <% if lookup_context.find_all(rutap1, [], true).any? %>
         <dt><strong><%= model_class.human_attribute_name(atr) %>:</strong></dt>
         <dd> <%= render partial: rutap1 %> </dd>
@@ -30,6 +32,9 @@
     <% elsif lookup_context.find_all(rutap2a, [], true).any? %>
         <dt><strong><%= model_class.human_attribute_name(atr) %>:</strong></dt>
         <dd> <%= render partial: rutap2a %> </dd>
+    <% elsif lookup_context.find_all(rutap3a, [], true).any? %>
+        <dt><strong><%= model_class.human_attribute_name(atr) %>:</strong></dt>
+        <dd> <%= render partial: rutap3a %> </dd>
     <% else %>
       <% p = @registro.presenta(atr) %>
       <% if p && p.to_s.length > 0 %>
