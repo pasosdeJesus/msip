@@ -48,6 +48,11 @@ module Msip
             ]
           end
 
+          def atributos_show
+            atributos_transf_habilitado + 
+              [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
+          end
+
           def atributos_form
             Msip::Departamento.conf_presenta_nombre_con_origen = true
             atributos_transf_habilitado -

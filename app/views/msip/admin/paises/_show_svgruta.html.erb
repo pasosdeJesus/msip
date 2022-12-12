@@ -1,0 +1,25 @@
+<% if @registro.svgcdancho.nil? %>
+  <% return %>
+<% end %>
+<% escala = 512.0 / [@registro.svgcdancho, @registro.svgcdalto].max %>
+<% ancho = @registro.svgcdancho * escala %>
+<% ancho = ancho.round %>
+<% alto = @registro.svgcdalto * escala %>
+<% alto = alto.round %>
+<% vbx1 = @registro.svgcdx %>
+<% vby1 = @registro.svgcdy %>
+<% vbx2 = @registro.svgcdancho %>
+<% vby2 = @registro.svgcdalto %>
+<% puts "escala=#{escala}" %>
+<% ar = @registro.svgruta[2..-3].split(" ").
+  map(&:to_f).each_slice(2).to_a.select {|x,y| x != 0 && y != 0} %>
+<div style='width: <%= ancho %>px; height: <%= alto %>'>
+  <svg viewBox="<%= vbx1 %> <%= vby1 %> <%= vbx2 %> <%= vby2 %>">
+     <path id="ruta"
+           d="<%= @registro.svgruta %>"
+           stroke="#000"
+           stroke-width="<%= 1/escala %>"
+           fill="#fff" 
+           >
+  </svg>
+</div>

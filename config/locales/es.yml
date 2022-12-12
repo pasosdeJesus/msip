@@ -154,6 +154,11 @@ es:
         Departamento: Departamento/Estado
         Departamentos: Departamentos/Estados
         id_deplocal: Código dentro del país
+        svgruta: Ruta SVG
+        svgcdx: Lado izquierdo de cuadro delimitador SVG
+        svgcdy: Lado superior de cuadro delimitador SVG
+        svgcdancho: Ancho de cuadro delimitador SVG
+        svgcdalto: Alto de cuadro delimitador SVG
       "msip/estadosol":
         Estadosol: Estado de solicitud
         Estadossol: Estados de solicitudes
@@ -172,6 +177,11 @@ es:
         id_departamento: Departamento
         Municipio: Municipio
         Municipios: Municipios
+        svgruta: Ruta SVG
+        svgcdx: Lado izquierdo de cuadro delimitador SVG
+        svgcdy: Lado superior de cuadro delimitador SVG
+        svgcdancho: Ancho de cuadro delimitador SVG
+        svgcdalto: Alto de cuadro delimitador SVG
         tipomun: Tipo
       "msip/orgsocial":
         direccion: Dirección
@@ -209,6 +219,11 @@ es:
         nombreiso_frances: Nombre ISO en francés
         Pais: País
         Paises: Países
+        svgruta: Ruta SVG
+        svgcdx: Lado izquierdo de cuadro delimitador SVG
+        svgcdy: Lado superior de cuadro delimitador SVG
+        svgcdancho: Ancho de cuadro delimitador SVG
+        svgcdalto: Alto de cuadro delimitador SVG
         updated_at: Fecha en la que se actualizó en base de datos
         ultvigenciaini: Fecha de inicio de la vigencia más reciente
         ultvigenciafin: Fecha de finalización de la vigencia más reciente

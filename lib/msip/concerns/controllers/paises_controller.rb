@@ -38,6 +38,11 @@ module Msip
              :habilitado,]
           end
 
+          def atributos_show
+            atributos_transf_habilitado + 
+              [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
+          end
+
           def atributos_form
             atributos_transf_habilitado
           end
