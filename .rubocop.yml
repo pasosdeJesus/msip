@@ -18,6 +18,9 @@ Rails/ApplicationRecord:
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 
+Rails/SquishedSQLHeredocs:
+  Enabled: false
+
 Rails/OutputSafety:
   Exclude:
     - lib/msip/engine.rb

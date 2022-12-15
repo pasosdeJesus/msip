@@ -248,7 +248,7 @@ module Msip
 
     # Decide si existe una secuencia s en base PostgreSQL
     def existe_secuencia_pg?(s)
-      reversible do |dir|
+      reversible do |_dir|
         c = "SELECT EXISTS("\
           "SELECT * FROM pg_class c WHERE c.relkind = 'S' "\
           "AND c.relname = #{ActiveRecord::Base.connection.quote(s)}"\
@@ -258,7 +258,6 @@ module Msip
       end
     end
     module_function :existe_secuencia_pg?
-
 
     # Renombra una función en base PostgreSQL
     # @param nomini Nombre inicial

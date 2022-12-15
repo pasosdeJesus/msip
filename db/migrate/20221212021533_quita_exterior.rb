@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuitaExterior < ActiveRecord::Migration[7.0]
   def up
     if Msip::Departamento.where(id: 3).where(nombre: "EXTERIOR").count == 1

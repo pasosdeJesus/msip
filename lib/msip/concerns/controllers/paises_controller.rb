@@ -39,7 +39,7 @@ module Msip
           end
 
           def atributos_show
-            atributos_transf_habilitado + 
+            atributos_transf_habilitado +
               [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
           end
 
