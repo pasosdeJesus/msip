@@ -48,6 +48,8 @@ coverage/
 # Otros
 test/dummy/db/datos-basicas.sql
 msip-*.gem
+cobertura-unitarias
+test/dummy/cobertura-sistema
 .yardoc/
 yard_doc/
 creaparchesip.sh

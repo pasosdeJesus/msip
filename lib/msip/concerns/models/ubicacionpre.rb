@@ -87,7 +87,7 @@ module Msip
             [nombre, nombre_sinp]
           end
 
-          # A partir de datos como para ubicacinpre los valida
+          # A partir de datos como para ubicacionpre los valida
           # y crea una ubicacionpre y retorna su id o retorna id de una
           # ubicación existente hasta donde logre validar.
           #
@@ -203,8 +203,8 @@ module Msip
 
             # Latitud, longitud, tipo de sitio no modificables por usuario
             # para ubicaciones hasta centro poblado.
-            # En ubicaciones con lugar y/o sitio modificables por cualquier
-            # usuario del sistema.
+            # Las ubicacionespre con lugar y/o sitio son modificables por 
+            # cualquier usuario del sistema.
             # Al buscar lugar y sitio se ignora capitalización así como
             # espacios al comienzo o final y espacios redundantes
             w.delete(:tsitio_id)
@@ -252,11 +252,12 @@ module Msip
               end
             end
             # Preparamos tsitio_id
-            tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
-              Rails.logger.debug("Problema, no se encontró tsitio_id esperado " + tsitio_id)
+              Rails.logger.debug("Problema, no se encontró "\
+                                 "tsitio_id esperado #{tsitio_id}")
               return nil
             end
+            tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
 
             if sitio.to_s.strip == ""
               ubi = Msip::Ubicacionpre.where(w)

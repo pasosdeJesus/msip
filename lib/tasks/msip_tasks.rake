@@ -235,4 +235,24 @@ EOF
       puts pora.join('\n')
     end
   end
+
+  desc "Mezcla reporte de cobertura de pruebas con los de pruebas del sistema"
+  task :reporteregresion do
+    require 'simplecov'
+    SimpleCov.formatters = [
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::SimpleFormatter
+    ]
+
+    SimpleCov.coverage_dir "coverage"
+
+    dirs = Dir["cobertura-unitarias/.resultset.json",
+               "cobertura-sistema/.resultset.json"]
+    if File.exist?("test/dummy/config/application.rb")
+      dirs = Dir["cobertura-unitarias/.resultset.json",
+                 "test/dummy/cobertura-sistema/.resultset.json"]
+    end
+    SimpleCov.collate dirs
+  end
+
 end

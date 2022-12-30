@@ -3,7 +3,6 @@
 ENV["RAILS_ENV"] ||= "test"
 
 require "simplecov"
-SimpleCov.start
 require_relative "dummy/config/environment"
 require "rails/test_help"
 
@@ -170,6 +169,8 @@ PRUEBA_PAIS = {
   id: 1000,
   nombre: "PASI1",
   nombreiso_espanol: "PAIS1",
+  latitud: 1.1,
+  longitud_localizado: "1,2",
   fechacreacion: "2014-08-04",
 }
 
@@ -196,6 +197,15 @@ PRUEBA_TDOCUMENTO = {
   formatoregex: "[0-9]*",
   fechacreacion: "2014-09-22",
   created_at: "2014-09-22",
+}
+
+PRUEBA_TEMA = {
+  id: 100,
+  nombre: 'tema',
+  observaciones: 'tema',
+  nav_ini: '#111111',
+  fechacreacion: '2022-12-29',
+  created_at: '2022-12-29'
 }
 
 PRUEBA_SECTORORGSOCIAL = {
@@ -250,3 +260,15 @@ PRUEBA_UBICACION = {
   id_clase: 217, # CARACAS
   created_at: "2014-11-06",
 }
+
+PRUEBA_VEREDA = {
+  id: 100000,
+  nombre: "vereda",
+  latitud: 1.5,
+  longitud: 1.5,
+  fechacreacion: "2014-08-04",
+  fechadeshabilitacion: "2014-08-04",
+  municipio_id: 1417 ,
+}
+
+
