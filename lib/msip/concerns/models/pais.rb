@@ -18,6 +18,8 @@ module Msip
           has_many :ubicacion, foreign_key: "id_pais", validate: true,
             class_name: "Msip::Ubicacion"
 
+          flotante_localizado :latitud, :longitud
+
           validates :id, presence: true, uniqueness: true
           validates :nombreiso_espanol, presence: true, allow_blank: false,
             length: { maximum: 200 },
