@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require 'zeitwerk'
+
 ENV["RAILS_ENV"] ||= "test"
 
-require "simplecov"
+require "simplecov" # usará .simplecov de raiz
+Zeitwerk::Loader.eager_load_all
 require_relative "dummy/config/environment"
 require "rails/test_help"
 
