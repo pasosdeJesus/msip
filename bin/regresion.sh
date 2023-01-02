@@ -8,7 +8,7 @@ if (test -f test/dummy/config/application.rb)  then {
   rutaap="test/dummy/"
 } fi;
 echo "== Prepara"
-(cd $rutaap; RAILS_ENV=test bin/rails db:drop db:setup; RAILS_ENV=test bin/rails db:migrate msip:indices)
+(cd $rutaap; RAILS_ENV=test bin/rails db:drop db:setup db:seed msip:indices)
 if (test "$?" != "0") then {
   echo "No puede preparse base de prueba";
   exit 1;
