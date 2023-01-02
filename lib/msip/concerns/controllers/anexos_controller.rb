@@ -53,8 +53,10 @@ module Msip
               @anexo = Anexo.find(params[:id].to_i)
               puts "OJO anexo.id=#{@anexo.id}"
               ruta = @anexo.adjunto_file_name
+              puts "pwd=#{`pwd`}"
+              puts "ls=#{`ls`}"
               puts "OJO ruta=#{ruta}"
-              puts "OJO Msip.ruta_anexo=#{Msip.ruta_anexos.to_s}"
+              puts "OJO Msip.ruta_anexos=#{Msip.ruta_anexos.to_s}"
               pdfp=sprintf(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i, 
                            File.basename(ruta))
               ruta_im = ''
