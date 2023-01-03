@@ -10,7 +10,12 @@ if (test -f "test/dummy/config/application.rb")  then {
 } else {
   . ./.env
 } fi;
-. ./$rutaap/.env
+echo "rutaap=$rutaap"
+if (test -f ./$rutaap/.env) then {
+  . ./$rutaap/.env
+} else {
+  echo "No existe ./$rutaap/.env";
+} fi;
 
 echo "== Prepara"
 (cd $rutaap; RAILS_ENV=test bin/rails db:drop db:setup db:seed msip:indices)
