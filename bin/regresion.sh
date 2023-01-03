@@ -4,12 +4,13 @@
 # directorio coverage y publicandolo HTML en public/mimotor/cobertura
 
 rutaap="./"
-if (test -f test/dummy/config/application.rb)  then {
+if (test -f "test/dummy/config/application.rb")  then {
   rutaap="test/dummy/"
-  . test/dummy/.env
+  . ./test/dummy/.env
 } else {
   . ./.env
 } fi;
+. ./$rutaap/.env
 
 echo "== Prepara"
 (cd $rutaap; RAILS_ENV=test bin/rails db:drop db:setup db:seed msip:indices)
