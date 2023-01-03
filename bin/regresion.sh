@@ -6,15 +6,14 @@
 rutaap="./"
 if (test -f "test/dummy/config/application.rb")  then {
   rutaap="test/dummy/"
-  . ./test/dummy/.env
 } else {
-  . ./.env
+  rutaap="./"
 } fi;
 echo "rutaap=$rutaap"
-if (test -f ./$rutaap/.env) then {
-  . ./$rutaap/.env
+if (test -f $rutaap/.env) then {
+  . $rutaap/.env
 } else {
-  echo "No existe ./$rutaap/.env";
+  echo "No existe $rutaap/.env";
 } fi;
 
 echo "== Prepara"
