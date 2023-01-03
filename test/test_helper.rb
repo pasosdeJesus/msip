@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'zeitwerk'
+require "zeitwerk"
 
 ENV["RAILS_ENV"] ||= "test"
 
@@ -204,11 +204,11 @@ PRUEBA_TDOCUMENTO = {
 
 PRUEBA_TEMA = {
   id: 100,
-  nombre: 'tema',
-  observaciones: 'tema',
-  nav_ini: '#111111',
-  fechacreacion: '2022-12-29',
-  created_at: '2022-12-29'
+  nombre: "tema",
+  observaciones: "tema",
+  nav_ini: "#111111",
+  fechacreacion: "2022-12-29",
+  created_at: "2022-12-29",
 }
 
 PRUEBA_SECTORORGSOCIAL = {
@@ -271,7 +271,5 @@ PRUEBA_VEREDA = {
   longitud: 1.5,
   fechacreacion: "2014-08-04",
   fechadeshabilitacion: "2014-08-04",
-  municipio_id: 1417 ,
+  municipio_id: 1417,
 }
-
-

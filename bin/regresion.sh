@@ -6,7 +6,11 @@
 rutaap="./"
 if (test -f test/dummy/config/application.rb)  then {
   rutaap="test/dummy/"
+  . test/dummy/.env
+} else {
+  . ./.env
 } fi;
+
 echo "== Prepara"
 (cd $rutaap; RAILS_ENV=test bin/rails db:drop db:setup db:seed msip:indices)
 if (test "$?" != "0") then {
@@ -69,6 +73,6 @@ bin/rails app:msip:reporteregresion
 
 echo "== Copiando resultados para hacerlos visibles en el web en ruta cobertura"
 # Copiar resultados para hacerlos visibles en web
-mkdir -p test/dummy/public/msip/cobertura/
-cp -rf coverage/* test/dummy/public/msip/cobertura/
-cp -rf coverage/assets/* test/dummy/public/msip/assets/
+mkdir -p test/dummy/public/${RUTA_RELATIVA}/cobertura/
+cp -rf coverage/* test/dummy/public/${RUTA_RELATIVA}/cobertura/
+cp -rf coverage/assets/* test/dummy/public/${RUTA_RELATIVA}/assets/

@@ -28,15 +28,16 @@ module Msip
     end
 
     test "listado json" do
-      get msip.ubicacionespre_path+ '?ubicacionpre', as: :json
+      get msip.ubicacionespre_path + "?ubicacionpre", as: :json
+
       assert_response :success
     end
 
     test "listado json con term" do
-      get msip.ubicacionespre_path+'?ubicacionpre[term]=buen', as: :json
+      get msip.ubicacionespre_path + "?ubicacionpre[term]=buen", as: :json
+
       assert_response :success
     end
-
 
     test "debe presentar resumen de existente" do
       get msip.ubicacionpre_path(@ubicacionpre.id)

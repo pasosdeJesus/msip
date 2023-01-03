@@ -203,7 +203,7 @@ module Msip
 
             # Latitud, longitud, tipo de sitio no modificables por usuario
             # para ubicaciones hasta centro poblado.
-            # Las ubicacionespre con lugar y/o sitio son modificables por 
+            # Las ubicacionespre con lugar y/o sitio son modificables por
             # cualquier usuario del sistema.
             # Al buscar lugar y sitio se ignora capitalización así como
             # espacios al comienzo o final y espacios redundantes
@@ -253,8 +253,10 @@ module Msip
             end
             # Preparamos tsitio_id
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
-              Rails.logger.debug("Problema, no se encontró "\
-                                 "tsitio_id esperado #{tsitio_id}")
+              Rails.logger.debug do
+                "Problema, no se encontró "\
+                  "tsitio_id esperado #{tsitio_id}"
+              end
               return nil
             end
             tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil

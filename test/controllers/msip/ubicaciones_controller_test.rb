@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../../test_helper"
 
 module Msip
@@ -5,21 +7,21 @@ module Msip
     include Engine.routes.url_helpers
     include Devise::Test::IntegrationHelpers
 
-    setup  do
-      if ENV['CONFIG_HOSTS'] != 'www.example.com'
-        raise 'CONFIG_HOSTS debe ser www.example.com'
+    setup do
+      if ENV["CONFIG_HOSTS"] != "www.example.com"
+        raise "CONFIG_HOSTS debe ser www.example.com"
       end
+
       @current_usuario = ::Usuario.create(PRUEBA_USUARIO)
       sign_in @current_usuario
     end
 
     test "nuevo: crea una nueva" do
-      a = Msip::Ubicacion.new
       skip # Por arreglar en mmsip cuando en ubicaciones_controller no se requiera id_caso
       get nueva_ubicacion_url
+
       assert_response :success
       assert_template :new
     end
-
   end
 end

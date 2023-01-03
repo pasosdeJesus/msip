@@ -4,7 +4,6 @@ require "test_helper"
 
 module Msip
   class VeredaTest < ActiveSupport::TestCase
-
     test "valido" do
       vereda = Vereda.create(
         PRUEBA_VEREDA,
@@ -26,6 +25,7 @@ module Msip
 
     test "existente" do
       vereda = Vereda.where(id: 1).take
+
       assert_equal("Nuevo Morichal", vereda.nombre)
     end
   end
