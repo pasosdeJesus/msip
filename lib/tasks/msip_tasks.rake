@@ -135,7 +135,11 @@ EOF
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
     puts "OJO vuelca: fecha=#{fecha}"
     puts "OJO vuelca: archcopia=#{archcopia}"
+    puts "OJO vuelca: dirname(archcopia)=#{File.dirname(archcopia)}"
     ls=`ls -l #{File.dirname(archcopia)}`
+    puts "OJO vuelca: ls=#{ls}"
+    puts "OJO vuelca: dirname(dirname(archcopia))=#{File.dirname(File.dirname(archcopia))}"
+    ls=`ls -l #{File.dirname(File.dirname(archcopia))}`
     puts "OJO vuelca: ls=#{ls}"
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
