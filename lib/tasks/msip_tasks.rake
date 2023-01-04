@@ -133,6 +133,10 @@ EOF
     Msip::TareasrakeHelper.asegura_varambiente_bd
     fecha = Time.zone.now.strftime("%Y-%m-%d")
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
+    echo "OJO vuelca: fecha=#{fecha}"
+    echo "OJO vuelca: archcopia=#{archcopia}"
+    ls=`ls -l #{File.dirname(archcopia)}`
+    echo "OJO vuelca: ls=#{ls}"
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
     command = "pg_dump --encoding=UTF8 -cO --column-inserts " \

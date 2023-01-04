@@ -26,6 +26,7 @@ module Msip
     # end
 
     test "vuelca" do
+      puts "OJO vuelca:"
       Rake::Task["msip:vuelca"].invoke
       # Rake::Task['msip:restaura'].invoke
     end

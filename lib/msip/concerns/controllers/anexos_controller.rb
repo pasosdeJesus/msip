@@ -62,12 +62,14 @@ module Msip
               puts "ls=#{ls}"
               pdfp = format(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i,
                 File.basename(ruta))
+              puts "pdfp=#{pdfp}"
               ruta_im = ""
               if ruta.length > 5 && ruta[-4..-1] == ".pdf"
                 p(%x(pdftoppm -png -f 1 -l 1 "#{pdfp}" "#{pdfp[..-5]}"))
                 ruta_im = pdfp[..-5] + "-1.png"
                 logger.debug("Descargando #{ruta_im}")
                 send_file(ruta_im, x_sendfile: true)
+                return
               else
                 redirect_to(Rails.configuration.relative_url_root,
                   alert: "Solo puede obtenerse portada de pdfs")
