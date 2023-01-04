@@ -9,9 +9,8 @@ if (test -f "test/dummy/config/application.rb")  then {
 } else {
   rutaap="./"
 } fi;
-echo "rutaap=$rutaap"
 if (test -f $rutaap/.env) then {
-  . $rutaap/.env
+  (cd $rutaap; . ./.env)
 } else {
   echo "No existe $rutaap/.env";
 } fi;
@@ -23,26 +22,46 @@ if (test "$?" != "0") then {
   exit 1;
 } fi;
 
+echo "== Prepara entorno"
+
+vm=`ruby -v | sed  -e "s/^ruby \([0-9]\.[0-9]\).[0-9]* .*/\1/g"`
+if (test "$vm" = "") then {
+  echo "No se detectó versión de ruby"
+  exit 1;
+} fi;
+
+RAILS="bin/rails"
+if (test "$vm" = "3.2") then {
+  RAILS="${RAILS}"
+} fi;
+
+if (test -f "test/dummy/config/application.rb") then {
+  (cd test/dummy; ${RAILS} db:environment:set RAILS_ENV=test; RAILS_ENV=test ${RAILS} db:drop db:create db:setup db:seed msip:indices)
+} else {
+  ${RAILS} db:environment:set RAILS_ENV=test; 
+  RAILS_ENV=test ${RAILS} db:drop db:create db:setup db:seed msip:indices
+} fi;
+
 echo "== Pruebas de regresión unitarias"
 mkdir -p cobertura-unitarias/
 rm -rf cobertura-unitarias/{*,.*}
-CONFIG_HOSTS=www.example.com bin/rails test
+CONFIG_HOSTS=www.example.com ${RAILS} test
 
 echo "== Pruebas de regresión al sistema"
 if (test -f "test/dummy/config/application.rb") then {
   mkdir -p test/dummy/cobertura-sistema/
   rm -rf test/dummy/cobertura-sistema/{*,.*}
-  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 bin/rails msip:stimulus_motores test:system)
+  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
 } else {
   mkdir -p cobertura-sistema/
   rm -rf cobertura-sistema/{*,.*}
-  CONFIG_HOSTS=127.0.0.1 bin/rails msip:stimulus_motores test:system
+  CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
 } fi;
 
 echo "== Unificando resultados de pruebas en directorio clásico coverage"
 mkdir -p coverage/
 rm -rf coverage/{*,.*}
-bin/rails app:msip:reporteregresion
+${RAILS} app:msip:reporteregresion
 
 echo "== Copiando resultados para hacerlos visibles en el web en ruta cobertura"
 # Copiar resultados para hacerlos visibles en web
@@ -58,23 +77,23 @@ cp -rf coverage/assets/* test/dummy/public/msip/assets/
 echo "== Pruebas de regresión unitarias"
 mkdir -p cobertura-unitarias/
 rm -rf cobertura-unitarias/{*,.*}
-CONFIG_HOSTS=www.example.com bin/rails test
+CONFIG_HOSTS=www.example.com ${RAILS} test
 
 echo "== Pruebas de regresión al sistema"
 if (test -f "test/dummy/config/application.rb") then {
   mkdir -p test/dummy/cobertura-sistema/
   rm -rf test/dummy/cobertura-sistema/{*,.*}
-  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 bin/rails msip:stimulus_motores test:system)
+  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
 } else {
   mkdir -p cobertura-sistema/
   rm -rf cobertura-sistema/{*,.*}
-  CONFIG_HOSTS=127.0.0.1 bin/rails msip:stimulus_motores test:system
+  CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
 } fi;
 
 echo "== Unificando resultados de pruebas en directorio clásico coverage"
 mkdir -p coverage/
 rm -rf coverage/{*,.*}
-bin/rails app:msip:reporteregresion
+${RAILS} app:msip:reporteregresion
 
 echo "== Copiando resultados para hacerlos visibles en el web en ruta cobertura"
 # Copiar resultados para hacerlos visibles en web
