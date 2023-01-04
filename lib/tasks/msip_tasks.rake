@@ -135,6 +135,9 @@ EOF
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
     puts "OJO vuelca: fecha=#{fecha}"
     puts "OJO vuelca: archcopia=#{archcopia}"
+    if (!Dir.exist?(File.dirname(archcopia))) 
+      FileUtils.mkdir_p File.dirname(archcopia)
+    end
     puts "OJO vuelca: dirname(archcopia)=#{File.dirname(archcopia)}"
     ls=`ls -l #{File.dirname(archcopia)}`
     puts "OJO vuelca: ls=#{ls}"
