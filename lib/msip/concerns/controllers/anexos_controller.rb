@@ -65,7 +65,10 @@ module Msip
               puts "pdfp=#{pdfp}"
               ruta_im = ""
               if ruta.length > 5 && ruta[-4..-1] == ".pdf"
-                p(%x(pdftoppm -png -f 1 -l 1 "#{pdfp}" "#{pdfp[..-5]}"))
+                orden = "pdftoppm -png -f 1 -l 1 \"#{pdfp}\" \"#{pdfp[..-5]}\""
+                puts "OJO orden=#{orden}"
+                r=`#{orden}`
+                puts "OJO r=#{r}"
                 ruta_im = pdfp[..-5] + "-1.png"
                 logger.debug("Descargando #{ruta_im}")
                 send_file(ruta_im, x_sendfile: true)
