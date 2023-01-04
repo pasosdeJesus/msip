@@ -32,7 +32,11 @@ module Msip
     end
 
     test "mostrar_portada pdf" do
-      get msip.mostrar_portada_url(@anexo.id)
+      puts "@anexo.id=#{@anexo.id}"
+      puts "msip.mostrar_portada_path=#{msip.mostrar_portada_path}"
+      puts "msip.mostrar_portada_path(anexo.id)=#{msip.mostrar_portada_path(@anexo.id)}"
+
+      get msip.mostrar_portada_path(@anexo.id)
 
       assert_redirected_to Rails.configuration.relative_url_root
       @anexo2 = Anexo.new(PRUEBA_ANEXO.merge(descripcion: "yy"))
