@@ -52,23 +52,14 @@ module Msip
           def mostrar_portada
             if !params[:id].nil?
               @anexo = Anexo.find(params[:id].to_i)
-              puts "OJO anexo.id=#{@anexo.id}"
               ruta = @anexo.adjunto_file_name
-              puts "pwd=#{%x(pwd)}"
-              puts "ls=#{%x(ls)}"
-              puts "OJO ruta=#{ruta}"
-              puts "OJO Msip.ruta_anexos=#{Msip.ruta_anexos}"
               ls = `ls -l #{Msip.ruta_anexos}`
-              puts "ls=#{ls}"
               pdfp = format(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i,
                 File.basename(ruta))
-              puts "pdfp=#{pdfp}"
               ruta_im = ""
               if ruta.length > 5 && ruta[-4..-1] == ".pdf"
                 orden = "pdftoppm -png -f 1 -l 1 \"#{pdfp}\" \"#{pdfp[..-5]}\""
-                puts "OJO orden=#{orden}"
                 r=`#{orden}`
-                puts "OJO r=#{r}"
                 ruta_im = pdfp[..-5] + "-1.png"
                 logger.debug("Descargando #{ruta_im}")
                 send_file(ruta_im, x_sendfile: true)

@@ -19,7 +19,6 @@ namespace :msip do
     ab = Ability.new
     tbn = ab.tablasbasicas - ab.basicas_id_noauto
     tbn.each do |t|
-      # puts "OJO tbn, t=#{t}"
       nomt = Ability.tb_modelo(t)
       maxv = 100
       if ab.inisec_tb.keys.include?(nomt.to_sym)
@@ -34,7 +33,6 @@ namespace :msip do
     # Finalmente otras tablas no basicas pero con índices
     tb = ab.nobasicas_indice_seq_con_id
     tb.each do |t|
-      # puts "OJO no basica con indice, t=#{t}"
       # byebug
       connection.execute("
       SELECT setval('public.#{Ability.tb_modelo(t)}_id_seq', MAX(id)) FROM
@@ -133,17 +131,11 @@ EOF
     Msip::TareasrakeHelper.asegura_varambiente_bd
     fecha = Time.zone.now.strftime("%Y-%m-%d")
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
-    puts "OJO vuelca: fecha=#{fecha}"
-    puts "OJO vuelca: archcopia=#{archcopia}"
     if (!Dir.exist?(File.dirname(archcopia))) 
       FileUtils.mkdir_p File.dirname(archcopia)
     end
-    puts "OJO vuelca: dirname(archcopia)=#{File.dirname(archcopia)}"
     ls=`ls -l #{File.dirname(archcopia)}`
-    puts "OJO vuelca: ls=#{ls}"
-    puts "OJO vuelca: dirname(dirname(archcopia))=#{File.dirname(File.dirname(archcopia))}"
     ls=`ls -l #{File.dirname(File.dirname(archcopia))}`
-    puts "OJO vuelca: ls=#{ls}"
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
     command = "pg_dump --encoding=UTF8 -cO --column-inserts " \
