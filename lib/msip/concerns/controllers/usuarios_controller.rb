@@ -30,8 +30,10 @@ module Msip
             if can?(:manage, Msip::Grupo)
               r += [:msip_grupo]
             end
-            r += [:created_at_localizada,
-                  :habilitado,]
+            r += [
+              :created_at_localizada,
+              :habilitado,
+            ]
             r
           end
 

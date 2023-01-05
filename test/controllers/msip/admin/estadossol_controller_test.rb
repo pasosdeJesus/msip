@@ -79,8 +79,8 @@ module Msip
           params: { estadosol: { nombre: "YY" } }
 
         assert_redirected_to filtra_doble_ruta_relativa(msip.admin_estadosol_path(
-        assigns(:estadosol),
-      ))
+          assigns(:estadosol),
+        ))
       end
 
       test "debe eliminar" do

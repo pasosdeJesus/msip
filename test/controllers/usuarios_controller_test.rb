@@ -64,7 +64,8 @@ module Msip
 
       assert_response :success
       assert_template "edit"
-      assert_select "form[action=?][method=?]", usuario_path(usuario),
+      assert_select "form[action=?][method=?]",
+        usuario_path(usuario),
         "post" do
         verifica_formulario_usuario
       end

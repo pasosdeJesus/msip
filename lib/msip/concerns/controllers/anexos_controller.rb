@@ -15,17 +15,24 @@ module Msip
               ruta = @anexo.adjunto_file_name
               if !ruta.nil?
                 # Idea para evitar inyeccion de https://www.ruby-forum.com/topic/124471
-                n = format(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i,
-                  File.basename(ruta))
+                n = format(
+                  Msip.ruta_anexos.to_s + "/%d_%s",
+                  @anexo.id.to_i,
+                  File.basename(ruta),
+                )
                 logger.debug("Descargando #{n}")
                 send_file(n, x_sendfile: true)
               else
-                redirect_to(Rails.configuration.relative_url_root,
-                  alert: "Anexo sin ruta")
+                redirect_to(
+                  Rails.configuration.relative_url_root,
+                  alert: "Anexo sin ruta",
+                )
               end
             else
-              redirect_to(Rails.configuration.relative_url_root,
-                alert: "Falta id")
+              redirect_to(
+                Rails.configuration.relative_url_root,
+                alert: "Falta id",
+              )
             end
           end
 
@@ -35,17 +42,24 @@ module Msip
               ruta = @anexo.adjunto_file_name
               if !ruta.nil?
                 # Idea para evitar inyeccion de https://www.ruby-forum.com/topic/124471
-                n = format(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i,
-                  File.basename(ruta))
+                n = format(
+                  Msip.ruta_anexos.to_s + "/%d_%s",
+                  @anexo.id.to_i,
+                  File.basename(ruta),
+                )
                 logger.debug("Descargando #{n}")
                 send_file(n, disposition: :inline)
               else
-                redirect_to(Rails.configuration.relative_url_root,
-                  alert: "Anexo sin ruta")
+                redirect_to(
+                  Rails.configuration.relative_url_root,
+                  alert: "Anexo sin ruta",
+                )
               end
             else
-              redirect_to(Rails.configuration.relative_url_root,
-                alert: "Falta id")
+              redirect_to(
+                Rails.configuration.relative_url_root,
+                alert: "Falta id",
+              )
             end
           end
 
@@ -53,24 +67,31 @@ module Msip
             if !params[:id].nil?
               @anexo = Anexo.find(params[:id].to_i)
               ruta = @anexo.adjunto_file_name
-              ls = `ls -l #{Msip.ruta_anexos}`
-              pdfp = format(Msip.ruta_anexos.to_s + "/%d_%s", @anexo.id.to_i,
-                File.basename(ruta))
+              ls = %x(ls -l #{Msip.ruta_anexos})
+              pdfp = format(
+                Msip.ruta_anexos.to_s + "/%d_%s",
+                @anexo.id.to_i,
+                File.basename(ruta),
+              )
               ruta_im = ""
               if ruta.length > 5 && ruta[-4..-1] == ".pdf"
                 orden = "pdftoppm -png -f 1 -l 1 \"#{pdfp}\" \"#{pdfp[..-5]}\""
-                r=`#{orden}`
+                r = %x(#{orden})
                 ruta_im = pdfp[..-5] + "-1.png"
                 logger.debug("Descargando #{ruta_im}")
                 send_file(ruta_im, x_sendfile: true)
-                return
+                nil
               else
-                redirect_to(Rails.configuration.relative_url_root,
-                  alert: "Solo puede obtenerse portada de pdfs")
+                redirect_to(
+                  Rails.configuration.relative_url_root,
+                  alert: "Solo puede obtenerse portada de pdfs",
+                )
               end
             else
-              redirect_to(Rails.configuration.relative_url_root,
-                alert: "Falta id")
+              redirect_to(
+                Rails.configuration.relative_url_root,
+                alert: "Falta id",
+              )
             end
           end
         end # included

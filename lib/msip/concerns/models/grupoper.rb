@@ -12,7 +12,9 @@ module Msip
 
           self.table_name = "msip_grupoper"
 
-          validates :nombre, presence: true, allow_blank: false,
+          validates :nombre,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 500 }
           validates :anotaciones, length: { maximum: 500 }
 

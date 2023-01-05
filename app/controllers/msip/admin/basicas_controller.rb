@@ -18,11 +18,13 @@ module Msip
 
       # Campos de la tabla
       def atributos_index
-        ["id",
-         "nombre",
-         "observaciones",
-         "fechacreacion_localizada",
-         "habilitado",]
+        [
+          "id",
+          "nombre",
+          "observaciones",
+          "fechacreacion_localizada",
+          "habilitado",
+        ]
       end
 
       def atributos_transf_habilitado
@@ -50,8 +52,11 @@ module Msip
         c.reorder([:nombre])
       end
 
-      helper_method :clase, :atributos_index, :atributos_form,
-        :genclase, :camponombre
+      helper_method :clase,
+        :atributos_index,
+        :atributos_form,
+        :genclase,
+        :camponombre
     end
   end
 end

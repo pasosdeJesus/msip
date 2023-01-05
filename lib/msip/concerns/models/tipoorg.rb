@@ -17,7 +17,9 @@ module Msip
           ORGINT     = 5 # Organismo internacional
           GRUPOARMADO = 20 # Que no es estatal
 
-          has_many :orgsocial, foreign_key: "tipoorg_id", validate: true,
+          has_many :orgsocial,
+            foreign_key: "tipoorg_id",
+            validate: true,
             class_name: "Msip::Orgsocial"
         end # included
       end

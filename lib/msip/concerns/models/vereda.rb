@@ -12,11 +12,17 @@ module Msip
           self.table_name = "msip_vereda"
 
           belongs_to :municipio,
-            validate: true, class_name: "Msip::Municipio", optional: false
-          has_one :departamento, through: :municipio,
-            class_name: "Msip::Departamento", source: :departamento
-          has_one :pais, through: :departamento,
-            class_name: "Msip::Pais", source: :pais
+            validate: true,
+            class_name: "Msip::Municipio",
+            optional: false
+          has_one :departamento,
+            through: :municipio,
+            class_name: "Msip::Departamento",
+            source: :departamento
+          has_one :pais,
+            through: :departamento,
+            class_name: "Msip::Pais",
+            source: :pais
 
           validates_uniqueness_of :verlocal_id,
             scope: :municipio_id,

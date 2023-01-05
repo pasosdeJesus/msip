@@ -18,24 +18,26 @@ module Msip
           end
 
           def atributos_index
-            [:id,
-             :nombre,
-             :nombreiso_espanol,
-             :latitud_localizado,
-             :longitud_localizado,
-             :alfa2,
-             :alfa3,
-             :codiso,
-             :nombreiso_ingles,
-             :nombreiso_frances,
-             :div1,
-             :div2,
-             :div3,
-             :observaciones,
-             :ultvigenciaini,
-             :ultvigenciafin,
-             :fechacreacion_localizada,
-             :habilitado,]
+            [
+              :id,
+              :nombre,
+              :nombreiso_espanol,
+              :latitud_localizado,
+              :longitud_localizado,
+              :alfa2,
+              :alfa3,
+              :codiso,
+              :nombreiso_ingles,
+              :nombreiso_frances,
+              :div1,
+              :div2,
+              :div3,
+              :observaciones,
+              :ultvigenciaini,
+              :ultvigenciafin,
+              :fechacreacion_localizada,
+              :habilitado,
+            ]
           end
 
           def atributos_show

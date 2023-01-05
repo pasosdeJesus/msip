@@ -10,11 +10,17 @@ module Msip
 
     argument :modelo, type: :string
     argument :modeloplural, type: :string
-    class_option :modelo, type: :boolean, default: true,
+    class_option :modelo,
+      type: :boolean,
+      default: true,
       desc: "Genera modelo"
-    class_option :controlador, type: :boolean, default: true,
+    class_option :controlador,
+      type: :boolean,
+      default: true,
       desc: "Genera controlador"
-    class_option :test, type: :boolean, default: true,
+    class_option :test,
+      type: :boolean,
+      default: true,
       desc: "Genera prueba minitest para el modelo"
 
     def genera_modelo
@@ -35,8 +41,10 @@ module Msip
     private
 
     def genera_modelom
-      template("modelo.rb.erb",
-        "app/models/#{nom_arch}.rb")
+      template(
+        "modelo.rb.erb",
+        "app/models/#{nom_arch}.rb",
+      )
       generate("migration", "Create#{nom_arch.camelize} " \
         "created_at:timestamp updated_at:timestamp")
       ab = "app/models/ability.rb"
@@ -57,15 +65,21 @@ module Msip
     end
 
     def genera_controlador
-      template("modelos_controller.rb.erb",
-        "app/controllers/#{nom_arch_plural}_controller.rb")
+      template(
+        "modelos_controller.rb.erb",
+        "app/controllers/#{nom_arch_plural}_controller.rb",
+      )
     end
 
     def genera_test
-      template("modelo_test.rb.erb",
-        "test/models/#{nom_arch}_test.rb")
-      template("modelos_controller_test.rb.erb",
-        "test/controllers/#{nom_arch_plural}_controller_test.rb")
+      template(
+        "modelo_test.rb.erb",
+        "test/models/#{nom_arch}_test.rb",
+      )
+      template(
+        "modelos_controller_test.rb.erb",
+        "test/controllers/#{nom_arch_plural}_controller_test.rb",
+      )
     end
 
     def nom_arch

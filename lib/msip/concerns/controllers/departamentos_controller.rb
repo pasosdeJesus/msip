@@ -17,8 +17,10 @@ module Msip
             c = nil
             if params[:id_pais] && params[:id_pais] != ""
               idpais = params[:id_pais].to_i
-              c = Msip::Departamento.where(fechadeshabilitacion: nil,
-                id_pais: idpais).all
+              c = Msip::Departamento.where(
+                fechadeshabilitacion: nil,
+                id_pais: idpais,
+              ).all
             end
             super(c)
           end

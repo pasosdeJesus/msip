@@ -16,7 +16,9 @@ module Msip
             content_type: ["text/plain", /.*/]
           validates_attachment_presence :adjunto
 
-          validates :descripcion, presence: true, allow_blank: false,
+          validates :descripcion,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 1500 }
           # validates :archivo, length: { maximum: 255 }
           validates :adjunto_file_name, length: { maximum: 255 }

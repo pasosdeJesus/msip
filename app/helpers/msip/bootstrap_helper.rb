@@ -61,13 +61,21 @@ module Msip
     def despliega_abajo(opcionmenu, &bloque)
       opab = opcionmenu.gsub(" ", "_")
       r = content_tag(:li, class: "nav-item dropdown") do
-        link_to(opcionmenu, "#", class: "nav-link dropdown-toggle",
+        link_to(
+          opcionmenu,
+          "#",
+          class: "nav-link dropdown-toggle",
           id: "navbarDropdown" + opab,
           role: "button",
           "data-bs-toggle" => "dropdown",
-          "aria-expanded" => false) +
-          content_tag(:ul, class: "dropdown-menu dropdown-menu-light",
-                        "aria-labelledby" => "navbarDropdown" + opab, &bloque)
+          "aria-expanded" => false,
+        ) +
+          content_tag(
+            :ul,
+            class: "dropdown-menu dropdown-menu-light",
+            "aria-labelledby" => "navbarDropdown" + opab,
+            &bloque
+          )
       end
       r
     end
@@ -112,8 +120,10 @@ module Msip
         else
 
           link_to(
-            url, copiaop.merge({ class: "pc-link",
-                                id: "navbarDropdown" + opab, })
+            url, copiaop.merge({
+              class: "pc-link",
+              id: "navbarDropdown" + opab,
+            })
           ) do
             unless bloque.nil?
             end
@@ -141,10 +151,14 @@ module Msip
     module_function :grupo_menus_dk
 
     def barra_navegacion(opciones, &bloque)
-      r = content_tag(:nav,
-        class: "navbar navbar-expand-lg navbar-light bg-light") do
-        content_tag(:div,
-          class: "container-fluid") do
+      r = content_tag(
+        :nav,
+        class: "navbar navbar-expand-lg navbar-light bg-light",
+      ) do
+        content_tag(
+          :div,
+          class: "container-fluid",
+        ) do
           r2 = ""
           if opciones[:marca] || opciones[:brand]
             r2 += link_to(
@@ -165,8 +179,12 @@ module Msip
           ) do
             content_tag(:span, "", class: "navbar-toggler-icon")
           end
-          r2 += content_tag(:div, class: "collapse navbar-collapse",
-                            id: "navbarSupportedContent", &bloque)
+          r2 += content_tag(
+            :div,
+            class: "collapse navbar-collapse",
+            id: "navbarSupportedContent",
+            &bloque
+          )
           r2.html_safe
         end
       end
@@ -187,15 +205,18 @@ module Msip
           :danger
         end
         r << content_tag(
-          :div, class: "alert alert-#{tal} "\
-                  "alert-dismissible fade show",
-          role: :alert
+          :div,
+          class: "alert alert-#{tal} "\
+            "alert-dismissible fade show",
+          role: :alert,
         ) do
           content_tag(:span, mensaje) +
             content_tag(
-              :button, type: :button, class: "btn-close",
+              :button,
+              type: :button,
+              class: "btn-close",
               "data-bs-dismiss" =>  :alert,
-              "aria-label" => "Close"
+              "aria-label" => "Close",
             ) do
             end
         end
@@ -372,8 +393,9 @@ module Msip
           :div, class: "image-wrapper"
         ) do
           content_tag(
-            :img, src: opciones[:imagen_barra_lateral],
-            alt: "sidebar background"
+            :img,
+            src: opciones[:imagen_barra_lateral],
+            alt: "sidebar background",
           )
         end
       end
@@ -386,9 +408,11 @@ module Msip
                  "font-weight: bold;"
       ) do
         if opciones[:enlace_marca]
-          link_to(titulo,
+          link_to(
+            titulo,
             opciones[:enlace_marca],
-            class: "navbar-brand")
+            class: "navbar-brand",
+          )
         else
           titulo
         end
@@ -398,8 +422,9 @@ module Msip
         colapsada = "collapsed"
       end
       r = content_tag(
-        :aside, id: "sidebar",
-        class: "sidebar break-point-lg has-bg-image #{colapsada}"
+        :aside,
+        id: "sidebar",
+        class: "sidebar break-point-lg has-bg-image #{colapsada}",
       ) do
         fondo +
           content_tag(
@@ -418,8 +443,10 @@ module Msip
           end # sidebar-layout
       end + # aside
         content_tag(
-          :a, id: "btn-toggle", href: "#",
-          class: "sidebar-toggler break-point-lg"
+          :a,
+          id: "btn-toggle",
+          href: "#",
+          class: "sidebar-toggler break-point-lg",
         ) do
           "<i class='ri-swap-box-fill ri-xl'></i>".html_safe
         end

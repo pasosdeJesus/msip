@@ -10,13 +10,21 @@ module Msip
 
     argument :tablabasica, type: :string
     argument :tabla2, type: :string
-    class_option :modelo, type: :boolean, default: true,
+    class_option :modelo,
+      type: :boolean,
+      default: true,
       desc: "Modifica modelos"
-    class_option :controlador, type: :boolean, default: true,
+    class_option :controlador,
+      type: :boolean,
+      default: true,
       desc: "Modifica controlador de tabla2"
-    class_option :test, type: :boolean, default: true,
+    class_option :test,
+      type: :boolean,
+      default: true,
       desc: "Genera prueba minitest para asociacion"
-    class_option :belongs_to, type: :boolean, default: true,
+    class_option :belongs_to,
+      type: :boolean,
+      default: true,
       desc: "Crea un belongs_to en un tabla2 --selección simple-- "\
         "de lo contrario tabla combinada y has_many --selección múltiple"
 
@@ -119,8 +127,10 @@ end
     private
 
     def genera_modelo
-      template("tablabasica.rb.erb",
-        "app/models/#{nom_arch}.rb")
+      template(
+        "tablabasica.rb.erb",
+        "app/models/#{nom_arch}.rb",
+      )
       generate("migration", "Create#{nom_arch.camelize} " \
         "nombre:string{500} observaciones:string{5000} " \
         "fechacreacion:date fechadeshabilitacion:date " \
@@ -160,20 +170,28 @@ end
     end
 
     def genera_controlador
-      template("tablasbasicas_controller.rb.erb",
-        "app/controllers/admin/#{nom_arch_plural}_controller.rb")
+      template(
+        "tablasbasicas_controller.rb.erb",
+        "app/controllers/admin/#{nom_arch_plural}_controller.rb",
+      )
     end
 
     def genera_test
-      template("tablabasica_test.rb.erb",
-        "test/models/#{nom_arch}_test.rb")
-      template("tablasbasicas_controller_test.rb.erb",
-        "test/controllers/#{nom_arch_plural}_controller_test.rb")
+      template(
+        "tablabasica_test.rb.erb",
+        "test/models/#{nom_arch}_test.rb",
+      )
+      template(
+        "tablasbasicas_controller_test.rb.erb",
+        "test/controllers/#{nom_arch_plural}_controller_test.rb",
+      )
     end
 
     def genera_factory
-      template("factory_tablabasica.rb.erb",
-        "test/factories/#{nom_arch}.rb")
+      template(
+        "factory_tablabasica.rb.erb",
+        "test/factories/#{nom_arch}.rb",
+      )
     end
 
     def genera_asociacion

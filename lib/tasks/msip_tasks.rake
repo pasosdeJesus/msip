@@ -131,11 +131,11 @@ EOF
     Msip::TareasrakeHelper.asegura_varambiente_bd
     fecha = Time.zone.now.strftime("%Y-%m-%d")
     archcopia = Msip::TareasrakeHelper.nombre_volcado(Msip.ruta_volcados)
-    if (!Dir.exist?(File.dirname(archcopia))) 
-      FileUtils.mkdir_p File.dirname(archcopia)
+    unless Dir.exist?(File.dirname(archcopia))
+      FileUtils.mkdir_p(File.dirname(archcopia))
     end
-    ls=`ls -l #{File.dirname(archcopia)}`
-    ls=`ls -l #{File.dirname(File.dirname(archcopia))}`
+    ls = %x(ls -l #{File.dirname(archcopia)})
+    ls = %x(ls -l #{File.dirname(archcopia, 2)})
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
     command = "pg_dump --encoding=UTF8 -cO --column-inserts " \
@@ -220,8 +220,12 @@ EOF
     rutac = "../../app/javascript/controllers"
     if Dir.exist?(rutac)
       if Dir["../../*gemspec"].count == 1
-        enlaza(Dir["../../*gemspec"][0][6..-9], "../../../#{rutac}",
-          cgitignore, pora)
+        enlaza(
+          Dir["../../*gemspec"][0][6..-9],
+          "../../../#{rutac}",
+          cgitignore,
+          pora,
+        )
       end
     end
     Gem::Specification.find_all.each do |s|

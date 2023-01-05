@@ -17,7 +17,9 @@ module Msip
 
       campofecha_localizado :fechacreacion
       campofecha_localizado :fechadeshabilitacion
-      validates :nombre, presence: true, allow_blank: false,
+      validates :nombre,
+        presence: true,
+        allow_blank: false,
         length: { maximum: 500 }
       validates :observaciones, length: { maximum: 5000 }
       validates :fechacreacion, presence: true, allow_blank: false
@@ -25,9 +27,12 @@ module Msip
       # Las tablas basicas que tengan repetido deben definir la constante
       # Nombresunicos=false
       # Ver por ejemplo departamento
-      validates :nombre, uniqueness: { case_sensitive: false, if: proc { |rb|
-        !(defined? rb.class::Nombresunicos) || rb.class::Nombresunicos
-      }, }
+      validates :nombre, uniqueness: {
+        case_sensitive: false,
+        if: proc { |rb|
+              !(defined? rb.class::Nombresunicos) || rb.class::Nombresunicos
+            },
+      }
 
       validate :fechacreacion_posible?
       def fechacreacion_posible?

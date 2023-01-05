@@ -15,5 +15,9 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules/chosen-js
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += ["webfonts/fa-solid-900.eot", "webfonts/fa-solid-900.svg",
-                                               "webfonts/fa-solid-900.ttf", "chosen-sprite.png",]
+Rails.application.config.assets.precompile += [
+  "webfonts/fa-solid-900.eot",
+  "webfonts/fa-solid-900.svg",
+  "webfonts/fa-solid-900.ttf",
+  "chosen-sprite.png",
+]

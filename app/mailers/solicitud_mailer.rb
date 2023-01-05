@@ -23,8 +23,10 @@ class SolicitudMailer < ApplicationMailer
     Rails.logger.debug { "OJO solicitud=#{@solicitud}" }
     @para = @cor_solicitado_a.select { |c| !(c =~ /@localhost$/) }
     Rails.logger.debug { "enviando con tema #{@que} a #{@para.count} receptores" }
-    mail(to: @para,
+    mail(
+      to: @para,
       cc: "vtamara@pasosdeJesus.org",
-      subject: "[SI-JRSCOL] Solicitud del usuario #{@solicitante}")
+      subject: "[SI-JRSCOL] Solicitud del usuario #{@solicitante}",
+    )
   end
 end

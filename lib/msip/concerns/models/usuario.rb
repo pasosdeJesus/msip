@@ -18,8 +18,10 @@ module Msip
 
           # Otros modulos de devise disponibles:
           # :recoverable :registerable, :confirmable, :timeoutable and :omniauthable
-          devise :database_authenticatable, :rememberable,
-            :trackable, :lockable
+          devise :database_authenticatable,
+            :rememberable,
+            :trackable,
+            :lockable
 
           campofecha_localizado :fechacreacion
           campofecha_localizado :fechadeshabilitacion
@@ -127,13 +129,18 @@ module Msip
           }
 
           scope :filtro_nombre, lambda { |n|
-            where("unaccent(nombre) ILIKE '%' || unaccent(?) || '%'",
-              n)
+            where(
+              "unaccent(nombre) ILIKE '%' || unaccent(?) || '%'",
+              n,
+            )
           }
 
           scope :filtro_descripcion, lambda { |d|
-            where("unaccent(descripcion) ILIKE '%' ||
-                    unaccent(?) || '%'", d)
+            where(
+              "unaccent(descripcion) ILIKE '%' ||
+                    unaccent(?) || '%'",
+              d,
+            )
           }
 
           scope :filtro_rol, lambda { |r|
@@ -145,8 +152,11 @@ module Msip
           }
 
           scope :filtro_email, lambda { |e|
-            where("unaccent(email) ILIKE '%' ||
-                    unaccent(?) || '%'", e)
+            where(
+              "unaccent(email) ILIKE '%' ||
+                    unaccent(?) || '%'",
+              e,
+            )
           }
 
           attr_accessor :habilitado

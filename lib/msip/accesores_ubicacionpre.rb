@@ -11,10 +11,13 @@ module Msip
     # expulsionubicacionpre_id, destinoubicacionpre_id o
     # llegadaubicacionpre_id.
     def accesores_ubicacionpre(prefijo)
-      send(:belongs_to, prefijo.to_s.to_sym,
+      send(
+        :belongs_to,
+        prefijo.to_s.to_sym,
         class_name: "Msip::Ubicacionpre",
         foreign_key: "#{prefijo}ubicacionpre_id",
-        optional: true)
+        optional: true,
+      )
 
       # No usamos attr_reader en los siguientes porque aunque
       # no definamos escritores para los siguientes atributos,
@@ -43,10 +46,13 @@ module Msip
         end
       end
 
-      send(:belongs_to, "#{prefijo}_pais".to_sym,
+      send(
+        :belongs_to,
+        "#{prefijo}_pais".to_sym,
         class_name: "Msip::Pais",
         foreign_key: "#{prefijo}_pais_id",
-        optional: true)
+        optional: true,
+      )
 
       define_method("#{prefijo}_pais") do
         send(prefijo.to_s)&.pais
@@ -64,10 +70,13 @@ module Msip
         send(prefijo.to_s)&.departamento
       end
 
-      send(:belongs_to, "#{prefijo}_departamento".to_sym,
+      send(
+        :belongs_to,
+        "#{prefijo}_departamento".to_sym,
         class_name: "Msip::Departamento",
         foreign_key: "#{prefijo}_departamento_id",
-        optional: true)
+        optional: true,
+      )
 
       define_method("#{prefijo}_municipio_id") do
         if send(prefijo.to_s)
@@ -81,10 +90,13 @@ module Msip
         send(prefijo.to_s)&.municipio
       end
 
-      send(:belongs_to, "#{prefijo}_municipio".to_sym,
+      send(
+        :belongs_to,
+        "#{prefijo}_municipio".to_sym,
         class_name: "Msip::Municipio",
         foreign_key: "#{prefijo}_municipio_id",
-        optional: true)
+        optional: true,
+      )
 
       define_method("#{prefijo}_clase_id") do
         if send(prefijo.to_s)
@@ -98,10 +110,13 @@ module Msip
         send(prefijo.to_s)&.clase
       end
 
-      send(:belongs_to, "#{prefijo}_clase".to_sym,
+      send(
+        :belongs_to,
+        "#{prefijo}_clase".to_sym,
         class_name: "Msip::Clase",
         foreign_key: "#{prefijo}_clase_id",
-        optional: true)
+        optional: true,
+      )
 
       define_method("#{prefijo}_lugar") do
         if send(prefijo.to_s)
@@ -131,10 +146,13 @@ module Msip
         send(prefijo.to_s)&.tsitio
       end
 
-      send(:belongs_to, "#{prefijo}_tsitio".to_sym,
+      send(
+        :belongs_to,
+        "#{prefijo}_tsitio".to_sym,
         class_name: "Msip::Tsitio",
         foreign_key: "#{prefijo}_tsitio_id",
-        optional: true)
+        optional: true,
+      )
 
       define_method("#{prefijo}_latitud") do
         if send(prefijo.to_s)

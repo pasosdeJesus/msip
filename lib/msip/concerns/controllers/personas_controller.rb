@@ -21,20 +21,22 @@ module Msip
           end
 
           def atributos_show_msip
-            [:id,
-             :nombres,
-             :apellidos,
-             :anionac,
-             :mesnac,
-             :dianac,
-             :sexo,
-             :pais,
-             :departamento,
-             :municipio,
-             :clase,
-             :nacionalde,
-             :tdocumento_id,
-             :numerodocumento,]
+            [
+              :id,
+              :nombres,
+              :apellidos,
+              :anionac,
+              :mesnac,
+              :dianac,
+              :sexo,
+              :pais,
+              :departamento,
+              :municipio,
+              :clase,
+              :nacionalde,
+              :tdocumento_id,
+              :numerodocumento,
+            ]
           end
 
           def atributos_show

@@ -16,29 +16,33 @@ module Msip
           end
 
           def atributos_index
-            [:id,
-             :grupoper_id,
-             :tipoorg_id,
-             { sectororgsocial_ids: [] },
-             { orgsocial_persona: [] },
-             :web,
-             :habilitado,
-             :created_at_localizada,]
+            [
+              :id,
+              :grupoper_id,
+              :tipoorg_id,
+              { sectororgsocial_ids: [] },
+              { orgsocial_persona: [] },
+              :web,
+              :habilitado,
+              :created_at_localizada,
+            ]
           end
 
           def atributos_show
-            [:id,
-             :grupoper_id,
-             :tipoorg_id,
-             { sectororgsocial_ids: [] },
-             { orgsocial_persona: [] },
-             :web,
-             :pais_id,
-             :direccion,
-             :telefono,
-             :fax,
-             :created_at_localizada,
-             :fechadeshabilitacion_localizada,]
+            [
+              :id,
+              :grupoper_id,
+              :tipoorg_id,
+              { sectororgsocial_ids: [] },
+              { orgsocial_persona: [] },
+              :web,
+              :pais_id,
+              :direccion,
+              :telefono,
+              :fax,
+              :created_at_localizada,
+              :fechadeshabilitacion_localizada,
+            ]
           end
 
           def atributos_form
@@ -81,25 +85,27 @@ module Msip
 
           def lista_params_msip
             atributos_form - [:grupoper] +
-              [:pais_id,
-               grupoper_attributes: [
-                 :id,
-                 :nombre,
-                 :anotaciones,
-               ],
-               orgsocial_persona_attributes: [
-                 :id,
-                 :perfilorgsocial_id,
-                 :cargo,
-                 :correo,
-                 :_destroy,
-                 persona_attributes: [
-                   :id,
-                   :nombres,
-                   :apellidos,
-                   :sexo,
-                 ],
-               ],]
+              [
+                :pais_id,
+                grupoper_attributes: [
+                  :id,
+                  :nombre,
+                  :anotaciones,
+                ],
+                orgsocial_persona_attributes: [
+                  :id,
+                  :perfilorgsocial_id,
+                  :cargo,
+                  :correo,
+                  :_destroy,
+                  persona_attributes: [
+                    :id,
+                    :nombres,
+                    :apellidos,
+                    :sexo,
+                  ],
+                ],
+              ]
           end
 
           def orgsocial_params

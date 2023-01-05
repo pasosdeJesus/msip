@@ -40,29 +40,52 @@ module Msip
         Rails.logger.debug { "Se espera cambio  a convencion desconocida #{convencion_final}" }
         return
       end
-      ejecuta_sql("ALTER TABLE msip_persona DROP CONSTRAINT persona_sexo_check",
-        true)
+      ejecuta_sql(
+        "ALTER TABLE msip_persona DROP CONSTRAINT persona_sexo_check",
+        true,
+      )
 
       # Orden importa por ahora soporta bien FMS -> MHS y MHS->FMS
       if convencion_inicial == "FMS" && convencion_final == "MHS"
-        ejecuta_sql("UPDATE msip_persona SET sexo='H'"\
-          " WHERE sexo='M';", true)
-        ejecuta_sql("UPDATE msip_persona SET sexo='M'"\
-          " WHERE sexo='F';", true)
-        ejecuta_sql("UPDATE msip_persona SET sexo='S'"\
-          " WHERE sexo='S';", true)
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='H'"\
+            " WHERE sexo='M';",
+          true,
+        )
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='M'"\
+            " WHERE sexo='F';",
+          true,
+        )
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='S'"\
+            " WHERE sexo='S';",
+          true,
+        )
       elsif convencion_inicial == "MHS" && convencion_final == "FMS"
-        ejecuta_sql("UPDATE msip_persona SET sexo='F'"\
-          " WHERE sexo='M';", true)
-        ejecuta_sql("UPDATE msip_persona SET sexo='M'"\
-          " WHERE sexo='H';", true)
-        ejecuta_sql("UPDATE msip_persona SET sexo='S'"\
-          " WHERE sexo='S';", true)
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='F'"\
+            " WHERE sexo='M';",
+          true,
+        )
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='M'"\
+            " WHERE sexo='H';",
+          true,
+        )
+        ejecuta_sql(
+          "UPDATE msip_persona SET sexo='S'"\
+            " WHERE sexo='S';",
+          true,
+        )
       end
 
-      ejecuta_sql("ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check "\
-        " CHECK (LENGTH(sexo)=1 "\
-        " AND '#{convencion_final}' LIKE '%' || sexo || '%');", true)
+      ejecuta_sql(
+        "ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check "\
+          " CHECK (LENGTH(sexo)=1 "\
+          " AND '#{convencion_final}' LIKE '%' || sexo || '%');",
+        true,
+      )
     end
     module_function :cambiar_convencion_sexo
 

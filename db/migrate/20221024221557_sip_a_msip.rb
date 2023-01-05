@@ -98,10 +98,13 @@ class SipAMsip < ActiveRecord::Migration[7.0]
       next unless table_exists?("sip_#{t}")
 
       rename_table("sip_#{t}", "msip_#{t}")
-      if existe_restricción_pg?("sip_#{t}_pkey")
-        renombrar_restricción_pg("msip_#{t}", "sip_#{t}_pkey",
-          "msip_#{t}_pkey")
-      end
+      next unless existe_restricción_pg?("sip_#{t}_pkey")
+
+      renombrar_restricción_pg(
+        "msip_#{t}",
+        "sip_#{t}_pkey",
+        "msip_#{t}_pkey",
+      )
     end
 
     if data_source_exists?("divipola_sip")

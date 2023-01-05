@@ -19,12 +19,14 @@ module Msip
       end
 
       def atributos_index
-        [:id,
-         :nombre,
-         :inverso,
-         :observaciones,
-         :fechacreacion_localizada,
-         :habilitado,]
+        [
+          :id,
+          :nombre,
+          :inverso,
+          :observaciones,
+          :fechacreacion_localizada,
+          :habilitado,
+        ]
       end
 
       def atributos_form

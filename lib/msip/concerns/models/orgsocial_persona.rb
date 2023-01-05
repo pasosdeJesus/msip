@@ -12,7 +12,9 @@ module Msip
 
           self.table_name = "msip_orgsocial_persona"
 
-          belongs_to :orgsocial, class_name: "Msip::Orgsocial", inverse_of: :orgsocial_persona,
+          belongs_to :orgsocial,
+            class_name: "Msip::Orgsocial",
+            inverse_of: :orgsocial_persona,
             optional: true
           belongs_to :persona, class_name: "Msip::Persona", validate: true, optional: false
 

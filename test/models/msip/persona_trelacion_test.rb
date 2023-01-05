@@ -5,12 +5,18 @@ require_relative "../../test_helper"
 module Msip
   class PersonaTrelacionTest < ActiveSupport::TestCase
     test "valido" do
-      persona1 = Msip::Persona.create(nombres: "nombre1",
-        apellidos: "apellidos1", sexo: "S")
+      persona1 = Msip::Persona.create(
+        nombres: "nombre1",
+        apellidos: "apellidos1",
+        sexo: "S",
+      )
 
       assert_predicate persona1, :valid?
-      persona2 = Msip::Persona.create(nombres: "nombre2",
-        apellidos: "apellidos2", sexo: "S")
+      persona2 = Msip::Persona.create(
+        nombres: "nombre2",
+        apellidos: "apellidos2",
+        sexo: "S",
+      )
 
       assert_predicate persona2, :valid?
       trelacion = Msip::Trelacion.where(id: "AB").take

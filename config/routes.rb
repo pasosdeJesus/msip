@@ -2,11 +2,14 @@
 
 Msip::Engine.routes.draw do
   get "/acercade" => "hogar#acercade", as: "acercade"
-  get "/anexos/descarga_anexo/:id", to: "anexos#descarga_anexo",
+  get "/anexos/descarga_anexo/:id",
+    to: "anexos#descarga_anexo",
     as: "descarga_anexo"
-  get "/anexos/abre_anexo/:id", to: "anexos#abre_anexo",
+  get "/anexos/abre_anexo/:id",
+    to: "anexos#abre_anexo",
     as: "abre_anexo"
-  get "/anexos/mostrar_portada/:id", to: "anexos#mostrar_portada",
+  get "/anexos/mostrar_portada/:id",
+    to: "anexos#mostrar_portada",
     as: "mostrar_portada"
   get "/controldeacceso" => "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"

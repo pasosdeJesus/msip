@@ -13,7 +13,8 @@ module Msip
 
           serialize :params
           belongs_to :usuario,
-            validate: true, class_name: "Usuario",
+            validate: true,
+            class_name: "Usuario",
             optional: true
 
           campofecha_localizado :fecha
@@ -100,14 +101,16 @@ module Msip
               end
             end
             if detalle_bitacora != {}
-              Msip::Bitacora.a(request.remote_ip,
+              Msip::Bitacora.a(
+                request.remote_ip,
                 usuario_id,
                 request.url,
                 params,
                 modelo,
                 registro_id,
                 "actualizar",
-                detalle_bitacora.to_json)
+                detalle_bitacora.to_json,
+              )
             end
           end
 

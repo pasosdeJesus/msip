@@ -9,27 +9,40 @@ module Msip
         include Msip::Basica
         included do
           self.table_name = "msip_pais"
-          has_many :departamento, foreign_key: "id_pais", validate: true,
+          has_many :departamento,
+            foreign_key: "id_pais",
+            validate: true,
             class_name: "Msip::Departamento"
-          has_one :personanacionalde, foreign_key: "nacionalde",
-            validate: true, class_name: "Msip::Persona"
-          has_one :personapais, foreign_key: "id_pais",
+          has_one :personanacionalde,
+            foreign_key: "nacionalde",
+            validate: true,
             class_name: "Msip::Persona"
-          has_many :ubicacion, foreign_key: "id_pais", validate: true,
+          has_one :personapais,
+            foreign_key: "id_pais",
+            class_name: "Msip::Persona"
+          has_many :ubicacion,
+            foreign_key: "id_pais",
+            validate: true,
             class_name: "Msip::Ubicacion"
 
           flotante_localizado :latitud, :longitud
 
           validates :id, presence: true, uniqueness: true
-          validates :nombreiso_espanol, presence: true, allow_blank: false,
+          validates :nombreiso_espanol,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 200 },
             uniqueness: { case_sensitive: false, allow_blank: true }
-          validates :nombre, presence: true, allow_blank: false,
+          validates :nombre,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 200 },
             uniqueness: { case_sensitive: false, allow_blank: true }
-          validates :alfa2, length: { maximum: 2 },
+          validates :alfa2,
+            length: { maximum: 2 },
             uniqueness: { case_sensitive: false, allow_blank: true }
-          validates :alfa3, length: { maximum: 3 },
+          validates :alfa3,
+            length: { maximum: 3 },
             uniqueness: { case_sensitive: false, allow_blank: true }
           validates :div1, length: { maximum: 100 }
           validates :div2, length: { maximum: 100 }

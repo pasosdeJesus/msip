@@ -17,12 +17,16 @@ module Msip
           end
 
           def atributos_index
-            ["id",
-             "nombre",] +
+            [
+              "id",
+              "nombre",
+            ] +
               [usuario_ids: []] +
-              ["observaciones",
-               "fechacreacion_localizada",
-               "fechadeshabilitacion_localizada",]
+              [
+                "observaciones",
+                "fechacreacion_localizada",
+                "fechadeshabilitacion_localizada",
+              ]
           end
 
           def atributos_form
@@ -34,9 +38,11 @@ module Msip
               # En create y update @registro es nil
               r += [usuario_ids: []]
             end
-            r += ["observaciones",
-                  "fechacreacion_localizada",
-                  "fechadeshabilitacion_localizada",]
+            r += [
+              "observaciones",
+              "fechacreacion_localizada",
+              "fechadeshabilitacion_localizada",
+            ]
             r
           end
 

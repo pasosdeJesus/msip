@@ -37,8 +37,20 @@ module ActiveRecord
             a = val[0, 4]
             m = val[5, 2]
             d = val[8, 2]
-            meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul",
-                     "Ago", "Sep", "Oct", "Nov", "Dic",]
+            meses = [
+              "Ene",
+              "Feb",
+              "Mar",
+              "Abr",
+              "May",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dic",
+            ]
             "#{d}/#{meses[m.to_i - 1]}/#{a}"
           end
           define_method("#{f}_ddMyyyy=") do |e|
@@ -46,8 +58,20 @@ module ActiveRecord
             a = val[7, 4]
             nomm = val[3, 3]
             d = val[0, 2]
-            meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul",
-                     "Ago", "Sep", "Oct", "Nov", "Dic",]
+            meses = [
+              "Ene",
+              "Feb",
+              "Mar",
+              "Abr",
+              "May",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dic",
+            ]
             m = 1
             nm = meses.index(nomm)
             if nm

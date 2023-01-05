@@ -16,17 +16,19 @@ module Msip
           end
 
           def atributos_index
-            [:id,
-             :nombre,
-             :pais,
-             :departamento,
-             :municipio,
-             :clase,
-             :lugar,
-             :sitio,
-             :tsitio,
-             :latitud,
-             :longitud,]
+            [
+              :id,
+              :nombre,
+              :pais,
+              :departamento,
+              :municipio,
+              :clase,
+              :lugar,
+              :sitio,
+              :tsitio,
+              :latitud,
+              :longitud,
+            ]
           end
 
           def atributos_show

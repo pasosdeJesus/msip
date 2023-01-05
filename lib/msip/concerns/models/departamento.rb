@@ -10,15 +10,24 @@ module Msip
         included do
           Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_departamento"
-          has_many :municipio, foreign_key: "id_departamento", validate: true,
+          has_many :municipio,
+            foreign_key: "id_departamento",
+            validate: true,
             class_name: "Msip::Municipio"
-          has_many :persona, foreign_key: "id_departamento", validate: true,
+          has_many :persona,
+            foreign_key: "id_departamento",
+            validate: true,
             class_name: "Msip::Persona"
-          has_many :ubicacion, foreign_key: "id_departamento", validate: true,
+          has_many :ubicacion,
+            foreign_key: "id_departamento",
+            validate: true,
             class_name: "Msip::Ubicacion"
 
-          belongs_to :pais, foreign_key: "id_pais", validate: true,
-            class_name: "Msip::Pais", optional: false
+          belongs_to :pais,
+            foreign_key: "id_pais",
+            validate: true,
+            class_name: "Msip::Pais",
+            optional: false
 
           validates :id_pais, presence: true
 

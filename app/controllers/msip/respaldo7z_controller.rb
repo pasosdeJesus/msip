@@ -44,14 +44,25 @@ module Msip
           end
           if tamanexos > 10000000
             Rails.logger.debug("Creando copia solo de base de datos")
-            cmd = Shellwords.join(lpi + ["7z", "a", "-r",
-                                         "-p#{@respaldo7z.clave7z}",
-                                         dest, archcopia,])
+            cmd = Shellwords.join(lpi + [
+              "7z",
+              "a",
+              "-r",
+              "-p#{@respaldo7z.clave7z}",
+              dest,
+              archcopia,
+            ])
           else
             Rails.logger.debug("Creando copia de base y anexos")
-            cmd = Shellwords.join(lpi + ["7z", "a", "-r",
-                                         "-p#{@respaldo7z.clave7z}",
-                                         dest, archcopia, Msip.ruta_anexos,])
+            cmd = Shellwords.join(lpi + [
+              "7z",
+              "a",
+              "-r",
+              "-p#{@respaldo7z.clave7z}",
+              dest,
+              archcopia,
+              Msip.ruta_anexos,
+            ])
           end
           Rails.logger.debug { "cmd=#{cmd}" }
           cmd2 = "sh -c 'ulimit -c unlimited; whoami; #{cmd}'"
@@ -59,9 +70,11 @@ module Msip
           r = %x(#{cmd2})
           if $CHILD_STATUS.exitstatus == 0
             format.html do
-              send_file(dest,
+              send_file(
+                dest,
                 type: "application/x-7z-compressed",
-                disposition: "inline")
+                disposition: "inline",
+              )
             end
           else
             format.html do

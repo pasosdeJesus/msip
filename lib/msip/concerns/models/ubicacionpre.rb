@@ -21,7 +21,9 @@ module Msip
           flotante_localizado :latitud
           flotante_localizado :longitud
 
-          validates :nombre, uniqueness: true, presence: true,
+          validates :nombre,
+            uniqueness: true,
+            presence: true,
             length: { maximum: 2000 }
           validates :lugar, length: { maximum: 500 }
           validates :sitio, length: { maximum: 500 }
@@ -32,7 +34,8 @@ module Msip
               departamento ? departamento.nombre : "",
               municipio ? municipio.nombre : "",
               clase ? clase.nombre : "",
-              lugar, sitio
+              lugar,
+              sitio,
             )
             save
           end
@@ -136,8 +139,10 @@ module Msip
               tsitio_id: nil, # SIN INFORMACIÓN
             }
             if !departamento_id ||
-                Msip::Departamento.where(id: departamento_id.to_i,
-                  id_pais: opais.id).count == 0
+                Msip::Departamento.where(
+                  id: departamento_id.to_i,
+                  id_pais: opais.id,
+                ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
@@ -154,8 +159,10 @@ module Msip
             w[:departamento_id] = odepartamento.id
 
             if !municipio_id ||
-                Msip::Municipio.where(id: municipio_id.to_i,
-                  id_departamento: odepartamento.id).count == 0
+                Msip::Municipio.where(
+                  id: municipio_id.to_i,
+                  id_departamento: odepartamento.id,
+                ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
@@ -172,8 +179,10 @@ module Msip
 
             # clase debe ser NULL para ubicaciones rurales
             if clase_id.to_i > 0 &&
-                Msip::Clase.where(id: clase_id.to_i,
-                  id_municipio: omunicipio.id).count == 0
+                Msip::Clase.where(
+                  id: clase_id.to_i,
+                  id_municipio: omunicipio.id,
+                ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
                 return nil
@@ -214,10 +223,14 @@ module Msip
             # Revisamos posible error en información de entrada que pondría
             # como lugar un centro poblado y en tal caso se retorna el centro
             # poblado
-            if !w[:clase_id] && Msip::Clase.where(nombre: lugar.to_s.strip,
-              id_municipio: omunicipio.id).count == 1
-              oclase = Msip::Clase.where(nombre: lugar.to_s.strip,
-                id_municipio: omunicipio.id).first
+            if !w[:clase_id] && Msip::Clase.where(
+              nombre: lugar.to_s.strip,
+              id_municipio: omunicipio.id,
+            ).count == 1
+              oclase = Msip::Clase.where(
+                nombre: lugar.to_s.strip,
+                id_municipio: omunicipio.id,
+              ).first
               clase_id = w[:clase_id] = oclase.id
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w)

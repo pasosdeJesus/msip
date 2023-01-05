@@ -65,15 +65,19 @@ module Msip
                 if params_filtro["bus#{i}ini"] &&
                     params_filtro["bus#{i}ini"] != "" &&
                     reg.respond_to?("filtro_#{i}ini")
-                  reg = reg.send("filtro_#{i}ini",
-                    params_filtro["bus#{i}ini"])
+                  reg = reg.send(
+                    "filtro_#{i}ini",
+                    params_filtro["bus#{i}ini"],
+                  )
                   quedan -= ["bus#{i}ini"]
                 end
                 if params_filtro["bus#{i}fin"] &&
                     params_filtro["bus#{i}fin"] != "" &&
                     reg.respond_to?("filtro_#{i}fin")
-                  reg = reg.send("filtro_#{i}fin",
-                    params_filtro["bus#{i}fin"])
+                  reg = reg.send(
+                    "filtro_#{i}fin",
+                    params_filtro["bus#{i}fin"],
+                  )
                   quedan -= ["bus#{i}ini"]
                 end
               end
@@ -167,9 +171,16 @@ module Msip
 
             respond_to do |format|
               if registrar_en_bitacora
-                Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                  request.url, params, clase,
-                  0, "listar", "")
+                Msip::Bitacora.a(
+                  request.remote_ip,
+                  current_usuario.id,
+                  request.url,
+                  params,
+                  clase,
+                  0,
+                  "listar",
+                  "",
+                )
               end
               format.html do
                 @registros = @registro = c&.paginate(
@@ -235,9 +246,16 @@ module Msip
             presentar_intermedio(@registro, current_usuario.id)
             show_plantillas
             if registrar_en_bitacora
-              Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                request.url, params, @registro.class.to_s,
-                @registro.id, "presentar", "")
+              Msip::Bitacora.a(
+                request.remote_ip,
+                current_usuario.id,
+                request.url,
+                params,
+                @registro.class.to_s,
+                @registro.id,
+                "presentar",
+                "",
+              )
             end
             render(layout: "application")
           end
@@ -268,9 +286,16 @@ module Msip
             nuevo_intermedio(@registro)
 
             if registrar_en_bitacora
-              Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                request.url, params, @registro.class.to_s,
-                nil, "iniciar", "")
+              Msip::Bitacora.a(
+                request.remote_ip,
+                current_usuario.id,
+                request.url,
+                params,
+                @registro.class.to_s,
+                nil,
+                "iniciar",
+                "",
+              )
             end
           end
 
@@ -298,9 +323,16 @@ module Msip
             end
             if editar_intermedio(@registro, current_usuario.id)
               if registrar_en_bitacora
-                Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                  request.url, params, @registro.class.to_s,
-                  @registro.id, "editar", "")
+                Msip::Bitacora.a(
+                  request.remote_ip,
+                  current_usuario.id,
+                  request.url,
+                  params,
+                  @registro.class.to_s,
+                  @registro.id,
+                  "editar",
+                  "",
+                )
               end
               render(layout: "application")
             end
@@ -350,13 +382,22 @@ module Msip
             respond_to do |format|
               if @registro.save
                 if registrar_en_bitacora
-                  Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                    request.url, params, @registro.class.to_s,
-                    @registro.id, "crear", "")
+                  Msip::Bitacora.a(
+                    request.remote_ip,
+                    current_usuario.id,
+                    request.url,
+                    params,
+                    @registro.class.to_s,
+                    @registro.id,
+                    "crear",
+                    "",
+                  )
                 end
                 format.html do
-                  redirect_to(modelo_path(@registro),
-                    notice: clase + " #{creada}.")
+                  redirect_to(
+                    modelo_path(@registro),
+                    notice: clase + " #{creada}.",
+                  )
                 end
                 format.json do
                   render(action: "show", status: :created, location: @registro)
@@ -409,26 +450,33 @@ module Msip
                   @registro.valid? && @registro.save
                 if registrar_en_bitacora
                   regcorto = clase.demodulize.underscore.to_s
-                  Msip::Bitacora.agregar_actualizar(request, regcorto,
+                  Msip::Bitacora.agregar_actualizar(
+                    request,
+                    regcorto,
                     :bitacora_cambio,
                     current_usuario.id,
                     params,
                     @registro.class.to_s,
-                    @registro.id)
+                    @registro.id,
+                  )
                 end
 
                 format.html do
                   if params[:_msip_enviarautomatico_y_repinta]
-                    redirect_to(edit_modelo_path(@registro),
-                      turbo: false)
+                    redirect_to(
+                      edit_modelo_path(@registro),
+                      turbo: false,
+                    )
                   else
                     actualizada = if genclase == "M"
                       "actualizado"
                     else
                       "actualizada"
                     end
-                    redirect_to(modelo_path(@registro),
-                      notice: clase + " #{actualizada}.")
+                    redirect_to(
+                      modelo_path(@registro),
+                      notice: clase + " #{actualizada}.",
+                    )
                     return
                   end
                 end
@@ -441,8 +489,10 @@ module Msip
                   render(action: "edit", layout: "application")
                 end
                 format.json do
-                  render(json: @registro.errors,
-                    status: :unprocessable_entity)
+                  render(
+                    json: @registro.errors,
+                    status: :unprocessable_entity,
+                  )
                 end
               end
             end
@@ -489,8 +539,10 @@ module Msip
               end
 
               if mens != ""
-                redirect_back(fallback_location: main_app.root_path,
-                  flash: { error: mens })
+                redirect_back(
+                  fallback_location: main_app.root_path,
+                  flash: { error: mens },
+                )
                 return
               end
             end
@@ -498,17 +550,26 @@ module Msip
             cregistroid = @registro.id
             @registro.destroy
             if registrar_en_bitacora
-              Msip::Bitacora.a(request.remote_ip, current_usuario.id,
-                request.url, params, cregistro,
-                cregistroid, "eliminar", "")
+              Msip::Bitacora.a(
+                request.remote_ip,
+                current_usuario.id,
+                request.url,
+                params,
+                cregistro,
+                cregistroid,
+                "eliminar",
+                "",
+              )
             end
 
             eliminada = genclase == "M" ? "eliminado" : "eliminada"
             respond_to do |format|
               format.html do
-                redirect_to(modelos_url(@registro),
+                redirect_to(
+                  modelos_url(@registro),
                   status: :see_other, # Avoids double DELETE, that happens sometimes, solution from https://api.rubyonrails.org/classes/ActionController/Redirecting.html#method-i-redirect_to
-                  notice: clase + " #{eliminada}.")
+                  notice: clase + " #{eliminada}.",
+                )
                 return
               end
               format.json do
@@ -535,9 +596,11 @@ module Msip
 
           # Campos de la tabla por presentar en listado
           def atributos_index
-            ["id",
-             "created_at",
-             "updated_at",]
+            [
+              "id",
+              "created_at",
+              "updated_at",
+            ]
           end
 
           def atributos_filtro_antestabla

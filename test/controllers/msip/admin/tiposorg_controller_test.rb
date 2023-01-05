@@ -79,8 +79,8 @@ module Msip
           params: { tipoorg: { nombre: "YY" } }
 
         assert_redirected_to filtra_doble_ruta_relativa(msip.admin_tipoorg_path(
-        assigns(:tipoorg),
-      ))
+          assigns(:tipoorg),
+        ))
       end
 
       test "debe eliminar" do

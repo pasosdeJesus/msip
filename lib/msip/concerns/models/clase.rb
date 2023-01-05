@@ -10,20 +10,34 @@ module Msip
         included do
           Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_clase"
-          has_many :persona, foreign_key: "id_clase", validate: true,
+          has_many :persona,
+            foreign_key: "id_clase",
+            validate: true,
             class_name: "Msip::Persona"
-          has_many :ubicacion, foreign_key: "id_clase", validate: true,
+          has_many :ubicacion,
+            foreign_key: "id_clase",
+            validate: true,
             class_name: "Msip::Ubicacion"
 
-          belongs_to :municipio, foreign_key: "id_municipio",
-            validate: true, class_name: "Msip::Municipio", optional: false
-          has_one :departamento, through: :municipio,
-            class_name: "Msip::Departamento", source: :departamento
-          has_one :pais, through: :departamento,
-            class_name: "Msip::Pais", source: :pais
+          belongs_to :municipio,
+            foreign_key: "id_municipio",
+            validate: true,
+            class_name: "Msip::Municipio",
+            optional: false
+          has_one :departamento,
+            through: :municipio,
+            class_name: "Msip::Departamento",
+            source: :departamento
+          has_one :pais,
+            through: :departamento,
+            class_name: "Msip::Pais",
+            source: :pais
 
-          belongs_to :tclase, foreign_key: "id_tclase", validate: true,
-            class_name: "Msip::Tclase", optional: false
+          belongs_to :tclase,
+            foreign_key: "id_tclase",
+            validate: true,
+            class_name: "Msip::Tclase",
+            optional: false
 
           # A nombre se le quitan espacios de sobra
           def nombre=(val)

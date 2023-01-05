@@ -8,8 +8,11 @@ module Msip
         return nil
       end
 
-      d = tbasica.where("upper(unaccent(#{camponombre})) = "\
-        "upper(unaccent(?))", nombre)
+      d = tbasica.where(
+        "upper(unaccent(#{camponombre})) = "\
+          "upper(unaccent(?))",
+        nombre,
+      )
       if d.count == 0
         menserror << "  No se encontró '#{nombre}' en tabla básica "\
           "#{tbasica} al buscar en el campo #{camponombre}."

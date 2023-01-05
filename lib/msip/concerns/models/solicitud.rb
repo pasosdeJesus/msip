@@ -15,10 +15,14 @@ module Msip
 
           self.table_name = "msip_solicitud"
 
-          belongs_to :usuario, dependent: :destroy,
-            class_name: "Usuario", optional: false
-          belongs_to :estadosol, validate: true,
-            class_name: "Msip::Estadosol", optional: true
+          belongs_to :usuario,
+            dependent: :destroy,
+            class_name: "Usuario",
+            optional: false
+          belongs_to :estadosol,
+            validate: true,
+            class_name: "Msip::Estadosol",
+            optional: true
 
           has_and_belongs_to_many :usuarionotificar,
             class_name: "Usuario",
@@ -29,7 +33,9 @@ module Msip
           campofecha_localizado :fecha
 
           validates :fecha, presence: true
-          validates :solicitud, length: { maximum: 5000 }, presence: true,
+          validates :solicitud,
+            length: { maximum: 5000 },
+            presence: true,
             allow_blank: false
         end # included
       end

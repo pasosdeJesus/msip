@@ -110,40 +110,67 @@ module Msip
           end
 
           # Bien sea o no con inverse_of aqui y/o en orgsocial_persona
-          has_many :orgsocial_persona, foreign_key: "persona_id",
-            class_name: "Msip::OrgsocialPersona", validate: true
+          has_many :orgsocial_persona,
+            foreign_key: "persona_id",
+            class_name: "Msip::OrgsocialPersona",
+            validate: true
           # inverse_of: :persona
-          belongs_to :clase, class_name: "Msip::Clase",
-            foreign_key: "id_clase", validate: true, optional: true
-          belongs_to :nacional, class_name: "Msip::Pais",
-            foreign_key: "nacionalde", validate: true, optional: true
-          belongs_to :departamento, foreign_key: "id_departamento",
-            validate: true, class_name: "Msip::Departamento", optional: true
-          belongs_to :municipio, foreign_key: "id_municipio", validate: true,
-            class_name: "Msip::Municipio", optional: true
-          belongs_to :pais, class_name: "Msip::Pais", foreign_key: "id_pais",
-            validate: true, optional: true
-          belongs_to :tdocumento, class_name: "Msip::Tdocumento",
-            validate: true, optional: true
+          belongs_to :clase,
+            class_name: "Msip::Clase",
+            foreign_key: "id_clase",
+            validate: true,
+            optional: true
+          belongs_to :nacional,
+            class_name: "Msip::Pais",
+            foreign_key: "nacionalde",
+            validate: true,
+            optional: true
+          belongs_to :departamento,
+            foreign_key: "id_departamento",
+            validate: true,
+            class_name: "Msip::Departamento",
+            optional: true
+          belongs_to :municipio,
+            foreign_key: "id_municipio",
+            validate: true,
+            class_name: "Msip::Municipio",
+            optional: true
+          belongs_to :pais,
+            class_name: "Msip::Pais",
+            foreign_key: "id_pais",
+            validate: true,
+            optional: true
+          belongs_to :tdocumento,
+            class_name: "Msip::Tdocumento",
+            validate: true,
+            optional: true
 
-          has_many :persona_trelacion1, foreign_key: "persona1",
+          has_many :persona_trelacion1,
+            foreign_key: "persona1",
             dependent: :delete_all,
             class_name: "Msip::PersonaTrelacion"
-          has_many :persona_trelacion2, foreign_key: "persona2",
+          has_many :persona_trelacion2,
+            foreign_key: "persona2",
             dependent: :delete_all,
             class_name: "Msip::PersonaTrelacion"
 
-          has_many :personados, through: :persona_trelacion1,
+          has_many :personados,
+            through: :persona_trelacion1,
             class_name: "Msip::Persona"
           accepts_nested_attributes_for :personados, reject_if: :all_blank
           accepts_nested_attributes_for :persona_trelacion1,
-            reject_if: :all_blank, allow_destroy: true
+            reject_if: :all_blank,
+            allow_destroy: true
 
           # identificación autogenerada en este y demás modelos (excepto los de
           # información geográfica).
-          validates :nombres, presence: true, allow_blank: false,
+          validates :nombres,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 100 }
-          validates :apellidos, presence: true, allow_blank: false,
+          validates :apellidos,
+            presence: true,
+            allow_blank: false,
             length: { maximum: 100 }
           validates :numerodocumento, length: { maximum: 100 }
           validates :sexo, presence: true
@@ -372,8 +399,11 @@ module Msip
           }
 
           scope :filtro_numerodocumento, lambda { |n|
-            where("unaccent(numerodocumento) ILIKE '%' || " \
-              "unaccent(?) || '%'", n)
+            where(
+              "unaccent(numerodocumento) ILIKE '%' || " \
+                "unaccent(?) || '%'",
+              n,
+            )
           }
 
           scope :filtro_tdocumento, lambda { |tid|

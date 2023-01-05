@@ -16,8 +16,11 @@ module Msip
       c = Ubicacionpre.connection
 
       assert Msip.existe_secuencia?(c, "msip_ubicacionpre_id_seq")
-      assert Msip.renombra_secuencia(c, "msip_ubicacionpre_id_seq",
-        "msip_ubicacionpre_id_tmp_seq")
+      assert Msip.renombra_secuencia(
+        c,
+        "msip_ubicacionpre_id_seq",
+        "msip_ubicacionpre_id_tmp_seq",
+      )
       # Por ahora nos toca parar prueba aquí porque aunque
       # se ejecuta el ALTER, el ambiente de pruebas lo hace en
       # una transacción que no permite el renombramiento en realidad

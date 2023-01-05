@@ -10,13 +10,21 @@ module Msip
 
     argument :tablabasica, type: :string
     argument :tablabasicaplural, type: :string
-    class_option :modelo, type: :boolean, default: false,
+    class_option :modelo,
+      type: :boolean,
+      default: false,
       desc: "Genera modelo"
-    class_option :controlador, type: :boolean, default: true,
+    class_option :controlador,
+      type: :boolean,
+      default: true,
       desc: "Genera controlador"
-    class_option :test, type: :boolean, default: true,
+    class_option :test,
+      type: :boolean,
+      default: true,
       desc: "Genera prueba minitest para el modelo"
-    class_option :asocia, type: :string, default: "",
+    class_option :asocia,
+      type: :string,
+      default: "",
       desc: "Crea un belongs_to en un tabla"
 
     def genera_tablabasica
@@ -41,8 +49,10 @@ module Msip
     private
 
     def genera_modelo
-      template("tablabasica.rb.erb",
-        "app/models/#{nom_arch}.rb")
+      template(
+        "tablabasica.rb.erb",
+        "app/models/#{nom_arch}.rb",
+      )
       generate("migration", "Create#{nom_arch.camelize} " \
         "nombre:string{500} observaciones:string{5000} " \
         "fechacreacion:date fechadeshabilitacion:date ")
@@ -68,15 +78,21 @@ module Msip
     end
 
     def genera_controlador
-      template("tablasbasicas_controller.rb.erb",
-        "app/controllers/admin/#{nom_arch_plural}_controller.rb")
+      template(
+        "tablasbasicas_controller.rb.erb",
+        "app/controllers/admin/#{nom_arch_plural}_controller.rb",
+      )
     end
 
     def genera_test
-      template("tablabasica_test.rb.erb",
-        "test/models/#{nom_arch}_test.rb")
-      template("tablasbasicas_controller_test.rb.erb",
-        "test/controllers/#{nom_arch_plural}_controller_test.rb")
+      template(
+        "tablabasica_test.rb.erb",
+        "test/models/#{nom_arch}_test.rb",
+      )
+      template(
+        "tablasbasicas_controller_test.rb.erb",
+        "test/controllers/#{nom_arch_plural}_controller_test.rb",
+      )
     end
 
     def genera_asociacion

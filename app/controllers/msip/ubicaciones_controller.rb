@@ -52,9 +52,17 @@ module Msip
 
     def ubicacion_params
       params.require(:ubicacion).permit(
-        :id, :id_pais, :id_departamento, :id_municipio, :id_clase,
-        :lugar, :sitio, :latitud, :longitud, :id_tsitio,
-        :_destroy
+        :id,
+        :id_pais,
+        :id_departamento,
+        :id_municipio,
+        :id_clase,
+        :lugar,
+        :sitio,
+        :latitud,
+        :longitud,
+        :id_tsitio,
+        :_destroy,
       )
     end
   end

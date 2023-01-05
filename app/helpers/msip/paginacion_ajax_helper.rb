@@ -16,8 +16,10 @@ module Msip
       end
 
       def pagina(collection, params = {})
-        will_paginate(collection,
-          params.merge(renderer: Msip::PaginacionAjaxHelper::GeneraEnlace))
+        will_paginate(
+          collection,
+          params.merge(renderer: Msip::PaginacionAjaxHelper::GeneraEnlace),
+        )
       end
 
     end # if :will_paginate
