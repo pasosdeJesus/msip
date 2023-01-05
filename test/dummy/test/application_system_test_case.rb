@@ -10,7 +10,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       Capybara::Cuprite::Driver.new(
         app, browser_options: { "no-sandbox": nil },
         port: 4444,
-        host: "chrome"
+        host: "chrome",
+        url: "http://chrome:4444/wd/hub/"
       )
     else
       Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
