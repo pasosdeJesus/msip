@@ -8,7 +8,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   Capybara.register_driver(:cuprite) do |app|
     if File.exist?("/.dockerenv")
       Capybara::Cuprite::Driver.new(
-        app, browser_options: { "no-sandbox": nil }
+        app, browser_options: { "no-sandbox": nil },
+        port: 4444,
+        host: "chrome"
       )
     else
       Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
