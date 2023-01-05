@@ -5,7 +5,8 @@ require "capybara/cuprite"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   Capybara.javascript_driver = :cuprite
-  puts "CHROME_URL=#{ENV.fetch("CHROME_URL", nil)}"
+  @elurl = ENV.fetch("CHROME_URL", "http://chrome:4444/wd/hub")
+  puts "@elur=#{@elurl}"
   Capybara.register_driver(:cuprite) do |app|
     #if File.exist?("/.dockerenv")
       Capybara::Cuprite::Driver.new(
@@ -13,7 +14,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         window_size: [1200, 800],
         browser_options: { "no-sandbox": nil },
         inspector: true,
-        url: ENV.fetch("CHROME_URL", nil),
+        url: @elurl
       )
     #else
     #  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
