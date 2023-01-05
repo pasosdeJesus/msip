@@ -7,11 +7,14 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   Capybara.javascript_driver = :cuprite
   Capybara.register_driver(:cuprite) do |app|
     if File.exist?("/.dockerenv")
+      puts "OJO dockerenv"
+      puts "CHROME_URL=#{ENV.fetch('CHROME_URL', nil)}"
       Capybara::Cuprite::Driver.new(
-        app, browser_options: { "no-sandbox": nil },
-        port: 4444,
-        host: "chrome",
-        url: "http://chrome:4444/wd/hub/"
+        app, 
+        window_size: [1200, 800],
+        browser_options: { "no-sandbox": nil },
+        inspector: true, 
+        url: ENV.fetch('CHROME_URL', nil)
       )
     else
       Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
