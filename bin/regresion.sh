@@ -51,11 +51,15 @@ echo "== Pruebas de regresión al sistema"
 if (test -f "test/dummy/config/application.rb") then {
   mkdir -p test/dummy/cobertura-sistema/
   rm -rf test/dummy/cobertura-sistema/{*,.*}
-  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
+  if (test "$CI" != "") then { # Por ahora no en gitlab-ci
+    (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
+  } fi;
 } else {
   mkdir -p cobertura-sistema/
   rm -rf cobertura-sistema/{*,.*}
-  CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
+  if (test "$CI" != "") then { # Por ahora no en gitlab-ci
+    CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
+  } fi;
 } fi;
 
 echo "== Unificando resultados de pruebas en directorio clásico coverage"
