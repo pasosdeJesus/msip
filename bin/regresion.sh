@@ -32,7 +32,7 @@ if (test "$vm" = "") then {
 
 RAILS="bin/rails"
 if (test "$vm" = "3.2") then {
-  RAILS="${RAILS}"
+  RAILS="ruby --yjit bin/rails"
 } fi;
 
 if (test -f "test/dummy/config/application.rb") then {
@@ -54,11 +54,17 @@ if (test -f "test/dummy/config/application.rb") then {
   if (test "$CI" != "") then { # Por ahora no en gitlab-ci
     (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
   } fi;
+  if (test -f test/dummy/bin/pruebasjs) then {
+    (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores; bin/pruebasjs)
+  } fi;
 } else {
   mkdir -p cobertura-sistema/
   rm -rf cobertura-sistema/{*,.*}
   if (test "$CI" != "") then { # Por ahora no en gitlab-ci
     CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
+  } fi;
+  if (test -f bin/pruebasjs) then {
+    (CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores; bin/pruebasjs)
   } fi;
 } fi;
 
@@ -72,35 +78,3 @@ echo "== Copiando resultados para hacerlos visibles en el web en ruta cobertura"
 mkdir -p test/dummy/public/msip/cobertura/
 cp -rf coverage/* test/dummy/public/msip/cobertura/
 cp -rf coverage/assets/* test/dummy/public/msip/assets/
-#!/bin/sh
-# Inicializa base de prueba, corre 2 pruebas de regresión (test y test:system) 
-# y finalmente genera reporte de cobertura mezclando resultados en 
-# directorio coverage y publicandolo HTML en public/mimotor/cobertura
-
-
-echo "== Pruebas de regresión unitarias"
-mkdir -p cobertura-unitarias/
-rm -rf cobertura-unitarias/{*,.*}
-CONFIG_HOSTS=www.example.com ${RAILS} test
-
-echo "== Pruebas de regresión al sistema"
-if (test -f "test/dummy/config/application.rb") then {
-  mkdir -p test/dummy/cobertura-sistema/
-  rm -rf test/dummy/cobertura-sistema/{*,.*}
-  (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
-} else {
-  mkdir -p cobertura-sistema/
-  rm -rf cobertura-sistema/{*,.*}
-  CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
-} fi;
-
-echo "== Unificando resultados de pruebas en directorio clásico coverage"
-mkdir -p coverage/
-rm -rf coverage/{*,.*}
-${RAILS} app:msip:reporteregresion
-
-echo "== Copiando resultados para hacerlos visibles en el web en ruta cobertura"
-# Copiar resultados para hacerlos visibles en web
-mkdir -p test/dummy/public/${RUTA_RELATIVA}/cobertura/
-cp -rf coverage/* test/dummy/public/${RUTA_RELATIVA}/cobertura/
-cp -rf coverage/assets/* test/dummy/public/${RUTA_RELATIVA}/assets/

@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+if ENV.fetch('RAILS_ENV', 'development') == 'test' then
+  require 'simplecov'  # Usará configuración de .simplecov
+end
+
 require_relative "boot"
 
 require "rails/all"
