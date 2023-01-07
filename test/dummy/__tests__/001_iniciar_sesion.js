@@ -24,11 +24,18 @@ describe("Iniciar Sesión", () => {
 
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({
-          executablePath: '/usr/local/bin/chrome',
-          defaultViewport: { width: 1240, height: 800},
-          headless: true
-        });
+    if (typeof proccess.env.CI == "string") {
+      browser = await puppeteer.launch({
+        defaultViewport: { width: 1240, height: 800},
+        headless: true
+      });
+    } else {
+      browser = await puppeteer.launch({
+        executablePath: '/usr/local/bin/chrome',
+        defaultViewport: { width: 1240, height: 800},
+        headless: true
+      });
+    }
 
     page = await browser.newPage();
   });
