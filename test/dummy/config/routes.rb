@@ -3,16 +3,23 @@
 Rails.application.routes.draw do
   rutarel = ENV.fetch("RUTA_RELATIVA", "msip/")
   scope rutarel do
-    # The priority is based upon order of creation: first created -> highest priority.
-    # See how all your routes lay out with "rake routes".
+    # La prioridad se base en el orden de creación: 
+    #   primero creado -> prioridad más alta
+    # Vea como sus rutas se aplian con "rake routes".
     devise_scope :usuario do
       get "sign_out" => "devise/sessions#destroy", as: "sign_out"
+      get 'salir' => 'devise/sessions#destroy',
+        as: :terminar_sesion
+      post 'usuarios/iniciar_sesion', to: 'devise/sessions#create'
+      get 'usuarios/iniciar_sesion', to: 'devise/sessions#new',
+        as: :iniciar_sesion
 
       # El siguiente para superar mala generación del action en el formulario
       # cuando se autentica mal (genera
       # /puntomontaje/puntomontaje/usuarios/sign_in )
       if Rails.configuration.relative_url_root != "/"
-        ruta = File.join(Rails.configuration.relative_url_root, "usuarios/sign_in")
+        ruta = File.join(
+          Rails.configuration.relative_url_root, "usuarios/sign_in")
         post ruta, to: "devise/sessions#create"
         get  ruta, to: "devise/sessions#new"
       end
