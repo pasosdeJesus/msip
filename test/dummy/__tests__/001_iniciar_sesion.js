@@ -24,7 +24,7 @@ describe("Iniciar Sesión", () => {
 
 
   beforeAll(async () => {
-    if (typeof proccess.env.CI == "string") {
+    if (typeof process.env.CI == "string") {
       browser = await puppeteer.launch({
         defaultViewport: { width: 1240, height: 800},
         headless: true
