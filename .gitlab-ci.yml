@@ -42,23 +42,13 @@ test:
     - apt install -y -qq nodejs
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add # https://gitlab.com/gitlab-org/gitlab-foss/-/issues/42632-
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    - apt-get update && apt-get install -y google-chrome-stable 
-    - export CHROMEDRIVER_DIR=/chromedriver
-    - mkdir $CHROMEDRIVER_DIR
-    - export CHROME_VERSION=$(google-chrome --product-version)
-    - echo "CHROME_VERSION=$CHROME_VERSION"
-    - export CHROME_LR=$(echo $CHROME_VERSION | sed -e 's/^\([0-9]*\)\..*/\1/g');
-    - echo "CHROME_LR=$CHROME_LR"
-    -  CHROMEDRIVER_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_LR);
-    - echo $CHROMEDRIVER_VERSION 
-    - echo "El siguiente debería ser https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip"
-    - echo "Es http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-    - wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-    - unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
-    - export PATH=$CHROMEDRIVER_DIR:$PATH
-    - chromedriver --version
+    - apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2
+      libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4
+      libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0
+      libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 
+      libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 
+      libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates 
+      fonts-liberation libnss3 lsb-release xdg-utils wget
     - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq yarn
     - gem install bundler --no-document
     - bundle install --jobs $(nproc) "${FLAGS[@]}"
