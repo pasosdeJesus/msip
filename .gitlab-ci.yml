@@ -16,6 +16,7 @@ variables:
   BUNDLE_PATH: vendor/bundle
   NOKOGIRI_USE_SYSTEM_LIBRARIES: 'true'
   CC_TEST_REPORTER_ID: "0b795636959c0c2fc716869449d4c0bbe5743d7626dba9235a942a9ba68869cd"
+  CI: 'Si'
 
 stages:
   - test
