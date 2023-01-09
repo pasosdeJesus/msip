@@ -28,8 +28,15 @@ function actuno {
   if (test "$?" != 0) then {
     exit 1;
   } fi;
-  bundle update --bundler
+  rer=`bundle config get path | grep ":" | sed -e "s/.*\"\(.*\)\"/\1/g"`
+  rubyver=`ruby -v | sed -e "s/^[^ ]* \([0-9].[0-9]\).*/\1/g"`
+  rutapore="$rer/ruby/$rubyver/cache/bundler/git/"
+  if (test -d $rutapore) then {
+    echo "rm -rf $rutapore/*"
+    rm -rf $rutapore/*
+  } fi;
   bundle update
+  bundle update --bundler
   if (test "$?" != 0) then {
     exit 1;
   } fi;
