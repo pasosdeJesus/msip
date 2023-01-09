@@ -51,7 +51,7 @@ echo "== Pruebas de regresión al sistema"
 if (test -f "test/dummy/config/application.rb") then {
   mkdir -p test/dummy/cobertura-sistema/
   rm -rf test/dummy/cobertura-sistema/{*,.*}
-  if (test "$CI" != "") then { # Por ahora no en gitlab-ci
+  if (test "$CI" = "") then { # Por ahora no en gitlab-ci
     (cd test/dummy; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system)
   } fi;
   if (test -f test/dummy/bin/pruebasjs) then {
@@ -60,7 +60,7 @@ if (test -f "test/dummy/config/application.rb") then {
 } else {
   mkdir -p cobertura-sistema/
   rm -rf cobertura-sistema/{*,.*}
-  if (test "$CI" != "") then { # Por ahora no en gitlab-ci
+  if (test "$CI" = "") then { # Por ahora no en gitlab-ci
     CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores test:system
   } fi;
   if (test -f bin/pruebasjs) then {
