@@ -366,7 +366,7 @@ DEPENDENCIES
   colorize
   connection_pool
   cuprite
-  debug (>= 1.0.0)
+  debug
   devise (~> 4.8)
   devise-i18n
   dotenv-rails

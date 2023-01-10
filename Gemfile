@@ -71,7 +71,7 @@ group :development, :test do
 
   gem "colorize"
 
-  gem "debug", ">= 1.0.0", platforms: [:mri, :mingw, :x64_mingw]
+  gem "debug"
 
   gem "dotenv-rails"
 
