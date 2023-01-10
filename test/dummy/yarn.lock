@@ -1331,9 +1331,9 @@
     "@babel/types" "^7.3.0"
 
 "@types/graceful-fs@^4.1.3":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
-  integrity sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.6.tgz#e14b2576a1c25026b7f02ede1de3b84c3a1efeae"
+  integrity sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==
   dependencies:
     "@types/node" "*"
 
@@ -3114,9 +3114,9 @@ pump@^3.0.0:
     once "^1.3.1"
 
 puppeteer-core@^19.4.1:
-  version "19.4.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-19.4.1.tgz#f4875943841ebdb6fc2ad7a475add958692b0237"
-  integrity sha512-JHIuqtqrUAx4jGOTxXu4ilapV2jabxtVMA/e4wwFUMvtSsqK4nVBSI+Z1SKDoz7gRy/JUIc8WzmfocCa6SIZ1w==
+  version "19.5.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-19.5.0.tgz#2a1236764ad6f5e42d27c03907506727a90a3037"
+  integrity sha512-s2EE2x/7UfvR4AP+6OokY7yEmIboZoQFc2InuWUu5grWG7uka3W2Nch6+R4ERQepH4NO8kkkEBzNO4PqtwU4lQ==
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"

@@ -67,7 +67,7 @@ module Msip
             if !params[:id].nil?
               @anexo = Anexo.find(params[:id].to_i)
               ruta = @anexo.adjunto_file_name
-              #ls = %x(ls -l #{Msip.ruta_anexos})
+              # ls = %x(ls -l #{Msip.ruta_anexos})
               pdfp = format(
                 Msip.ruta_anexos.to_s + "/%d_%s",
                 @anexo.id.to_i,
