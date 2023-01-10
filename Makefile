@@ -1,7 +1,7 @@
 
-valida: valida-js valida-ruby bundler-audit brakeman rubocop
+all: sintaxis-js sintaxis-ruby bundler-audit brakeman rubocop
 
-valida-js:
+sintaxis-js:
 	for i in `find app/assets/javascripts/ -name "*js" -or -name "*es6"`; do \
 	node -c $$i; \
 	done
@@ -9,7 +9,7 @@ valida-js:
 	coffee -o /tmp/ $$i; \
 	done
 
-valida-ruby:
+sintaxis-ruby:
 	find . -name "*\.rb" -exec ruby -w -W2 -c {} ';'
 
 instala-gemas:
@@ -44,5 +44,5 @@ c_brakeman:
 c_rubocop:
 	bin/rubocop -a
 
-
-
+yard:
+	yard
