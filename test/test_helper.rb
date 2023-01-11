@@ -28,58 +28,9 @@ end
 # Nos parece más simple dejar los datos para pruebas en este archivo
 # Y que cada prueba cree lo que necesite (posiblemente en setup)
 
-# Usuario administrador para ingresar y hacer pruebas
-PRUEBA_USUARIO = {
-  nusuario: "admin",
-  password: "sjrven123",
-  nombre: "admin",
-  descripcion: "admin",
-  rol: 1,
-  idioma: "es_CO",
-  email: "usuario1@localhost",
-  encrypted_password: "$2a$10$uMAciEcJuUXDnpelfSH6He7BxW0yBeq6VMemlWc5xEl6NZRDYVA3G",
-  sign_in_count: 0,
-  fechacreacion: "2014-08-05",
-  fechadeshabilitacion: nil,
-}
-
-# Usuario operador para ingresar y hacer pruebas
-#
-PRUEBA_USUARIO_OP = {
-  nusuario: "operador",
-  password: "sjrcol123",
-  nombre: "operador",
-  descripcion: "operador",
-  rol: 5,
-  idioma: "es_CO",
-  email: "operador@localhost",
-  encrypted_password: "$2a$10$uMAciEcJuUXDnpelfSH6He7BxW0yBeq6VMemlWc5xEl6NZRDYVA3G",
-  sign_in_count: 0,
-  fechacreacion: "2021-08-27",
-  fechadeshabilitacion: nil,
-}
-
 PRUEBA_GRUPOPER = {
   id: 1,
   nombre: "grupoper1",
-}
-
-PRUEBA_ORGSOCIAL = {
-  id: 1,
-  grupoper_id: 1,
-  created_at: "2021-08-27",
-  updated_at: "2021-08-27",
-}
-
-PRUEBA_UBICACIONPRE = {
-  pais_id: 100, # BULGARIA
-  departamento_id: 20,
-  municipio_id: nil,
-  clase_id: nil,
-  nombre: "IMAGINA / BULGARIA",
-  latitud: 0.1,
-  longitud: 0.2,
-  nombre_sin_pais: "IMAGINA",
 }
 
 PRUEBA_CLASE = {
@@ -166,6 +117,13 @@ PRUEBA_OFICINA = {
   observaciones: "Ofi",
   fechacreacion: "2015-04-16",
   created_at: "2015-04-16",
+}
+
+PRUEBA_ORGSOCIAL = {
+  id: 1,
+  grupoper_id: 1,
+  created_at: "2021-08-27",
+  updated_at: "2021-08-27",
 }
 
 PRUEBA_PAIS = {
@@ -262,6 +220,48 @@ PRUEBA_UBICACION = {
   id_municipio: 25, # BOLIVARIANO LIBERTADOR
   id_clase: 217, # CARACAS
   created_at: "2014-11-06",
+}
+
+PRUEBA_UBICACIONPRE = {
+  pais_id: 100, # BULGARIA
+  departamento_id: 20,
+  municipio_id: nil,
+  clase_id: nil,
+  nombre: "IMAGINA / BULGARIA",
+  latitud: 0.1,
+  longitud: 0.2,
+  nombre_sin_pais: "IMAGINA",
+}
+
+# Usuario administrador para ingresar y hacer pruebas
+PRUEBA_USUARIO = {
+  nusuario: "admin",
+  password: "sjrven123",
+  nombre: "admin",
+  descripcion: "admin",
+  rol: 1,
+  idioma: "es_CO",
+  email: "usuario1@localhost",
+  encrypted_password: "$2a$10$uMAciEcJuUXDnpelfSH6He7BxW0yBeq6VMemlWc5xEl6NZRDYVA3G",
+  sign_in_count: 0,
+  fechacreacion: "2014-08-05",
+  fechadeshabilitacion: nil,
+}
+
+# Usuario operador para ingresar y hacer pruebas
+#
+PRUEBA_USUARIO_OP = {
+  nusuario: "operador",
+  password: "sjrcol123",
+  nombre: "operador",
+  descripcion: "operador",
+  rol: 5,
+  idioma: "es_CO",
+  email: "operador@localhost",
+  encrypted_password: "$2a$10$uMAciEcJuUXDnpelfSH6He7BxW0yBeq6VMemlWc5xEl6NZRDYVA3G",
+  sign_in_count: 0,
+  fechacreacion: "2021-08-27",
+  fechadeshabilitacion: nil,
 }
 
 PRUEBA_VEREDA = {

@@ -51,4 +51,5 @@ if (test -f test/dummy/config/application.rb) then {
 } fi;
 
 cp ../msip/bin/{regresion.sh,gc.sh,brakeman,bundler-audit,rubocop} bin/
+cp ../msip/Makefile ./
 
