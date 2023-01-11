@@ -44,3 +44,11 @@ for i in `git ls-tree -r main --name-only`; do
     } fi;
   } fi;
 done
+
+cp ../msip/.simplecov .
+if (test -f test/dummy/config/application.rb) then {
+  cp ../msip/.simplecov .
+} fi;
+
+cp ../msip/bin/{regresion.sh,gc.sh,brakeman,bundler-audit,rubocop} bin/
+

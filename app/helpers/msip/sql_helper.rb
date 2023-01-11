@@ -4,7 +4,7 @@ module Msip
   module SqlHelper
     # Pone cotejación dada a una columna tipo varchar (longitud long)
     def cambiar_cotejacion(tabla, columna, long, cotejacion)
-      execute(<<-SQL.squish)
+      ActiveRecord::Base.connection.execute(<<-SQL.squish)
       ALTER TABLE #{tabla}
         ALTER COLUMN #{columna} SET DATA TYPE#{" "}
           VARCHAR(#{long.to_i}) COLLATE "#{cotejacion}";
@@ -239,7 +239,7 @@ module Msip
         "SELECT * FROM pg_proc "\
         "WHERE proname = #{ActiveRecord::Base.connection.quote(f)}"\
         ");"
-      r = execute(c)
+      r = ActiveRecord::Base.connection.execute(c)
       r[0]["exists"]
     end
     module_function :existe_función_pg?
@@ -247,7 +247,7 @@ module Msip
     # Decide si existe un índice i en base PostgreSQL
     # https://stackoverflow.com/questions/45983169/checking-for-existence-of-index-in-postgresql
     def existe_índice_pg?(f)
-      r = execute(<<~SQL.squish)
+      r = ActiveRecord::Base.connection.execute(<<~SQL.squish)
         SELECT  EXISTS (SELECT i.relname AS index_name
           FROM pg_class i, pg_index ix
           WHERE i.oid = ix.indexrelid
@@ -264,7 +264,7 @@ module Msip
         "SELECT * FROM pg_constraint "\
         "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}"\
         ");"
-      r = execute(c)
+      r = ActiveRecord::Base.connection.execute(c)
       r[0]["exists"]
     end
     module_function :existe_restricción_pg?
@@ -276,7 +276,7 @@ module Msip
           "SELECT * FROM pg_class c WHERE c.relkind = 'S' "\
           "AND c.relname = #{ActiveRecord::Base.connection.quote(s)}"\
           ");"
-        r = execute(c)
+        r = ActiveRecord::Base.connection.execute(c)
         r[0]["exists"]
       end
     end
@@ -288,10 +288,12 @@ module Msip
     def renombrar_función_pg(nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER FUNCTION #{nomfin} RENAME TO #{nomini};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER FUNCTION #{nomfin} RENAME TO #{nomini};")
         end
       end
     end
@@ -303,10 +305,12 @@ module Msip
     def renombrar_índice_pg(nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER INDEX #{nomini} RENAME TO #{nomfin};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER INDEX #{nomini} RENAME TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER INDEX #{nomfin} RENAME TO #{nomini};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER INDEX #{nomfin} RENAME TO #{nomini};")
         end
       end
     end
@@ -319,11 +323,11 @@ module Msip
     def renombrar_restricción_pg(tabla, nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER TABLE #{tabla} "\
+          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} "\
             "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER TABLE #{tabla} "\
+          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} "\
             "RENAME CONSTRAINT #{nomfin} TO #{nomini};")
         end
       end
@@ -336,10 +340,12 @@ module Msip
     def renombrar_secuencia_pg(nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
         end
       end
     end
@@ -351,10 +357,12 @@ module Msip
     def renombrar_vista_pg(nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER VIEW #{nomini} RENAME TO #{nomfin};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER VIEW #{nomini} RENAME TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER VIEW #{nomfin} RENAME TO #{nomini};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER VIEW #{nomfin} RENAME TO #{nomini};")
         end
       end
     end
@@ -366,10 +374,12 @@ module Msip
     def renombrar_vistamat_pg(nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          execute("ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
         end
         dir.down do
-          execute("ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};")
+          ActiveRecord::Base.connection.execute(
+            "ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};")
         end
       end
     end
