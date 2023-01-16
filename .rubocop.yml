@@ -11,6 +11,10 @@ Style/FrozenStringLiteralComment:
 
 Minitest/AssertPredicate:
   Enabled: false
+    # 1. Hace más largo el assert porque transforma `assert caso.valid?` en 
+    #    `assert_predicate caso, :valid?`
+    # 2. EMHO no facilita legibilidad
+    # 3. No es homogéneo, no transforma `assert_not caso.valid?`
 
 Minitest/MultipleAssertions:
   Enabled: false
