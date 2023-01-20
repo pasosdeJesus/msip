@@ -69,13 +69,13 @@ if (test "$SALTAMSIP" != "1") then {
 if (test "$SALTASIP" != "1") then {
   echo "**** sip"
   actuno sip-2.0 test/dummy
-  actuno sip test/dummy
+  actuno sip-2.1 test/dummy
 } fi;
 
 # Usan solo msip
 if (test "$SALTASIPD" != "1") then {
   echo "**** sipd"
-  actuno sipd test/dummy
+  actuno msipd test/dummy
 } fi;
 
 if (test "$SALTAJN316" != "1") then {
@@ -86,22 +86,21 @@ if (test "$SALTAJN316" != "1") then {
 if (test "$SALTAMR519" != "1") then {
   echo "**** mr519"
   actuno mr519_gen-2.0 test/dummy; 
+  actuno mr519_gen-2.1 test/dummy; 
   actuno mr519_gen test/dummy; 
-  actuno mr519_gen-msip test/dummy; 
 } fi;
 
 if (test "$SALTAHEB412" != "1") then {
   echo "**** heb412"
   actuno heb412_gen-2.0 test/dummy; 
+  actuno heb412_gen-2.1 test/dummy; 
   actuno heb412_gen test/dummy; 
-  actuno heb412_gen-msip test/dummy; 
   actuno heb412
 } fi;
 
 if (test "$SALTACOR1440" != "1") then {
   echo "**** cor1440"
   actuno cor1440_gen test/dummy; 
-  actuno cor1440_gen-msip test/dummy; 
   actuno cor1440; 
   actuno cor1440_pdJ; 
   actuno si_codacop
@@ -110,23 +109,21 @@ if (test "$SALTACOR1440" != "1") then {
 if (test "$SALTASAL7711" != "1") then {
   echo "**** sal7711"
   actuno sal7711_gen test/dummy; 
-  actuno sal7711_gen-msip test/dummy; 
   actuno sal7711; 
   actuno sal7711_web test/dummy; 
-  actuno sal7711_web-msip test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2GEN" != "1") then {
   echo "**** sivel"
   actuno sivel2_gen-2.0 test/dummy; 
+  actuno sivel2_gen-2.1 test/dummy; 
   actuno sivel2_gen test/dummy; 
-  actuno sivel2_gen-msip test/dummy; 
 } fi;
 
 if (test "$SALTAAPO214" != "1") then {
   echo "**** apo214"
+  actuno apo214-2.1 test/dummy; 
   actuno apo214 test/dummy; 
-  actuno apo214-msip test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2" != "1") then {
