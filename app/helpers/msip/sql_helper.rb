@@ -269,6 +269,20 @@ module Msip
     end
     module_function :existe_restricción_pg?
 
+    # Decide si existe una restricción r en una tabla t en una base PostgreSQL
+    def existe_restricción_en_tabla_pg?(r, t)
+      c = "SELECT EXISTS("\
+        "SELECT * FROM pg_constraint "\
+        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}"\
+        "  AND conrelid=(SELECT oid FROM pg_class "\
+        "    WHERE relname = #{ActiveRecord::Base.connection.quote(t)})"\
+        ");"
+      r = ActiveRecord::Base.connection.execute(c)
+      r[0]["exists"]
+    end
+    module_function :existe_restricción_en_tabla_pg?
+
+
     # Decide si existe una secuencia s en base PostgreSQL
     def existe_secuencia_pg?(s)
       reversible do |_dir|

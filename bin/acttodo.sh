@@ -1,7 +1,7 @@
 #!/bin/sh
 # Actualiza varios sistemas que usan msip. Dominio público. 2016
 # Podria ejecutar con
-# SALTAMSIP=1 SALTASIP=1 SALTASIPD=1 
+# SALTAMSIP=1 SALTASIP=1 SALTAMSIPD=1 
 # SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
 # SALTACOR1440=1 SALTASAL7711=1 
 # SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
@@ -73,8 +73,8 @@ if (test "$SALTASIP" != "1") then {
 } fi;
 
 # Usan solo msip
-if (test "$SALTASIPD" != "1") then {
-  echo "**** sipd"
+if (test "$SALTAMSIPD" != "1") then {
+  echo "**** msipd"
   actuno msipd test/dummy
 } fi;
 
@@ -129,17 +129,13 @@ if (test "$SALTAAPO214" != "1") then {
 if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel"
   actuno sivel2-2.0; 
+  actuno sivel2-2.1
   actuno sivel2
-  actuno sivel2-msip
   actuno siaddhh;
   actuno si_bdhn
 } fi;
 
 # Usan 3 o más motores
-if (test "$SALTASIANZORC" != "1") then {
-  actuno si_anzorc; 
-} fi;
-
 if (test "$SALTASIASOM" != "1") then {
   actuno si_asom
 } fi;
@@ -155,7 +151,6 @@ if (test "$SALTASIFASOL" != "1") then {
 if (test "$SALTASIVELSJR" != "1") then {
   echo "**** sivelsjr"
   actuno sivel2_sjr test/dummy; 
-  actuno sivel2_sjr-msip test/dummy; 
 } fi;
 
 if (test "$SALTAMIND" != "1") then {
@@ -168,6 +163,5 @@ if (test "$SALTAMIND" != "1") then {
 #actuno sivel2_sjrven; 
 if (test "$SALTASIJRSCOL" != "1") then {
   actuno si_jrscol
-  actuno si_jrscol-msip
 } fi;
 
