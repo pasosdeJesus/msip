@@ -462,24 +462,32 @@ module Msip
                 end
 
                 format.html do
-                  if params[:_msip_enviarautomatico_y_repinta]
-                    redirect_to(
-                      edit_modelo_path(@registro),
-                      turbo: false,
-                    )
-                  else
-                    actualizada = if genclase == "M"
-                      "actualizado"
+                  if request.method == "PATCH" && request.xhr?
+                    if params[:_msip_enviarautomatico_y_repinta] || 
+                        request.params[:_msip_enviarautomatico_y_repinta]
+                      render(action: 'edit', 
+                             layout: 'application', 
+                             notice: 'Registro actualizado.')
                     else
-                      "actualizada"
+                      render(action: 'show', 
+                             layout: 'application', 
+                             notice: 'Registro actualizado.')
                     end
-                    redirect_to(
-                      modelo_path(@registro),
-                      notice: clase + " #{actualizada}.",
-                    )
-                    return
+                  else
+                    if params[:_msip_enviarautomatico_y_repinta] || 
+                        request.params[:_msip_enviarautomatico_y_repinta]
+                      redirect_to edit_modelo_path(@registro), 
+                        turbo: false
+                    else
+                      actualizada = genclase == 'M' ? 'actualizado' : 
+                        'actualizada';
+                      redirect_to modelo_path(@registro), 
+                        notice: clase + " #{actualizada}." 
+                    end
                   end
+                  return
                 end
+
                 format.json do
                   head(:no_content)
                 end
@@ -567,7 +575,7 @@ module Msip
               format.html do
                 redirect_to(
                   modelos_url(@registro),
-                  status: :see_other, # Avoids double DELETE, that happens sometimes, solution from https://api.rubyonrails.org/classes/ActionController/Redirecting.html#method-i-redirect_to
+                  status: :see_other, # Evita doble DELETE, que ocurre esporadicamente, solución de https://api.rubyonrails.org/classes/ActionController/Redirecting.html#method-i-redirect_to
                   notice: clase + " #{eliminada}.",
                 )
                 return

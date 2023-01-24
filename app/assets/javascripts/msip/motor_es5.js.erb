@@ -197,6 +197,7 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
     type: 'PATCH',
     url: formulario.getAttribute('action'),
     data: datos,
+    dataType: 'html',
     success: (resp, estado, xhr) => {
       document.body.style.cursor = 'default'
       let hayErrores = false
