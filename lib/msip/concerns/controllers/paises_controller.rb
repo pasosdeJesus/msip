@@ -17,7 +17,7 @@ module Msip
             @basica = Pais.find(params[:id])
           end
 
-          def atributos_index
+          def atributos_index_msip
             [
               :id,
               :nombre,
@@ -40,9 +40,17 @@ module Msip
             ]
           end
 
-          def atributos_show
+          def atributos_index
+            atributos_index_msip
+          end
+
+          def atributos_show_msip
             atributos_transf_habilitado +
               [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
+          end
+
+          def atributos_show
+            atributos_show_msip
           end
 
           def atributos_form

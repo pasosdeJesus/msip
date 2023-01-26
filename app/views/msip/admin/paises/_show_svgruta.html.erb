@@ -13,13 +13,20 @@
 <% puts "escala=#{escala}" %>
 <% ar = @registro.svgruta[2..-3].split(" ").
   map(&:to_f).each_slice(2).to_a.select {|x,y| x != 0 && y != 0} %>
-<div style='width: <%= ancho %>px; height: <%= alto %>'>
-  <svg viewBox="<%= vbx1 %> <%= vby1 %> <%= vbx2 %> <%= vby2 %>">
-     <path id="ruta"
-           d="<%= @registro.svgruta %>"
-           stroke="#000"
-           stroke-width="<%= 1/escala %>"
-           fill="#fff" 
-           >
-  </svg>
+<div style="width: 100%; display: flex; justify-content: center">
+  <div style='width: <%= ancho %>px; height: <%= alto %>'>
+    <svg viewBox="<%= vbx1 %> <%= vby1 %> <%= vbx2 %> <%= vby2 %>">
+      <path id="ruta"
+            d="<%= @registro.svgruta %>"
+            stroke="#000"
+            stroke-width="<%= 1/escala %>"
+            fill="#fff" 
+            >
+    </svg>
+  </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: flex-end">
+  <span>
+    Cartografía de <a href='https://openstreetmap.org'>OpenStreetMap</a>.
+  </span>
 </div>
