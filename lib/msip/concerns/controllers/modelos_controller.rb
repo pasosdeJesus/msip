@@ -463,27 +463,36 @@ module Msip
 
                 format.html do
                   if request.method == "PATCH" && request.xhr?
-                    if params[:_msip_enviarautomatico_y_repinta] || 
+                    if params[:_msip_enviarautomatico_y_repinta] ||
                         request.params[:_msip_enviarautomatico_y_repinta]
-                      render(action: 'edit', 
-                             layout: 'application', 
-                             notice: 'Registro actualizado.')
+                      render(
+                        action: "edit",
+                        layout: "application",
+                        notice: "Registro actualizado.",
+                      )
                     else
-                      render(action: 'show', 
-                             layout: 'application', 
-                             notice: 'Registro actualizado.')
+                      render(
+                        action: "show",
+                        layout: "application",
+                        notice: "Registro actualizado.",
+                      )
                     end
+                  elsif params[:_msip_enviarautomatico_y_repinta] ||
+                      request.params[:_msip_enviarautomatico_y_repinta]
+                    redirect_to(
+                      edit_modelo_path(@registro),
+                      turbo: false,
+                    )
                   else
-                    if params[:_msip_enviarautomatico_y_repinta] || 
-                        request.params[:_msip_enviarautomatico_y_repinta]
-                      redirect_to edit_modelo_path(@registro), 
-                        turbo: false
+                    actualizada = if genclase == "M"
+                      "actualizado"
                     else
-                      actualizada = genclase == 'M' ? 'actualizado' : 
-                        'actualizada';
-                      redirect_to modelo_path(@registro), 
-                        notice: clase + " #{actualizada}." 
+                      "actualizada"
                     end
+                    redirect_to(
+                      modelo_path(@registro),
+                      notice: clase + " #{actualizada}.",
+                    )
                   end
                   return
                 end

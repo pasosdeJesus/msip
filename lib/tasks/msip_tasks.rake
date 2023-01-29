@@ -12,7 +12,7 @@ require_relative "../../app/helpers/msip/tareasrake_helper"
 namespace :msip do
   desc "Actualiza indices"
   task indices: :environment do
-    connection = ActiveRecord::Base.connection()
+    connection = ActiveRecord::Base.connection
     puts "msip - indices"
     # Primero tablas basicas creadas en Rails
     # byebug

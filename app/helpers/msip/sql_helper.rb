@@ -282,7 +282,6 @@ module Msip
     end
     module_function :existe_restricción_en_tabla_pg?
 
-
     # Decide si existe una secuencia s en base PostgreSQL
     def existe_secuencia_pg?(s)
       reversible do |_dir|
@@ -303,11 +302,13 @@ module Msip
       reversible do |dir|
         dir.up   do
           ActiveRecord::Base.connection.execute(
-            "ALTER FUNCTION #{nomini} RENAME TO #{nomfin};")
+            "ALTER FUNCTION #{nomini} RENAME TO #{nomfin};",
+          )
         end
         dir.down do
           ActiveRecord::Base.connection.execute(
-            "ALTER FUNCTION #{nomfin} RENAME TO #{nomini};")
+            "ALTER FUNCTION #{nomfin} RENAME TO #{nomini};",
+          )
         end
       end
     end
@@ -320,11 +321,13 @@ module Msip
       reversible do |dir|
         dir.up   do
           ActiveRecord::Base.connection.execute(
-            "ALTER INDEX #{nomini} RENAME TO #{nomfin};")
+            "ALTER INDEX #{nomini} RENAME TO #{nomfin};",
+          )
         end
         dir.down do
           ActiveRecord::Base.connection.execute(
-            "ALTER INDEX #{nomfin} RENAME TO #{nomini};")
+            "ALTER INDEX #{nomfin} RENAME TO #{nomini};",
+          )
         end
       end
     end
@@ -355,11 +358,13 @@ module Msip
       reversible do |dir|
         dir.up   do
           ActiveRecord::Base.connection.execute(
-            "ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};")
+            "ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};",
+          )
         end
         dir.down do
           ActiveRecord::Base.connection.execute(
-            "ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};")
+            "ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};",
+          )
         end
       end
     end
@@ -372,11 +377,13 @@ module Msip
       reversible do |dir|
         dir.up   do
           ActiveRecord::Base.connection.execute(
-            "ALTER VIEW #{nomini} RENAME TO #{nomfin};")
+            "ALTER VIEW #{nomini} RENAME TO #{nomfin};",
+          )
         end
         dir.down do
           ActiveRecord::Base.connection.execute(
-            "ALTER VIEW #{nomfin} RENAME TO #{nomini};")
+            "ALTER VIEW #{nomfin} RENAME TO #{nomini};",
+          )
         end
       end
     end
@@ -389,11 +396,13 @@ module Msip
       reversible do |dir|
         dir.up   do
           ActiveRecord::Base.connection.execute(
-            "ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};")
+            "ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};",
+          )
         end
         dir.down do
           ActiveRecord::Base.connection.execute(
-            "ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};")
+            "ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};",
+          )
         end
       end
     end
