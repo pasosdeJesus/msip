@@ -70,29 +70,6 @@
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "0e64a19d10d78c0ebd1421df27d6a1e2c698d2c8d7339a639769cfd2f7cecdb8",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "lib/msip/concerns/controllers/anexos_controller.rb",
-      "line": 40,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :disposition => :inline)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Msip::Concerns::Controllers::AnexosController",
-        "method": "abre_anexo"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "0f53dcd5e01f8ba4dc7e21cd7a52a597fd9a1d3355d910b8b88cf67fa58e171f",
@@ -116,25 +93,25 @@
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "1db1a32b936d109ad6217616ebf459b29c479fda5416c54c2d96dd67e722709c",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "lib/msip/concerns/controllers/anexos_controller.rb",
-      "line": 67,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file((sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))[(..-5)] + \"-1.png\"), :x_sendfile => true)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1f3cc13a5fa9d1293ed15d9388a9f18ef1a9db932de1056c470c050bc7328045",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 358,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER SEQUENCE #{nomini} RENAME TO #{nomfin};\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::Concerns::Controllers::AnexosController",
-        "method": "mostrar_portada"
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_secuencia_pg"
       },
-      "user_input": "params[:id]",
-      "confidence": "High",
+      "user_input": "nomini",
+      "confidence": "Medium",
       "cwe_id": [
-        22
+        89
       ],
       "note": ""
     },
@@ -208,25 +185,48 @@
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "2ee0a8e0329305d04e784f1c47955c34403e35e6f5291dc93f21cf7ed090a31f",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/msip/anexos_controller.rb",
-      "line": 40,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :disposition => :inline)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "2671655ef77c27de4a67ffef72f7b19cee2cf1484aeb3e48b78f4d28853f88e9",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 392,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER MATERIALIZED VIEW #{nomini} RENAME TO #{nomfin};\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::AnexosController",
-        "method": "abre_anexo"
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_vistamat_pg"
       },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
+      "user_input": "nomini",
+      "confidence": "Medium",
       "cwe_id": [
-        22
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "26d916dadf46a33a6aea3fb78c7c166867c0ba35f9606d263954c72dff83cea4",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 396,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER MATERIALIZED VIEW #{nomfin} RENAME TO #{nomini};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_vistamat_pg"
+      },
+      "user_input": "nomfin",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -279,6 +279,52 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "46b7e8ee596aa8bc73356a5f16017659e824f6b195a1253b10323406b832bd26",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 362,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER SEQUENCE #{nomfin} RENAME TO #{nomini};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_secuencia_pg"
+      },
+      "user_input": "nomfin",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "48088111baa1f24ce79d9df4abdc3aa40ea51f448fa61070feea6b626692b192",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 310,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER FUNCTION #{nomfin} RENAME TO #{nomini};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_función_pg"
+      },
+      "user_input": "nomfin",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "58e9ff54cf9421b4378238ff116c99caa44b2bd1c42be22ed46e4e8de15dab29",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -294,6 +340,29 @@
       },
       "user_input": "Msip::Ubicacion.connection.quote_string(params[:term])",
       "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "5c03930c37815fd343d8549387751d88f54ef5b1ac07a1f51284d327aa6f2b0d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 375,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER VIEW #{nomini} RENAME TO #{nomfin};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_vista_pg"
+      },
+      "user_input": "nomini",
+      "confidence": "Medium",
       "cwe_id": [
         89
       ],
@@ -342,29 +411,6 @@
       "confidence": "High",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "808c824e40c4f762b30794f721a96c540a37eb0a8edcc3b1bc09d96fb848b7d0",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/controllers/msip/anexos_controller.rb",
-      "line": 64,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`pdftoppm -png -f 1 -l 1 \"#{sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))}\" \"#{sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))[(..-5)]}\"`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Msip::AnexosController",
-        "method": "mostrar_portada"
-      },
-      "user_input": "params[:id]",
-      "confidence": "High",
-      "cwe_id": [
-        77
       ],
       "note": ""
     },
@@ -461,25 +507,48 @@
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "ae51179634d216aa8fb11cdd836b697bc05c53134ac6e0c8f01225bb62ae0862",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "lib/msip/concerns/controllers/anexos_controller.rb",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :x_sendfile => true)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a9aedb270f2036b79e0088ff8a3cc4a099cac4c315baba5eb920fb270b0d4efa",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 306,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER FUNCTION #{nomini} RENAME TO #{nomfin};\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::Concerns::Controllers::AnexosController",
-        "method": "descarga_anexo"
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_función_pg"
       },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
+      "user_input": "nomini",
+      "confidence": "Medium",
       "cwe_id": [
-        22
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "aa45b00386ffa137fdc88aaac7a4f5c9a42104d4cb047205deb0fb36c2bc8fd1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 327,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER INDEX #{nomfin} RENAME TO #{nomini};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_índice_pg"
+      },
+      "user_input": "nomfin",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -553,48 +622,71 @@
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "c11297be20795a99f406d84a9684c3ce43e22bd567adef2cf1048b2411a2b501",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/msip/anexos_controller.rb",
-      "line": 67,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file((sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))[(..-5)] + \"-1.png\"), :x_sendfile => true)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "d4152671651e6336b2cb73c73ad4e310f2a6209d1258f4f8a2d768963a1d4ef0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"      ALTER TABLE #{tabla}\\n        ALTER COLUMN #{columna} SET DATA TYPE \\n          VARCHAR(#{long.to_i}) COLLATE \\\"#{cotejacion}\\\";\\n\".squish)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::AnexosController",
-        "method": "mostrar_portada"
+        "class": "Msip::SqlHelper",
+        "method": "cambiar_cotejacion"
       },
-      "user_input": "params[:id]",
-      "confidence": "High",
+      "user_input": "tabla",
+      "confidence": "Medium",
       "cwe_id": [
-        22
+        89
       ],
       "note": ""
     },
     {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "d3cddeb03b84e4b51cc6620a0dfd0f3385915f752d5081037535e21b3cdfd3c5",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/msip/anexos_controller.rb",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name)), :x_sendfile => true)",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "d9cc7dd927d94f0d513f27bb302a3920d02c9967e2016a28510605349b89e923",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 340,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER TABLE #{tabla} RENAME CONSTRAINT #{nomini} TO #{nomfin};\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::AnexosController",
-        "method": "descarga_anexo"
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_restricción_pg"
       },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
+      "user_input": "tabla",
+      "confidence": "Medium",
       "cwe_id": [
-        22
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "e4dbc809e250631bda23196acc3ab1760dfb55830cd35944627bde02a15eebd7",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 323,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER INDEX #{nomini} RENAME TO #{nomfin};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_índice_pg"
+      },
+      "user_input": "nomini",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -622,25 +714,25 @@
       "note": ""
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "f1fa18be5e17ececc23c002bdbfa9130099b7e075f7e1bfca6a0d6de4df71a70",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "lib/msip/concerns/controllers/anexos_controller.rb",
-      "line": 64,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`pdftoppm -png -f 1 -l 1 \"#{sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))}\" \"#{sprintf((Msip.ruta_anexos.to_s + \"/%d_%s\"), Anexo.find(params[:id].to_i).id.to_i, File.basename(Anexo.find(params[:id].to_i).adjunto_file_name))[(..-5)]}\"`",
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ee367be69ecf88a5964076b0dff385d781ed7f8b964480ba127e7567a55b81bd",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 379,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER VIEW #{nomfin} RENAME TO #{nomini};\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Msip::Concerns::Controllers::AnexosController",
-        "method": "mostrar_portada"
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_vista_pg"
       },
-      "user_input": "params[:id]",
-      "confidence": "High",
+      "user_input": "nomfin",
+      "confidence": "Medium",
       "cwe_id": [
-        77
+        89
       ],
       "note": ""
     },
@@ -664,6 +756,29 @@
       "confidence": "High",
       "cwe_id": [
         22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f613a9297dc586c99a46d286a1a5c120deb2a72caf932b2af7dcc1f5d180b970",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/msip/sql_helper.rb",
+      "line": 344,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER TABLE #{tabla} RENAME CONSTRAINT #{nomfin} TO #{nomini};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Msip::SqlHelper",
+        "method": "renombrar_restricción_pg"
+      },
+      "user_input": "tabla",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -714,6 +829,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-01-10 05:41:58 -0500",
+  "updated": "2023-01-29 05:01:51 -0500",
   "brakeman_version": "5.4.0"
 }
