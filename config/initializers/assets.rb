@@ -3,7 +3,7 @@
 # Asegurese de reiniciar su  servidor tras modificar este archivo.
 
 
-if !Rails || !Rails.application || !Rails.application.config || !Rails.application.config.assets
+if !Rails || !Rails.application || !Rails.application.config || !Rails.application.config.respond_to?(:assets)
   return
 end
 
