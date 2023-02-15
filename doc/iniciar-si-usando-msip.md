@@ -20,7 +20,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   esto ocurre con `nokogiri`-- en tal caso anota la versión por 
   instalar --ejemplo 1.13.3-- y ejecuta algo como:
   ```
-  doas gem install --install-dir /var/www/bundler/ruby/3.1 nokogiri -v 1.13.3
+  doas gem install --install-dir /var/www/bundler/ruby/3.2 nokogiri -v 1.13.3
   ```
   Y después desde el directorio `minmsip` vuelve a ejecutar
   ```sh
@@ -28,7 +28,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   ```
 - Instala `yarn`
   ```sh
-  npm install --global yarn
+  doas npm install --global yarn
   ```
 - Con esto ya deberías poder lanzar la aplicación en modo desarrollo (aunque 
   no correrá mucho sin base de datos, así que detenla con Control-C después de 
@@ -36,10 +36,10 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   ```sh
   $ bin/rails s
   => Booting Puma
-  => Rails 7.0.4 application starting in development
+  => Rails 7.0.4.2 application starting in development
   => Run `rails server --help` for more startup options
   Puma starting in single mode...
-  * Version 5.6.2 (ruby 3.1.1-p18) ("Birdie's Version")
+  * Version 5.6.5 (ruby 3.2.0-p0) ("Birdie's Version")
   * Min threads: 5
   * Max threads: 5
   * Environment: development
@@ -78,86 +78,86 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   `doas gem install dotenv foreman` e incluye otras gemas necesarias, así como 
   `msip` en el archivo `Gemfile` que debe quedar al menos con:
   ```
-  source 'https://rubygems.org'
+    source "https://rubygems.org"
   git_source(:gitlab) { |repo| "https://gitlab.com/#{repo}.git" }
   
-  ruby '>=3.1.1'
+  ruby ">=3.2.0"
   
-  gem 'babel-transpiler'           # Permite tener módulos ES6
+  gem "babel-transpiler"           # Permite tener módulos ES6
   
-  gem 'bcrypt'                     # Condensando de claves con bcrypt
+  gem "bcrypt"                     # Condensando de claves con bcrypt
   
-  gem 'bootsnap'                   # Arranque rápido
+  gem "bootsnap"                   # Arranque rápido
   
-  gem 'cancancan'                  # Control de acceso
+  gem "cancancan"                  # Control de acceso
   
-  gem 'cocoon', git: 'https://github.com/vtamara/cocoon.git',
-    branch: 'new_id_with_ajax' # Formularios anidados (algunos con ajax)
+  gem "cocoon", git: "https://github.com/vtamara/cocoon.git",
+  branch: "new_id_with_ajax" # Formularios anidados (algunos con ajax)
   
-  gem 'coffee-rails'               # Parte de msip aún usa Coffescript
+  gem "coffee-rails"               # Parte de msip aún usa Coffescript
   
-  gem 'devise'                     # Autenticación
+  gem "devise"                     # Autenticación
   
-  gem 'devise-i18n'                # Localización e Internacionalización
+  gem "devise-i18n"                # Localización e Internacionalización
   
-  gem 'dotenv-rails'               # Configuración de servidor en .env
+  gem "dotenv-rails"               # Configuración de servidor en .env
   
-  gem 'jbuilder', '>= 2.7'         # Json
+  gem "jbuilder", ">= 2.7"         # Json
   
-  gem 'jsbundling-rails'
+  gem "jsbundling-rails"
   
-  gem 'kt-paperclip'               # Anexos
+  gem "kt-paperclip"               # Anexos
   
-  gem 'nokogiri'                   # Procesamiento XML
+  gem "nokogiri"                   # Procesamiento XML
   
-  gem 'pg'                         # PostgreSQL
+  gem "pg"                         # PostgreSQL
   
-  gem 'puma'                       # Lanza en modo desarrollo
+  gem "puma"                       # Lanza en modo desarrollo
   
-  gem 'rails'
+  gem "rails"
   
-  gem 'rails-i18n'                 # Localización e Internacionalización
+  gem "rails-i18n"                 # Localización e Internacionalización
   
-  gem 'sassc-rails'                # Conversión a CSS
+  gem "sassc-rails"                # Conversión a CSS
   
-  gem 'simple_form'                # Formularios
+  gem "simple_form"                # Formularios
   
-  gem 'sprockets-rails'            # Tuberia de recursos
+  gem "sprockets-rails"            # Tuberia de recursos
   
-  gem 'stimulus-rails'             # Libreria javascript
+  gem "stimulus-rails"             # Libreria javascript
   
-  gem 'turbo-rails'                # Acelera HTML
+  gem "turbo-rails"                # Acelera HTML
   
-  gem 'twitter_cldr'               # Localiación e internacionalización
+  gem "twitter_cldr"               # Localiación e internacionalización
   
-  gem 'will_paginate'              # Pagina listados
+  gem "will_paginate"              # Pagina listados
   
   
   #### Motores que sobrecargan vistas o basados en MSIP en orden de apilamento
-  gem 'msip',                       # SI estilo Pasos de Jesús
-    git: 'https://gitlab.com/pasosdeJesus/msip.git'
+  gem "msip",                       # SI estilo Pasos de Jesús
+  git: "https://gitlab.com/pasosdeJesus/msip.git"
   
   
   group :development, :test do
-    gem 'code-scanning-rubocop'   # Busca fallas de seguridad
+  gem "code-scanning-rubocop"   # Busca fallas de seguridad
   
-    gem 'colorize'
+  gem "colorize"
   
-    gem 'debug'                 # Depura
+  gem "debug"                 # Depura
   
-    gem 'rails-erd'               # Genera diagrama entidad asociación
+  gem "rails-erd"               # Genera diagrama entidad asociación
   end
   
   group :development do
-    gem 'web-console', '>= 3.3.0' # Depura en navegador
+  gem "web-console", ">= 3.3.0" # Depura en navegador
   end
   
   group :test do
-    gem 'minitest'                # Pruebas automáticas de regresión con minitest
+  gem "minitest"                # Pruebas automáticas de regresión con minitest
   
-    gem 'rails-controller-testing'
+  gem "rails-controller-testing"
   
-    gem 'simplecov', '~> 0.10', '< 0.18'
+  gem "simplecov"
   end
   ```
   Y después instala las nuevas gemas con:
@@ -284,7 +284,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   
   end
   ```
-  Verifica la sintaxis tras cada modificación con:
+  Verifica la sintaxis con:
   ```
   ruby -c app/models/ability.rb
   ```
@@ -377,7 +377,7 @@ minmsip_des=# \q
   ```rb
   conexion = ActiveRecord::Base.connection();
   
-  Msip::carga_semillas_sql(conexion, 'msip', :datos)
+  Msip::carga_semillas_sql(conexion, "msip", :datos)
   
   conexion.execute("INSERT INTO public.usuario
     (id, nusuario, email, encrypted_password, password,
@@ -407,14 +407,14 @@ minmsip_des=# \q
   ```
 - Crea el modelo `usuario` en `app/models/usuario.rb` inicialmente con:
   ```rb
-  require 'msip/concerns/models/usuario'
   
+  require "msip/concerns/models/usuario"
   class Usuario < ActiveRecord::Base
     include Msip::Concerns::Models::Usuario
   end
   ```
   Puedes probar que el modelo y revisar que se haya creado el usuario
-  especificado en `db/seed.rb` en una consola irb, por ejemplo:
+  especificado en `db/seed.rb` en una consola irb:
   ```sh
   $ bin/rails console
   irb(main):001:0> Usuario.all.count
@@ -428,7 +428,7 @@ minmsip_des=# \q
 - Crea un controlador para usuarios en `app/controllers/usuarios_controller.rb`
   inicialmente con:
   ```rb
-  require 'msip/concerns/controllers/usuarios_controller'
+  require "msip/concerns/controllers/usuarios_controller"
   
   class UsuariosController < Msip::ModelosController
     include Msip::Concerns::Controllers::UsuariosController
@@ -453,9 +453,9 @@ minmsip_des=# \q
   ```rb
   Msip.setup do |config|
     config.ruta_anexos = ENV.fetch(
-      'MSIP_RUTA_ANEXOS', "#{Rails.root}/archivos/anexos/")
+      "MSIP_RUTA_ANEXOS", "#{Rails.root}/archivos/anexos/")
     config.ruta_volcados = ENV.fetch(
-      'MSIP_RUTA_VOLCADOS', "#{Rails.root}/archivos/bd/")
+      "MSIP_RUTA_VOLCADOS", "#{Rails.root}/archivos/bd/")
     config.titulo = "Aplicación mínima que usa MSIP"
   end
   ```
