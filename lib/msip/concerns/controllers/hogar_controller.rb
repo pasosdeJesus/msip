@@ -24,6 +24,7 @@ module Msip
               em += "No existe ruta de volcados '#{Msip.ruta_volcados}'. "
             end
             if em != ""
+              puts em
               flash[:error] = em
             end
           end

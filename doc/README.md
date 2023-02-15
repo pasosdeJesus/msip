@@ -38,7 +38,8 @@ fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo
     * [Personalización de rutas, controladores y vistas](rutas-controladores-vistas.md)
     * [Personalización del punto de montaje](punto-de-montaje.md)
     * [Personalización de recursos javascript y css](recursos-javascript-y-css.md)
-    * [Personalización de diseño visual, logo y favicon](diseño-visual-logo-y-favicon.md)
+    * [Diseño visual estándar con logo y favicon](diseño-visual-logo-y-favicon.md)
+    * [Temas con colores](temas.md)
     * [Diseño visual con prosidebar e iconos de remixicon](diseño-visual-prosidebar.md)
     * [Uso de controladores stimulus de motores rails](stimulus.md)
   * Internacionalización y personalización

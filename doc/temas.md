@@ -1,10 +1,13 @@
 # Temas
 
+Al momento de este escrito tema se refiere a la elección de colores
+configurable de una aplicación.
+
 Las aplicaciones descendientes de msip corren con un tema predeterminado
 que puede ser sobrecargado por cada usuario de manera particular.
 
 Los temas elegibles por el usuario están disponibles en la tabla
-básica Msip::Temas y pueden ser creados y modificados por el administrador.
+básica `Msip::Temas` y pueden ser creados y modificados por el administrador.
 
 El tema predeterminado se configura en las fuentes de la aplicación y 
 además se espera que coincida con el tema de id 1.
