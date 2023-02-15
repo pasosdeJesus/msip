@@ -3,12 +3,11 @@
 # Asegurese de reiniciar su  servidor tras modificar este archivo.
 
 
-if !Rails || !Rails.application || !Rails.application.config
-  puts "Falta rails"
-  exit 1
+if !Rails || !Rails.application || !Rails.application.config || !Rails.application.config.assets
+  return
 end
 
-if defined?(Rails.application.config.assets)
+#if defined?(Rails.application.config.assets)
   # Versión de sus recursos, cambie esto si quiere que todos sus recursos expiren
   Rails.application.config.assets.version = "1.0"
 
@@ -29,4 +28,4 @@ if defined?(Rails.application.config.assets)
     "webfonts/fa-solid-900.ttf",
     "chosen-sprite.png",
   ]
-end
+#end
