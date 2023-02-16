@@ -213,7 +213,7 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
       })
       if (hayErrores) {
         document.body.style.cursor = 'default'
-        alert('Hay errores que no permiten guardar y continuar')
+        alert('Revise los errores de validación, resuelvalos y vuelva a intentar')
         if (retrollamada_falla != null) {
           retrollamada_falla(argumentos_falla)
         }
