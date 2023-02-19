@@ -533,7 +533,7 @@ module Msip
                 next if r.options[:through]
 
                 rel = @registro.send(r.name)
-                next unless rel.count > 0
+                next if rel.count <= 0
 
                 nom = rel[0].class.human_attribute_name(r.name)
                 mens += " Este registro se relaciona con " \
@@ -546,7 +546,7 @@ module Msip
                 next if r.options[:through]
 
                 rel = @registro.send(r.name)
-                next unless rel.count > 0
+                next if rel.count <= 0
 
                 nom = rel[0].class.human_attribute_name(r.name)
                 mens += " Este registro se relaciona con " \

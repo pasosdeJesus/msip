@@ -334,7 +334,12 @@ if defined?(SimpleForm)
     # inline forms
     #
     # inline default_wrapper
-    config.wrappers(:inline_form, tag: "span", error_class: "form-group-invalid", valid_class: "form-group-valid") do |b|
+    config.wrappers(
+      :inline_form,
+      tag: "span",
+      error_class: "form-group-invalid",
+      valid_class: "form-group-valid",
+    ) do |b|
       b.use(:html5)
       b.use(:placeholder)
       b.optional(:maxlength)
@@ -589,4 +594,3 @@ if defined?(SimpleForm)
     # }
   end
 end
-
