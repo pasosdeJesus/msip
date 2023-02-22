@@ -96,6 +96,7 @@ if (test "$SALTAHEB412" != "1") then {
   actuno heb412_gen-2.1 test/dummy; 
   actuno heb412_gen test/dummy; 
   actuno heb412
+  actuno si_fup
 } fi;
 
 if (test "$SALTACOR1440" != "1") then {
