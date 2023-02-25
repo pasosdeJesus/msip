@@ -16,7 +16,6 @@ module Msip
           self.table_name = "msip_solicitud"
 
           belongs_to :usuario,
-            dependent: :destroy,
             class_name: "Usuario",
             optional: false
           belongs_to :estadosol,
