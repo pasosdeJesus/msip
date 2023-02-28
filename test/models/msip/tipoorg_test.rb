@@ -4,12 +4,6 @@ require "test_helper"
 
 module Msip
   class TipoorgTest < ActiveSupport::TestCase
-    PRUEBA_TIPOORG = {
-      nombre: "Tipoorg",
-      fechacreacion: "2021-10-10",
-      created_at: "2021-10-10",
-    }
-
     test "valido" do
       tipoorg = Msip::Tipoorg.create(
         PRUEBA_TIPOORG,
@@ -31,6 +25,7 @@ module Msip
 
     test "existente" do
       tipoorg = Msip::Tipoorg.where(id: 1).take
+      assert tipoorg.valid?
 
       assert_equal("ORGANIZACIÓN DE LA SOCIEDAD CIVIL (ACOMPAÑADA)", tipoorg.nombre)
     end

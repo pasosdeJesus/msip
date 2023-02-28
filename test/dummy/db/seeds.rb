@@ -21,3 +21,11 @@ conexion.execute("INSERT INTO public.usuario
 	VALUES ('msip', 'msip@localhost',
   '$2a$10$WphwnqY9mO/vGcIEUuWVquetUqBd9kqcbnUFmxpbPuYRUs8FwdArW',
 	'', '2014-08-14', '2014-08-14', '2014-08-14', 1);")
+
+# usuario operador, clave operador
+conexion.execute("INSERT INTO public.usuario
+	(nusuario, email, encrypted_password, password,
+  fechacreacion, created_at, updated_at, rol)
+	VALUES ('operador', 'operador@localhost',
+  '$2a$10$G6hwcqfRQMTWY3YhroTgOO7k4XgZiOxGi/jpoetgzCjUw1VHoLujC',
+	'', '2023-02-27', '2023-02-27', '2023-02-27', 5);")

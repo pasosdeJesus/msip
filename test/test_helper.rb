@@ -169,6 +169,12 @@ PRUEBA_TEMA = {
   created_at: "2022-12-29",
 }
 
+PRUEBA_TIPOORG = {
+  nombre: "Tipoorg",
+  fechacreacion: "2021-10-10",
+  created_at: "2021-10-10",
+}
+
 PRUEBA_SECTORORGSOCIAL = {
   nombre: "Nombre sector",
   observaciones: "x",
