@@ -99,8 +99,12 @@ module Msip
     end
 
     test "debe eliminar" do
+      municipio = Municipio.create(PRUEBA_MUNICIPIO)
+
+      assert_predicate municipio, :valid?
+
       assert_difference("Municipio.count", -1) do
-        delete msip.admin_municipio_path(Municipio.find(323)) # Municipio sin clases
+        delete msip.admin_municipio_path(Municipio.find(PRUEBA_MUNICIPIO[:id]))
       end
 
       assert_redirected_to msip.admin_municipios_path
