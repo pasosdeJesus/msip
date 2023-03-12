@@ -1,1 +1,3 @@
-<%= render partial: "msip/admin/paises/show_svgruta" %>
+<% hermanos = Msip::Departamento.where(id_pais: @registro.id_pais) %>
+<%= render partial: 'msip/admin/departamentos/show_svgruta_con_hermanos',
+  locals: {registro: @registro, hermanos: hermanos, maxdim: 768} %>

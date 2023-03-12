@@ -64,6 +64,11 @@ module Msip
               nombre
             end
           end
+
+          # Código local, e.g en Colombia DIVIPOLA
+          def codlocal
+            self.id_deplocal
+          end
         end
 
         class_methods do
