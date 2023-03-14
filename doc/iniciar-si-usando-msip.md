@@ -447,7 +447,7 @@ minmsip_des=# \q
   del usuario en 
   <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/modelo-usuario.md>.
 
-- Para establecer rutas de anexos y de volcados crea dos directorio según 
+- Para establecer rutas de anexos y de volcados crea dos directorios según 
   hayas configurado en `.env` (ej. `mkdir -p archivos/{anexos,bd}`) 
   y crea el archivo `config/initializers/msip.rb` con algo como:
   ```rb
@@ -576,6 +576,7 @@ minmsip_des=# \q
   Y verifica que la configuración de javascript con módulos y esbuild es 
   correcta empaquetando en `app/assets/builds/application.js` con:
   ```
+  touch app/javascript/controllers/index.js
   yarn build
   ```
 - La tubería de recursos (i.e sprockets) se encargará de ubicar en un 
@@ -664,7 +665,7 @@ minmsip_des=# \q
   
   <% content_for :piedepagina do %>
     <p><span class='derechos'><a href="https://www.pasosdejesus.org/dominio_publico_colombia.html">Dominio Público de acuerdo a Legislación Colombiana</a><br/>
-      Desarrollado por <a href="https://www.pasosdeJesus.org" target="_blank">Pasos de Jesús</a>. 2022.
+      Desarrollado por <a href="https://www.pasosdeJesus.org" target="_blank">Pasos de Jesús</a>. 2023.
     </span></p>
   <% end %>
   

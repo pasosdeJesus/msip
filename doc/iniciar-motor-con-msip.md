@@ -15,7 +15,8 @@ s.add_dependency "msip"
 ```
 
 Edita el archivo `Gemfile` y agrega las mismas gemas que requiere una 
-aplicación que use msip (ver [Iniciar un sistema de información usando Msip](doc/iniciar-si-usando-msip.md))
+[Iniciar un sistema de información usando Msip](iniciar-si-usando-msip)
+
 
 Crea el archivo `app/models/mimotor/ability.rb` donde se configurará 
 control de acceso, inicialmente con:

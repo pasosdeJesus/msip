@@ -1,0 +1,103 @@
+<% if registro.nil? %>
+  <% return "Falta registro" %>
+<% end %>
+<% if hermanos.nil? %>
+  <% return "Faltan hermanos" %>
+<% end %>
+<% if maxdim.nil? %>
+  <% return "Falta maxdim (e.g 512 o 1024)" %>
+<% end %>
+<% if !defined?(prefijoid) %>
+  <% return "Falta prefijoid" %>
+<% end %>
+
+<% if registro.svgcdancho.nil? %>
+  <% return %>
+<% end %>
+
+<% minx = registro.svgcdx %>
+<% miny = registro.svgcdy %>
+<% maxx = minx + registro.svgcdancho %>
+<% maxy = miny + registro.svgcdalto %>
+<% hermanos.each do |h| %>
+  <% minx = h.svgcdx if h.svgcdx && h.svgcdx < minx %>
+  <% miny = h.svgcdy if h.svgcdy && h.svgcdy < miny %>
+  <% maxx = h.svgcdx + h.svgcdancho if h.svgcdx && h.svgcdancho && (h.svgcdx + h.svgcdancho > maxx) %>
+  <% maxy = h.svgcdy + h.svgcdalto if h.svgcdy && h.svgcdalto && (h.svgcdy + h.svgcdalto > maxy) %>
+<% end %>
+<% cdancho = maxx - minx %>
+<% cdalto = maxy - miny %>
+
+<% escala = maxdim.to_f / [cdancho, cdalto].max %>
+<% ancho = cdancho * escala %>
+<% ancho = ancho.round %>
+<% alto = cdalto * escala %>
+<% alto = alto.round %>
+<% vbx = minx %>
+<% vby = miny %>
+<% vbalto = cdalto %>
+<% vbancho = cdancho %>
+
+<% puts "escala=#{escala}" %>
+<% ar = registro.svgruta[2..-3].split(" ").
+  map(&:to_f).each_slice(2).to_a.select {|x,y| x != 0 && y != 0} %>
+<div style="width: 100%; display: flex; justify-content: center">
+  <div style='width: <%= ancho %>px; height: <%= alto %>; border: 1px solid lightgrey;'>
+    <svg viewBox="<%= vbx %> <%= vby %> <%= vbancho %> <%= vbalto %>">
+      <% hermanos.select{|h| h.id != registro.id}.each do |h| %>
+        <% fondo = h.id == registro.id ? "#99f" : "#fff" %>
+        <g id="<%= prefijoid %><%= h.codlocal %>">
+          <path 
+            id="ruta"
+            d="<%= h.svgruta %>"
+            stroke="#000"
+            stroke-width="<%= 1/escala %>"
+            fill="<%= fondo %>" 
+            />
+          <% if h.id == registro.id && registro.svgrotx && registro.svgroty %>
+            <% tamfuente = 12.0 / escala %>
+            <% id = registro.class.to_s + "-" + registro.id.to_s %>
+            <text 
+              x="<%= registro.svgrotx %>" 
+              y="<%= registro.svgroty %>" 
+              id="<%= id %>"
+              font-family="sans-serif" 
+              font-size="<%= tamfuente %>" 
+              text-anchor="left">
+              <%= registro.nombre %>
+            </text>
+          <% end %>
+        </g>
+
+      <% end %>
+      <% # En svg no hay z-index, el orden es el orden en el que aparecen %>
+      <% fondo = "#99f" %>
+
+      <g id="<%= prefijoid %><%= registro.codlocal %>">
+        <path 
+         id="ruta"
+         d="<%= registro.svgruta %>"
+         stroke="#000"
+         stroke-width="<%= 1/escala %>"
+         fill="<%= fondo %>" 
+         />
+           <% tamfuente = 12.0 / escala %>
+           <% id = registro.class.to_s + "-" + registro.id.to_s %>
+           <text 
+             x="<%= registro.svgrotx %>" 
+             y="<%= registro.svgroty %>" 
+             id="<%= id %>"
+             font-family="sans-serif" 
+             font-size="<%= tamfuente %>" 
+             text-anchor="left">
+             <%= registro.nombre %>
+           </text>
+      </g>
+    </svg>
+  </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: flex-end">
+  <span>
+    Cartografía de <a href='https://openstreetmap.org'>OpenStreetMap</a>.
+  </span>
+</div>
