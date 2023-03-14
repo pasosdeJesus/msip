@@ -1,4 +1,8 @@
 <% hermanos = Msip::Municipio.where(id_departamento: @registro.id_departamento) %>
 <%= render partial: 'msip/admin/departamentos/show_svgruta_con_hermanos',
-  locals: {registro: @registro, hermanos: hermanos, maxdim: 768,
-  prefijoid: "mixtimun"} %>
+  locals: {
+    registro: @registro,
+    hermanos: hermanos,
+    maxdim: 768,
+    prefijoid: "mixtimun"
+  } %>
