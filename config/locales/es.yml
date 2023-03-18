@@ -287,6 +287,9 @@ es:
         alerta_exito_fuente: Color de letra de alerta de éxito
         alerta_problema_fondo: Fondo de alerta de problema
         alerta_problema_fuente: Color de letra de alerta de problema
+      "msip/tipoorg": 
+        Tipoorg: Tipo de organización
+        Tiposorg: Tipos de organización social
       "msip/trelacion": 
         Trelacion: Tipo de relación familiar
         Trelaciones: Tipos de relaciones familiares
