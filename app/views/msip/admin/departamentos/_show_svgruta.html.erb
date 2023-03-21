@@ -1,8 +1,18 @@
-<% hermanos = Msip::Departamento.where(id_pais: @registro.id_pais) %>
-<%= render partial: 'msip/admin/departamentos/show_svgruta_con_hermanos',
-  locals: {
-    registro: @registro,
-    hermanos: hermanos,
-    maxdim: 768,
-    prefijoid: "mixtidep"
-  } %>
+<div style="width: 100%; display: flex; justify-content: center">
+  <div style='width: 768px; height: ; border: 1px solid lightgrey;'>
+    <% hermanos = Msip::Departamento.where(id_pais: @registro.id_pais) %>
+    <%= render partial: 'msip/admin/departamentos/show_svgruta_con_hermanos',
+      locals: {
+        registro: @registro,
+        hermanos: hermanos,
+        maxdim: 768,
+        prefijoid: "mixtidep"
+      } %>
+  </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: flex-end">
+  <span>
+    Cartografía de <a href='https://openstreetmap.org'>OpenStreetMap</a>.
+  </span>
+</div>
+
