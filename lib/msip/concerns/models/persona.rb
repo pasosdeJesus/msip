@@ -390,12 +390,23 @@ module Msip
             importa_msip(datosent, datossal, menserror, opciones)
           end
 
+          # Si busca cadena entre comillas la busca completa
+          # por ejemplo "N" busca nombres N
+          # Mientras que N busca nombres que incluyan N
           scope :filtro_nombres, lambda { |n|
-            where("unaccent(nombres) ILIKE '%' || unaccent(?) || '%'", n)
+            if n.match("^ *\"(.*)\" *$")
+              where("unaccent(nombres) ILIKE unaccent(?)", $1)
+            else
+              where("unaccent(nombres) ILIKE '%' || unaccent(?) || '%'", n)
+            end
           }
 
           scope :filtro_apellidos, lambda { |a|
-            where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
+            if a.match("^ *\"(.*)\" *$")
+              where("unaccent(apellidos) ILIKE unaccent(?)", $1)
+            else
+              where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
+            end
           }
 
           scope :filtro_numerodocumento, lambda { |n|
@@ -406,7 +417,7 @@ module Msip
             )
           }
 
-          scope :filtro_tdocumento, lambda { |tid|
+          scope :filtro_tdocumento_id, lambda { |tid|
             where(tdocumento_id: tid.to_i)
           }
 
