@@ -70,7 +70,7 @@ if (test "$CI" = "") then { # Por ahora no en gitlab-ci
   } fi;
 } fi;
 
-if (test -f $rutaap/bin/pruebasjs) then {
+if (test -f $rutaap/bin/pruebasjs -a "x$NOPRUEBAJS" != "x1") then {
   (cd $rutaap; CONFIG_HOSTS=127.0.0.1 ${RAILS} msip:stimulus_motores; bin/pruebasjs)
   if (test "$?" != "0") then {
     echo "No pasaron pruebas del sistema js";

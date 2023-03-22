@@ -5,11 +5,13 @@
 if (test -f ".env") then {
   rutaap="./"
 } elif (test -f "test/dummy/.env") then {
-  rutaap="test/dummy"
+  rutaap="test/dummy/"
 } else {
   echo "No se determino ruta de aplicación. Falta archivo .env"
   exit 1;
 } fi;
+
+. ${rutaap}.env
 
 echo "Ruta de la aplicación: $rutaap"
 
