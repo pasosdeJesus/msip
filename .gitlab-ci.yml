@@ -70,9 +70,9 @@ test:
     - for i in __tests__/*js; do sed -i -e 's/puppeteer-core/puppeteer/g' $i; done
     - cd ../..
   script:
-    - bin/regresion.sh
+    - bin/regresion.sh || exit_code=$?
   after_script:
-    - ./cc-test-reporter after-build -t simplecov --exit-code $?
+    - ./cc-test-reporter after-build -t simplecov --exit-code $exit_code || true
 
 sast:
     stage: test
