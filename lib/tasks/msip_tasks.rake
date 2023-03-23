@@ -137,11 +137,15 @@ EOF
     ls = %x(ls -l #{File.dirname(archcopia)})
     ls = %x(ls -l #{File.dirname(archcopia, 2)})
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
-    maq = ""
-    if ENV.fetch("BD_SERVIDOR").to_s != ""
-      maq += "-h " + ENV.fetch("BD_SERVIDOR")
+    if ENV.fetch("DATABASE_URL", "").to_s != ""
+      maq = "-d #{ENV.fetch("DATABASE_URL")}"
+    else
+      maq = ""
+      if ENV.fetch("BD_SERVIDOR").to_s != ""
+        maq += "-h " + ENV.fetch("BD_SERVIDOR")
+      end
+      maq += " -U " + ENV.fetch("BD_USUARIO")
     end
-    maq += " -U " + ENV.fetch("BD_USUARIO")
     command = "pg_dump --encoding=UTF8 -cO --column-inserts " \
       "#{maq} " \
       "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
