@@ -139,6 +139,7 @@ EOF
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     if ENV.fetch("DATABASE_URL", "").to_s != ""
       maq = "-d #{ENV.fetch("DATABASE_URL")}"
+      puts "OJO maq=#{maq}"
     else
       maq = ""
       if ENV.fetch("BD_SERVIDOR").to_s != ""
