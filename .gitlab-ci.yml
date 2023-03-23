@@ -71,6 +71,7 @@ test:
     - cd ../..
   script:
     - bin/regresion.sh
+  after_script:
     - ./cc-test-reporter after-build -t simplecov --exit-code $?
 
 sast:
