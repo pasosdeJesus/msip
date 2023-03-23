@@ -395,7 +395,7 @@ module Msip
           # Mientras que N busca nombres que incluyan N
           scope :filtro_nombres, lambda { |n|
             if n.match("^ *\"(.*)\" *$")
-              where("unaccent(nombres) ILIKE unaccent(?)", $1)
+              where("unaccent(nombres) ILIKE unaccent(?)", ::Regexp.last_match(1))
             else
               where("unaccent(nombres) ILIKE '%' || unaccent(?) || '%'", n)
             end
@@ -403,7 +403,7 @@ module Msip
 
           scope :filtro_apellidos, lambda { |a|
             if a.match("^ *\"(.*)\" *$")
-              where("unaccent(apellidos) ILIKE unaccent(?)", $1)
+              where("unaccent(apellidos) ILIKE unaccent(?)", ::Regexp.last_match(1))
             else
               where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
             end

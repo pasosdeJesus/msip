@@ -25,6 +25,7 @@ module Msip
 
     test "existente" do
       tipoorg = Msip::Tipoorg.where(id: 1).take
+
       assert tipoorg.valid?
 
       assert_equal("ORGANIZACIÓN DE LA SOCIEDAD CIVIL (ACOMPAÑADA)", tipoorg.nombre)

@@ -39,7 +39,7 @@ module Msip
       @anexo2.adjunto = File.new(Rails.root + "../../doc/erd.pdf")
       @anexo2.save!
       puts "OJO msip.mostrar..=#{msip.mostrar_portada_url(@anexo2.id)}"
-      puts `ls`
+      puts %x(ls)
       get msip.mostrar_portada_url(@anexo2.id)
 
       assert_response :success

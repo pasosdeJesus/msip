@@ -98,9 +98,8 @@ module Msip
 
           # Código local, e.g en Colombia DIVIPOLA
           def codlocal
-            self.departamento.id_deplocal*1000 + self.id_munlocal
+            departamento.id_deplocal * 1000 + id_munlocal
           end
-
         end
       end
     end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AgregaEtiquetaDepMun < ActiveRecord::Migration[7.0]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       -- Departamentos
       UPDATE msip_departamento SET svgrotx='369.9' , svgroty='314.5' WHERE id=50; -- Arauca
       UPDATE msip_departamento SET svgrotx='273' , svgroty='223.8' WHERE id=20; -- Cesar
@@ -1154,8 +1156,9 @@ class AgregaEtiquetaDepMun < ActiveRecord::Migration[7.0]
       UPDATE msip_municipio SET svgrotx='247' , svgroty='410.2' WHERE id=1396; -- Villarrica/Tolima
     SQL
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       UPDATE msip_departamento SET svgetiqueta=NULL;
       UPDATE msip_municipio SET svgetiqueta=NULL;
     SQL

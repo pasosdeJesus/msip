@@ -67,7 +67,7 @@ module Msip
 
           # Código local, e.g en Colombia DIVIPOLA
           def codlocal
-            self.id_deplocal
+            id_deplocal
           end
         end
 
