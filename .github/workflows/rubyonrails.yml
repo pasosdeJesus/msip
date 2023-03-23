@@ -37,7 +37,8 @@ jobs:
         with:
           ruby-version: '3.1.2'
           bundler-cache: true
-      # Agregue o remplace configuración de base de datos
+      - name: Instalar paquetes adicionales
+        run: sudo apt install poppler-utils # Incluye pdftoppm
       - name: Configurar esquema de base de datos
         run: (cd test/dummy; cp .env.github .env; RAILS_ENV=test bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:stimulus_motores; bin/rails assets:precompile)
       # Agregue o remplace ejecutores de pruebas aquí
