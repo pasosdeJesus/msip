@@ -39,7 +39,7 @@ jobs:
           bundler-cache: true
       # Agregue o remplace configuración de base de datos
       - name: Configurar esquema de base de datos
-        run: (cd test/dummy; cp .env.plantilla .env; bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:stimulus_motores; bin/rails assets:precompile)
+        run: (cd test/dummy; cp .env.github .env; RAILS_ENV=test bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:stimulus_motores; bin/rails assets:precompile)
       # Agregue o remplace ejecutores de pruebas aquí
       - name: Ejecutar pruebas
         run: CONFIG_HOSTS=www.example.com bin/rails test
