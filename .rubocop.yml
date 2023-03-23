@@ -63,5 +63,6 @@ Metrics/ParameterLists:
 
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
 
 
