@@ -59,8 +59,11 @@ jobs:
           bundler-cache: true
       # Agregue o remplace verificadores 
       - name: Verificación de seguridad a dependencias ruby
-        run: bin/bundler-audit --update
+        run: bin/bundler-audit --update || exit_code=$?
+        run: echo "exit_code=$exit_code"
       - name: Verificación de seguridad a código Ruby de la aplicación
-        run: bin/brakeman -q -w2
+        run: bin/brakeman -q -w2 || exit_code=$?
+        run: echo "exit_code=$exit_code"
       - name: Verificación al formato de código Ruby
-        run: bin/rubocop --parallel
+        run: bin/rubocop --parallel || exit_code=$?
+        run: echo "exit_code=$exit_code"
