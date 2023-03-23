@@ -35,6 +35,7 @@ jobs:
       - name: Instalar Ruby y gemas
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: '3.2.0-preview1'
           bundler-cache: true
       # Agregue o remplace configuración de base de datos
       - name: Configurar esquema de base de datos
@@ -51,6 +52,7 @@ jobs:
       - name: Instalar Ruby y gemas
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: '3.2.0-preview1'
           bundler-cache: true
       # Agregue o remplace verificadores 
       - name: Verificación de seguridad a dependencias ruby
