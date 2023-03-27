@@ -28,10 +28,18 @@ module Msip
               sexo_sininformacion: :S,
               nombre_sininformacion: "SIN INFORMACIÓN",
             },
+            "MHO" => {
+              sexo_femenino: :M,
+              nombre_femenino: "MUJER",
+              sexo_masculino: :H,
+              nombre_masculino: "HOMBRE",
+              sexo_sininformacion: :O,
+              nombre_sininformacion: "OTRO",
+            },
           }
 
           # Retorna cadena con convención para sexo en base
-          # Bien FMS o bien MHS
+          # Bien FMS o bien MHS o bien MHO
           def self.convencion_sexo_abreviada
             # La convención se almacena en base de datos en la constraint
             # persona_sexo_check de tabla msip_persona
