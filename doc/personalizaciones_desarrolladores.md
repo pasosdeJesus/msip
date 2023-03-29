@@ -42,7 +42,7 @@ hacer un desarrollador, típicamente al momento de la instalación son:
 
   Para cambiarla debe ejecutarse una migración que establezca la
   restricción del estilo:
-
+  ```
   BEGIN;
   ALTER TABLE msip_persona DROP CONSTRAINT IF EXISTS persona_sexo_check;
   UPDATE TABLE msip_persona SET sexo='H' WHERE sexo='M'; 
@@ -51,4 +51,7 @@ hacer un desarrollador, típicamente al momento de la instalación son:
   ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check
     CHECK ('MHS' LIKE '%' || sexo || '%');
   COMMIT;
-
+  ```
+  En una aplicación si necesita referenciarse un sexo particular (por ejemplo
+  para poner Sin información de manera predetermida) puede usarse:
+  `Msip::Persona.convencion_sexo[:sexo_sininformacion]`
