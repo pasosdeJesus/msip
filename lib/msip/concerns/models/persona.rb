@@ -45,7 +45,7 @@ module Msip
             # persona_sexo_check de tabla msip_persona
             r = Msip::Persona.connection.execute(
               "SELECT "\
-                "substring(pg_get_constraintdef(oid, TRUE) FROM 'AND ''(...)''') "\
+                "substring(pg_get_constraintdef(oid, TRUE) FROM '''(...)''') "\
                 "  FROM pg_constraint "\
                 "  WHERE conrelid='msip_persona'::regclass "\
                 "    AND conname='persona_sexo_check'; ",

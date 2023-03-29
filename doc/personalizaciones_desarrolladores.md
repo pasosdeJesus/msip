@@ -49,6 +49,6 @@ hacer un desarrollador, típicamente al momento de la instalación son:
   UPDATE TABLE msip_persona SET sexo='M' WHERE sexo='F';
   UPDATE TABLE msip_persona SET sexo='S' WHERE sexo='S';
   ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check
-    CHECK (sexo = 'M' OR sexo = 'H' OR sexo = 'S');
+    CHECK ('MHS' LIKE '%' || sexo || '%');
   COMMIT;
 
