@@ -1,0 +1,26 @@
+<% if defined?(titulo_tooltip) %>
+  <% td = titulo_tooltip %>
+<% else  %>
+  <% td = "Si el tipo de documento es cédula de ciudadania "\
+    "teclee solo digitos."\
+    "Si el tipo es SIN DOCUMENTO se asignará automaticamente." %>
+<% end %>
+<% acd = {
+  'data-bs-toggle' => 'tooltip',
+  title: td,
+  'data-autocompleta' => 'no' 
+} %>
+<% acd = {} %>
+<% if Rails.configuration.x.msip_docid_obligatorio === true%>
+  <% acd["data-msip--sindocaut-target".to_sym] = "numerodocumento" %>
+<% end %>
+<% if !defined?(titulo_tooltip) %>
+  <% acd["data-toggle".to_sym] = "tooltip" %>
+  <% titulo_tooltip = "Si el tipo de documento es cédula de ciudadania "\
+      "teclee solo dígitos" %>
+  <% acd["title".to_sym] = titulo_tooltip %>
+<% end %>
+
+<%= f.input :numerodocumento,
+  input_html: acd %>
+

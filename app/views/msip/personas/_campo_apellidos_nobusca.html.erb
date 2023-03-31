@@ -1,0 +1,3 @@
+<%= f.input :apellidos,
+  value_method: lambda {|t| '' if t.nombres == 'N'},
+%>

@@ -6,13 +6,15 @@
 
   <%= render partial: 'msip/personas/campo_nombres', 
     locals: {f: f} %>
+
   <%= render partial: 'msip/personas/campo_apellidos', 
     locals: {f: f} %>
 
   <%= render partial: 'msip/personas/campo_tdocumento', 
     locals: {f: f} %>
 
-  <%= f.input :numerodocumento %>
+  <%= render partial: 'msip/personas/campo_numerodocumento_nobusca', 
+    locals: {f: f} %>
 
   <%= render 'persona_complemento1', locals: {f: f} %>
 

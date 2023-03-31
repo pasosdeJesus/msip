@@ -1,10 +1,12 @@
 <% 
   ph = 'N'
   ac = {'data-autocompleta' => 'no' }
-#debugger
+  #debugger
   if (!f.object.nombres || f.object.nombres == 'N' || f.object.nombres == '')
     ph = 'Buscar'
-    ac = { }
+    if defined?(nombre_fuente) # e.g. "fuente_victimas"
+      ac = { list: nombre_fuente }
+    end
   end
 %>
 <%= f.input :nombres, placeholder: ph,
