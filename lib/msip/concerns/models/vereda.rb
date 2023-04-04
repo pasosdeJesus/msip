@@ -54,8 +54,8 @@ module Msip
 
           def presenta_nombre_con_origen
             mun = Msip::Municipio.find(municipio_id)
-            dep = Msip::Departamento.find(mun.id_departamento)
-            pais = Msip::Pais.find(dep.id_pais)
+            dep = Msip::Departamento.find(mun.departamento_id)
+            pais = Msip::Pais.find(dep.pais_id)
             "VEREDA: " + nombre + " / " + mun.nombre + "/" + dep.nombre +
               " / " + pais.nombre
           end

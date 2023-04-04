@@ -26,7 +26,7 @@ module Msip
       end
       @ubicacion = Ubicacion.new
       @ubicacion.id_caso = params[:caso_id]
-      @ubicacion.id_pais = 170
+      @ubicacion.pais_id = 170
       unless @ubicacion.save(validate: false)
         return reterror
       end
@@ -53,15 +53,15 @@ module Msip
     def ubicacion_params
       params.require(:ubicacion).permit(
         :id,
-        :id_pais,
-        :id_departamento,
-        :id_municipio,
-        :id_clase,
+        :pais_id,
+        :departamento_id,
+        :municipio_id,
+        :clase_id,
         :lugar,
         :sitio,
         :latitud,
         :longitud,
-        :id_tsitio,
+        :tsitio_id,
         :_destroy,
       )
     end

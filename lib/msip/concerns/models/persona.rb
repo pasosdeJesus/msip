@@ -125,7 +125,7 @@ module Msip
           # inverse_of: :persona
           belongs_to :clase,
             class_name: "Msip::Clase",
-            foreign_key: "id_clase",
+            foreign_key: "clase_id",
             validate: true,
             optional: true
           belongs_to :nacional,
@@ -134,18 +134,18 @@ module Msip
             validate: true,
             optional: true
           belongs_to :departamento,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Departamento",
             optional: true
           belongs_to :municipio,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Municipio",
             optional: true
           belongs_to :pais,
             class_name: "Msip::Pais",
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             validate: true,
             optional: true
           belongs_to :tdocumento,
@@ -321,22 +321,22 @@ module Msip
               pais = Msip::ImportaHelper.nombre_en_tabla_basica(
                 Msip::Pais, datosent[:pais].upcase, menserror
               )
-              self.id_pais = pais ? pais.id : nil
+              self.pais_id = pais ? pais.id : nil
               datosent.delete(:pais)
             end
             if datosent[:departamento]
               if datosent[:departamento] != ""
-                if id_pais.nil?
-                  self.id_pais = Msip::Pais.where(nombre: "COLOMBIA").take.id
+                if pais_id.nil?
+                  self.pais_id = Msip::Pais.where(nombre: "COLOMBIA").take.id
                 end
-                d = Msip::Departamento.where(id_pais: id_pais).where(
+                d = Msip::Departamento.where(pais_id: pais_id).where(
                   "upper(unaccent(nombre)) = upper(unaccent(?))",
                   datosent[:departamento].upcase,
                 )
                 if d.count == 0
-                  menserror << "  No se encontró departamento '#{datosent[:departamento]}' en el pais '#{Msip::Pais.find(id_pais).nombre}'."
+                  menserror << "  No se encontró departamento '#{datosent[:departamento]}' en el pais '#{Msip::Pais.find(pais_id).nombre}'."
                 else
-                  self.id_departamento = d.take.id
+                  self.departamento_id = d.take.id
                 end
               end
               datosent.delete(:departamento)
@@ -344,19 +344,19 @@ module Msip
 
             if datosent[:municipio]
               if datosent[:municipio] != ""
-                if id_departamento.nil?
+                if departamento_id.nil?
                   menserror << "  No se puede ubicar municipio #{datosent[:municipio]} sin departamento."
                 else
                   m = Msip::Municipio.where(
-                    id_departamento: id_departamento,
+                    departamento_id: departamento_id,
                   ).where(
                     "upper(unaccent(nombre)) = upper(unaccent(?))",
                     datosent[:municipio].upcase,
                   )
                   if m.count == 0
-                    menserror << "  No se encontró municipio #{datosent[:municipio]} en el departamento #{Msip::Departamento.find(id_departamento).nombre}."
+                    menserror << "  No se encontró municipio #{datosent[:municipio]} en el departamento #{Msip::Departamento.find(departamento_id).nombre}."
                   else
-                    self.id_municipio = m.take.id
+                    self.municipio_id = m.take.id
                   end
                 end
               end
@@ -365,19 +365,19 @@ module Msip
 
             if datosent.keys.include?(:centro_poblado)
               if datosent[:centro_poblado] && datosent[:centro_poblado] != ""
-                if id_municipio.nil?
+                if municipio_id.nil?
                   menserror << "  No puede ubicarse centro_poblado #{datosent[:centro_poblado]} sin municipio."
                 else
                   cp = Msip::Clase.where(
-                    id_municipio: id_municipio,
+                    municipio_id: municipio_id,
                   ).where(
                     "upper(unaccent(nombre))=upper(unaccent(?))",
                     datosent[:centro_poblado].upcase,
                   )
                   if cp.count == 0
-                    menserror << "  No se encontró centro poblado #{datosent[:centro_poblado]} en el municipio #{Msip::Municipio.find(id_municipio).nombre}."
+                    menserror << "  No se encontró centro poblado #{datosent[:centro_poblado]} en el municipio #{Msip::Municipio.find(municipio_id).nombre}."
                   else
-                    self.id_clase = cp.take.id
+                    self.clase_id = cp.take.id
                   end
                 end
               end

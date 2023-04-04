@@ -19,7 +19,7 @@ module Msip
             class_name: "Msip::Persona",
             optional: false
           belongs_to :trelacion,
-            foreign_key: "id_trelacion",
+            foreign_key: "trelacion_id",
             validate: true,
             class_name: "Msip::Trelacion",
             optional: false
@@ -27,7 +27,7 @@ module Msip
           accepts_nested_attributes_for :personados, reject_if: :all_blank
           accepts_nested_attributes_for :trelacion, reject_if: :all_blank
 
-          validates_uniqueness_of :persona1, scope: [:persona2, :id_trelacion]
+          validates_uniqueness_of :persona1, scope: [:persona2, :trelacion_id]
         end
       end
     end

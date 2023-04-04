@@ -145,15 +145,15 @@ es:
       "msip/clase":
         Clase: Centro poblado
         Clases: Centros poblados
-        id_municipio: Municipio
-        id_clalocal: Código dentro del país
-        id_tclase: Tipo de centro poblado
+        municipio_id: Municipio
+        clalocal_cod: Código dentro del país
+        tclase_id: Tipo de centro poblado
         tclase: Tipo de centro poblado
       "msip/departamento":
         codreg: Código secundario del país
         Departamento: Departamento/Estado
         Departamentos: Departamentos/Estados
-        id_deplocal: Código dentro del país
+        deplocal_cod: Código dentro del país
         svgruta: Ruta SVG
         svgcdx: Lado izquierdo de cuadro delimitador SVG
         svgcdy: Lado superior de cuadro delimitador SVG
@@ -172,9 +172,9 @@ es:
       "msip/municipio":
         codreg: Código secundario del país
         etiqueta_ids: Etiquetas
-        id_munlocal: Código dentro del departamento/estado
-        id_pais: País
-        id_departamento: Departamento
+        munlocal_cod: Código dentro del departamento/estado
+        pais_id: País
+        departamento_id: Departamento
         Municipio: Municipio
         Municipios: Municipios
         svgruta: Ruta SVG
@@ -239,10 +239,10 @@ es:
         departamento: Departamento nacimiento
         dianac: Día nacimiento
         fechanac: Fecha de nacimiento
-        id_clase: Centro poblado nacimiento
-        id_departamento: Departamento nacimiento
-        id_municipio: Municipio nacimiento
-        id_pais: País nacimiento
+        clase_id: Centro poblado nacimiento
+        departamento_id: Departamento nacimiento
+        municipio_id: Municipio nacimiento
+        pais_id: País nacimiento
         mesnac: Mes nacimiento
         municipio: Municipio nacimiento
         nacionalde: Nacional de
@@ -260,8 +260,8 @@ es:
       "msip/tclase":
         Tclase: Tipo de centro poblado
         Tclases: Tipos de centros poblados
-        id_tclase: Tipo de centro poblado
-        id_clalocal: Código dentro del municipio
+        tclase_id: Tipo de centro poblado
+        clalocal_cod: Código dentro del municipio
       "msip/tdocumento":
         Tdocumento: Tipo de documento de identidad
         Tdocumentos: Tipos de documentos de identidad
@@ -301,8 +301,8 @@ es:
       "msip/vereda":
         id_verlocal: Código en municipio
         verlocal: Código en municipio
-        id_municipio: Municipio
-        id_departamento: Departamento
+        municipio_id: Municipio
+        departamento_id: Departamento
         Vereda: Vereda
         Veredas: Veredas
       "trivalente":

@@ -201,17 +201,17 @@ module Msip
     # e.g MORALES desapareció de DIVIPOLA 2018 y volvió a aprecer en
     # DIVIPOLA 2020
     def rehabilita_centropoblado(
-      id, municipio_id, id_clalocal, nombre, observacion, fechacreacion
+      id, municipio_id, clalocal_cod, nombre, observacion, fechacreacion
     )
 
       # byebug
       if Msip::Clase.where(id: id).count > 0
         c = Msip::Clase.find(id)
-        if c.id_municipio != municipio_id || c.id_clalocal != id_clalocal ||
+        if c.municipio_id != municipio_id || c.clalocal_cod != clalocal_cod ||
             c.nombre != nombre
           Rails.logger.debug do
             "Se espera que centro poblado #{id} fuera #{nombre} "\
-              " en municipio #{municipio_id} con id_clalocal #{id_clalocal}"
+              " en municipio #{municipio_id} con clalocal_cod #{clalocal_cod}"
           end
           exit(1)
         end
@@ -221,8 +221,8 @@ module Msip
       else
         c = Msip::Clase.new(
           id: id,
-          id_municipio: municipio_id,
-          id_clalocal: id_clalocal,
+          municipio_id: municipio_id,
+          clalocal_cod: clalocal_cod,
           nombre: nombre,
           observaciones: observacion,
           fechacreacion: fechacreacion,

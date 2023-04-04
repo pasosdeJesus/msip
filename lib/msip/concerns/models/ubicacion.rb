@@ -11,33 +11,33 @@ module Msip
 
           self.table_name = "msip_ubicacion"
           belongs_to :pais,
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             validate: true,
             class_name: "Msip::Pais",
             optional: false
           belongs_to :departamento,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Departamento",
             optional: true
           belongs_to :municipio,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Municipio",
             optional: true
           belongs_to :clase,
-            foreign_key: "id_clase",
+            foreign_key: "clase_id",
             validate: true,
             class_name: "Msip::Clase",
             optional: true
           belongs_to :tsitio,
-            foreign_key: "id_tsitio",
+            foreign_key: "tsitio_id",
             validate: true,
             class_name: "Msip::Tsitio",
             optional: true
 
           validates_presence_of :pais
-          validates_presence_of :id_tsitio
+          validates_presence_of :tsitio_id
 
           validates :lugar, length: { maximum: 500 }
           validates :sitio, length: { maximum: 500 }

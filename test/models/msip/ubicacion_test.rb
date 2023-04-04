@@ -14,14 +14,14 @@ module Msip
 
     test "no valido" do
       ubicacion = Ubicacion.create(PRUEBA_UBICACION)
-      ubicacion.id_tsitio = nil
+      ubicacion.tsitio_id = nil
 
       assert_not ubicacion.valid?
     end
 
     test "no valido 2" do
       ubicacion = Ubicacion.create(PRUEBA_UBICACION)
-      ubicacion.id_pais = nil
+      ubicacion.pais_id = nil
 
       assert_not ubicacion.valid?
     end

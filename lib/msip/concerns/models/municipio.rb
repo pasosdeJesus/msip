@@ -12,20 +12,20 @@ module Msip
           self.table_name = "msip_municipio"
 
           has_many :clase,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Clase"
           has_many :persona,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Persona"
           has_many :ubicacion,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Ubicacion"
 
           belongs_to :departamento,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Departamento",
             optional: false
@@ -40,14 +40,14 @@ module Msip
             association_foreign_key: "etiqueta_id",
             join_table: "msip_etiqueta_municipio"
 
-          validates :id_departamento, presence: true
+          validates :departamento_id, presence: true
 
           validates_uniqueness_of :nombre,
-            scope: :id_departamento,
+            scope: :departamento_id,
             case_sensitive: false,
             message: "debe ser único en el departamento/estado"
-          validates_uniqueness_of :id_munlocal,
-            scope: :id_departamento,
+          validates_uniqueness_of :munlocal_cod,
+            scope: :departamento_id,
             case_sensitive: false,
             message: "debe ser único en el departamento/estado",
             allow_blank: false
@@ -58,7 +58,7 @@ module Msip
           end
 
           scope :filtro_pais, lambda { |p|
-            joins(:departamento).where("msip_departamento.id_pais=?", p)
+            joins(:departamento).where("msip_departamento.pais_id=?", p)
           }
 
           scope :filtro_etiqueta_ids, lambda { |e|
@@ -76,13 +76,13 @@ module Msip
           mattr_accessor :conf_presenta_nombre_con_departamento
 
           def presenta_nombre_con_departamento
-            dep = Msip::Departamento.find(id_departamento)
+            dep = Msip::Departamento.find(departamento_id)
             nombre + " / " + dep.nombre
           end
 
           def presenta_nombre_con_origen
-            dep = Msip::Departamento.find(id_departamento)
-            pais = Msip::Pais.find(dep.id_pais)
+            dep = Msip::Departamento.find(departamento_id)
+            pais = Msip::Pais.find(dep.pais_id)
             nombre + " / " + dep.nombre + " / " + pais.nombre
           end
 
@@ -98,7 +98,7 @@ module Msip
 
           # Código local, e.g en Colombia DIVIPOLA
           def codlocal
-            departamento.id_deplocal * 1000 + id_munlocal
+            departamento.deplocal_cod * 1000 + munlocal_cod
           end
         end
       end

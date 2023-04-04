@@ -11,16 +11,16 @@ module Msip
           Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_clase"
           has_many :persona,
-            foreign_key: "id_clase",
+            foreign_key: "clase_id",
             validate: true,
             class_name: "Msip::Persona"
           has_many :ubicacion,
-            foreign_key: "id_clase",
+            foreign_key: "clase_id",
             validate: true,
             class_name: "Msip::Ubicacion"
 
           belongs_to :municipio,
-            foreign_key: "id_municipio",
+            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Municipio",
             optional: false
@@ -34,7 +34,7 @@ module Msip
             source: :pais
 
           belongs_to :tclase,
-            foreign_key: "id_tclase",
+            foreign_key: "tclase_id",
             validate: true,
             class_name: "Msip::Tclase",
             optional: false
@@ -44,31 +44,31 @@ module Msip
             self[:nombre] = val.squish if val
           end
 
-          validates :id_municipio, presence: true
-          validates :id_tclase, presence: true, length: { maximum: 10 }
+          validates :municipio_id, presence: true
+          validates :tclase_id, presence: true, length: { maximum: 10 }
 
-          validates_uniqueness_of :id_clalocal,
-            scope: :id_municipio,
+          validates_uniqueness_of :clalocal_cod,
+            scope: :municipio_id,
             message: "debe ser único en el municipio",
             allow_blank: true
 
           validates_uniqueness_of :nombre,
-            scope: :id_municipio,
+            scope: :municipio_id,
             case_sensitive: false,
             message: "debe ser único en el municpio"
 
           scope :filtro_pais, lambda { |p|
             joins(:municipio).joins(:departamento)
-              .where("msip_departamento.id_pais=?", p)
+              .where("msip_departamento.pais_id=?", p)
           }
 
           @@conf_presenta_nombre_con_origen = false
           mattr_accessor :conf_presenta_nombre_con_origen
 
           def presenta_nombre_con_origen
-            mun = Msip::Municipio.find(id_municipio)
-            dep = Msip::Departamento.find(mun.id_departamento)
-            pais = Msip::Pais.find(dep.id_pais)
+            mun = Msip::Municipio.find(municipio_id)
+            dep = Msip::Departamento.find(mun.departamento_id)
+            pais = Msip::Pais.find(dep.pais_id)
             nombre + " / " + mun.nombre + "/" + dep.nombre +
               " / " + pais.nombre
           end

@@ -14,7 +14,7 @@ module Msip
       end
       if departamento_id.nil? ||
           Msip::Departamento.where(
-            id_pais: pais_id,
+            pais_id: pais_id,
             id: departamento_id,
           ).count != 1
         return r
@@ -26,7 +26,7 @@ module Msip
       r += Msip::Departamento.where(id: departamento_id).take.nombre
       if municipio_id.nil? ||
           Msip::Municipio.where(
-            id_departamento: departamento_id,
+            departamento_id: departamento_id,
             id: municipio_id,
           ).count != 1
         return r
@@ -35,7 +35,7 @@ module Msip
       r += " / " + Msip::Municipio.where(id: municipio_id).take.nombre
       if !con_clase || clase_id.nil? ||
           Msip::Clase.where(
-            id_municipio: municipio_id,
+            municipio_id: municipio_id,
             id: clase_id,
           ).count != 1
         return r
@@ -52,10 +52,10 @@ module Msip
       end
 
       formato_ubicacion_partes(
-        (u ? u.id_pais : nil),
-        (u ? u.id_departamento : nil),
-        (u ? u.id_municipio : nil),
-        (u ? u.id_clase : nil),
+        (u ? u.pais_id : nil),
+        (u ? u.departamento_id : nil),
+        (u ? u.municipio_id : nil),
+        (u ? u.clase_id : nil),
         con_clase,
         con_pais,
       )

@@ -1,7 +1,7 @@
 
 <%= f.association :departamento,
   collection: (Msip::Departamento.habilitados.where(
-    id_pais: f.object.id_pais)),
+    pais_id: f.object.pais_id)),
     label_method: :nombre,
     value_method: :id 
 %>

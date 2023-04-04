@@ -391,7 +391,7 @@ Sideex cuando se da el foco a la orden en un caso de prueba.
   quiere eliminar 
   
 * Evitar selectores que tengan códigos (pues cambian de una ejecución a otra) por ejemplo
-  `//select[@id='caso_ubicacion_attributes_9_id_pais']` tipicamente puede elegirse otro
+  `//select[@id='caso_ubicacion_attributes_9_pais_id']` tipicamente puede elegirse otro
   con la flecha del campo `Target`, digamos  `//div[@id='ubicacion']/div/div/div/select`
   o de requerirse puede examinarse el HTML y/o el CSS para emplear un mejor selector que
   los propuestos por Sideex.

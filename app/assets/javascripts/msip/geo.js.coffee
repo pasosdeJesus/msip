@@ -58,7 +58,7 @@
   idcla = busca_campo_similar(idpais, 'pais', 'clase')
   pais = $this.val()
   if (+pais > 0 && iddep) 
-      x = $.getJSON(root.puntomontaje + "admin/departamentos", {id_pais: pais})
+      x = $.getJSON(root.puntomontaje + "admin/departamentos", {pais_id: pais})
       x.done((data) -> 
         msip_remplaza_opciones_select(iddep, data, true, 'id', 'nombre', true)
         $('#' + iddep).attr('disabled', false) 
@@ -99,7 +99,7 @@
   idcla = busca_campo_similar(iddep, 'departamento', 'clase')
   dep = $this.val()
   if (+dep > 0 && idmun != '') 
-      x = $.getJSON(root.puntomontaje + "admin/municipios", {id_departamento: dep})
+      x = $.getJSON(root.puntomontaje + "admin/municipios", {departamento_id: dep})
       x.done((data) -> 
         msip_remplaza_opciones_select(idmun, data, true, 'id', 'nombre', true)
         $("#" + idmun).attr("disabled", false) if idmun
@@ -133,7 +133,7 @@
   idcla = busca_campo_similar(idmun, 'municipio', 'clase')
   mun = $this.val()
   if (+mun > 0 && idcla != '') 
-    x = $.getJSON(root.puntomontaje + "admin/clases", {id_municipio: mun})
+    x = $.getJSON(root.puntomontaje + "admin/clases", {municipio_id: mun})
     x.done( ( data ) ->
       msip_remplaza_opciones_select(idcla, data, true, 'id', 'nombre', true)
       $("#" + idcla).attr("disabled", false) if idcla

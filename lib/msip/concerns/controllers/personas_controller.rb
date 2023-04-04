@@ -224,10 +224,10 @@ module Msip
 
           def lista_params_msip
             atributos_form + [
-              :id_pais,
-              :id_departamento,
-              :id_municipio,
-              :id_clase,
+              :pais_id,
+              :departamento_id,
+              :municipio_id,
+              :clase_id,
               :tdocumento_id,
             ]
           end

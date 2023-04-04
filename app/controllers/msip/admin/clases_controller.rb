@@ -12,11 +12,11 @@ module Msip
 
       def index
         c = nil
-        if params[:id_municipio] && params[:id_municipio].to_i > 0
-          idmun = params[:id_municipio].to_i
+        if params[:municipio_id] && params[:municipio_id].to_i > 0
+          idmun = params[:municipio_id].to_i
           c = Msip::Clase.where(
             fechadeshabilitacion: nil,
-            id_municipio: idmun,
+            municipio_id: idmun,
           ).all
         end
         Msip::Municipio.conf_presenta_nombre_con_departamento = true
@@ -30,8 +30,8 @@ module Msip
       def tipo_clase
         id = params[:id].to_i
         if id > 0
-          id_tclase = Msip::Clase.find(id).id_tclase
-          nombre_tipo = Msip::Tclase.find(id_tclase).nombre
+          tclase_id = Msip::Clase.find(id).tclase_id
+          nombre_tipo = Msip::Tclase.find(tclase_id).nombre
           render(json: { nombre: nombre_tipo })
         else
           render(json: { nombre: "" })
@@ -44,9 +44,9 @@ module Msip
           :id,
           :nombre,
           :pais,
-          :id_municipio,
-          :id_clalocal,
-          :id_tclase,
+          :municipio_id,
+          :clalocal_cod,
+          :tclase_id,
           :latitud,
           :longitud,
           :observaciones,

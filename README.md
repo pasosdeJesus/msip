@@ -12,21 +12,6 @@ Puedes pensarlo como una capa adicional sobre Ruby on Rails que incluye
 soluciones estándar, seguras y probadas para más elementos de un sistema
 de información como:
 
-- Pila actualizada: desarrollado en simultaneo con adJ (distribución de
-  OpenBSD) y modificado para operar siempre sobre las nuevas versiones
-  de adJ que se actualizan cada 6 meses para incluir:
-  sistema operativo más reciente, motor de base de datos más reciente,
-  Ruby reciente, librerías y gemas más recientes.   Probado de manera
-  continua en Linux (vía integración continúa con gitlab-ci).  
-  Busca promover gemas recienten que faciliten el desarrollo del resto
-  de la aplicación a nivel de interfaz e internacionalización y proveer
-  ayudas para actualizar --por lo menos documentación en el directorio
-  [doc](https://gitlab.com/pasosdeJesus/msip/-/tree/main/doc) y guías de 
-  actualización en el [wiki](https://gitlab.com/pasosdeJesus/msip/-/wikis).
-- Pruebas con `minitest`
-- Modelos y controladores básicos con diversos propósitos y fácilmente
-  ampliables o modificables con herencia o con `ActiveSupport::Concern`
-  para aplicaciones más complejas.
 - Propuesta para administrar modelos con vistas automáticas (no requieren
   código) y controladores semiautomáticos vía un generador.  Similar a
   [ActiveAdmin](https://activeadmin.info/),
@@ -38,6 +23,7 @@ de información como:
   `_form` genera automáticamente un formulario con elementos típicos.
   Consulta
   <https://gitlab.com/pasosdeJesus/msip/-/blob/main/doc/vistas-automaticas.md>
+- Pruebas con `minitest`
 - Concepto y propuesta de tablas básicas (también llamados tesauros
   de la aplicación o parámetros de la aplicación) con
   vistas automáticas y controladores y modelos semiautomáticos vía un
@@ -46,31 +32,35 @@ de información como:
   para reportar si existen  registros dependientes en otras tablas (en lugar
   de fallar)
 - Propuesta inicial para control de acceso con:
-  - Autenticación con tabla `usuario` (modelo ::Usuario), gema `devise`
+  - Autenticación con tabla `usuario` (modelo `::Usuario`), gema `devise`
     y cifrado `bcrypt`
   - Autorización muy configurable con gema `cancancan` que puede valerse
     de roles (inicialmente sólo Administrador y Operador) o grupos
     (implementados en tablas `msip_grupo` --modelo `Msip::Grupo`--,
     y `msip_grupo_usuario`), o en otras tablas o métodos que elija.
-- Tablas estándar iniciales para ubicaciones geográficas `msip_pais`,
-  `msip_departamento`, `msip_municipio`, `msip_clase` para centros
+- Modelos y controladores básicos con diversos propósitos y fácilmente
+  ampliables o modificables con herencia o con `ActiveSupport::Concern`
+  para aplicaciones más complejas. Hay para ubicaciones geográficas 
+  `msip_pais`, `msip_departamento`, `msip_municipio`, `msip_clase` para centros
   poblados), `msip_tclase` (tipos de centros poblados), `msip_tsitio`
   (tipo de sitio) y `msip_ubicacion`. Con datos de todos los países,
   aunque estados y municipios completos para Colombia, Venezuela y
   Honduras y ciudades completas para Colombia de acuerdo a DIVIPOLA 2022 
   con actualización periódica (vía migraciones de `rails`) de acuerdo a 
   esa fuente oficial.
+- Siluetas en SVG de los mapas de departamentos y municipios de Colombia
+  con coordenadas listas para su composición.  Convertidas de OpenStreetMap
+  y actualizadas con periodicidad.
 - Tablas estándar iniciales para personas y relaciones entre personas
   `msip_persona`, `msip_trelacion` (tipo de relación entre 
   personas), `tdocumento` (tipo de documento de identificación personal),
   `msip_persona_trelacion` (relación entre 2 personas).
 - Tablas estándar iniciales para grupos de personas
   `msip_grupoper`, organizaciones sociales `msip_orgsocial` (así llamamos a 
-  un grupo de personas que se ponen de acuerdo para un trabajo o 
+  un grupo de personas que se ponen de acuerdo para un objetivo o 
   representación conjunta), sus sectores `msip_sectororgsocial` y la 
   relación entre una persona y una organización social con su perfil 
-  `msip_orgsocial_persona` y
-  `msip_perfilorgsocial`
+  `msip_orgsocial_persona` y `msip_perfilorgsocial`
 - Propuesta para anexos con tabla `msip_anexo` y vistas
   incrustables y gema `kt-paperclip`
 - Facilidades de configuración de aplicaciones que usen este motor mediante
@@ -102,6 +92,17 @@ de información como:
   `enviarautomatico` o se presionen enlaces a anclas con esa clase)
 - Tareas `rake` para actualizar indices y sacar copia de respaldo de base
   de datos
+- Pila actualizada: desarrollado en simultaneo con adJ (distribución de
+  OpenBSD) y modificado para operar siempre sobre las nuevas versiones
+  de adJ que se actualizan cada 6 meses para incluir:
+  sistema operativo más reciente, motor de base de datos más reciente,
+  Ruby reciente, librerías y gemas más recientes.   Probado de manera
+  continua en Linux (vía integración continúa con gitlab-ci).  
+  Busca promover gemas recienten que faciliten el desarrollo del resto
+  de la aplicación a nivel de interfaz e internacionalización y proveer
+  ayudas para actualizar --por lo menos documentación en el directorio
+  [doc](https://gitlab.com/pasosdeJesus/msip/-/tree/main/doc) y guías de 
+  actualización en el [wiki](https://gitlab.com/pasosdeJesus/msip/-/wikis).
 
 ## Requisitos
 

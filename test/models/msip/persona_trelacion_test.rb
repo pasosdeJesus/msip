@@ -84,7 +84,7 @@ module Msip
       pt = Msip::PersonaTrelacion.create(
         personauno: persona1,
         personados: persona2,
-        id_trelacion: nil,
+        trelacion_id: nil,
       )
 
       assert_not pt.valid?

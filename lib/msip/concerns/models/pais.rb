@@ -10,7 +10,7 @@ module Msip
         included do
           self.table_name = "msip_pais"
           has_many :departamento,
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             validate: true,
             class_name: "Msip::Departamento"
           has_one :personanacionalde,
@@ -18,10 +18,10 @@ module Msip
             validate: true,
             class_name: "Msip::Persona"
           has_one :personapais,
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             class_name: "Msip::Persona"
           has_many :ubicacion,
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             validate: true,
             class_name: "Msip::Ubicacion"
 

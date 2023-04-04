@@ -11,32 +11,32 @@ module Msip
           Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_departamento"
           has_many :municipio,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Municipio"
           has_many :persona,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Persona"
           has_many :ubicacion,
-            foreign_key: "id_departamento",
+            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Ubicacion"
 
           belongs_to :pais,
-            foreign_key: "id_pais",
+            foreign_key: "pais_id",
             validate: true,
             class_name: "Msip::Pais",
             optional: false
 
-          validates :id_pais, presence: true
+          validates :pais_id, presence: true
 
           validates_uniqueness_of :nombre,
-            scope: :id_pais,
+            scope: :pais_id,
             case_sensitive: false,
             message: "debe ser único en el país"
-          validates_uniqueness_of :id_deplocal,
-            scope: :id_pais,
+          validates_uniqueness_of :deplocal_cod,
+            scope: :pais_id,
             message: "debe ser único en el país",
             allow_blank: false
 
@@ -45,15 +45,15 @@ module Msip
             self[:nombre] = val.squish if val
           end
 
-          scope :filtro_id_pais, lambda { |p|
-            where(id_pais: p)
+          scope :filtro_pais_id, lambda { |p|
+            where(pais_id: p)
           }
 
           @@conf_presenta_nombre_con_origen = false
           mattr_accessor :conf_presenta_nombre_con_origen
 
           def presenta_nombre_con_origen
-            pais = Msip::Pais.find(id_pais)
+            pais = Msip::Pais.find(pais_id)
             nombre + " / " + pais.nombre
           end
 
@@ -67,7 +67,7 @@ module Msip
 
           # Código local, e.g en Colombia DIVIPOLA
           def codlocal
-            id_deplocal
+            deplocal_cod
           end
         end
 

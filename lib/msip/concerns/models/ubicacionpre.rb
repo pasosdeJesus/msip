@@ -141,7 +141,7 @@ module Msip
             if !departamento_id ||
                 Msip::Departamento.where(
                   id: departamento_id.to_i,
-                  id_pais: opais.id,
+                  pais_id: opais.id,
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
@@ -161,7 +161,7 @@ module Msip
             if !municipio_id ||
                 Msip::Municipio.where(
                   id: municipio_id.to_i,
-                  id_departamento: odepartamento.id,
+                  departamento_id: odepartamento.id,
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
@@ -181,7 +181,7 @@ module Msip
             if clase_id.to_i > 0 &&
                 Msip::Clase.where(
                   id: clase_id.to_i,
-                  id_municipio: omunicipio.id,
+                  municipio_id: omunicipio.id,
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
@@ -225,11 +225,11 @@ module Msip
             # poblado
             if !w[:clase_id] && Msip::Clase.where(
               nombre: lugar.to_s.strip,
-              id_municipio: omunicipio.id,
+              municipio_id: omunicipio.id,
             ).count == 1
               oclase = Msip::Clase.where(
                 nombre: lugar.to_s.strip,
-                id_municipio: omunicipio.id,
+                municipio_id: omunicipio.id,
               ).first
               clase_id = w[:clase_id] = oclase.id
               if Msip::Ubicacionpre.where(w).count == 0

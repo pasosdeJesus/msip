@@ -11,7 +11,7 @@ module Msip
         fechacreacion: "2021-07-29",
         fechadeshabilitacion: nil,
         nombre: "X",
-        id_pais: 170,
+        pais_id: 170,
         observaciones: "y",
         updated_at: "2021-07-18",
       }

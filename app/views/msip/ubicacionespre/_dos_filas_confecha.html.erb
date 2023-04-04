@@ -26,7 +26,7 @@
         } %>
     </div>
     <% pa =  f.object.send("#{campopais}_id") #salida_pais_id %>
-    <% col = pa ? Msip::Departamento.habilitados.where(id_pais: pa).
+    <% col = pa ? Msip::Departamento.habilitados.where(pais_id: pa).
       order(:nombre) : [] %>
     <div class="col-md-2">
       <%= f.association campodepartamento, #:salida_departamento,
@@ -43,7 +43,7 @@
     </div>
 
     <% dep =  f.object.send("#{campodepartamento}_id") #salida_departamento_id %>
-    <% col = dep ? Msip::Municipio.habilitados.where(id_departamento: dep).
+    <% col = dep ? Msip::Municipio.habilitados.where(departamento_id: dep).
       order(:nombre) : [] %>
     <div class="col-md-2">
       <%= f.association campomunicipio, #:salida_municipio,
@@ -69,7 +69,7 @@
     </div>
 
     <% mun =  f.object.send("#{campomunicipio}_id") #salida_municipio_id %>
-    <% col = mun ? Msip::Clase.habilitados.where(id_municipio: mun).
+    <% col = mun ? Msip::Clase.habilitados.where(municipio_id: mun).
       order(:nombre) : [] %>
     <% estsinmun = (mun && mun != "") ? false : true %>
     <div class="col-md-2 collapse" id='<%= "restocp-#{htmlid}" %>'>

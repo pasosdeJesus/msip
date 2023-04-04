@@ -40,8 +40,8 @@ PRUEBA_CLASE = {
   longitud: 1.5,
   fechacreacion: "2014-08-04",
   fechadeshabilitacion: "2014-08-04",
-  id_municipio: 1,
-  id_tclase: "CAS",
+  municipio_id: 1,
+  tclase_id: "CAS",
 }
 
 PRUEBA_ANEXO = {
@@ -69,7 +69,7 @@ PRUEBA_DEPARTAMENTO = {
   longitud: 1.5,
   fechacreacion: "2014-08-04",
   fechadeshabilitacion: nil,
-  id_pais: 862,
+  pais_id: 862,
 }
 
 PRUEBA_ESTADOSOL = {
@@ -108,7 +108,7 @@ PRUEBA_MUNICIPIO = {
   longitud: 1.5,
   fechacreacion: "2014-08-04",
   fechadeshabilitacion: "2014-08-04",
-  id_departamento: 1,
+  departamento_id: 1,
 }
 
 PRUEBA_OFICINA = {
@@ -220,11 +220,11 @@ PRUEBA_TSITIO = {
 }
 
 PRUEBA_UBICACION = {
-  id_tsitio: 1,
-  id_pais: 862, # VENEZUELA
-  id_departamento: 1, # DISTRITO CAPITAL
-  id_municipio: 25, # BOLIVARIANO LIBERTADOR
-  id_clase: 217, # CARACAS
+  tsitio_id: 1,
+  pais_id: 862, # VENEZUELA
+  departamento_id: 1, # DISTRITO CAPITAL
+  municipio_id: 25, # BOLIVARIANO LIBERTADOR
+  clase_id: 217, # CARACAS
   created_at: "2014-11-06",
 }
 

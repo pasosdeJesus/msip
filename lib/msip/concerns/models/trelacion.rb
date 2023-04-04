@@ -10,7 +10,7 @@ module Msip
         included do
           self.table_name = "msip_trelacion"
           has_many :persona_trelacion,
-            foreign_key: "id_trelacion",
+            foreign_key: "trelacion_id",
             validate: true,
             class_name: "Msip::PersonaTrelacion"
 

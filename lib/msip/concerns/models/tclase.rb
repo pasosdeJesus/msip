@@ -10,7 +10,7 @@ module Msip
         included do
           self.table_name = "msip_tclase"
           has_many :clase,
-            foreign_key: "id_tclase",
+            foreign_key: "tclase_id",
             validate: true,
             class_name: "Msip::Clase"
 

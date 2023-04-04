@@ -15,11 +15,11 @@ module Msip
 
           def index
             c = nil
-            if params[:id_departamento] && params[:id_departamento].to_i > 0
-              iddep = params[:id_departamento].to_i
+            if params[:departamento_id] && params[:departamento_id].to_i > 0
+              iddep = params[:departamento_id].to_i
               c = Msip::Municipio.where(
                 fechadeshabilitacion: nil,
-                id_departamento: iddep,
+                departamento_id: iddep,
               ).all
             end
             Msip::Departamento.conf_presenta_nombre_con_origen = false
@@ -35,8 +35,8 @@ module Msip
               :id,
               :nombre,
               :pais,
-              :id_departamento,
-              :id_munlocal,
+              :departamento_id,
+              :munlocal_cod,
               :codreg,
               :tipomun,
               :latitud,
