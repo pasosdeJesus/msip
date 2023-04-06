@@ -119,6 +119,8 @@ if (test "$SALTASIVEL2GEN" != "1") then {
   actuno sivel2_gen-2.0 test/dummy; 
   actuno sivel2_gen-2.1 test/dummy; 
   actuno sivel2_gen test/dummy; 
+  actuno siaddhh;
+  actuno si_bdhn
 } fi;
 
 if (test "$SALTAAPO214" != "1") then {
@@ -132,8 +134,6 @@ if (test "$SALTASIVEL2" != "1") then {
   actuno sivel2-2.0; 
   actuno sivel2-2.1
   actuno sivel2
-  actuno siaddhh;
-  actuno si_bdhn
 } fi;
 
 # Usan 3 o más motores
@@ -144,6 +144,12 @@ if (test "$SALTASIASOM" != "1") then {
 if (test "$SALTASIIAP" != "1") then {
   actuno si_iap; 
 } fi;
+
+if (test "$SALTAJOS19" != "1") then {
+  echo "**** jos19"
+  actuno jos19
+} fi;
+
 
 if (test "$SALTASIFASOL" != "1") then {
   actuno si_fasol; 
