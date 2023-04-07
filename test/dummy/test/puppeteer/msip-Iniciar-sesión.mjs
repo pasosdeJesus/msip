@@ -47,7 +47,7 @@ import puppeteer from "puppeteer-core"
         const targetPage = page;
         const promises = [];
         promises.push(targetPage.waitForNavigation());
-        await targetPage.goto('http://nuevo.nocheyniebla.org:4300/msip');
+        await targetPage.goto('http://127.0.0.1:33001/msip');
         await Promise.all(promises);
     }
     {

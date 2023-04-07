@@ -1,18 +1,32 @@
 #!/bin/sh
 
-RAILS="bin/rails"
-if (test "$vm" = "3.2") then {
-  RAILS="ruby --yjit bin/rails"
+echo "=== Pruebas de regresión al sistema con Javascript"
+
+export PUERTODES=33001
+export IPDES=127.0.0.1
+export RAILS_ENV=test
+export CONFIG_HOSTS=127.0.0.1
+
+if (test ! -f .env) then {
+  echo "Falta .env"
+  exit 1;
 } fi;
+. ./.env
 
-RUTA_RELATIVA=/msip CONFIG_HOSTS=127.0.0.1 RAILS_ENV=test ${RAILS} s -b 127.0.0.1 -p 3000 &
-numpid="$!"
-echo "Proceso $numpid"
+echo "=== Deteniendo"
+bin/detiene
 
-sleep 10 && yarn test
-ret="$?"
+echo "=== Precompilando"
+bin/rails assets:precompile
 
-echo "Matando proceso $numpid"
-kill $numpid
+echo "=== Iniciando servidor"
+R=f bin/corre &
 
-return $ret
+sleep 10;
+
+for i in test/puppeteer/*; do
+  node $i
+done
+
+bin/detiene
+

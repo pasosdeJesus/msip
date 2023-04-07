@@ -13,7 +13,6 @@
 #   Y si el valor es f o si no hay Procfile no intenta correr con foreman
 
 require "fileutils"
-# require 'byebug'
 
 # ENV.each {|l,v| puts "#{l}=#{v}" } # Depuración
 
@@ -21,6 +20,7 @@ require "fileutils"
 RAIZ_AP = File.expand_path("..", __dir__)
 
 def system!(*args)
+  puts "args=", args
   system(*args) || abort("\n== Falló la orden #{args} ==")
 end
 
@@ -85,7 +85,8 @@ FileUtils.chdir(RAIZ_AP) do
     system! "RAILS_ENV=#{ENV["RAILS_ENV"]} bin/rails assets:precompile --trace"
   end
 
-  if ENV["RAILS_ENV"] == "development"
+  puts "OJO antes dev"
+  if ENV["RAILS_ENV"] == "development" || ENV["RAILS_ENV"] == "test"
     puts "\n== Ejecutando en modo desarrollo  =="
 
     if File.exist?("Procfile") && ENV["R"] != "f"
