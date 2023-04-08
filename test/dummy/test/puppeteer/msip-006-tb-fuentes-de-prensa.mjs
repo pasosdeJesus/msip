@@ -24,7 +24,7 @@ import {
   let urlini, browser, page;
   [urlini, browser, page] = await prepara(timeout, '/msip');
 
-  await autentica(page, timeout, 'msip', 'msip');
+  autentica(page, timeout, 'msip', 'msip');
 
   {
     const targetPage = page;
@@ -71,12 +71,12 @@ import {
     const targetPage = page;
     await scrollIntoViewIfNeeded([
       [
-        'aria/Departamentos/Estados'
+        'aria/Fuentes de prensa'
       ]
     ], targetPage, timeout);
     const element = await waitForSelectors([
       [
-        'aria/Departamentos/Estados'
+        'aria/Fuentes de prensa'
       ]
     ], targetPage, { timeout, visible: true });
     await element.click({
@@ -92,12 +92,12 @@ import {
     promises.push(targetPage.waitForNavigation());
     await scrollIntoViewIfNeeded([
       [
-        'form > div:nth-of-type(1) a'
+        'aria/Nuevo'
       ]
     ], targetPage, timeout);
     const element = await waitForSelectors([
       [
-        'form > div:nth-of-type(1) a'
+        'aria/Nuevo'
       ]
     ], targetPage, { timeout, visible: true });
     await element.click({
@@ -155,153 +155,6 @@ import {
       await typeIntoElement(element, 'aaa');
     } else {
       await changeElementValue(element, 'aaa');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'div.departamento_pais span'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'div.departamento_pais span'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 100.5,
-        y: 11.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 75.5,
-        y: 14.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del país'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del país'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 76.5,
-        y: 32.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del país'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del país'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '999')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '999');
-    } else {
-      await changeElementValue(element, '999');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '1')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '1');
-    } else {
-      await changeElementValue(element, '1');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '2')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '2');
-    } else {
-      await changeElementValue(element, '2');
     }
   }
   {
@@ -392,7 +245,7 @@ import {
       ],
       selectors: [
         [
-          'text/Msip::Departamento eliminado.'
+          'text/Msip::Fuenteprensa eliminado.'
         ]
       ]
     }, frame, timeout);
