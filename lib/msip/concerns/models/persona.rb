@@ -28,6 +28,16 @@ module Msip
               sexo_sininformacion: :S,
               nombre_sininformacion: "SIN INFORMACIÓN",
             },
+            "MHSI" => {
+              sexo_femenino: :M,
+              nombre_femenino: "MUJER",
+              sexo_masculino: :H,
+              nombre_masculino: "HOMBRE",
+              sexo_sininformacion: :S,
+              nombre_sininformacion: "SIN INFORMACIÓN",
+              sexo_intersexual: :I,
+              nombre_intersexual: "INTERSEXUAL",
+            },
             "MHO" => {
               sexo_femenino: :M,
               nombre_femenino: "MUJER",
@@ -36,6 +46,17 @@ module Msip
               sexo_sininformacion: :O,
               nombre_sininformacion: "OTRO",
             },
+            "MHSO" => {
+              sexo_femenino: :M,
+              nombre_femenino: "MUJER",
+              sexo_masculino: :H,
+              nombre_masculino: "HOMBRE",
+              sexo_sininformacion: :S,
+              nombre_sininformacion: "SIN INFORMACIÓN",
+              sexo_intersexual: :O,
+              nombre_intersexual: "OTRO",
+            },
+
           }
 
           # Retorna cadena con convención para sexo en base
@@ -45,11 +66,12 @@ module Msip
             # persona_sexo_check de tabla msip_persona
             r = Msip::Persona.connection.execute(
               "SELECT "\
-                "substring(pg_get_constraintdef(oid, TRUE) FROM '''(...)''') "\
+                "substring(pg_get_constraintdef(oid, TRUE) FROM '''([^'']*)''') "\
                 "  FROM pg_constraint "\
                 "  WHERE conrelid='msip_persona'::regclass "\
                 "    AND conname='persona_sexo_check'; ",
             )[0]["substring"]
+            puts "r=", r
 
             unless CONVENCIONES_SEXO.keys.include?(r)
               $stderr.puts "** Convención en base para sexo desconocida: #{r}, usando FMS"
@@ -72,20 +94,42 @@ module Msip
           # ]
           def self.sexo_opciones
             dc = convencion_sexo
-            [
-              [dc[:nombre_sininformacion], dc[:sexo_sininformacion].to_sym],
-              [dc[:nombre_femenino], dc[:sexo_femenino].to_sym],
-              [dc[:nombre_masculino], dc[:sexo_masculino].to_sym],
-            ]
+            if dc.length == 6
+              return [
+                [dc[:nombre_sininformacion], dc[:sexo_sininformacion].to_sym],
+                [dc[:nombre_femenino], dc[:sexo_femenino].to_sym],
+                [dc[:nombre_masculino], dc[:sexo_masculino].to_sym],
+              ]
+            elsif dc.length == 8
+              return [
+                [dc[:nombre_sininformacion], dc[:sexo_sininformacion].to_sym],
+                [dc[:nombre_femenino], dc[:sexo_femenino].to_sym],
+                [dc[:nombre_masculino], dc[:sexo_masculino].to_sym],
+                [dc[:nombre_intersexual], dc[:sexo_intersexual].to_sym],
+              ]
+            else
+              raise "Convención no manejada: #{dc}"
+            end
           end
 
           def self.sexo_opciones_cortas
             dc = convencion_sexo
-            [
-              [dc[:sexo_sininformacion].to_s, dc[:sexo_sininformacion].to_sym],
-              [dc[:sexo_femenino].to_s, dc[:sexo_femenino].to_sym],
-              [dc[:sexo_masculino].to_s, dc[:sexo_masculino].to_sym],
-            ]
+            if dc.length == 6
+              return [
+                [dc[:sexo_sininformacion].to_s, dc[:sexo_sininformacion].to_sym],
+                [dc[:sexo_femenino].to_s, dc[:sexo_femenino].to_sym],
+                [dc[:sexo_masculino].to_s, dc[:sexo_masculino].to_sym],
+              ]
+            elsif dc.length == 8
+              return [
+                [dc[:sexo_sininformacion].to_s, dc[:sexo_sininformacion].to_sym],
+                [dc[:sexo_femenino].to_s, dc[:sexo_femenino].to_sym],
+                [dc[:sexo_masculino].to_s, dc[:sexo_masculino].to_sym],
+                [dc[:sexo_intersexual].to_s, dc[:sexo_intersexual].to_sym],
+              ]
+            else
+              raise "Convención no manejada: #{dc}"
+            end
           end
 
           # Retorna diccionario con convenciones sobre sexo de la forma
@@ -96,11 +140,22 @@ module Msip
           # }
           def self.sexo_opciones_diccionario
             dc = convencion_sexo
-            [
-              [dc[:sexo_sininformacion].to_sym, dc[:nombre_sininformacion]],
-              [dc[:sexo_femenino].to_sym, dc[:nombre_femenino]],
-              [dc[:sexo_masculino].to_sym, dc[:nombre_masculino]],
-            ].to_h
+            if dc.length == 6
+              return [
+                [dc[:sexo_sininformacion].to_sym, dc[:nombre_sininformacion]],
+                [dc[:sexo_femenino].to_sym, dc[:nombre_femenino]],
+                [dc[:sexo_masculino].to_sym, dc[:nombre_masculino]],
+              ].to_h
+            elsif dc.length == 8
+              return [
+                [dc[:sexo_sininformacion].to_sym, dc[:nombre_sininformacion]],
+                [dc[:sexo_femenino].to_sym, dc[:nombre_femenino]],
+                [dc[:sexo_masculino].to_sym, dc[:nombre_masculino]],
+                [dc[:sexo_intersexual].to_sym, dc[:nombre_intersexual]],
+              ].to_h
+            else
+              raise "Convención no manejada: #{dc}"
+            end
           end
 
           ORIENTACION_OPCIONES = [
