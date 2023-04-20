@@ -502,7 +502,9 @@ module Msip
                 end
               else
                 format.html do
-                  flash[:error] = @validaciones_error
+                  if @validaciones_error =! ""
+                    flash[:error] = @validaciones_error
+                  end
                   render(action: "edit", layout: "application")
                 end
                 format.json do
