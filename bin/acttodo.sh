@@ -125,7 +125,6 @@ if (test "$SALTASIVEL2GEN" != "1") then {
 
 if (test "$SALTAAPO214" != "1") then {
   echo "**** apo214"
-  actuno apo214-2.1 test/dummy; 
   actuno apo214 test/dummy; 
 } fi;
 
