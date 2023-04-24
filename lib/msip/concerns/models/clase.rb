@@ -20,7 +20,6 @@ module Msip
             class_name: "Msip::Ubicacion"
 
           belongs_to :municipio,
-            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Municipio",
             optional: false
@@ -34,7 +33,6 @@ module Msip
             source: :pais
 
           belongs_to :tclase,
-            foreign_key: "tclase_id",
             validate: true,
             class_name: "Msip::Tclase",
             optional: false

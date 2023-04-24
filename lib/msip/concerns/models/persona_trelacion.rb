@@ -19,7 +19,6 @@ module Msip
             class_name: "Msip::Persona",
             optional: false
           belongs_to :trelacion,
-            foreign_key: "trelacion_id",
             validate: true,
             class_name: "Msip::Trelacion",
             optional: false

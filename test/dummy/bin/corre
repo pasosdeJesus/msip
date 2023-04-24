@@ -103,7 +103,7 @@ FileUtils.chdir(RAIZ_AP) do
       end
       ord += "-b '#{ENV["IPDES"]}' "
     end
-    puts ord.to_s
+    puts ord
   elsif ENV["RAILS_ENV"] == "production"
     if File.exist?("bin/corre-local")
       system!("bin/corre-local")

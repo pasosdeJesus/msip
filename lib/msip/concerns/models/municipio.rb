@@ -25,7 +25,6 @@ module Msip
             class_name: "Msip::Ubicacion"
 
           belongs_to :departamento,
-            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Departamento",
             optional: false

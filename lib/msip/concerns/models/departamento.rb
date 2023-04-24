@@ -24,7 +24,6 @@ module Msip
             class_name: "Msip::Ubicacion"
 
           belongs_to :pais,
-            foreign_key: "pais_id",
             validate: true,
             class_name: "Msip::Pais",
             optional: false

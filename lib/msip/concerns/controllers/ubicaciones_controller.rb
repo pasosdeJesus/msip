@@ -7,7 +7,6 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-
           def reterror
             respond_to do |format|
               format.html { render(action: "error") }
@@ -19,7 +18,6 @@ module Msip
 
           def nuevo_completa_ubicacion
           end
-
 
           # Crea un nuevo registro para el caso que recibe por parametro
           # params[:caso_id].  Pone valores simples en los campos requeridos
@@ -71,7 +69,6 @@ module Msip
               :_destroy,
             )
           end
-
         end
       end
     end

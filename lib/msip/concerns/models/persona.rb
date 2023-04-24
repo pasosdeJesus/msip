@@ -95,13 +95,13 @@ module Msip
           def self.sexo_opciones
             dc = convencion_sexo
             if dc.length == 6
-              return [
+              [
                 [dc[:nombre_sininformacion], dc[:sexo_sininformacion].to_sym],
                 [dc[:nombre_femenino], dc[:sexo_femenino].to_sym],
                 [dc[:nombre_masculino], dc[:sexo_masculino].to_sym],
               ]
             elsif dc.length == 8
-              return [
+              [
                 [dc[:nombre_sininformacion], dc[:sexo_sininformacion].to_sym],
                 [dc[:nombre_femenino], dc[:sexo_femenino].to_sym],
                 [dc[:nombre_masculino], dc[:sexo_masculino].to_sym],
@@ -115,13 +115,13 @@ module Msip
           def self.sexo_opciones_cortas
             dc = convencion_sexo
             if dc.length == 6
-              return [
+              [
                 [dc[:sexo_sininformacion].to_s, dc[:sexo_sininformacion].to_sym],
                 [dc[:sexo_femenino].to_s, dc[:sexo_femenino].to_sym],
                 [dc[:sexo_masculino].to_s, dc[:sexo_masculino].to_sym],
               ]
             elsif dc.length == 8
-              return [
+              [
                 [dc[:sexo_sininformacion].to_s, dc[:sexo_sininformacion].to_sym],
                 [dc[:sexo_femenino].to_s, dc[:sexo_femenino].to_sym],
                 [dc[:sexo_masculino].to_s, dc[:sexo_masculino].to_sym],
@@ -141,13 +141,13 @@ module Msip
           def self.sexo_opciones_diccionario
             dc = convencion_sexo
             if dc.length == 6
-              return [
+              [
                 [dc[:sexo_sininformacion].to_sym, dc[:nombre_sininformacion]],
                 [dc[:sexo_femenino].to_sym, dc[:nombre_femenino]],
                 [dc[:sexo_masculino].to_sym, dc[:nombre_masculino]],
               ].to_h
             elsif dc.length == 8
-              return [
+              [
                 [dc[:sexo_sininformacion].to_sym, dc[:nombre_sininformacion]],
                 [dc[:sexo_femenino].to_sym, dc[:nombre_femenino]],
                 [dc[:sexo_masculino].to_sym, dc[:nombre_masculino]],
@@ -180,7 +180,6 @@ module Msip
           # inverse_of: :persona
           belongs_to :clase,
             class_name: "Msip::Clase",
-            foreign_key: "clase_id",
             validate: true,
             optional: true
           belongs_to :nacional,
@@ -189,18 +188,15 @@ module Msip
             validate: true,
             optional: true
           belongs_to :departamento,
-            foreign_key: "departamento_id",
             validate: true,
             class_name: "Msip::Departamento",
             optional: true
           belongs_to :municipio,
-            foreign_key: "municipio_id",
             validate: true,
             class_name: "Msip::Municipio",
             optional: true
           belongs_to :pais,
             class_name: "Msip::Pais",
-            foreign_key: "pais_id",
             validate: true,
             optional: true
           belongs_to :tdocumento,
