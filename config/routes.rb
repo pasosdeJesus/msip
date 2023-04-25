@@ -23,6 +23,12 @@ Msip::Engine.routes.draw do
   get "/personas/identificacionsd" => "personas#identificacionsd",
     as: :personas_identificacionsd
 
+  post '/personas/unificar' => 'msip/personas#unificar',
+    as: :personas_unificar
+  get '/personas/unificar' => 'msip/personas#unificar',
+    as: :personas_unificar_get
+
+
   get "/respaldo7z" => "respaldo7z#new", as: "respaldo7z"
   post "/respaldo7z" => "respaldo7z#create"
   get "/tablasbasicas" => "hogar#tablasbasicas"
