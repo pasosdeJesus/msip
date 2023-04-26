@@ -1,0 +1,62 @@
+<div class="accordion" id="acordeon_etpers">
+  <%= item_acordeon_bs(
+    'acordeon_etpers', 'etpers', 
+    'Expandir / Colapsar', false, {
+      'estilo_accordion-header': 'text-align: center',
+      'clase_accordion-body': 'table-responsive',
+      'estilo_accordion-body': 'overflow-x:scroll'
+    }) do %>
+    <table class='table table-bordered table-sm'>
+      <thead class='thead-light'>
+        <tr>
+          <th>Usuario</th>
+          <th>Fecha</th>
+          <th>Etiqueta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @registro.send(relacion).each do |ep| %>
+          <tr>
+            <td> <%= ep.usuario.nusuario %> </td>
+            <td> <%= ep.fecha %></td>
+            <td> <%= ep.etiqueta.nombre %></td>
+          </tr>
+          <tr>
+            <td colspan='3'>
+            <% obs = ep.observaciones %>
+            <% if ep.etiqueta.nombre == 'BENEFICIARIOS UNIFICADOS' %>
+              <% # indentación a dos espacios de viñetas %>
+              <% nivel = -1 %>
+              <% obs.split("\n").each do |unaob|  %>
+                <% if unaob =~ /^ *\*/ %>
+                  <% nnivel = $~[0].length-1 %>
+                  <% if nivel < nnivel %>
+                    <% while (nivel < nnivel ) do %>
+                      <ul>
+                      <% nivel += 1 %>
+                    <% end %>
+                  <% elsif nivel > nnivel %>
+                    <% while (nivel > nnivel ) do %>
+                      </ul>
+                      <% nivel -= 1 %>
+                    <% end %>
+                  <% end %>
+                  <li><%= unaob[$~[0].length .. -1] %></li>
+                <% else %>
+                  <%= unaob %><br>
+                <% end %>
+              <% end %>
+              <% while (nivel > 0) %>
+                </ul>
+                <% nivel -= 1 %>
+              <% end %>
+            <% else %>
+              <%= obs %>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div> 

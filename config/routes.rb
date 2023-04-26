@@ -23,9 +23,9 @@ Msip::Engine.routes.draw do
   get "/personas/identificacionsd" => "personas#identificacionsd",
     as: :personas_identificacionsd
 
-  post '/personas/unificar' => 'msip/personas#unificar',
+  post '/personas/unificar' => 'personas#unificar',
     as: :personas_unificar
-  get '/personas/unificar' => 'msip/personas#unificar',
+  get '/personas/unificar' => 'personas#unificar',
     as: :personas_unificar_get
 
 

@@ -204,6 +204,18 @@ module Msip
             validate: true,
             optional: true
 
+          has_many :etiqueta_persona,  
+            foreign_key: 'persona_id',
+            validate: true,
+            dependent: :destroy,
+            class_name: 'Msip::EtiquetaPersona'
+          has_many :etiqueta, 
+            through: :etiqueta_persona, 
+            class_name: 'Msip::Etiqueta'
+          accepts_nested_attributes_for :etiqueta_persona, 
+            allow_destroy: true, 
+            reject_if: :all_blank
+
           has_many :persona_trelacion1,
             foreign_key: "persona1",
             dependent: :delete_all,
@@ -466,6 +478,10 @@ module Msip
             else
               where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
             end
+          }
+
+          scope :filtro_etiqueta_ids, lambda {|e|
+            joins(:etiqueta_persona).where("msip_etiqueta_persona.etiqueta_id" => e)
           }
 
           scope :filtro_numerodocumento, lambda { |n|

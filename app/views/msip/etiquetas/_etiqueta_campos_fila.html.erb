@@ -1,0 +1,52 @@
+<tr class='nested-fields'>
+  <% if f.object.etiqueta.nil? %>
+    <% f.object.etiqueta = Msip::Etiqueta.new %>
+  <% end %>
+    <td>
+      <%= f.association :usuario,
+        collection: Usuario.habilitados,
+        label_method: :nusuario,
+        value_method: :id,
+        readonly: true,
+        selected:  (f && f.object && f.object.usuario_id) || current_usuario.id,
+        wrapper_html: {style: "width: 12em"},
+        label: false,
+        input_html: {
+          class: 'deshabilitado'
+        }
+      %>
+    </td>
+    <td>
+      <%= f.input :fecha_localizada, 
+        label: false,
+        :input_html => { 
+          "data-behaviour" => "datepicker", 
+          value: Msip::FormatoFechaHelper.fecha_estandar_local(Date.today), 
+          class: 'deshabilitado'},
+          :as => :string %>
+    </td>
+    <td>
+        <%= f.association :etiqueta,
+          collection: Msip::ModeloHelper.opciones_tabla_basica(
+            Msip::Etiqueta, f, :etiqueta
+          ),
+          label_method: :nombre,
+          value_method: :id %>
+    </td>
+    <td>
+        <%= f.input :observaciones,
+          as: :text,
+          label: false,
+          :input_html => { 
+            rows: 3
+          }
+        %>
+    </td>
+    <td>
+      <%= f.input :id, as: :hidden %> 
+      <%= link_to_remove_association "Eliminar", f, 
+        :class => 'btn btn-sm btn-danger',
+        :'data-existing' => true
+      %>
+    </td>
+</tr>

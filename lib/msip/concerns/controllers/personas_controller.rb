@@ -36,6 +36,7 @@ module Msip
               :nacionalde,
               :tdocumento_id,
               :numerodocumento,
+              :etiqueta_ids
             ]
           end
 
@@ -48,7 +49,9 @@ module Msip
           end
 
           def atributos_form
-            a = atributos_show
+            a = atributos_show - [:etiqueta_ids] + [
+              etiqueta_ids: []
+            ]
             a
           end
 
@@ -229,6 +232,15 @@ module Msip
               :municipio_id,
               :clase_id,
               :tdocumento_id,
+            ] + [ 
+              etiqueta_persona_attributes:  [
+                :etiqueta_id, 
+                :fecha_localizada,
+                :id,
+                :observaciones,
+                :usuario_id,
+                :_destroy
+              ]
             ]
           end
 

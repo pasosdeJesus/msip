@@ -1,0 +1,28 @@
+<div id="etiqueta" class="panel-body table-responsive" >
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Usuario</th>
+        <th>Fecha</th>
+        <th><%= Msip::Etiqueta.human_attribute_name(:Etiqueta) %></th>
+        <th>Observaciones(s)</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="filas_etiqueta">
+      <%= f.simple_fields_for :etiqueta_persona do |ep| %>
+        <%= render partial: 'msip/etiquetas/etiqueta_campos_fila', 
+          locals: {f: ep} %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="links">
+    <%= link_to_add_association "Añadir #{Msip::Etiqueta.human_attribute_name(:Etiqueta)}", f,
+      :etiqueta_persona, 
+      partial: 'msip/etiquetas/etiqueta_campos_fila',
+      "data-association-insertion-node" => "tbody#filas_etiqueta",
+      "data-association-insertion-method" => "append",
+      class: 'btn btn-sm btn-primary',
+      style: 'margin-bottom: 1em' %>
+  </div>
+</div>

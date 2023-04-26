@@ -1,0 +1,10 @@
+
+<% if f.object.id.nil? %>
+  Una vez guarde este registro y vuelva a editar podrá agregar etiquetas
+<% else %>
+  <div id="divetiquetas">
+    <%= render partial: 'msip/etiquetas/tabla_etiquetas', 
+      locals: {f: f } %>
+  </div>
+<% end %>
+
