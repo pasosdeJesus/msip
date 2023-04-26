@@ -238,6 +238,7 @@ es:
         clase: Centro poblado nacimiento
         departamento: Departamento nacimiento
         dianac: Día nacimiento
+        etiqueta_ids: Etiquetas
         fechanac: Fecha de nacimiento
         clase_id: Centro poblado nacimiento
         departamento_id: Departamento nacimiento
