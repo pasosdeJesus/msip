@@ -70,7 +70,3 @@ personas relacionadas:
 | TO | TIA(O)                 | OO      | SOBRINA(O) |
 | YE | NUERA/YERNO            | SG      | SUEGRA(O) |
 
-Una propiedad es inverso compuesto con inverso es identidad.
-
-No se permite relación de una persona consigo misma.
-
