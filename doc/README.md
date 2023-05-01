@@ -31,6 +31,7 @@ fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo
     * [Tablas Asociativas](tablas-asociativas.md)
     * [Uso y personalización del modelo usuario](modelo-usuario.md)
     * [Personalización de modelos](personalizacion-de-modelos.md)
+      * Persona : [Familiares](familiares.md)
   * Controladores
     * [Facilidades con controladores descendientes de Msip::ModelosController](facilidades-controlador.md)
   * Rutas y vistas
