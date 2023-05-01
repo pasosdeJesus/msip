@@ -36,7 +36,8 @@ module Msip
               :nacionalde,
               :tdocumento_id,
               :numerodocumento,
-              :etiqueta_ids
+              :etiqueta_ids,
+              :familiares
             ]
           end
 
