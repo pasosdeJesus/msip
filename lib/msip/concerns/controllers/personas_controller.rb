@@ -46,11 +46,11 @@ module Msip
           end
 
           def atributos_index
-            atributos_show
+            atributos_show - [:familiares]
           end
 
           def atributos_form
-            a = atributos_show - [:etiqueta_ids] + [
+            a = atributos_show - [:etiqueta_ids, :familiares] + [
               etiqueta_ids: []
             ]
             a
