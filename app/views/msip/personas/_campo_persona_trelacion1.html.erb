@@ -1,7 +1,7 @@
 <div class="accordion" id="acordeonlc-<%= f.object.id %>">
   <%= item_acordeon_bs(
     'acordeonlc', "colapsalc-#{f.object.id}", 
-    'Familiares (Ingrese aquí familiares de esta víctima)', false, {
+    'Familiares', false, {
       'estilo_accordion-header': 'text-align: center',
       'clase_accordion-body': 'table-responsive',
       'estilo_accordion-body': 'overflow-x:scroll'
@@ -19,7 +19,7 @@
       </thead>
       <tbody id="persona_familiares_<%= f.object.id %>">
         <%= f.simple_fields_for :persona_trelacion1 do |pt| %>
-          <%= render 'msip/personas/persona_familiar_campos', f: pt %>
+          <%= render 'msip/personas/persona_trelacion1_campos', f: pt %>
         <% end %>
       </tbody>
     </table>
@@ -28,7 +28,7 @@
         :persona_trelacion1,
         :"data-association-insertion-node" => "tbody#persona_familiares_#{f.object.id}", 
         :"data-association-insertion-method" => "append", 
-        partial: 'msip/personas/persona_familiar_campos',
+        partial: 'msip/personas/persona_trelacion1_campos',
         :class => 'btn btn-sm btn-primary'
       %>
     </div>
