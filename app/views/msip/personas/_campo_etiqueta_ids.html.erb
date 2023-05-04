@@ -1,10 +1,18 @@
-
-<% if f.object.id.nil? %>
-  Una vez guarde este registro y vuelva a editar podrá agregar etiquetas
-<% else %>
-  <div id="divetiquetas">
-    <%= render partial: 'msip/etiquetas/tabla_etiquetas', 
-      locals: {f: f } %>
-  </div>
-<% end %>
-
+<div class="accordion" id="acordeoneti-<%= f.object.id %>">
+  <%= item_acordeon_bs(
+    'acordeoneti', "colapsaeti-#{f.object.id}", 
+    'Etiquetas', false, {
+      'estilo_accordion-header': 'text-align: center',
+      'clase_accordion-body': 'table-responsive',
+      'estilo_accordion-body': 'overflow-x:scroll'
+    }) do %>
+    <% if f.object.id.nil? %>
+      Una vez guarde este registro y vuelva a editar podrá agregar etiquetas
+    <% else %>
+      <div id="divetiquetas">
+        <%= render partial: 'msip/etiquetas/tabla_etiquetas', 
+          locals: {f: f } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
