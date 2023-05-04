@@ -50,9 +50,10 @@ module Msip
           end
 
           def atributos_form
-            a = atributos_show - [:etiqueta_ids, :familiares] + [
-              etiqueta_ids: []
-            ]
+            a = atributos_show - [:etiqueta_ids, :familiares] + 
+              [:persona_trelacion1] + [
+                etiqueta_ids: []
+              ]
             a
           end
 
@@ -241,6 +242,19 @@ module Msip
                 :observaciones,
                 :usuario_id,
                 :_destroy
+              ],
+              persona_trelacion1_attributes:  [
+                :id,
+                :trelacion_id,
+                :_destroy,
+                :personados_attributes => [
+                  :id,
+                  :nombres, 
+                  :apellidos,
+                  :sexo,
+                  :tdocumento_id,
+                  :numerodocumento,
+                ]
               ]
             ]
           end
