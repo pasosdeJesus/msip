@@ -1,3 +1,16 @@
+Versión 2.2.0.beta3
+
+* El sistema asignará un número de documento automáticamente a personas
+  que no tengan número de documento a las que se les elija el tipo SIN
+  DOCUMENTO.
+* Ahora las personas pueden tener etiquetas asociadas, pueden editarse
+  desde nueva sección Etiquetas del formulario de persona.
+* Es posible especificar familiares de una persona desde la nueva sección
+  Familiares del formulario de Persona.
+
+
+
+
 * Agregar `etnia_id` en `msip_persona` (requiere quitarla de victima en
   `sivel2_gen` y sus motores y aplicaciones descendientes)
 
