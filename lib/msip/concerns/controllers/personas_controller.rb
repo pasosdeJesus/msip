@@ -114,11 +114,15 @@ module Msip
           def remplazar
           end
 
+          def datos_complementarios(oj)
+            return oj
+          end
+
           # API
           def datos
-            return unless params[:id_persona]
+            return unless params[:persona_id]
 
-            @persona = Msip::Persona.find(params[:id_persona].to_i)
+            @persona = Msip::Persona.find(params[:persona_id].to_i)
             authorize!(:read, @persona)
             oj = {
               id: @persona.id,
@@ -144,6 +148,7 @@ module Msip
                 oj[:correo] = orgsocial_persona.cargo
               end
             end
+            oj = datos_complementarios(oj)
             respond_to do |format|
               format.json { render(json: oj, status: :ok) }
               format.html { render(inilne: oj.to_s, status: :ok) }
@@ -269,6 +274,27 @@ module Msip
         end # include
 
         class_methods do
+
+          def nueva_persona_sd_posible_numerodocumento(persona_id)
+            rand(10000).to_s + "AAA"
+          end
+
+          def nueva_persona_valores_predeterminados(menserror)
+            numerodocumento = 
+            persona = Msip::Persona.create(
+              nombres: 'N',
+              apellidos: 'N',
+              sexo: Msip::Persona.convencion_sexo[:sexo_sininformacion],
+              tdocumento_id: 11, # SIN DOCUMENTO
+              numerodocumento: numerodocumento
+            )
+            if !persona.save(validate: false)
+              menserror << 'No pudo crear persona'
+              return nil
+            end
+            return persona
+          end
+
         end
       end
     end
