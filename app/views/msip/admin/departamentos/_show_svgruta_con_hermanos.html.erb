@@ -1,4 +1,5 @@
-<% # Si registro está definido lo mostrará con un color diferente y pondrá el nombre como rotulo %>
+<% # Si registro está definido lo mostrará con un color diferente 
+   # y pondrá el nombre como rotulo %>
 <% if hermanos.nil? || hermanos.count == 0 %>
   <% return "Faltan hermanos" %>
 <% end %>
@@ -13,26 +14,33 @@
   <% return %>
 <% end %>
 
-<% minx = registro.nil? ? hermanos[0].svgcdx : registro.svgcdx %>
-<% miny = registro.nil? ? hermanos[0].svgcdy : registro.svgcdy %>
+<% minx = registro.nil? ? hermanos[0].svgcdx.to_i : registro.svgcdx.to_i %>
+<% miny = registro.nil? ? hermanos[0].svgcdy.to_i : registro.svgcdy.to_i %>
 <% maxx = minx + 
-  (registro.nil? ? hermanos[0].svgcdancho : registro.svgcdancho) %>
+  (registro.nil? ? hermanos[0].svgcdancho.to_i : registro.svgcdancho.to_i) %>
 <% maxy = miny + 
-  (registro.nil? ? hermanos[0].svgcdalto : registro.svgcdalto) %>
+  (registro.nil? ? hermanos[0].svgcdalto.to_i : registro.svgcdalto.to_i) %>
 <% hermanos.each do |h| %>
   <% minx = h.svgcdx if h.svgcdx && h.svgcdx < minx %>
   <% miny = h.svgcdy if h.svgcdy && h.svgcdy < miny %>
-  <% maxx = h.svgcdx + h.svgcdancho if h.svgcdx && h.svgcdancho && (h.svgcdx + h.svgcdancho > maxx) %>
-  <% maxy = h.svgcdy + h.svgcdalto if h.svgcdy && h.svgcdalto && (h.svgcdy + h.svgcdalto > maxy) %>
+  <% maxx = h.svgcdx + h.svgcdancho if h.svgcdx && h.svgcdancho && 
+    (h.svgcdx + h.svgcdancho > maxx) %>
+  <% maxy = h.svgcdy + h.svgcdalto if h.svgcdy && h.svgcdalto && 
+    (h.svgcdy + h.svgcdalto > maxy) %>
 <% end %>
 <% cdancho = maxx - minx %>
 <% cdalto = maxy - miny %>
 
-<% escala = maxdim.to_f / [cdancho, cdalto].max %>
-<% ancho = cdancho * escala %>
-<% ancho = ancho.round %>
-<% alto = cdalto * escala %>
-<% alto = alto.round %>
+<% escala = 0 %>
+<% ancho = 0 %>
+<% alto = 0 %>
+<% if cdancho.to_i > 0 and cdalto.to_i > 0 %>
+  <% escala = maxdim.to_f / [cdancho, cdalto].max %>
+  <% ancho = cdancho * escala %>
+  <% ancho = ancho.round %>
+  <% alto = cdalto * escala %>
+  <% alto = alto.round %>
+<% end %>
 <% vbx = minx %>
 <% vby = miny %>
 <% vbalto = cdalto %>
@@ -49,11 +57,11 @@
         id="r-<%= prefijoid %><%= h.codlocal %>"
         d="<%= h.svgruta %>"
         stroke="#000"
-        stroke-width="<%= 1/escala %>"
+        stroke-width="<%= escala.to_i > 0 ? 1/escala : 1 %>"
         fill="<%= fondo %>" 
         />
       <% if h.svgrotx && h.svgroty %>
-        <% tamfuente = 12.0 / escala %>
+        <% tamfuente = escala.to_i > 0 ? 12.0 / escala : 6 %>
         <text 
           x="<%= h.svgrotx %>" 
           y="<%= h.svgroty %>" 
