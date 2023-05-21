@@ -14,6 +14,9 @@
   <% return %>
 <% end %>
 
+<% if !defined?(colorletra) || colorletra.nil? %>
+  <% colorletra = "#00f" %>
+<% end %>
 <% minx = registro.nil? ? hermanos[0].svgcdx.to_i : registro.svgcdx.to_i %>
 <% miny = registro.nil? ? hermanos[0].svgcdy.to_i : registro.svgcdy.to_i %>
 <% maxx = minx + 
@@ -60,21 +63,27 @@
         stroke-width="<%= escala.to_i > 0 ? 1/escala : 1 %>"
         fill="<%= fondo %>" 
         />
-      <% if h.svgrotx && h.svgroty %>
-        <% tamfuente = escala.to_i > 0 ? 12.0 / escala : 6 %>
-        <text 
-          x="<%= h.svgrotx %>" 
-          y="<%= h.svgroty %>" 
-          id="t-<%= prefijoid %><%= h.codlocal %>"
-          font-family="sans-serif" 
-          font-size="<%= tamfuente %>"
-          style="visibility: hidden"
-          text-anchor="left">
-          <%= h.nombre %>
-        </text>
-      <% end %>
     </g>
   <% end %>
+  <% hermanos.select{|h| registro.nil? || h.id != registro.id}.each do |h| %>
+    <% fondo = "#fff" %>
+    <% if h.svgrotx && h.svgroty %>
+      <% tamfuente = escala.to_i > 0 ? 16.0 / escala : 6 %>
+      <text 
+        x="<%= h.svgrotx %>" 
+        y="<%= h.svgroty %>" 
+        id="t-<%= prefijoid %><%= h.codlocal %>"
+        font-family="sans-serif" 
+        font-size="<%= tamfuente %>"
+        class="ruta-hover-visible"
+        style="visibility: hidden"
+        fill="<%= colorletra %>" 
+        text-anchor="left">
+        <%= h.nombre %>
+      </text>
+    <% end %>
+  <% end %>
+
 
   <% if registro %>
     <% # En svg no hay z-index, el orden es el orden en el que aparecen %>
