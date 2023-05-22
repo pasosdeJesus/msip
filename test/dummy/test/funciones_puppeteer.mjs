@@ -16,6 +16,7 @@ export async function prepara(timeout = 5000, rutainicial = '/msip') {
   let browser = null;
   if (typeof process.env.CI == "string") {
     browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
       defaultViewport: { width: 1240, height: 800},
       headless: sincabeza,
       args: [
