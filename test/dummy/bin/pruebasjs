@@ -26,6 +26,7 @@ sleep 10;
 
 for i in test/puppeteer/*; do
   echo "Ejecutando $i"
+  cat $i
   node $i
 done
 
