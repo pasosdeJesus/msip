@@ -24,9 +24,9 @@
     when 'clase' then modelo='clases'
     else return
 
-  idlat = nomcampo.replace('id_' + tabla, 'latitud')
+  idlat = nomcampo.replace(tabla + '_id', 'latitud')
   lat = $('#' + idlat)
-  idlon = nomcampo.replace('id_' + tabla, 'longitud')
+  idlon = nomcampo.replace(tabla + '_id', 'longitud')
   lon = $('#' + idlon)
   if idlat != nomcampo && idlon != nomcampo && lat.length > 0 && lon.length > 0
     y = $.getJSON(root.puntomontaje + "admin/" + modelo + "/" + id + ".json", {id: id})
