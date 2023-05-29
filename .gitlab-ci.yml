@@ -70,7 +70,7 @@ test:
     - yarn add -D puppeteer
     - echo "Antes"
     - cat package.json
-    - for i in `find . -name *js -exec grep -l "puppeteer-core" {} ';'`; do echo "Remplazando p-c por p en $i"; sed -i -e 's/puppeteer-core/puppeteer/g' $i; done
+    - for i in `find . -name "*js" -exec grep -l "puppeteer-core" {} ';'`; do echo "Remplazando p-c por p en $i"; sed -i -e 's/puppeteer-core/puppeteer/g' $i; done
     - echo "Despues"
     - cat package.json
     - cd ../..
