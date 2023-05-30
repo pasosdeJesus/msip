@@ -26,6 +26,7 @@ export async function prepara(timeout = 5000, rutainicial = '/msip') {
     });
   } else {
     if (fs.existsSync("/usr/local/bin/chrome")) {
+      console.log("Corriendo en OpenBSD")
       browser = await puppeteer.launch({
         executablePath: '/usr/local/bin/chrome',
         defaultViewport: { width: 1240, height: 800},
