@@ -50,7 +50,7 @@ test:
       libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 
       libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 
       libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates 
-      fonts-liberation libnss3 lsb-release xdg-utils wget libgbm-dev
+      fonts-liberation libnss3 lsb-release xdg-utils wget libgbm-dev w3m
     - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq yarn
     - gem install bundler dotenv --no-document
     - bundle install --jobs $(nproc) "${FLAGS[@]}"
