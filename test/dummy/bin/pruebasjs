@@ -34,5 +34,5 @@ for i in test/puppeteer/*; do
   node $i
 done
 
-bin/detiene 
+bin/detiene &
 
