@@ -68,12 +68,7 @@ test:
     - bin/rails msip:stimulus_motores
     - RAILS_ENV=test bin/rails assets:precompile
     - yarn add -D puppeteer
-    - echo "Antes"
-    - cat package.json
     - for i in `find ./test -name "*js" -type f -exec grep -l "puppeteer-core" {} ';'`; do echo "Remplazando p-c por p en $i"; sed -i -e 's/puppeteer-core/puppeteer/g' $i; done
-    - echo "Despues"
-    - cat package.json
-    - mkdir archivos/{bd,anexos}
     - cd ../..
   script:
     - cd test/dummy
@@ -81,7 +76,7 @@ test:
     - bin/regresion.sh
     - export exit_code=$?
   after_script:
-    - ./cc-test-reporter after-build -t simplecov --exit-code "${exit_code}" || true
+    - if (test "${exit_code}" == "") then { exit_code=0; } fi; ./cc-test-reporter after-build -t simplecov --exit-code "${exit_code}" || true
 
 
 include:
