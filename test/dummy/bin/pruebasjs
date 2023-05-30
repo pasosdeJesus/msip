@@ -24,6 +24,10 @@ R=f bin/corre &
 
 sleep 10;
 
+echo "***"
+w3m -dump http://${IPDES}:${PUERTODES}
+echo "***"
+
 for i in test/puppeteer/*; do
   echo "Ejecutando $i"
   cat $i
