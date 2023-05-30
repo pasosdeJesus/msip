@@ -71,8 +71,6 @@ test:
     - for i in `find ./test -name "*js" -type f -exec grep -l "puppeteer-core" {} ';'`; do echo "Remplazando p-c por p en $i"; sed -i -e 's/puppeteer-core/puppeteer/g' $i; done
     - cd ../..
   script:
-    - cd test/dummy
-    - CONFIG_HOSTS=127.0.0.1 bin/rails msip:stimulus_motores
     - bin/regresion.sh
     - export exit_code=$?
   after_script:
