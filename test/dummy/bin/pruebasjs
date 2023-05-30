@@ -20,7 +20,7 @@ echo "=== Precompilando"
 bin/rails assets:precompile
 
 echo "=== Iniciando servidor"
-R=f bin/corre &
+CONFIG_HOSTS=127.0.0.1 R=f bin/corre &
 
 sleep 10;
 
