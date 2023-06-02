@@ -55,7 +55,45 @@ module Msip
             if c.nil?
               c = Msip::Orgsocial.all
             end
-            super(c)
+            if params[:term]
+              # usado en autocompletación limitado a 10
+              term = Msip::Orgsocial.connection.quote_string(params[:term])
+              consNoment = term.downcase.strip # sin_tildes
+              consNoment.gsub!(/ +/, ":* & ")
+              unless consNoment.empty?
+                consNoment += ":*"
+              end
+              where = " to_tsvector('spanish', unaccent(grupoper.nombre) " \
+                " || ' ' || COALESCE(orgsocial.id::TEXT, '')) @@ " \
+                "to_tsquery('spanish', '#{consNoment}')"
+
+              partes = [
+                "nombre",
+                "COALESCE(orgsocial.id::TEXT, '')",
+              ]
+              s = ""
+              l = " grupoper.id "
+              seps = ""
+              sepl = " || ';' || "
+              partes.each do |p|
+                s += seps + p
+                l += sepl + "char_length(#{p})"
+                seps = " || ' ' || "
+              end
+              qstring = "SELECT TRIM(#{s}) AS value, #{l} AS id
+              FROM public.msip_orgsocial AS orgsocial
+              JOIN public.msip_grupoper AS grupoper 
+                ON grupoper.id=orgsocial.grupoper_id
+              WHERE #{where} ORDER BY 1 LIMIT 10"
+
+              r = ActiveRecord::Base.connection.select_all(qstring)
+              respond_to do |format|
+                format.json { render(:json, inline: r.to_json) }
+                format.html { render(inline: "No responde con parametro term") }
+              end
+            else
+              super(c)
+            end
           end
 
           def set_orgsocial
