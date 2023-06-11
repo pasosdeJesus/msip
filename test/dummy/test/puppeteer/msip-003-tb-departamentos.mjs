@@ -14,8 +14,7 @@ import {
   waitForSelector,
   waitForSelectors,
   waitForFunction,
-} from "../funciones_puppeteer.mjs";
-
+} from "@pasosdeJesus/pruebas_puppeteer";
 
 (async () => {
 

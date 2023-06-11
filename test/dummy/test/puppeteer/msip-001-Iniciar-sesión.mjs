@@ -15,7 +15,7 @@ import {
   waitForSelector,
   waitForSelectors,
   waitForFunction,
-} from "/home/vtamara/comp/rails/msip/test/dummy/test/funciones_puppeteer.mjs";
+} from "@pasosdeJesus/pruebas_puppeteer";
 
 
 (async () => {
