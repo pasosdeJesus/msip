@@ -1,5 +1,5 @@
 {
-  "name": "pruebas_puppeteer",
+  "name": "@pasosdejesus/pruebas_puppeteer",
   "version": "0.0.9-a2",
   "description": "Funciones auxiliares para implementar pruebas con puppeteer en motores y aplicaciones que usan msip",
   "main": "index.mjs",
