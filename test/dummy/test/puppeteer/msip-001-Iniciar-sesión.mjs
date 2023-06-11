@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import puppeteer from "puppeteer-core"
 import {
   autentica,
@@ -14,7 +15,7 @@ import {
   waitForSelector,
   waitForSelectors,
   waitForFunction,
-} from "../funciones_puppeteer.mjs";
+} from "/home/vtamara/comp/rails/msip/test/dummy/test/funciones_puppeteer.mjs";
 
 
 (async () => {
