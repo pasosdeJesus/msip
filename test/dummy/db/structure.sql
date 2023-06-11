@@ -63,7 +63,26 @@ CREATE FUNCTION public.f_unaccent(text) RETURNS text
 
 CREATE FUNCTION public.msip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
     LANGUAGE sql IMMUTABLE
-    AS $$ SELECT CASE WHEN anionac IS NULL THEN NULL WHEN anioref IS NULL THEN NULL WHEN anioref < anionac THEN -1 WHEN mesnac IS NOT NULL AND mesnac > 0 AND mesref IS NOT NULL AND mesref > 0 AND mesnac >= mesref THEN CASE WHEN mesnac > mesref OR (dianac IS NOT NULL AND dianac > 0 AND diaref IS NOT NULL AND diaref > 0 AND dianac > diaref) THEN anioref-anionac-1 ELSE anioref-anionac END ELSE anioref-anionac END $$;
+    AS $$
+            SELECT CASE 
+              WHEN anionac IS NULL THEN NULL
+              WHEN anioref IS NULL THEN NULL
+              WHEN anioref < anionac THEN -1
+              WHEN mesnac IS NOT NULL AND mesnac > 0 
+                AND mesref IS NOT NULL AND mesref > 0 
+                AND mesnac >= mesref THEN
+                CASE 
+                  WHEN mesnac > mesref OR (dianac IS NOT NULL 
+                    AND dianac > 0 AND diaref IS NOT NULL 
+                    AND diaref > 0 AND dianac > diaref) THEN 
+                    anioref-anionac-1
+                  ELSE 
+                    anioref-anionac
+                END
+              ELSE
+                anioref-anionac
+            END 
+          $$;
 
 
 --
@@ -1938,6 +1957,14 @@ ALTER TABLE ONLY public.msip_solicitud
 
 
 --
+-- Name: msip_tclase msip_tclase_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_tclase
+    ADD CONSTRAINT msip_tclase_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: msip_tema msip_tema_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1951,6 +1978,14 @@ ALTER TABLE ONLY public.msip_tema
 
 ALTER TABLE ONLY public.msip_tipoorg
     ADD CONSTRAINT msip_tipoorg_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_trelacion msip_trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_trelacion
+    ADD CONSTRAINT msip_trelacion_pkey PRIMARY KEY (id);
 
 
 --
@@ -2010,27 +2045,11 @@ ALTER TABLE ONLY public.msip_persona
 
 
 --
--- Name: msip_tclase tclase_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_tclase
-    ADD CONSTRAINT tclase_pkey PRIMARY KEY (id);
-
-
---
 -- Name: msip_tdocumento tdocumento_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.msip_tdocumento
     ADD CONSTRAINT tdocumento_pkey PRIMARY KEY (id);
-
-
---
--- Name: msip_trelacion trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_trelacion
-    ADD CONSTRAINT trelacion_pkey PRIMARY KEY (id);
 
 
 --

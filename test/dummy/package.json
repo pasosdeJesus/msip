@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.0",
+    "@pasosdeJesus/pruebas_puppeteer": "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main",
     "@popperjs/core": "^2.9.1",
     "@rails/ujs": "^7.0.1",
     "bootstrap": "^5.1.0",
@@ -20,7 +21,6 @@
     "is-svg": "^4.3.1",
     "jquery": "^3.6.0",
     "popper.js": "^2.0.0-next.4",
-    "@pasosdeJesus/pruebas_puppeteer": "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main",
     "puppeteer-core": "^20.4.0"
   },
   "devDependencies": {
