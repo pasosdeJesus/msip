@@ -1,6 +1,7 @@
 #!/bin/sh
-
 echo "=== Pruebas de regresión al sistema con Javascript"
+# Para ejecutar en navegador visible ejecutar con
+#  CONCABEZA=1 bin/pruebasjs
 
 export PUERTODES=33001
 export IPDES=127.0.0.1
@@ -25,14 +26,16 @@ CONFIG_HOSTS=127.0.0.1 R=f bin/corre &
 sleep 10;
 
 echo "***"
-w3m -dump http://${IPDES}:${PUERTODES}
+w3m -dump http://${IPDES}:${PUERTODES}/${RUTA_RELATIVA}
 echo "***"
 
-for i in test/puppeteer/*; do
+cd test/puppeteer
+yarn
+for i in *.mjs; do
   echo "Ejecutando $i"
-  cat $i
   node $i
 done
 
+cd ../..
 bin/detiene &
 

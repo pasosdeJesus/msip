@@ -1,0 +1,13 @@
+{
+  "name": "ejecuta_pruebas_puppeteer",
+  "version": "1.0.0",
+  "description": "Ejecuta pruebas con pruebas_puppeteer",
+  "main": "msip-001-Iniciar-sesión.mjs",
+  "author": "vtamara@pasosdeJesus.org",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@pasosdeJesus/pruebas_puppeteer": "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main",
+    "puppeteer-core": "^20.5.0"
+  }
+}
