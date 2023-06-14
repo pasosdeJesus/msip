@@ -27,14 +27,14 @@ export default class extends Controller {
   }
 
   cambia_tdocumento(e) {
+    var purl = window.puntomontaje;
+    if (purl == "/") {
+      purl = "";
+    }
 
     console.log("numerodocumento ahora es", this.numerodocumentoTarget.value)
     if (e.target.value == '11' && 
       this.numerodocumentoTarget.value == '') { // SIN DOCUMENTO
-      var purl = window.puntomontaje;
-      if (purl == "/") {
-        purl = "";
-      }
       window.Rails.ajax({
         type: 'GET',
         url: purl + '/personas/identificacionsd?persona_id=' + 
@@ -48,7 +48,22 @@ export default class extends Controller {
         }
       })
     }
-
+    window.Rails.ajax({
+      type: 'GET',
+      url: purl + '/admin/tdocumentos/' + e.target.value + '.json',
+      data: null,
+      success: (resp, estado, xhr) => {
+        this.numerodocumentoTarget.setAttribute('data-bs-toggle', 'tooltip')
+        this.numerodocumentoTarget.setAttribute('data-bs-original-title', 
+          resp.ayuda)
+        this.numerodocumentoTarget.setAttribute('title', resp.ayuda)
+      },
+      error: (req, estado, xhr) => {
+        window.alert('No pudo consultar tipo de documento ' + e.target.value)
+      }
+    })
   }
+
+
 
 }
