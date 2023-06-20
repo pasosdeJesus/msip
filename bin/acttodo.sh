@@ -5,6 +5,7 @@
 # SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
 # SALTACOR1440=1 SALTASAL7711=1 
 # SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
+# SALTASIADDHH=1 SALTASIBDHN=1
 # SALTASIANZORC=1 SALTASIASOM=1 SALTASIIAP=1 
 # SALTAJOS19=1 SALTASIFASOL=1 
 # SALTASIVELSJR=1 SALTAMIND=1 
@@ -120,7 +121,13 @@ if (test "$SALTASIVEL2GEN" != "1") then {
   actuno sivel2_gen-2.0 test/dummy; 
   actuno sivel2_gen-2.1 test/dummy; 
   actuno sivel2_gen test/dummy; 
+} fi;
+
+if (test "$SALTASIADDHH" != "1") then {
   actuno siaddhh;
+} fi;
+
+if (test "$SALTASIBDHN" != "1") then {
   actuno si_bdhn
 } fi;
 
