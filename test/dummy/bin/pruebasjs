@@ -30,6 +30,7 @@ w3m -dump http://${IPDES}:${PUERTODES}/${RUTA_RELATIVA}
 echo "***"
 
 cd test/puppeteer
+yarn upgrade
 yarn
 for i in *.mjs; do
   echo "Ejecutando $i"
