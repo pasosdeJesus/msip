@@ -155,6 +155,7 @@ PRUEBA_PERSONA = {
 PRUEBA_TDOCUMENTO = {
   id: 1000,
   nombre: "Tdocumento",
+  sigla: "TD",
   formatoregex: "[0-9]*",
   fechacreacion: "2014-09-22",
   created_at: "2014-09-22",
