@@ -10,6 +10,7 @@ module Msip
         fechacreacion: "2021-07-29",
         fechadeshabilitacion: nil,
         nombre: "X",
+        sigla: "X",
         observaciones: "y",
         updated_at: "2021-07-18",
       }
