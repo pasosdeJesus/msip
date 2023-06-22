@@ -3,8 +3,8 @@
 
 
 "@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main":
-  version "0.0.9-a3"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#ac31dc2e6f47eccabbe5a9abf215b21ab49d7542"
+  version "0.0.9-a2"
+  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#af56a30f70c20b51ab9c1f940a4a48350a0077a1"
 
 "@puppeteer/browsers@1.4.2":
   version "1.4.2"
