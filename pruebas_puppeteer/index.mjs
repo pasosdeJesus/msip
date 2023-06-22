@@ -39,6 +39,13 @@ export async function prepara(timeout = 5000, rutainicial = '/msip') {
         headless: sincabeza,
         devtools: true
       });
+    } else if (fs.existsSync("/bin/chromium-browser")) {
+      browser = await puppeteer.launch({
+        executablePath: '/bin/chromium-browser',
+        defaultViewport: { width: 1240, height: 800},
+        headless: sincabeza,
+        devtools: true
+      });
     } else {
       throw "No se encontró navegador";
     }
