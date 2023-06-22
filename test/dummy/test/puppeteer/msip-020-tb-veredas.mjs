@@ -48,43 +48,68 @@ import {
         const targetPage = page;
         const promises = [];
         promises.push(targetPage.waitForNavigation());
-        await scrollIntoViewIfNeeded([
-            [
-                'aria/Tablas básicas'
-            ]
-        ], targetPage, timeout);
-        const element = await waitForSelectors([
-            [
-                'aria/Tablas básicas'
-            ]
-        ], targetPage, { timeout, visible: true });
-        await element.click({
-          offset: {
-            x: 40.9375,
-            y: 15,
-          },
-        });
-        await Promise.all(promises);
+      await scrollIntoViewIfNeeded([
+        [
+          'aria/Tablas básicas'
+        ]
+      ], targetPage, timeout);
+      const element = await waitForSelectors([
+        [
+          'aria/Tablas básicas'
+        ]
+      ], targetPage, { timeout, visible: true });
+      await element.click({
+        offset: {
+          x: 40.9375,
+          y: 15,
+        },
+      });
+      await Promise.all(promises);
     }
-    {
-        const targetPage = page;
-        await scrollIntoViewIfNeeded([
-            [
-                'aria/Centros poblados'
-            ]
-        ], targetPage, timeout);
-        const element = await waitForSelectors([
-            [
-                'aria/Centros poblados'
-            ]
-        ], targetPage, { timeout, visible: true });
-        await element.click({
-          offset: {
-            x: 96.5,
-            y: 10,
-          },
-        });
-    }
+  {
+    const targetPage = page;
+    await scrollIntoViewIfNeeded([
+      [
+        'aria/Veredas'
+      ],
+      [
+        'li:nth-of-type(19) > a'
+      ],
+      [
+        'xpath///*[@id="div_contenido"]/article/ul/li[19]/a'
+      ],
+      [
+        'pierce/li:nth-of-type(19) > a'
+      ],
+      [
+        'text/Veredas'
+      ]
+    ], targetPage, timeout);
+    const element = await waitForSelectors([
+      [
+        'aria/Veredas'
+      ],
+      [
+        'li:nth-of-type(19) > a'
+      ],
+      [
+        'xpath///*[@id="div_contenido"]/article/ul/li[19]/a'
+      ],
+      [
+        'pierce/li:nth-of-type(19) > a'
+      ],
+      [
+        'text/Veredas'
+      ]
+    ], targetPage, { timeout, visible: true });
+    await element.click({
+      offset: {
+        x: 29.5,
+        y: 14.5,
+      },
+    });
+  }
+
     {
         const targetPage = page;
         const promises = [];
@@ -160,12 +185,12 @@ import {
         const targetPage = page;
         await scrollIntoViewIfNeeded([
             [
-                'div.clase_municipio span'
+                'div.vereda_municipio span'
             ]
         ], targetPage, timeout);
         const element = await waitForSelectors([
             [
-                'div.clase_municipio span'
+                'div.vereda_municipio span'
             ]
         ], targetPage, { timeout, visible: true });
         await element.click({
@@ -391,7 +416,7 @@ import {
           ],
           selectors: [
             [
-              'text/Msip::Clase eliminado.'
+              'text/Msip::Vereda eliminado.'
             ]
           ]
         }, frame, timeout);
