@@ -146,11 +146,12 @@ es:
         Clase: Centro poblado
         Clases: Centros poblados
         municipio_id: Municipio
-        clalocal_cod: Código dentro del país
+        clalocal_cod: Código dentro del municipio 
         tclase_id: Tipo de centro poblado
         tclase: Tipo de centro poblado
       "msip/departamento":
         codreg: Código secundario del país
+        clalocal_cod: Código dentro del municipio 
         Departamento: Departamento/Estado
         Departamentos: Departamentos/Estados
         deplocal_cod: Código dentro del país
@@ -301,8 +302,8 @@ es:
       "msip/ubicacion":
         Ubicacion: Ubicación
       "msip/vereda":
-        id_verlocal: Código en municipio
-        verlocal: Código en municipio
+        verlocal_id: Código dentro del municipio
+        verlocal: Código dentro del municipio
         municipio_id: Municipio
         departamento_id: Departamento
         Vereda: Vereda
