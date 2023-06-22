@@ -9,7 +9,7 @@ module Msip
         include Msip::Basica
         included do
           self.table_name = "msip_tdocumento"
-          validates :sigla, length: { maximum: 100 }
+          validates :sigla, length: { maximum: 100 }, presence: true
           validates :formatoregex, length: { maximum: 500 }
         end
       end
