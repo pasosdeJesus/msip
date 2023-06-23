@@ -494,9 +494,9 @@ export async function prepararYAutenticarDeAmbiente(timeout = 5000,
     process.env.CLAVE_ADMIN_PRUEBA : 'msip';
 
   let urlini, browser, page;
-  [urlini, browser, page] = await prepara(timeout, rutaRelativa);
+  [urlini, browser, page] = await preparar(timeout, rutaRelativa);
 
-  await autentica(page, timeout, usuarioAdminPrueba, claveAdminPrueba);
+  await autenticar(page, timeout, usuarioAdminPrueba, claveAdminPrueba);
 
   return [urlini, browser, page];
 }
