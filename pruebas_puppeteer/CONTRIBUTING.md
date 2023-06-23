@@ -1,7 +1,7 @@
 
-Para actualizar este paquete en su aplicación:
+Si hace cambios a este paquete, aumente la versión y para actualizarlo
+en su aplicación ejecute:
 
 
-yarn remove @pasosdeJesus/pruebas_puppeteer
 yarn cache clean
-yarn add --force https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main
+yarn upgrade @pasosdeJesus/pruebas_puppeteer
