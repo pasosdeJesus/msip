@@ -22,8 +22,6 @@ import {
   let urlini, browser, page;
   [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 
-  await autentica(page, timeout, 'msip', 'msip');
-
     {
         const targetPage = page;
         await scrollIntoViewIfNeeded([

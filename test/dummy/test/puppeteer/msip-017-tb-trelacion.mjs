@@ -1,9 +1,8 @@
 import puppeteer from "puppeteer-core"
 import {
-  autentica,
   changeSelectElement,
   changeElementValue,
-  prepara,
+  prepararYAutenticarDeAmbiente,
   querySelectorsAll,
   querySelectorAll,
   scrollIntoViewIfNeeded,
@@ -18,12 +17,9 @@ import {
 
 (async () => {
 
-
   let timeout = 5000;
   let urlini, browser, page;
-  [urlini, browser, page] = await prepara(timeout, '/msip');
-
-  autentica(page, timeout, 'msip', 'msip');
+  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 
   {
     const targetPage = page;

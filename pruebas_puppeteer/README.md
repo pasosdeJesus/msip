@@ -22,7 +22,6 @@ con extensión .mjs y después modifique el comienzo de cada prueba para
 quitarle la autenticación con máquina, puerto, usuario y clave fijas por 
 lo siguiente que empleará variables de ambiente:
 
-    import * as fs from "fs";
     import puppeteer from "puppeteer-core"
     import {
       changeSelectElement,
@@ -47,7 +46,8 @@ lo siguiente que empleará variables de ambiente:
       let urlini, browser, page;
       [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 
-      // Dejar aquí las pruebas producidas por Grabadora para puppeteer
+      // Dejar aquí las pruebas para puppeteer
+      // Puede generarlas por ejemplo con la Grabadora de Chrome
     
       await browser.close();
     

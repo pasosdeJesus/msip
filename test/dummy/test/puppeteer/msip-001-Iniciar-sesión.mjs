@@ -1,9 +1,8 @@
-import * as fs from "fs";
 import puppeteer from "puppeteer-core"
 import {
-  prepararYAutenticarDeAmbiente,
   changeSelectElement,
   changeElementValue,
+  prepararYAutenticarDeAmbiente,
   querySelectorsAll,
   querySelectorAll,
   scrollIntoViewIfNeeded,
@@ -23,8 +22,8 @@ import {
   let urlini, browser, page;
   [urlini, browser, page] = await prepararYAutenticarDeAmbiente();
 
-  await browser.close();
 
+  await browser.close();
 })().catch(err => {
   console.error(err);
   process.exit(1);

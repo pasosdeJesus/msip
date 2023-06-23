@@ -1,9 +1,8 @@
 import puppeteer from "puppeteer-core"
 import {
-  autentica,
   changeSelectElement,
   changeElementValue,
-  prepara,
+  prepararYAutenticarDeAmbiente,
   querySelectorsAll,
   querySelectorAll,
   scrollIntoViewIfNeeded,
@@ -21,9 +20,7 @@ import {
 
   let timeout = 5000;
   let urlini, browser, page;
-  [urlini, browser, page] = await prepara(timeout, '/msip');
-
-  await autentica(page, timeout, 'msip', 'msip');
+  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 
     {
         const targetPage = page;
@@ -416,7 +413,7 @@ import {
           ],
           selectors: [
             [
-              'text/Msip::Vereda eliminado.'
+              'text/Msip::Vereda eliminada.'
             ]
           ]
         }, frame, timeout);
