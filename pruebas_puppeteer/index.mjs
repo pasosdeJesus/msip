@@ -1,7 +1,9 @@
 import fs from "fs";
+import dotenv from "dotenv";
 import puppeteer from "puppeteer-core"
 
-export async function prepara(timeout = 5000, rutainicial = '/msip') {
+
+export async function preparar(timeout = 5000, rutainicial = '/msip') {
   let maq = "http://127.0.0.1:33001";
   if (typeof process.env.IPDES != "undefined" && 
     typeof process.env.PUERTODES != "undefined") {
@@ -74,7 +76,7 @@ export async function prepara(timeout = 5000, rutainicial = '/msip') {
 }
 
 
-export async function autentica(page, timeout, usuario, clave) {
+export async function autenticar(page, timeout, usuario, clave) {
   {
     const targetPage = page;
     let frame = targetPage.mainFrame();
@@ -474,4 +476,28 @@ export async function typeIntoElement(element, value) {
   await element.type(textToType);
 }
 
+
+export async function prepararYAutenticarDeAmbiente(timeout = 5000, 
+  rutaAmbiente = '../../.env') {
+  dotenv.config({ path: rutaAmbiente });
+
+  const rutaRelativa = typeof process != "undefined" &&
+    typeof process.env.RUTA_RELATIVA != "undefined" ?
+    process.env.RUTA_RELATIVA : '/msip';
+
+  const usuarioAdminPrueba = typeof process != "undefined" &&
+    typeof process.env.USUARIO_ADMIN_PRUEBA != "undefined" ?
+    process.env.USUARIO_ADMIN_PRUEBA : 'msip';
+
+  const claveAdminPrueba = typeof process != "undefined" &&
+    typeof process.env.CLAVE_ADMIN_PRUEBA != "undefined" ?
+    process.env.CLAVE_ADMIN_PRUEBA : 'msip';
+
+  let urlini, browser, page;
+  [urlini, browser, page] = await prepara(timeout, rutaRelativa);
+
+  await autentica(page, timeout, usuarioAdminPrueba, claveAdminPrueba);
+
+  return [urlini, browser, page];
+}
 
