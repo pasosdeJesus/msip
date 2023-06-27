@@ -1,0 +1,63 @@
+<%
+  # Este parcial genera cuadro de seleccíon múltiple asociado a
+  # unos botones radio Ninguno/Algunos/Todos.
+  #
+  # Recibe los siguientes parámetros obligatorios:
+  #   f   Formulario 
+  #   atr Nombre del campo
+  #   col_en_grupos Colección de la cual elegir en grupos
+  #   col_ids Arreglo con ids de los elementos de la colección col_en_grupos
+  #   metodo_etiqueta_agrupamiento  Método que retorna etiquetas de
+  #     col_en_grupos
+  #   metodo_valor Método que retorna valor para cada opción
+  #   metodo_etiqueta Método que retorna etiqueta para cada opción
+%>
+<% if atr.nil? %>
+  atr no puede ser nil. Debe ser atributo por editar.
+  <% return %>
+<% end %>
+<% if f.nil? %>
+  f no puede ser nil. Debe ser formulario.
+  <% return %>
+<% end %>
+<% if col_en_grupos.nil? %>
+  col_en_grupos no puede ser nil. Debe ser colección en grupos.
+  <% return %>
+<% end %>
+<% if col_ids.nil? %>
+  col_ids no puede ser nil. Debe ser arreglo con ids de la colección.
+  <% return %>
+<% end %>
+<% if metodo_etiqueta_agrupamiento.nil? %>
+  metodo_etiqueta_agrupamiento no puede ser nil. Debe ser método
+  (símbolo o lambda) para retornar etiquetas de acuerdo a agrupamiento.
+  <% return %>
+<% end %>
+<% if metodo_valor.nil? %>
+  metodo_valor no puede ser nil. Debe ser método (símbolo o lambda)
+  para extraer valor de opción de un elemento de la colección.
+  <% return %>
+<% end %>
+<% if metodo_etiqueta.nil? %>
+  metodo_etiqueta no puede ser nil. Debe ser método (símbolo o lambda)
+  para extraer etiqueta para una opción correspondiente a un elemento de la 
+  colección.
+  <% return %>
+<% end %>
+
+
+<%= f.input atr, 
+  collection: col_en_grupos,
+  as: :grouped_select, 
+  group_method: :last, 
+  group_label_method: metodo_etiqueta_agrupamiento,
+  value_method: metodo_valor,
+  label_method: metodo_etiqueta,
+  selected: col_ids,
+  label: false,
+  input_html: { 
+    "data-contarautomatico" => "",
+    class: 'chosen-select',
+    multiple: true
+  }
+%>
