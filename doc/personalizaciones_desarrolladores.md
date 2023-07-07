@@ -12,14 +12,11 @@ hacer un desarrollador, típicamente al momento de la instalación son:
   | `dd/M/yyyy`  | Formato colombiano | `26/Ene/2022` |
   | `yyyy-mm-dd` | Formato ISO | '2022-01-26' |
 
-* Sexo : De una organización a otra pueden tener diferente convención 
-  para el sexo de una persona.  Por ejemplo:
+* Sexo : Se trata del sexo biológico. De una organización a otra pueden 
+  tener diferente convención.  Por ejemplo:
   * Femenino - Masculino - Sin Información
   * Mujer - Hombre - Sin Información
   * Mujer - Hombre - Intersexual - Sin Información
-  O incluso convenciones confusas como la siguiente que puede confundirse
-  con género:
-  * Mujer - Hombre - Otro
 
   La experiencia nos ha mostrado que para validar convenciones de este estilo
   es mejor hacerlo a nivel de base de datos que ha nivel de Ruby on Rails.
@@ -32,13 +29,13 @@ hacer un desarrollador, típicamente al momento de la instalación son:
   de la tabla `msip_persona`.  Y mantenemos herramientas para consultarla 
   de allí en `lib/msip/concerns/models/persona.rb`.
 
-  En el momento soportamos dos tríos siguientes (en ese orden):
+  En el momento soportamos las tuplas siguientes (en ese orden):
 
-  | Mujer | Hombre | Sin Información |
-  |---|---|---|
-  | F | M | S |
-  | M | H | S |
-  | M | H | O |
+  | Mujer | Hombre | Sin Información | Intersexual |
+  |---|---|---|---|
+  | F | M | S | |
+  | M | H | S | |
+  | M | H | S | I |
 
   Para cambiarla debe ejecutarse una migración que establezca la
   restricción del estilo:
@@ -53,5 +50,5 @@ hacer un desarrollador, típicamente al momento de la instalación son:
   COMMIT;
   ```
   En una aplicación si necesita referenciarse un sexo particular (por ejemplo
-  para poner Sin información de manera predetermida) puede usarse:
+  para poner Sin información) puede usarse:
   `Msip::Persona.convencion_sexo[:sexo_sininformacion]`
