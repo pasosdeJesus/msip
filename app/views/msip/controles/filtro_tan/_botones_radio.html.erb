@@ -1,0 +1,100 @@
+<%
+  # Este parcial genera botones radio asociados a un cuadro de selección
+  # para muchas opciones (digamos entre 20 y 100). Los botones de radio
+  # tiene opciones Ninguno/Algunos/Todos.  Ninguno y Todos permiten
+  # de-seleccionar/seleccionar todas las opciones del cuadro de
+  # selección simultáneamente. El botón de radio Algunos está deshabilitadoa
+  # pero se usa para indicar de manera automática cunado Algunas opciones
+  # (pero no todas) están seleccionadas.
+  #
+  # Recibe los siguientes parámetros obligatorios:
+  #   f   Formulario
+  #   atr Nombre del campo
+%>
+<% if atr.nil? %>
+  atr no puede ser nil. Debe ser atributo por editar.
+  <% return %>
+<% end %>
+<% if f.nil? %>
+  f no puede ser nil. Debe ser formulario.
+  <% return %>
+<% end %>
+
+<% # Estilo con base en https://codepen.io/Davide_sd/pen/AmazD %>
+<fieldset
+  style="width: 22rem; height: 2rem; position: relative; margin-left: auto; border-radius: 2rem; background: gray"
+  class="form-group radio_buttons optional filtro_botones_tan">
+  <legend class="col-form-label pt-0"></legend>
+  <input
+      type="hidden"
+      name="filtro[<%= atr %>]"
+      value="" autocomplete="off">
+  <div class="form-check-inline">
+    <input
+       class="form-check-input radio_buttons optional msip-sf-bs-input"
+       data-action="msip--filtro-tan#cambiarATodos"
+       data-msip--filtro-tan-target="todos"
+       data-contarautomatico=""
+       type="radio"
+       value="1"
+       checked="checked"
+       name="filtro[<%= atr %>]"
+       id="filtro_<%= atr %>_1">
+    <label
+       class="form-check-label collection_radio_buttons"
+       for="filtro_<%= atr %>_1">
+      Todas
+    </label>
+  </div>
+  <div class="form-check-inline">
+    <input
+       class="form-check-input radio_buttons optional msip-sf-bs-input"
+       data-msip--filtro-tan-target="algunos"
+       data-contarautomatico=""
+       disabled="disabled"
+       type="radio"
+       value="2"
+       name="filtro[<%= atr %>]"
+       id="filtro_<%= atr %>_2">
+    <label class="form-check-label collection_radio_buttons" for="filtro_<%= atr %>_2">
+      Algunas
+    </label>
+  </div>
+  <div class="form-check-inline">
+    <input
+       class="form-check-input radio_buttons optional msip-sf-bs-input"
+       data-action="msip--filtro-tan#cambiarANinguno"
+       data-msip--filtro-tan-target="ninguno"
+       data-contarautomatico=""
+       type="radio"
+       value="0"
+       name="filtro[<%= atr %>]"
+       id="filtro_<%= atr %>_0">
+    <label
+       class="form-check-label collection_radio_buttons"
+       for="filtro_<%= atr %>_0">
+      Ninguna
+    </label>
+  </div>
+</fieldset>
+
+<!-- f.input atr, collection: [
+    [1, 'Todas'], [2, 'Algunas'], [0, 'Ninguna']
+  ],
+  label_method: :last,
+  value_method: :first,
+  as: :radio_buttons,
+  item_wrapper_class: 'form-check-inline',
+  disabled: 2,
+  checked: 1,
+  required: false,
+  label: '',
+  input_html:  {
+    "data-action": "msip--filtro-tan#cambiarRadio",
+    "data-contarautomatico":  "",
+  },
+  wrapper_html: {
+    style: 'width: 20rem; height: 2rem; position: relative; '\
+    'margin-left: auto; border-radius: 2rem; background: gray'
+  }
+%-->
