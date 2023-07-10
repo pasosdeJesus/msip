@@ -42,13 +42,8 @@ module Msip
             render(layout: "application")
           end
 
-          def espacioenplan
-            1000000000
-          end
-
-          def espacio
+         def espacio
             verificarutas
-            @espacioenplan = espacioenplan
             render(layout: "application")
           end
 
@@ -57,6 +52,13 @@ module Msip
             render(layout: "application")
           end
         end # included
+
+        class_methods do
+          def espacioenplan
+            1000000000
+          end
+
+        end
       end
     end
   end
