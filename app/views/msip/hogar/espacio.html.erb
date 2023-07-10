@@ -1,0 +1,39 @@
+
+<h1>Espacio en disco</h1>
+
+Espacio disponible en partición: 
+<% ep = espacioparticion_OpenBSD(ENV.fetch('MSIP_RUTA_ANEXOS')) %>
+<%= Msip::ProcesosHelper.tamhumano(ep[2]) %>
+
+
+<h2>Espacio usado</h2>
+<%
+a = discousado_OpenBSD(ENV.fetch('MSIP_RUTA_ANEXOS'))
+r = discousado_OpenBSD(ENV.fetch('MSIP_RUTA_VOLCADOS'))
+rh = ENV.fetch('HEB412_RUTA', '')
+n = rh == '' ? 0 : discousado_OpenBSD(rh)
+t = a+r+n
+  %>
+<ul>
+  <li>
+    Anexos: <%= Msip::ProcesosHelper.tamhumano(a) %>
+  </li>
+  <li>
+    Respaldos: <%= Msip::ProcesosHelper.tamhumano(r) %>
+  </li>
+  <li>
+    Nube: <%= Msip::ProcesosHelper.tamhumano(n) %>
+  <li>
+    Total: <%= Msip::ProcesosHelper.tamhumano(t) %>
+  </li>
+</ul>
+<h2>Espacio disponible en plan:
+  <%= Msip::ProcesosHelper.tamhumano(@espacioenplan) %></h2>
+<%  ancho = t * 200 / @espacioenplan %>
+<div style="display: flex;width:200px; border: 1px solid blue; height: 20px" >
+  <div style="width: <%= ancho %>px; background-color: blue; height: 18px"></div>
+  <div style="width: 150px;"></div>
+</div>
+
+
+

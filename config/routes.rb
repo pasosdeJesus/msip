@@ -13,6 +13,7 @@ Msip::Engine.routes.draw do
     as: "mostrar_portada"
   get "/controldeacceso" => "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"
+  get "/espacio" => "hogar#espacio", as: "espacio"
   get "/gruposper" => "gruposper#index"
   get "/gruposper/remplazar" => "gruposper#remplazar"
   get "/hogar" => "hogar#index"

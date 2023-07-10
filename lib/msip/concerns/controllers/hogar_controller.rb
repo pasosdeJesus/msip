@@ -42,6 +42,16 @@ module Msip
             render(layout: "application")
           end
 
+          def espacioenplan
+            1000000000
+          end
+
+          def espacio
+            verificarutas
+            @espacioenplan = espacioenplan
+            render(layout: "application")
+          end
+
           def ayuda_controldeacceso
             verificarutas
             render(layout: "application")
