@@ -1,7 +1,10 @@
+<% color = "blue" %>
+<% if t >= ep %>
+  <% color = "red" %>
+<% end %>
 <% ancho = t * 200 / ep %>
-<div style="display: flex;width:200px; border: 1px solid blue; height: 20px" >
-  <div style="width: <%= ancho %>px; background-color: blue; height: 18px"></div>
-  <div style="width: 150px;"></div>
+<div style="display: flex;width:200px; border: 1px solid <%= color %>; height: 20px" >
+  <div style="width: <%= ancho %>px; background-color: <%= color %>; height: 18px"></div>
 </div>
 <% if defined?(enlace) && enlace %>
   <a href="<%= msip.espacio_path %>"><%= Msip::ProcesosHelper.tamhumano(t) %></a>
