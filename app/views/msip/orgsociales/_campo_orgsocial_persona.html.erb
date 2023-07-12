@@ -4,6 +4,8 @@
   <div id="<%= div_id %>" class="orgsocial_persona">
     <label class="string optional control-label" for="tabla_<%= div_id %>"><%= t('Contactos en la organización social') %></label>
     <table id="tabla_<%= div_id %>" class="table table-bordered">
+      <datalist id='fuente-contactos-orgsocial'>
+      </datalist>
       <thead>
         <tr>
           <th scope="col"><%= t('Nombres') %></th>

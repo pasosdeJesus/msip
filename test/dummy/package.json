@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.0",
+    "@pasosdejesus/autocompleta_ajax": "https://gitlab.com/pasosdeJesus/autocompleta_ajax.git",
     "@popperjs/core": "^2.9.1",
     "@rails/ujs": "^7.0.1",
     "bootstrap": "^5.1.0",

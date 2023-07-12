@@ -10,7 +10,9 @@
       ac = {'data-autocompleta' => 'no' }
       if (!p.object || !p.object.nombres || p.object.nombres == 'N' || p.object.nombres == '')
         ph = t('Buscar')
-        ac = { }
+        ac = { autocomplete: 'off',
+               list: 'fuente-contactos-orgsocial'
+        }
       end %>
       <%= p.input :nombres, placeholder: ph,
         value_method: lambda {|t| '' if t.nombres == 'N'},

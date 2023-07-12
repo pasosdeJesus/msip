@@ -14,6 +14,9 @@ import 'chosen-js/chosen.jquery';       // Cuadros de seleccion potenciados
 import 'bootstrap-datepicker'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js'
 
+import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
+window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
+
 let esperarRecursosSprocketsYDocumento = function (resolver) {
   if (typeof window.puntomontaje == 'undefined') {
     setTimeout(esperarRecursosSprocketsYDocumento, 5, resolver)
