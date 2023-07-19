@@ -29,7 +29,7 @@ Además debe editar otros archivos ya existentes para realizar los siguientes ca
 
 | Archivo | Edición que requiere |
 | --- | --- |
-| `app/models/ability.rb` | En la función tablas básicas (o en la constante apropiada) agregue la nueva tabla básica, con algo como `['', 'acpcatmotivo']` y en la función `initialize` defina el control de acceso, por ejemplo si un rol o grupo puede administrarla ponerle `can :manage, ::Acpcatmotivo`.  Ver ejemplo completo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/main/app/models/ability.rb> |
+| `app/models/ability.rb` | En la función `tablasbasicas` agregue la nueva tabla básica, con algo como `['', 'acpcatmotivo']` y en la función `initialize` defina el control de acceso, por ejemplo si un rol o grupo puede administrarla ponerle `can :manage, ::Acpcatmotivo`.  Ver ejemplo completo en <https://gitlab.com/pasosdeJesus/cor1440_cinep/blob/main/app/models/ability.rb> |
 | `config/initializers/inflections.rb` | Añadir en orden alfabético o en un orden que asegure que se carga correctamente, una línea de la forma `inflect.irregular 'acpcatmotivo', 'acpcatsmotivo'` |
 | `config/locales/es.yml` | En `es:` -> `activerecord:` -> `attributes:` añada líneas como las que se ven a continuación |
   
@@ -85,7 +85,7 @@ A nivel de tabla en la base de datos tiene por lo menos:
 - ```nombre``` (por omisión máximo de 500 caracteres, obligatorio, se recomienda unicidad y mayúsculas),
 - ```observaciones``` (por omisión máximo de 5000 caracteres)
 - ```fechacreacion``` (indispensable)
-- ```fechadeshabilitacion``` que por convención es nil (NULL en SQL) para indicar que el registro puede usarse. Si tiene una fecha significa que el registro no puede asociarse a nuevos datos (no debe aparecer en listados de selección cuando se relaciona con información nueva), pero la información histórica que ya lo tuviera asociado no debe cambiarse.
+- ```fechadeshabilitacion``` que por convención es `nil` (`NULL` en SQL) para indicar que el registro puede usarse. Si tiene una fecha significa que el registro no puede asociarse a nuevos datos (no debe aparecer en listados de selección cuando se relaciona con información nueva), pero la información histórica que ya lo tuviera asociado no debe cambiarse.
 
 El modelo en Rails debe incluir el módulo ```Msip::Basica``` que tendrá en cuenta esto y otros detalles.  Si una tabla básica no requiere unicidad de nombres debe definirse la constante ```Nombresunicos=false```  Ver por ejemplo tablas básicas, departamentos, municipios y clases.
 
