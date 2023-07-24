@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kreeti/kt-paperclip.git
-  revision: 91923a6ee1bd692696b51ea839f2f2578cb485b4
+  revision: edd1d9d6c6a9e66f5a31bf2068fc6777bfeade0a
   specs:
     kt-paperclip (7.2.0)
       activemodel (>= 4.2.0)
@@ -96,7 +96,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    brakeman (6.0.0)
+    brakeman (6.0.1)
     builder (3.2.4)
     bundler-audit (0.9.1)
       bundler (>= 1.2.0, < 3)
