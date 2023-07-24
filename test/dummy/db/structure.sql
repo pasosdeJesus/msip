@@ -63,26 +63,7 @@ CREATE FUNCTION public.f_unaccent(text) RETURNS text
 
 CREATE FUNCTION public.msip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
     LANGUAGE sql IMMUTABLE
-    AS $$
-            SELECT CASE 
-              WHEN anionac IS NULL THEN NULL
-              WHEN anioref IS NULL THEN NULL
-              WHEN anioref < anionac THEN -1
-              WHEN mesnac IS NOT NULL AND mesnac > 0 
-                AND mesref IS NOT NULL AND mesref > 0 
-                AND mesnac >= mesref THEN
-                CASE 
-                  WHEN mesnac > mesref OR (dianac IS NOT NULL 
-                    AND dianac > 0 AND diaref IS NOT NULL 
-                    AND diaref > 0 AND dianac > diaref) THEN 
-                    anioref-anionac-1
-                  ELSE 
-                    anioref-anionac
-                END
-              ELSE
-                anioref-anionac
-            END 
-          $$;
+    AS $$ SELECT CASE WHEN anionac IS NULL THEN NULL WHEN anioref IS NULL THEN NULL WHEN anioref < anionac THEN -1 WHEN mesnac IS NOT NULL AND mesnac > 0 AND mesref IS NOT NULL AND mesref > 0 AND mesnac >= mesref THEN CASE WHEN mesnac > mesref OR (dianac IS NOT NULL AND dianac > 0 AND diaref IS NOT NULL AND diaref > 0 AND dianac > diaref) THEN anioref-anionac-1 ELSE anioref-anionac END ELSE anioref-anionac END $$;
 
 
 --
@@ -241,50 +222,6 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
--- Name: divipola202307_cp; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.divipola202307_cp (
-    coddep integer,
-    departamento character varying(512) COLLATE public.es_co_utf_8,
-    codmun integer,
-    municipio character varying(512) COLLATE public.es_co_utf_8,
-    codcp integer,
-    centropoblado character varying(512) COLLATE public.es_co_utf_8,
-    tipocp character varying(16),
-    longitud double precision,
-    latitud double precision
-);
-
-
---
--- Name: divipola202307_dep; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.divipola202307_dep (
-    coddep integer,
-    departamento character varying(512) COLLATE public.es_co_utf_8,
-    latitud double precision,
-    longitud double precision
-);
-
-
---
--- Name: divipola202307_mun; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.divipola202307_mun (
-    coddep integer,
-    departamento character varying(512) COLLATE public.es_co_utf_8,
-    codmun integer,
-    municipio character varying(512) COLLATE public.es_co_utf_8,
-    tipomun character varying(512) COLLATE public.es_co_utf_8,
-    latitud double precision,
-    longitud double precision
-);
-
-
---
 -- Name: msip_clase_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -418,24 +355,19 @@ CREATE TABLE public.msip_municipio (
 --
 
 CREATE VIEW public.divipola_msip AS
- SELECT sd.deplocal_cod AS coddep,
-    upper((sd.nombre)::text) AS departamento,
-    ((sd.deplocal_cod * 1000) + sm.munlocal_cod) AS codmun,
-    upper((sm.nombre)::text) AS municipio,
-    (((sd.deplocal_cod * 1000000) + (sm.munlocal_cod * 1000)) + sc.clalocal_cod) AS codcp,
-    upper((sc.nombre)::text) AS centropoblado,
-    sc.tclase_id AS tipocp,
-    sc.latitud,
-    sc.longitud,
-    sc.observaciones,
-    sc.id AS msip_idcp,
-    sm.id AS msip_idm,
-    sd.id AS msip_idd
-   FROM ((public.msip_clase sc
-     JOIN public.msip_municipio sm ON (((sc.fechadeshabilitacion IS NULL) AND (sm.fechadeshabilitacion IS NULL) AND (sc.municipio_id = sm.id))))
-     JOIN public.msip_departamento sd ON (((sd.fechadeshabilitacion IS NULL) AND ((sd.nombre)::text <> 'EXTERIOR'::text) AND (sd.pais_id = 170) AND (sm.departamento_id = sd.id))))
-  WHERE (sc.id < 100000)
-  ORDER BY (upper((sd.nombre)::text)), (upper((sm.nombre)::text)), (upper((sc.nombre)::text));
+ SELECT msip_departamento.deplocal_cod AS coddep,
+    msip_departamento.nombre AS departamento,
+    ((msip_departamento.deplocal_cod * 1000) + msip_municipio.munlocal_cod) AS codmun,
+    msip_municipio.nombre AS municipio,
+    (((msip_departamento.deplocal_cod * 1000000) + (msip_municipio.munlocal_cod * 1000)) + msip_clase.clalocal_cod) AS codcp,
+    msip_clase.nombre AS centropoblado,
+    msip_clase.tclase_id AS tipocp,
+    msip_clase.id AS msip_idcp
+   FROM ((public.msip_departamento
+     JOIN public.msip_municipio ON ((msip_municipio.departamento_id = msip_departamento.id)))
+     JOIN public.msip_clase ON ((msip_clase.municipio_id = msip_municipio.id)))
+  WHERE ((msip_departamento.pais_id = 170) AND (msip_clase.fechadeshabilitacion IS NULL))
+  ORDER BY msip_departamento.nombre, msip_municipio.nombre, msip_clase.nombre;
 
 
 --
@@ -2006,14 +1938,6 @@ ALTER TABLE ONLY public.msip_solicitud
 
 
 --
--- Name: msip_tclase msip_tclase_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_tclase
-    ADD CONSTRAINT msip_tclase_pkey PRIMARY KEY (id);
-
-
---
 -- Name: msip_tema msip_tema_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2027,14 +1951,6 @@ ALTER TABLE ONLY public.msip_tema
 
 ALTER TABLE ONLY public.msip_tipoorg
     ADD CONSTRAINT msip_tipoorg_pkey PRIMARY KEY (id);
-
-
---
--- Name: msip_trelacion msip_trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_trelacion
-    ADD CONSTRAINT msip_trelacion_pkey PRIMARY KEY (id);
 
 
 --
@@ -2094,11 +2010,27 @@ ALTER TABLE ONLY public.msip_persona
 
 
 --
+-- Name: msip_tclase tclase_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_tclase
+    ADD CONSTRAINT tclase_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: msip_tdocumento tdocumento_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.msip_tdocumento
     ADD CONSTRAINT tdocumento_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_trelacion trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_trelacion
+    ADD CONSTRAINT trelacion_pkey PRIMARY KEY (id);
 
 
 --
