@@ -8,6 +8,11 @@ Versión 2.2.0.beta3
 * Es posible especificar familiares de una persona desde la nueva sección
   Familiares del formulario de Persona.
 
+Versión 2.2.0.beta4
+
+* División política de Colombia actualizada acorde al DIVIPOLA del DANE
+  de Julio de 2023.  Ver
+  <https://gitlab.com/pasosdeJesus/msip/-/wikis/2023_07-Resumen-ejecutivo-de-la-actualizaci%C3%B3n-a-DIVIPOLA-2023-07>
 
 
 
