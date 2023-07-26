@@ -51,7 +51,7 @@ fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo
 * Pruebas
   * [Aplicación de prueba](aplicacion-de-prueba.md)
   * [Pruebas con minitest](pruebas-con-minitest.md)
-  * [Pruebas del sistema con sideex](pruebas-al-sistema-con-sideex.md)
+  * [Pruebas del sistema con puppeteer](pruebas-al-sistema-con-puppeteer.md)
 * Mantenimiento 
   * [Configurar copia de respaldo cifrada](respaldo-cifrado.md)
   * Vea ayudas para actualizaciones en el wiki de msip: [https://gitlab.com/pasosdeJesus/msip/wiki]

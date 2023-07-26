@@ -3,10 +3,18 @@ echo "=== Pruebas de regresión al sistema con Javascript"
 # Para ejecutar en navegador visible ejecutar con
 #  CONCABEZA=1 bin/pruebasjs
 
-export PUERTODES=33001
-export IPDES=127.0.0.1
-export RAILS_ENV=test
-export CONFIG_HOSTS=127.0.0.1
+if (test "$PUERTODES" = "") then {
+	export PUERTODES=33001;
+} fi;
+if (test "$IPDES" = "") then {
+	export IPDES=127.0.0.1
+} fi;
+if (test "$RAILS_ENV" = "") then {
+	export RAILS_ENV=test
+} fi;
+if (test "$CONFIG_HOSTS" = "") then {
+	export CONFIG_HOSTS=127.0.0.1
+} fi;
 
 fstat | grep ":${PUERTODES}" 
 if (test "$?" = "0") then {
@@ -19,16 +27,18 @@ if (test ! -f .env) then {
 } fi;
 . ./.env
 
-echo "=== Deteniendo"
-bin/detiene
+if (test "$IPDES" = "127.0.0.1") then {
+	echo "=== Deteniendo"
+	bin/detiene
 
-echo "=== Precompilando"
-bin/rails assets:precompile
+	echo "=== Precompilando"
+	bin/rails assets:precompile
 
-echo "=== Iniciando servidor"
-CONFIG_HOSTS=127.0.0.1 R=f bin/corre &
+	echo "=== Iniciando servidor"
+	CONFIG_HOSTS=127.0.0.1 R=f bin/corre &
 
-sleep 10;
+	sleep 10;
+} fi;
 
 echo "***"
 w3m -dump http://${IPDES}:${PUERTODES}/${RUTA_RELATIVA}
