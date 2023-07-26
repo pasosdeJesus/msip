@@ -9,35 +9,37 @@ Es posible correr la aplicación en en el mismo computador donde corre las
 pruebas puppeteer --siempre y cuando haya configurado el ambiente Ruby 
 on Rails, PostgreSQL y la base de datos para que opere la aplicación.
 
-En tal caso ejecute:
+En tal caso desde el directorio de la aplicación ejecute:
+```sh
 bin/pruebasjs
+```
 
-
-Pero si prefiere usar un sistema de ensayo/prueba corriendo en otro
-computador puede ejecutar las diversas pruebas con:
+Sin embargo, si prefiere usar un sistema de ensayo/prueba corriendo en otro
+computador (digamos `pruebas.miservidor.org` en puerto `4300`) puede ejecutar 
+las diversas pruebas con:
 
 ```sh
 IPDES=pruebas.miservidor.org PUERTODES=4300 bin/pruebasjs
 ```
 
 Esto supone que el usuario y la clave de autenticación como administrador
-se ha definido en el archivo .env en las variables `USUARIO_ADMIN_PRUEBA` y
+las ha definido en el archivo .env en las variables `USUARIO_ADMIN_PRUEBA` y
 `CLAVE_ADMIN_PRUEBA`.
 
 
 # Depurar
 
-Las pruebas típicamente corren en un navegador sin cabeza, es decir que 
-corre en el computador pero desconectado del vídeo, el teclado y el 
-ratón es decir sólo en memoria.
+Las pruebas típicamente corren en un navegador sin cabeza (del inglés 
+_headless_), es decir que el navegador se ejecuta en la memoría y CPU del
+computador pero desconectado del vídeo, del teclado y del ratón.
 
-La herramienta más visual para depurar las pruebas es ejecutarlas
+La primera herramienta (además visual) para depurar las pruebas es ejecutarlas
 en un navegador con cabeza, es decir que presente en pantalla lo que hace
-y que permita interacción con teclado y ratón (además de lo que
-emule la prueba).
+y que permita la interacción con el teclado y el ratón (además de lo que
+haga la prueba).
 
 Para esto ejecute de la misma manera explicada en la sección anterior pero
-agregando la variable de ambiente CONCABEZA=1 por ejemplo:
+agregando la variable de ambiente `CONCABEZA=1` por ejemplo:
 
 ```sh
 CONCABEZA=1 IPDES=pruebas.miservidor.org PUERTODES=4300 bin/pruebasjs
