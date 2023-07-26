@@ -18,7 +18,7 @@ import {
 (async () => {
 
 
-  let timeout = 5000;
+  let timeout = 15000;
   let urlini, browser, page;
   [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 

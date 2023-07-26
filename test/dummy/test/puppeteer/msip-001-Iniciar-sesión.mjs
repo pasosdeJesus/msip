@@ -20,7 +20,7 @@ import {
 
   let timeout = 5000;
   let urlini, browser, page;
-  [urlini, browser, page] = await prepararYAutenticarDeAmbiente();
+  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
 
 
   await browser.close();
