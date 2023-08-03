@@ -57,46 +57,6 @@ function MsipConvertirArregloAParam(a) {
 };
 
 
-/********
- BITACORA
-*********/
-
-function MsipCalcularCambiosParaBitacora() {
-  let bitacora = document.querySelector('input.bitacora_cambio')
-  if (bitacora == null) {
-    return { vacio: false };
-  }
-
-  if (typeof window.bitacora_estado_inicial_formulario != 'object') {
-    window.bitacora_estado_inicial_formulario = 
-      MsipSerializarFormularioEnArreglo( bitacora.closest('form') );
-    return { vacio: false };
-  }
-  window.bitacora_estado_final_formulario = 
-    MsipSerializarFormularioEnArreglo( bitacora.closest('form') );
-  cambio = {}
-  di = {} 
-  window.bitacora_estado_inicial_formulario.forEach( 
-    (v) => di[v.name] = v.value 
-  )
-  df = {} 
-  window.bitacora_estado_final_formulario.forEach((v) => {
-    df[v.name]=v.value
-    if (typeof di[v.name] == 'undefined') {
-      cambio[v.name] = [null, v.value]
-    }
-  });
-  for (const i in di) {
-    if (typeof df[i] == 'undefined') {
-      cambio[i] = [di[i], null]
-    } else if (df[i] != di[i] && i.search(/\[bitacora_cambio\]/) < 0) {
-      cambio[i] = [di[i], df[i]]
-    }
-  }
-  return cambio
-}
-
-
 /** Enviar AJAX
  * @param url Url
  * @param datos Cuerpo
