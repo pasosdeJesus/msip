@@ -52,13 +52,13 @@ export default class extends Controller {
       return { vacio: false };
     }
 
+    window.bitacora_estado_final_formulario = 
+      this.serializarFormularioEnArreglo( 
+        bitacora.closest('form') 
+      );
     if (typeof window.bitacora_estado_inicial_formulario != 'object') {
-      window.bitacora_estado_inicial_formulario = 
-        this.constructor.SerializarFormularioEnArreglo( bitacora.closest('form') );
       return { vacio: false };
     }
-    window.bitacora_estado_final_formulario = 
-      this.constructor.SerializarFormularioEnArreglo( bitacora.closest('form') );
     cambio = {}
     di = {} 
     window.bitacora_estado_inicial_formulario.forEach( 
