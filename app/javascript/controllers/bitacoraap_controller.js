@@ -90,7 +90,6 @@ export default class extends Controller {
   connect() {
     console.log('conectado controlador bitacoraap')
     let campo = document.querySelector('input.bitacora_cambio')
-    debugger
     if (campo != null) {
       window.bitacora_estado_inicial_formulario =
         this.constructor.serializarFormularioEnArreglo( 
