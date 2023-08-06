@@ -59,12 +59,12 @@ export default class extends Controller {
     if (typeof window.bitacora_estado_inicial_formulario != 'object') {
       return { vacio: false };
     }
-    cambio = {}
-    di = {} 
+    let cambio = {}
+    let di = {} 
     window.bitacora_estado_inicial_formulario.forEach( 
       (v) => di[v.name] = v.value 
     )
-    df = {} 
+    let df = {} 
     window.bitacora_estado_final_formulario.forEach((v) => {
       df[v.name]=v.value
       if (typeof di[v.name] == 'undefined') {
