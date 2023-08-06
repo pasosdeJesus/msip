@@ -28,6 +28,7 @@ module Msip
               :sigla,
               :formatoregex,
               :observaciones,
+              :ayuda,
               :fechacreacion_localizada,
               :habilitado,
             ]
