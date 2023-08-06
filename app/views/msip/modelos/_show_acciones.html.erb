@@ -8,7 +8,9 @@
 
 <% if can?(:edit, @registro) %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-    edit_modelo_path(@registro), :class => 'btn' %>
+    edit_modelo_path(@registro),
+    "data-turbo": false,
+    :class => 'btn' %>
 <% end %>
 <% rutamas = clase.pluralize.underscore + '/show_mas_acciones' %>
 <% if lookup_context.find_all( rutamas, [], true).any? %>
