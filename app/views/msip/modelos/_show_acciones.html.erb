@@ -9,7 +9,7 @@
 <% if can?(:edit, @registro) %>
   <%= link_to t('.edit', default: t("helpers.links.edit")),
     edit_modelo_path(@registro), class: 'btn',
-    "data-turbo": false # asegurasmos cargar controladores stimulus del formulario %>
+    "data-turbo": false %>
 <% end %>
 <% rutamas = clase.pluralize.underscore + '/show_mas_acciones' %>
 <% if lookup_context.find_all( rutamas, [], true).any? %>
