@@ -20,6 +20,13 @@ module Msip
       @current_ability ||= ::Ability.new(current_usuario)
     end
 
+
+    # Evitar WEBrick: RequestURITooLarge según 
+    # https://stackoverflow.com/questions/8333158/webrick-requesturitoolarge-should-i-update-or-use-a-different-server
+    if defined?(WEBrick)
+      WEBrick::HTTPRequest.const_set("MAX_URI_LENGTH", 124000)
+    end
+
     protected
 
     def configure_permitted_parameters
