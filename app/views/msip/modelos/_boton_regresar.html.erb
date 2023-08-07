@@ -1,0 +1,8 @@
+<% clases = "btn " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+<%= link_to t('.back', default: t("helpers.links.back")),
+  modelos_path(registro), 
+  class: clases
+%>

@@ -1,0 +1,20 @@
+<% clases = "btn btn-danger " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+<%= link_to t('.destroy', default: t("helpers.links.destroy")),
+  modelo_path(registro),
+  method: :delete,
+  data: {
+    turbo: false,
+    confirm: t(
+      '.confirm',
+      default: t(
+        "helpers.links.confirm",
+        default: '¿Está seguro(a)?'
+      )
+    ),
+    'turbo-method': 'delete'
+  },
+  class: clases
+%>

@@ -1,0 +1,9 @@
+<% clases = "btn " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+<%= link_to t(".edit", default: t("helpers.links.edit")),
+  edit_modelo_path(registro), 
+  class: clases,
+  "data-turbo": false 
+%>
