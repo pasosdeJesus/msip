@@ -1,0 +1,9 @@
+<% clases = "btn btn-primary " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+<%= link_to t(".new", :default => "Nuevo"), 
+  ruta,
+  class: clases
+%>
+
