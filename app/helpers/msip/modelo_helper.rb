@@ -218,7 +218,11 @@ module Msip
       if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
         valorsp
       else
-        Msip::Usuario.connection.quote_string(params[:filtro][s])
+        if params[:filtro][s].kind_of?(Array)
+          params[:filtro][s].map {|c| Msip::Usuario.connection.quote_string(c)}
+        else
+          Msip::Usuario.connection.quote_string(params[:filtro][s])
+        end
       end
     end
 
