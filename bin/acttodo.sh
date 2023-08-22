@@ -30,9 +30,12 @@ function actuno {
   if (test "$?" != 0) then {
     exit 1;
   } fi;
-  rer=`bundle config get path | grep ".*local.*:" | sed -e "s/.*\"\(.*\)\"/\1/g"`
+  rer=`bundle config get path | grep ":" | sed -e "s/.*\"\(.*\)\"/\1/g"`
+  echo "OJO rer=$rer"
   rubyver=`ruby -v | sed -e "s/^[^ ]* \([0-9].[0-9]\).*/\1/g"`
+  echo "OJO rubyver=$rubyver"
   rutapore="$rer/ruby/$rubyver/cache/bundler/git/"
+  echo "OJO rutapore=$rutapore"
   if (test -d "$rutapore") then {
     echo "rm -rf $rutapore/*"
     rm -rf $rutapore/*
