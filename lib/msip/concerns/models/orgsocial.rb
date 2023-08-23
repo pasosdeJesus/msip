@@ -106,8 +106,11 @@ module Msip
             self["grupoper_id"] ?  grupoper.nombre : ""
           end
 
-          scope :filtro_grupoper_id, lambda { |g|
-            where("grupoper_id=?", g)
+          scope :filtro_grupoper_id, lambda { |n|
+            joins(:grupoper).where(
+              "unaccent(msip_grupoper.nombre) ILIKE "\
+              "'%' || unaccent(?) || '%'", n.to_s
+            )
           }
 
           scope :filtro_habilitado, lambda { |o|

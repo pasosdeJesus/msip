@@ -1,12 +1,6 @@
 <%= f.input :busgrupoper_id,
-  collection: Msip::Grupoper.where('id IN (SELECT grupoper_id FROM msip_orgsocial)'),
   label: false,
-  include_blank: true,
-  label_method: :presenta_nombre,
-  value_method: :id,
-  selected: Msip::ModeloHelper.poromision(params, :busgrupoper_id),
   input_html: {
-    class: 'chosen-select',
     'data-enviarautomatico' => ''
   }
 %>
