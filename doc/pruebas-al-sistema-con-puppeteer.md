@@ -1,4 +1,3 @@
-
 # Correr pruebas del sistema con puppeteer en aplicaciones basadas en msip
 
 Las pruebas al sistema con pupeeteer requieren una aplicación de prueba o de
@@ -50,8 +49,7 @@ el archivo `.env` y use `node` para cargar la prueba
 (`msip-003-tb-departamentos.mjs` en el siguiente ejemplo):
 
 ``` 
-(export CONCABEZA=1; export IPDES=pruebas.miservidor.org;\
- export PUERTODES=4300; . ./.env; \
+(. ./.env; CONCABEZA=1; IPDES=pruebas.miservidor.org; PUERTODES=4300; \
  node test/puppeteer/msip-003-tb-departamentos.mjs )
 ```
 
@@ -60,8 +58,7 @@ Chrome Developers 2022, agregue `debugger` en la parte de la prueba donde
 desea detenerla y ejecute con `--inspect-brk`
 
 ``` 
-(export CONCABEZA=1; export IPDES=pruebas.miservidor.org;\
- export PUERTODES=4300; . ./.env; \
+(. ./.env; CONCABEZA=1; IPDES=pruebas.miservidor.org; PUERTODES=4300; \
  node --inspect-brk test/puppeteer/msip-003-tb-departamentos.mjs )
 ```
 
