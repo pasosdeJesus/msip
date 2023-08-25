@@ -316,6 +316,9 @@ import {
   }
   {
     const targetPage = page;
+    const promises = []; 
+    promises.push(targetPage.waitForNavigation());
+
     targetPage.on('dialog', async dialog => {
       console.log(dialog.message());
       await dialog.accept(); //dismiss()
@@ -337,7 +340,7 @@ import {
         y: 13.3125,
       },
     });
-    //await Promise.all(promises);
+    await Promise.all(promises);
   }
 
   {
