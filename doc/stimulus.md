@@ -35,6 +35,7 @@ Marca en el HTML generado 3 tipos de elementos:
    >
   ```
 
+
 ## Cambio a generadores automáticos de formularios para agregar atributos Stimulus
 
 Como es estándar de msip puedes usar los mecanismos típicos de rails para
