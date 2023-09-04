@@ -51,7 +51,7 @@ agregar los atributos requeridos por stimulus a los elementos HTML:
    dos controladores:
    ```
     def atributos_html_encabezado_formulario
-      {'data-controller': 'msip--sindocaut persona-ppt'
+      {'data-controller': 'msip--sindocaut persona-ppt'}
     end
    ```
 
