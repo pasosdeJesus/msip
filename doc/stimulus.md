@@ -29,7 +29,7 @@ Marca en el HTML generado 3 tipos de elementos:
    los elementos objetivo. A cada uno agregale un atributo de
    la forma `data-action='*evento*->*controlador*#*metodo*'`.
    Por ejemplo 
-   ```
+  ```
    <input id='ultimoestatusmigratorio_id'
      data-action='change->persona_ppt#cambia_ultimoestatusmigratorio'
    >
