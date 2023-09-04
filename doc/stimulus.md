@@ -18,7 +18,7 @@ Marca en el HTML generado 3 tipos de elementos:
    (podría haber varías áreas y los eventos se limitarán al área circundante
    al elemento que genera la acción).  Por ejemplo un `div` o un `form` a los
    que debes agregar un atributo de la forma 
-   `data-controller='*controlador*'`, por ejemplo 
+   `data-controller='_controlador_'`, por ejemplo 
    `<form data-controller='persona-ppt'>`.
 2. Uno o varios elementos que sean objetivos (*target*) bien para extraer 
    información de ellos o bien para establecer su valor o propiedades.
