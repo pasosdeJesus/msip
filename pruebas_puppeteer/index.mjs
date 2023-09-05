@@ -17,7 +17,9 @@ export async function preparar(timeout = 5000, rutainicial = '/msip') {
   //console.log("sincabeza=", sincabeza);
   let browser = null;
   if (typeof process.env.CI == "string") {
+    ep = require('puppeteer').executablePath();
     browser = await puppeteer.launch({
+      executablePath: ep,
       defaultViewport: { width: 1240, height: 800},
       headless: sincabeza,
       args: [
