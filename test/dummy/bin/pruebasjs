@@ -48,11 +48,23 @@ cd test/puppeteer
 yarn cache clean
 yarn upgrade
 yarn
+t=0
+np=0
 for i in *.mjs; do
   echo "Ejecutando $i"
-  node $i
+  node $i | tee /tmp/pruebasjs.bitacora
+  te=`grep Tiempo /tmp/pruebasjs.bitacora | sed -e "s/.*: //g;s/ ms//g"`
+  if (test "$?" = "0") then {
+    echo "te=$te"
+    t=`ruby -e "puts $t + $te"`
+    np=`expr $np + 1`
+  } fi;
 done
 
+echo "Pruebas con medición de tiempo: $np"
+echo "Tiempo total: $t"
+prom=`ruby -e "puts $t / $np"`
+echo "Promedio: $prom"
 cd ../..
 bin/detiene &
 

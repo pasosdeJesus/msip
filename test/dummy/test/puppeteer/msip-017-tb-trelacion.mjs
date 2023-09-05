@@ -17,6 +17,8 @@ import {
 
 (async () => {
 
+  const tiempoini = performance.now();
+
   let timeout = 5000;
   let urlini, browser, page;
   [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
@@ -362,6 +364,8 @@ import {
 
   await browser.close();
 
+  const tiempofin = performance.now();
+  console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
 
 })().catch(err => {
   console.error(err);
