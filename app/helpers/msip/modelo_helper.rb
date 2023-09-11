@@ -234,6 +234,18 @@ module Msip
       end
     end
 
+    def poromision_con2p(params, p1,  p2, s, 
+                              valorsp = "")
+      if !params || !params[p1] || !params[p1][p2] ||
+          !params[p1][p2][s]
+        valorsp
+      else
+        Msip::Usuario.connection.quote_string(params[p1][p2][s])
+      end
+    end
+    module_function :poromision_con2p
+
+
     # Convierte un atributo a nombre de filtro (dejando solo letras numeros y _)
     def self.nom_filtro(atr)
       atr.to_s.gsub(/[^a-z_A-Z0-9]/, "")

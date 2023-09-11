@@ -42,14 +42,19 @@
   <% atinternos = atributos_internos %>
 <% end %>
 
-
-
+<% #debugger %>
 
 <% alf = @registro.class.asociacion_llave_foranea(atr) %>
 <% vatr = atr.to_s.gsub(/[^a-z_A-Z0-9]/, '') %>
 <% rtavatr = clase.pluralize.underscore + "/campo_#{vatr}" %>
 <% (ri, rm, rd)=clase.pluralize.underscore.rpartition("/") %>
 <% regatr = atr.class == Hash ? @registro.send(atr.keys.first) : @registro.send(atr) %>
+<% conetiqueta = true %>
+<% if defined?(opciones) && opciones.keys && 
+    opciones.keys.include?(:etiqueta) && opciones[:etiqueta] === false %>
+  <% conetiqueta = false %>
+<% end %>
+
 <% valorp = Msip::ModeloHelper.poromision_sf(
   params, atr, regatr) %>
 <% #byebug %>
@@ -77,6 +82,7 @@
     collection: col.order(nclase.send(:orden_presenta_nombre)),
     label_method: :presenta_nombre,
     value_method: :id,
+    label: conetiqueta,
     disabled: desh,
     include_blank: true,
     input_html: atinternos,
@@ -129,7 +135,6 @@
   @registro.class.columns_hash[atr.to_s] || 
   @registro.class.columns_hash[atr] ) %>
   <% # Escogemos el control %>
-  <% #byebug %>
   <% col = @registro.class.columns_hash[atr.to_s] || 
   @registro.class.columns_hash[atr.to]  %>
   <% if col && col.type == :date then %>
@@ -137,6 +142,7 @@
     <% atinternos.merge!({ type: 'date' }) %>
     <%= f.input atr.to_sym, 
       as: :string,
+      label: conetiqueta,
       input_html: atinternos,
       wrapper_html: atexternos %>
   <% elsif col && col.type == :integer %>
