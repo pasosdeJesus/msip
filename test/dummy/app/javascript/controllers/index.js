@@ -13,9 +13,6 @@ application.register("msip--bitacoraap", Msip__BitacoraapController)
 import Msip__CancelarVacioEsEliminarController from "./msip/cancelar_vacio_es_eliminar_controller"
 application.register("msip--cancelar-vacio-es-eliminar", Msip__CancelarVacioEsEliminarController)
 
-import Msip__EnlaceenviadatosController from "./msip/enlaceenviadatos_controller"
-application.register("msip--enlaceenviadatos", Msip__EnlaceenviadatosController)
-
 import Msip__FiltroTanController from "./msip/filtro_tan_controller"
 application.register("msip--filtro-tan", Msip__FiltroTanController)
 
