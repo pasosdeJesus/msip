@@ -49,7 +49,7 @@
 <% rtavatr = clase.pluralize.underscore + "/campo_#{vatr}" %>
 <% (ri, rm, rd)=clase.pluralize.underscore.rpartition("/") %>
 <% regatr = atr.class == Hash ? @registro.send(atr.keys.first) : @registro.send(atr) %>
-<% conetiqueta = true %>
+<% conetiqueta = nil %>
 <% if defined?(opciones) && opciones.keys && 
     opciones.keys.include?(:etiqueta) && opciones[:etiqueta] === false %>
   <% conetiqueta = false %>
