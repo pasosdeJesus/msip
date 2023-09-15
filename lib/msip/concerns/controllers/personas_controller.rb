@@ -45,16 +45,24 @@ module Msip
             atributos_show_msip
           end
 
-          def atributos_index
+          def atributos_index_msip
             atributos_show - [:familiares]
           end
 
-          def atributos_form
+          def atributos_index
+            atributos_index_msip
+          end
+
+          def atributos_form_msip
             a = atributos_show - [:etiqueta_ids, :familiares] + 
               [:persona_trelacion1] + [
                 etiqueta_ids: []
               ]
             a
+          end
+
+          def atributos_form
+            atributos_form_msip
           end
 
           def atributos_html_encabezado_formulario
