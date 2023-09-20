@@ -112,6 +112,10 @@ Preferimos la convención tradicional de SQL y por lo mismo los modelos
 también deben especificarse en singular, sin embargo si mantenemos
 la convención de controladores y vistas en plural.
 
+En el caso de tablas combinadas cuyo nombre se componga de dos palabras,
+si es relación 1 a n para el nombre del controlador dejar en plural la 
+tabla que es n y en singular la que es 1, por ejemplo `aportes_persona`.  
+Si es una relación n a n dejar en plural ambas por ejemplo `casos_fuentes.`
 
 # Ruby
 
