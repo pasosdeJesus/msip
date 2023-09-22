@@ -4,7 +4,7 @@
 
 "@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main":
   version "0.0.9-a7"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#e0b5751f3342b60ea8ce4ac1910792f352a2b284"
+  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#3874e473baa15e7aad5c0a48cdedea42f9cea610"
 
 "@puppeteer/browsers@1.4.6":
   version "1.4.6"
@@ -25,9 +25,9 @@
   integrity sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==
 
 "@types/node@*":
-  version "20.6.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.1.tgz#8b589bba9b2af0128796461a0979764562687e6f"
-  integrity sha512-4LcJvuXQlv4lTHnxwyHQZ3uR9Zw2j7m1C9DfuwoTFQQP4Pmu04O6IfLYgMmHoOCt0nosItLLZAH+sOrRE0Bo8g==
+  version "20.6.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.3.tgz#5b763b321cd3b80f6b8dde7a37e1a77ff9358dd9"
+  integrity sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==
 
 "@types/yauzl@^2.9.1":
   version "2.10.0"
