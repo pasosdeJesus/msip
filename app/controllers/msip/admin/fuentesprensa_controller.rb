@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "msip/concerns/controllers/fuentesprensa_controller"
+
 module Msip
   module Admin
     class FuentesprensaController < Msip::Admin::BasicasController
@@ -7,17 +9,8 @@ module Msip
         only: [:show, :edit, :update, :destroy]
       load_and_authorize_resource class: Msip::Fuenteprensa
 
-      def clase
-        "Msip::Fuenteprensa"
-      end
+      include Msip::Concerns::Controllers::FuentesprensaController
 
-      def set_fuenteprensa
-        @basica = Fuenteprensa.find(params[:id])
-      end
-
-      def fuenteprensa_params
-        params.require(:fuenteprensa).permit(*atributos_form)
-      end
     end
   end
 end
