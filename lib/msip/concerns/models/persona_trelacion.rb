@@ -27,6 +27,7 @@ module Msip
           accepts_nested_attributes_for :trelacion, reject_if: :all_blank
 
           validates_uniqueness_of :persona1, scope: [:persona2, :trelacion_id]
+
         end
       end
     end

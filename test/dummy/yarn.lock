@@ -1313,7 +1313,7 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.8.tgz#f44e7517f2d1570f1eabeea457dbeb17ed3a2d12"
   integrity sha512-GjYQv89ZOOfbFw8VMNUOG33GXzyAA/TCVoD+742Ob4svm1XXUkd+w+ewqUXd+7VHQtV35y1/O78AGIPeJDTy/g==
 
-"@rails/ujs@^7.0.1":
+"@rails/ujs@^7.0.8":
   version "7.0.8"
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.8.tgz#59853367d0827b3955d2c4bedfd5eba4a79d3422"
   integrity sha512-tOQQBVH8LsUpGXqDnk+kaOGVsgZ8maHAhEiw3Git3p88q+c0Slgu47HuDnL6sVxeCfz24zbq7dOjsVYDiTpDIA==
