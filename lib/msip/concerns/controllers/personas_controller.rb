@@ -46,7 +46,7 @@ module Msip
           end
 
           def atributos_index_msip
-            atributos_show - [:familiares]
+            atributos_show_msip - [:familiares]
           end
 
           def atributos_index
@@ -54,7 +54,7 @@ module Msip
           end
 
           def atributos_form_msip
-            a = atributos_show - [:etiqueta_ids, :familiares] + 
+            a = atributos_show_msip - [:etiqueta_ids, :familiares] + 
               [:persona_trelacion1] + [
                 etiqueta_ids: []
               ]
