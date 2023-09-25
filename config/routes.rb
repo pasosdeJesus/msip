@@ -74,6 +74,9 @@ Msip::Engine.routes.draw do
   #  resources :usuarios, path_names: { new: 'nuevo', edit: 'edita' }
 
   namespace :admin do
+    get "/trelaciones/validar_conjunto" => "trelaciones#validar_conjunto",
+      as: :trelaciones_validar_conjunto
+
     ab = Ability.new
     ab.tablasbasicas.each do |t|
       next unless t[0] == "Msip"
@@ -82,6 +85,7 @@ Msip::Engine.routes.draw do
       resources c.to_sym,
         path_names: { new: "nueva", edit: "edita" }
     end
+
   end
 
   root "hogar#index"
