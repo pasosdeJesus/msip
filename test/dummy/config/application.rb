@@ -49,7 +49,8 @@ module Dummy
       ENV.fetch("CONFIG_HOSTS", "defensor.info").downcase.split(";"),
     )
 
-    # config.web_console.permissions = ['186.154.35.237']
+    config.web_console.permissions = ENV.fetch("WEB_CONSOLE_PERMISSIONS", "").
+      split(",")
 
     # La siguiente puede producir rutas /msip/msip en las pruebas
     # En general debe bastar dejarla solo en
