@@ -50,26 +50,8 @@ module Msip
             end
           end
 
-          # Validaciones al conjunto de trelaciones
-          def validar_conjunto
-            authorize! :validar, Msip::Trelacion
-            # No manejamos filtro 
-
-            @titulo_validar_conjunto = "Validaciones de tipos de relaciones familiares"
-            @validaciones = []
-            #debugger
-            @url = msip.admin_trelaciones_validar_conjunto_path
-
-            validar_conjunto_inv_inv_identidad(@validaciones)
-
-            respond_to do |format|
-                format.html { 
-                  render 'msip/modelos/validar_conjunto', 
-                layout: 'application' 
-              }
-              format.json { head :no_content }
-              format.js   { head :no_content }
-            end
+          def lista_validaciones_conjunto
+            [:validar_conjunto_inv_inv_identidad]
           end
 
           def trelacion_params

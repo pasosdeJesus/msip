@@ -24,6 +24,17 @@ Msip::Engine.routes.draw do
   get "/personas/identificacionsd" => "personas#identificacionsd",
     as: :personas_identificacionsd
 
+  get "/personas/remplazarfamiliar" => "personas#remplazarfamiliar",
+    as: :personas_remplazarfamiliar
+
+  post '/personas/crear_familiar' => 'persona_trelaciones#create',
+    as: :crear_familiar
+  post '/personas/eliminar_familiar' => 'persona_trelaciones#destroy',
+    as: :eliminar_familiar
+
+  get "/personas/validar_conjunto" => "personas#validar_conjunto",
+    as: :personas_validar_conjunto
+
   post '/personas/unificar' => 'personas#unificar',
     as: :personas_unificar
   get '/personas/unificar' => 'personas#unificar',

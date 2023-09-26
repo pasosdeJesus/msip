@@ -1,0 +1,8 @@
+<%= simple_form_for @persona do |f| %>
+  <%= f.simple_fields_for :persona_trelacion1,
+    child_index: params[:index] do |subf| %>
+    <%= turbo_stream.append "persona_trelacion1_marco" do %>
+      <%= render "msip/personas/persona_trelacion1_campos", f: subf %>
+    <% end %>
+  <% end %>
+<% end %>

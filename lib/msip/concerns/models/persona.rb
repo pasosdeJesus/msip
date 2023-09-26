@@ -251,16 +251,6 @@ module Msip
           validate :vfechanac
           validate :vformatonumdoc
 
-          def vformatonumdoc
-            if tdocumento && tdocumento.formatoregex != "" &&
-                !(numerodocumento =~ Regexp.new("^#{tdocumento.formatoregex}$"))
-              menserr = "Número de documento con formato errado."
-              if tdocumento.ayuda
-                menserr += " #{tdocumento.ayuda}"
-              end
-              errors.add(:numerodocumento, menserr)
-            end
-          end
 
           def vfechanac
             anioactual = Time.now.strftime("%Y").to_i
@@ -291,6 +281,18 @@ module Msip
               errors.add(:dianac, "Dia debe ser menor o igual a 31")
             end
           end
+
+          def vformatonumdoc
+            if tdocumento && tdocumento.formatoregex != "" &&
+                !(numerodocumento =~ Regexp.new("^#{tdocumento.formatoregex}$"))
+              menserr = "Número de documento con formato errado."
+              if tdocumento.ayuda
+                menserr += " #{tdocumento.ayuda}"
+              end
+              errors.add(:numerodocumento, menserr)
+            end
+          end
+
 
           def fechanac
             r = ""

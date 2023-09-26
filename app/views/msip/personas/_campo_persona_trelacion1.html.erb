@@ -1,3 +1,6 @@
+<datalist id="fuente-familiares">
+</datalist>
+
 <div class="accordion" id="acordeonlc-<%= f.object.id %>">
   <%= item_acordeon_bs(
     'acordeonlc', "colapsalc-#{f.object.id}", 
@@ -6,31 +9,40 @@
       'clase_accordion-body': 'table-responsive',
       'estilo_accordion-body': 'overflow-x:scroll'
     }) do %>
-    <table class="table table-bordered table-sm tabla_familiares ">
-      <thead class="thead-light">
-        <tr>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Sexo</th>
-          <th width='6em'>Tipo Id.</th>
-          <th>Número .Id</th>
-          <th>Parentesco</th>
-        </tr>
-      </thead>
-      <tbody id="persona_familiares_<%= f.object.id %>">
+    <% if f.object.id.nil? %>
+      Una vez guarde este registro y vuelva a editar podrá agregar familiares
+      <% return %>
+    <% end %>
+    <div class="div-tabla tabla_familiares">
+      <div id="persona_trelacion1_marco" class="div-tabla-cuerpo">
+        <div class="div-tabla-fila"> 
+          <div class="div-tabla-celda">Nombres</div>
+          <div class="div-tabla-celda">Apellidos</div>
+          <div class="div-tabla-celda">Sexo</div>
+          <div class="div-tabla-celda">Tipo Id.</div>
+          <div class="div-tabla-celda">Número Id.</div>
+          <div class="div-tabla-celda">Parentesco</div>
+          <div class="div-tabla-celda">Acciones</div>
+        </div> 
         <%= f.simple_fields_for :persona_trelacion1 do |pt| %>
-          <%= render 'msip/personas/persona_trelacion1_campos', f: pt %>
+          <%= render partial: "msip/personas/persona_trelacion1_campos", 
+            locals: {f: pt} %>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    </div>
     <div class="links">
-      <%= link_to_add_association 'Añadir Familiar', f, 
-        :persona_trelacion1,
-        :"data-association-insertion-node" => "tbody#persona_familiares_#{f.object.id}", 
-        :"data-association-insertion-method" => "append", 
-        partial: 'msip/personas/persona_trelacion1_campos',
-        :class => 'btn btn-sm btn-primary'
-      %>
+      <%= f.submit "Agregar Familiar",
+        formaction: msip.crear_familiar_path(
+          index: @persona.persona_trelacion1.size
+        ),
+        formmethod: :post,
+        formnovalidate: true,
+        class: 'btn btn-sm btn-primary',
+        name: "agregar-familiar",
+        id: "agregar-familiar",
+        "data-x": "x",
+        "data-disable_with": false
+       %>
     </div>
   <% end %>
 </div> <!-- accordion -->

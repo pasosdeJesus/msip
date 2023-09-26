@@ -28,6 +28,15 @@ module Msip
 
           validates_uniqueness_of :persona1, scope: [:persona2, :trelacion_id]
 
+          validate :vdiferentes
+          def vdiferentes
+            if persona1 == persona2
+              errors.add(:persona1, 
+                         "Una persona no puede ser familiar de si misma")
+            end
+          end
+
+
         end
       end
     end

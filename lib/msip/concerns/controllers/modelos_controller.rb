@@ -603,6 +603,34 @@ module Msip
             destroy_gen(mens, verifica_tablas_union)
           end
 
+          # Lista de nombres de funciones que efecutan validaciones
+          def lista_validaciones_conjunto
+            []
+          end
+
+          # Validaciones al conjunto de registros
+          def validar_conjunto
+            authorize! :validar, clase.constantize
+            # No manejamos filtro 
+
+            @validaciones = []
+            #debugger
+
+            lista_validaciones_conjunto.each do  |v|
+              send(v,  @validaciones)
+            end
+
+            respond_to do |format|
+                format.html { 
+                  render 'msip/modelos/validar_conjunto', 
+                layout: 'application' 
+              }
+              format.json { head :no_content }
+              format.js   { head :no_content }
+            end
+          end
+
+
           # Nombre del modelo
           def clase
             "Msip::ModelosCambiar"

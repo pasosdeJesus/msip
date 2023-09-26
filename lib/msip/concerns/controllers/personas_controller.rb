@@ -118,8 +118,22 @@ module Msip
             index_msip(c)
           end
 
-          # Remplaza persona por la elegida por el usuario en autocompletación
           def remplazar
+          end
+
+          # Remplaza familiar por uno elegido en autocompletación
+          def remplazarfamiliar
+            debugger
+            @persona = Msip::Persona.find(params[:persona1_id].to_i)
+            @personados = Msip::Persona.find(params[:persona_id].to_i)
+            @cocoon = params[:cocoon_id]
+            respond_to do |format|
+              format.html {
+                render("/msip/personas/remplazar_familiar",
+                       layout: false)
+                return
+              }
+            end
           end
 
           def datos_complementarios(oj)
@@ -233,6 +247,23 @@ module Msip
               return nil
             end
             persona
+          end
+
+          def validar_conjunto_familiar_diferente(validaciones)
+            cp = Msip::PersonaTrelacion.joins(:personauno).
+              where('persona1=persona2')
+            if cp.count > 0 
+              validaciones << {
+                titulo: "Personas familiares de si mismas",
+                encabezado: ["Código", "Nombres", "Apellidos", "Relación"],
+                cuerpo: cp.pluck(:id, :nombres, :apellidos, :trelacion_id),
+                enlaces: cp.map {|p| msip.edit_persona_path(p.id)}
+              }
+            end
+          end
+
+          def lista_validaciones_conjunto
+            [:validar_conjunto_familiar_diferente]
           end
 
           def set_persona
