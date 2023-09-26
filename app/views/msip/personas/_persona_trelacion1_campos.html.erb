@@ -75,6 +75,8 @@
           label: false %>
       </div>
       <div class="div-tabla-celda">
+        <%= f.input :id, as: :hidden %>
+ 
         <%= p.submit "Eliminar", 
           formaction: msip.eliminar_familiar_path(
             id: f.object.id, index: f.index
@@ -86,6 +88,18 @@
             turbo_frame: "persona_trelacion1_#{f.index}",
             disable_with: false
           } %>
+        <%= p.submit "Actualizar", 
+          formaction: msip.actualizar_familiar_path(
+            id: f.object.id, index: f.index
+          ),
+          formmethod: :post, 
+          formnovalidate: true, 
+          class: 'btn btn-sm',
+          data: { 
+            turbo_frame: "persona_trelacion1_#{f.index}",
+            disable_with: false
+          } %>
+
       </div>
     <% end %>
 <% end %>

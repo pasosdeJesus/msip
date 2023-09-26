@@ -27,9 +27,11 @@ Msip::Engine.routes.draw do
   get "/personas/remplazarfamiliar" => "personas#remplazarfamiliar",
     as: :personas_remplazarfamiliar
 
-  post '/personas/crear_familiar' => 'persona_trelaciones#create',
+  post '/persona_trelaciones/actualizar' => 'persona_trelaciones#update',
+    as: :actualizar_familiar
+  post '/persona_trelaciones/crear' => 'persona_trelaciones#create',
     as: :crear_familiar
-  post '/personas/eliminar_familiar' => 'persona_trelaciones#destroy',
+  delete '/persona_trelaciones/eliminar' => 'persona_trelaciones#destroy',
     as: :eliminar_familiar
 
   get "/personas/validar_conjunto" => "personas#validar_conjunto",

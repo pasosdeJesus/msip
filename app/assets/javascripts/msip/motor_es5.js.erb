@@ -1,5 +1,7 @@
 'use strict';
 
+//= require msip/AutocompletaAjaxFamiliares
+
 // Motor con funciones en Javascript ES6 puro (sin CoffeeScript y sin jQuery)
 // Capitalización Camello. Comienzan con Msip sigue Verbo en infinitivo y más.
 
@@ -232,6 +234,9 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
   })
 }
 
+function MsipIniciar() {
+  MsipAutocompletaAjaxFamiliares.iniciar();
+}
 
 // MACHETE PARA MEDIO SOPORTAR PAQUETES ESTILO COMMONJS EN NAVEGADOR
 // REQUIRE CAMBIAR USOS QUE SE HACIAN DE root = exports PARA QUE SEAN root =

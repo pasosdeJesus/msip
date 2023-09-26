@@ -10,7 +10,6 @@ module Msip
           include ActionView::Helpers::AssetUrlHelper
 
           before_action :set_persona, only: [:show, :edit, :update, :destroy]
-          load_and_authorize_resource class: Msip::Persona
 
           def clase
             "Msip::Persona"
@@ -119,21 +118,6 @@ module Msip
           end
 
           def remplazar
-          end
-
-          # Remplaza familiar por uno elegido en autocompletación
-          def remplazarfamiliar
-            debugger
-            @persona = Msip::Persona.find(params[:persona1_id].to_i)
-            @personados = Msip::Persona.find(params[:persona_id].to_i)
-            @cocoon = params[:cocoon_id]
-            respond_to do |format|
-              format.html {
-                render("/msip/personas/remplazar_familiar",
-                       layout: false)
-                return
-              }
-            end
           end
 
           def datos_complementarios(oj)

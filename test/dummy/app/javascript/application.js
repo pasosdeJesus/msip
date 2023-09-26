@@ -39,6 +39,7 @@ promesaRecursosSprocketsYDocumento.then((mensaje) => {
   var root;
   root = window;
   msip_prepara_eventos_comunes(root);
+  MsipIniciar();
 })
 
 

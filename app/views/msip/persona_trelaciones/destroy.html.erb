@@ -1,7 +1,7 @@
-<%= fields model: @persona do |f| %>
+<%= simple_form_for @persona do |f| %>
   <%= f.simple_fields_for :persona_trelacion1,
     child_index: params[:index] do |subf| %>
-    <%= turbo_frame_tag "pesona_trelacion1_#{subf.index}" do %>
+    <%= turbo_frame_tag "persona_trelacion1_#{subf.index}" do %>
       <%= subf.hidden_field :id, value: params[:id] %>
       <%= subf.hidden_field :_destroy, value: true %>
     <% end %>
