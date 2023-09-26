@@ -1,9 +1,21 @@
+<%- model_class = clase.constantize -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => @titulo_validar_conjunto %></h1>
+<div class="page-header">
+  <h1>
+    <% if defined?(@titulo) %>
+      <%= @titulo %>
+    <% else %>
+      <%=t '.title', 
+        :default => [
+          t("Validar ") + " " + model_class.human_attribute_name(
+      model_class.model_name.to_s.demodulize.pluralize) 
+        ] %>
+    <% end %>
+  </h1>
 </div>
 
 <%= simple_form_for clase.constantize.new, 
-  :url => @url,
+  :url => { action: "validar_conjunto" },
   :html => { :class => 'form-horizontal' } do |f| 
 %>
   <div data-role="content" class="form-inputs">

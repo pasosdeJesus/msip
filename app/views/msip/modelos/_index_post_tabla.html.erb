@@ -14,7 +14,12 @@
         <%= render partial: 'index_boton_nuevo', locals: {f: f} %>
       <% end %>
     <% end %>
-    <%= render partial: 'index_post_mas_botones', locals: {f: f} %>
+    <% rutaf = clase.pluralize.underscore + '/index_post_mas_botones' %>
+    <% if lookup_context.find_all(rutaf, [], true).any? %>
+      <%= render partial: rutaf, locals: {f: f} %>
+    <% else %>
+      <%= render partial: 'index_post_mas_botones', locals: {f: f} %>
+    <% end %>
 
   </div>
 </div>
