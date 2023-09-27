@@ -71,14 +71,15 @@ personas relacionadas:
 | YE | NUERA/YERNO            | SG      | SUEGRA(O) |
 
 
-Un par de propiedades de los tipos de relacion:
-* Todo tipo de relacion (r) debe tener un inverso (-r)
-* Dada un tipo de relacion, el inverso de su inverso es el mismo tipo -(-r)=r
+Un par de propiedades de los tipos de relación:
+* Todo tipo de relación (r) debe tener un inverso (-r)
+* Dada un tipo de relación, el inverso de su inverso es el mismo tipo -(-r)=r
 
 En msip estas propiedades se validan en el modelo y para el conjunto de registros.
 
 Y en personas:
 * Una persona no es familiar de si misma.
+* Para un para de personas p1,p2 debe haber a lo sumo una relación
 * Si p1 se relaciona con tipo de relacion r con p2,  debe relacionarse p2 con tipo de relacion inversa -r con p1.
 
-En msip la primera propiedad se valida y la segunda se garantiza con triggers que se han implemetando para operaciones de creacion, eliminacion y modificacion de la tabla `persona_trelacion`.
+En msip las primeras propiedad se validan la segunda se garantiza con triggers que se han implemetando para operaciones de creacion, eliminacion y modificacion de la tabla `persona_trelacion`.
