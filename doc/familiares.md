@@ -9,7 +9,7 @@ posiblemente cambiante, pueden agregarse campos estilo `ultimoperfil`.
 
 
 Para modelar relaciones familiares empleamos dos tablas más:
-- `msip_relacion` con tipos de relaciones familiares entre 2 personas
+- `msip_trelacion` que es tabla basica con tipos de relaciones familiares entre 2 personas
 - `msip_persona_trelacion` que relaciona dos personas con el tipo
   de relación familiar que tienen.
 
@@ -47,7 +47,7 @@ Por ejemplo puede modelarse que ANA con id 1  es NIETA de GLORIA con id 2 con:
 Con una relación de estas surge implícitamente otra relación que GLORIA es
 ABUELA  de ANA i.e `(2, 1, 'AB')`.
 
-Esto implica que cada relación tiene una relación inversa que se registra en el
+Por esto cada tipo de relación tiene un tipo de relación inverso que se registra en el
 campo `inverso` de `msip_trelacion` sin tener en cuenta el sexo de las
 personas relacionadas:
 
@@ -70,3 +70,15 @@ personas relacionadas:
 | TO | TIA(O)                 | OO      | SOBRINA(O) |
 | YE | NUERA/YERNO            | SG      | SUEGRA(O) |
 
+
+Un par de propiedades de los tipos de relacion:
+* Todo tipo de relacion (r) debe tener un inverso (-r)
+* Dada un tipo de relacion, el inverso de su inverso es el mismo tipo -(-r)=r
+
+En msip estas propiedades se validan en el modelo y para el conjunto de registros.
+
+Y en personas:
+* Una persona no es familiar de si misma.
+* Si p1 se relaciona con tipo de relacion r con p2,  debe relacionarse p2 con tipo de relacion inversa -r con p1.
+
+En msip la primera propiedad se valida y la segunda se garantiza con triggers que se han implemetando para operaciones de creacion, eliminacion y modificacion de la tabla `persona_trelacion`.
