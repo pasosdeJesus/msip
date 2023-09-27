@@ -36,6 +36,18 @@ module Msip
             end
           end
 
+          validate :vmaximo_una
+          def vmaximo_una
+            prep = Msip::PersonaTrelacion.where(persona1: persona1).
+                where(persona2: persona2).pluck(:id)
+            if prep.count >=2 || 
+                (self.id && prep.count == 1 && !prep.include?(self.id))
+              errors.add(:persona1, 
+                         "Ya hay una relacion entre #{persona1} y #{persona2}")
+            end
+          end
+
+
 
         end
       end
