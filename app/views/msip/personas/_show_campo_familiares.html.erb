@@ -9,20 +9,20 @@
     <table class='table table-bordered table-sm'>
       <thead class='thead-light'>
         <tr>
-          <th>Id Persona</th><th>Nombre</th><th>Relación</th>
+        <th>Relacion</th><th>Nombre</th><th>Id Persona</th>
         </tr>
       </thead class='thead-light'>
       <tbody>
         <% Msip::PersonaTrelacion.where(persona1: @registro.id).each do |pt| %>
           <tr>
             <td>
-              <%= link_to pt.persona2, msip.persona_path(pt.persona2), target: '_blank' %>
+              <%= pt.trelacion.nombre %> (de)
             </td>
             <td>
               <%= pt.personados.presenta_nombre %>
             </td>
             <td>
-              <%= pt.trelacion.nombre %>
+              <%= link_to pt.persona2, msip.persona_path(pt.persona2), target: '_blank' %>
             </td>
           </tr>
         <% end %>
