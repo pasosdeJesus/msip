@@ -4,10 +4,11 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
       select * from (select persona1, persona2, count(*) from msip_persona_trelacion group by 1,2) as sub where count>1;
     SQL
     if val.count > 0 
-      puts "Hay pares de personas con mas de una relacion"
+      puts "Hay pares de personas con mas de una relacion, resolver antes"
       val.each do |p|
         puts p
       end
+      exit 1
     end
     execute <<-SQL
       CREATE OR REPLACE FUNCTION msip_agregar_o_remplazar_familiar_inverso()
