@@ -4,7 +4,7 @@
 
 "@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main":
   version "0.0.9-a7"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#050bae0d3b07b2098b2ee3a169fb7949a3c0d116"
+  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main#dfb6c07a6874a406e11c1868d55fc596b5ca95f6"
 
 "@puppeteer/browsers@1.4.6":
   version "1.4.6"
