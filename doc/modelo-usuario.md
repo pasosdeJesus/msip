@@ -96,7 +96,6 @@ module Cor1440Gen
               "nusuario",
               "nombre",
               "rol",
-              "oficina_id",
               "email",
               "created_at_localizada"
             ]
@@ -108,7 +107,6 @@ module Cor1440Gen
               "nombre",
               "descripcion",
               "rol",
-              "oficina_id",
               "email",
               "idioma",
               "encrypted_password",
@@ -125,7 +123,7 @@ module Cor1440Gen
           def usuario_params
             p = params.require(:usuario).permit(
               :id, :nusuario, :password,
-              :nombre, :descripcion, :oficina_id,
+              :nombre, :descripcion,
               :rol, :idioma, :email, :encrypted_password,
               :fechacreacion_localizada, :fechadeshabilitacion_localizada,
               :reset_password_token,

@@ -899,7 +899,7 @@ CREATE TABLE public.msip_oficina (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     observaciones character varying(5000) COLLATE public.es_co_utf_8,
-    CONSTRAINT regionsjr_check CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion)))
+    CONSTRAINT msip_oficina_fechadeshabilitacion_chequeo CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion)))
 );
 
 
@@ -1627,7 +1627,6 @@ CREATE TABLE public.usuario (
     last_sign_in_ip character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    regionsjr_id integer,
     nombre character varying(50) COLLATE public.es_co_utf_8,
     tema_id integer,
     CONSTRAINT usuario_check CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion))),
@@ -1927,6 +1926,14 @@ ALTER TABLE ONLY public.msip_municipio
 
 
 --
+-- Name: msip_oficina msip_oficina_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_oficina
+    ADD CONSTRAINT msip_oficina_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: msip_orgsocial_persona msip_orgsocial_persona_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2060,14 +2067,6 @@ ALTER TABLE ONLY public.msip_vereda
 
 ALTER TABLE ONLY public.msip_municipio
     ADD CONSTRAINT municipio_pkey PRIMARY KEY (id);
-
-
---
--- Name: msip_oficina oficina_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_oficina
-    ADD CONSTRAINT oficina_pkey PRIMARY KEY (id);
 
 
 --
@@ -2724,6 +2723,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230712163859'),
 ('20230722180204'),
 ('20230723011110'),
-('20230927001422');
+('20230927001422'),
+('20231007095930');
 
 

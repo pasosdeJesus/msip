@@ -118,7 +118,6 @@ module Msip
               :password,
               :nombre,
               :descripcion,
-              :oficina_id,
               :rol,
               :idioma,
               :email,

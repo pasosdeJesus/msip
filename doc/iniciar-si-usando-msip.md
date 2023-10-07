@@ -422,7 +422,7 @@ minmsip_des=# \q
   => 1
   irb(main):002:0> Usuario.all[0]
     Usuario Load (0.3ms)  SELECT "usuario".* FROM "usuario"
-  => #<Usuario nusuario: "msip", password: [FILTERED], descripcion: nil, rol: 1, idioma: "es_CO", id: 1, fechacreacion: "2014-08-14", fechadeshabilitacion: nil, email: "msip@localhost", created_at: "2014-08-13 19:00:00.000000000 -0500", updated_at: "2014-08-13 19:00:00.000000000 -0500", regionsjr_id: nil, nombre: nil, tema_id: nil>
+  => #<Usuario nusuario: "msip", password: [FILTERED], descripcion: nil, rol: 1, idioma: "es_CO", id: 1, fechacreacion: "2014-08-14", fechadeshabilitacion: nil, email: "msip@localhost", created_at: "2014-08-13 19:00:00.000000000 -0500", updated_at: "2014-08-13 19:00:00.000000000 -0500", nombre: nil, tema_id: nil>
   irb(main):003:0> exit
   ```
 - Crea un controlador para usuarios en `app/controllers/usuarios_controller.rb`
