@@ -142,7 +142,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.11.1)
+    devise-i18n (1.12.0)
       devise (>= 4.9.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -156,7 +156,7 @@ GEM
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.16.2)
+    ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -185,7 +185,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.5.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.0808)
+    mime-types-data (3.2023.1003)
     mini_mime (1.1.5)
     mini_portile2 (2.8.4)
     minitest (5.20.0)
@@ -195,7 +195,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     msgpack (1.7.2)
-    net-imap (0.3.7)
+    net-imap (0.4.0)
       date
       net-protocol
     net-pop (0.1.2)
@@ -212,7 +212,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
@@ -274,7 +274,7 @@ GEM
     redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
-    reline (0.3.8)
+    reline (0.3.9)
       io-console (~> 0.5)
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -392,9 +392,9 @@ DEPENDENCIES
   minitest (~> 5.16)
   minitest-reporters
   nokogiri (>= 1.11.1)
-  pg (>= 0.18, < 2.0)
+  pg
   puma
-  rails (~> 7.0)
+  rails (>= 7.0, < 7.1)
   rails-controller-testing
   rails-erd
   rails-i18n (~> 7.0)
