@@ -12,94 +12,93 @@ Puedes pensarlo como una capa adicional sobre Ruby on Rails que incluye
 soluciones estándar, seguras y probadas para más elementos de un sistema
 de información a diversos niveles:
 
-
-Vistas e Interfaz:
-- Propuesta para administrar modelos con vistas automáticas (no requieren
-  código) y controladores semiautomáticos vía un generador.  Similar a
-  [ActiveAdmin](https://activeadmin.info/),
-  [Administrate](https://github.com/thoughtbot/administrate) y
-  [Rails Admin](https://github.com/sferik/rails_admin)
-  Usa `Msip::Modelo`, `Msip::ModelosController` y vistas de
-  `app/views/msip/modelos/`. La vista `index` incluye
-  un filtro definible con `scope` en el modelo.  La vista parcial
-  `_form` genera automáticamente un formulario con elementos típicos.
-  Consulta
-  <https://gitlab.com/pasosdeJesus/msip/-/blob/main/doc/vistas-automaticas.md>
-- Vistas y formularios generados con las herramientas estándar de `rails`
-  y `simple_form`. Listados paginados con `will_paginate`.
-- Preparado para construir aplicaciones adaptables (_responsive_) con
-  `bootstrap`, `stimulus` y/o `coffescript` y `jquery`.
-  Se usa de manera predeterminada `chosen` para cuadros de selección simple 
-   y múltiple y `bootstrap-datepicker` para campos de fecha.
-- Incluye biblioteca para operaciones comunes con javascript, por ejemplo para
-  facilitar actualización automática mediante AJAX (ver
-  `msip_enviarautomatico_formulario` en
-  `app/asset/javascript/msip/motor.js.coffee.erb` que enviará
-  automáticamente formularios cuando cambien campos con clase
-  `enviarautomatico` o se presionen enlaces a anclas con esa clase)
-- Localización con mecanismos estándar de `rails` y de `twitter_cldr`.
-  Propuesta para localización de campos tipo fecha(s) (que en español no es
-  bien soportado por `rails`) especificando el formato local en
-  `config.x.formato_fecha`, así como ayudas para definir campos de fecha
-  localizados en ese formato.
-- Maquetación configurable, viene con dos ejemplos uno con menús horizontales
-  en la parte superior y otro con menús verticales e icónos al lado izquierdo.
-- Sistema de temas que permite configurar diversos temas de colores para la
-  interfaz con uno predeterminado y facilidad para que cada usuario elija el
-  suyo.
-
-
-Modelos:
-- Concepto y propuesta de tablas básicas (también llamados tesauros
-  de la aplicación o parámetros de la aplicación) con
-  vistas automáticas y controladores y modelos semiautomáticos vía un
-  generador. 
-  Validación automática de campos `has_many` cuando se borra un registro
-  para reportar si existen  registros dependientes en otras tablas (en lugar
-  de fallar)
-
-Componentes ampliables (i.e modelos, controladores, vistas)
-- Modelos y controladores básicos con diversos propósitos y fácilmente
-  ampliables o modificables con herencia o con `ActiveSupport::Concern`
-  para aplicaciones más complejas. 
-- Componente para ubicaciones geográficas 
-  `msip_pais`, `msip_departamento`, `msip_municipio`, `msip_clase` para centros
-  poblados), `msip_tclase` (tipos de centros poblados), `msip_tsitio`
-  (tipo de sitio) y `msip_ubicacion`. Con datos de todos los países,
-  aunque estados y municipios completos para Colombia, Venezuela y
-  Honduras y ciudades completas para Colombia de acuerdo a DIVIPOLA 2022 
-  con actualización periódica (vía migraciones de `rails`) de acuerdo a 
-  esa fuente oficial.
-    - Siluetas en SVG de los mapas de departamentos y municipios de Colombia
-    con coordenadas listas para su composición.  Convertidas de OpenStreetMap
-    y actualizadas con periodicidad.
-- Componente para personas y relaciones entre personas
-  `msip_persona`, `msip_trelacion` (tipo de relación entre 
-  personas), `tdocumento` (tipo de documento de identificación personal),
-  `msip_persona_trelacion` (relación entre 2 personas).
-- Componente para grupos de personas
-  `msip_grupoper`, organizaciones sociales `msip_orgsocial` (así llamamos a 
-  un grupo de personas que se ponen de acuerdo para un objetivo o 
-  representación conjunta), sus sectores `msip_sectororgsocial` y la 
-  relación entre una persona y una organización social con su perfil 
-  `msip_orgsocial_persona` y `msip_perfilorgsocial`
-- Componente para anexos con tabla `msip_anexo` y vistas
-  incrustables y gema `kt-paperclip`
-- Propuesta de respaldo cifrado y comprimido con `7z` por parte de usuario
-  final (del rol que se configure) desde menús de la aplicación.
+- Vistas e Interfaz:
+  - Propuesta para administrar modelos con vistas automáticas (no requieren
+    código) y controladores semiautomáticos vía un generador.  Similar a
+    [ActiveAdmin](https://activeadmin.info/),
+    [Administrate](https://github.com/thoughtbot/administrate) y
+    [Rails Admin](https://github.com/sferik/rails_admin)
+    Usa `Msip::Modelo`, `Msip::ModelosController` y vistas de
+    `app/views/msip/modelos/`. La vista `index` incluye
+    un filtro definible con `scope` en el modelo.  La vista parcial
+    `_form` genera automáticamente un formulario con elementos típicos.
+    Consulta
+    <https://gitlab.com/pasosdeJesus/msip/-/blob/main/doc/vistas-automaticas.md>
+  - Vistas y formularios generados con las herramientas estándar de `rails`
+    y `simple_form`. Listados paginados con `will_paginate`.
+  - Preparado para construir aplicaciones adaptables (_responsive_) con
+    `bootstrap`, `stimulus` y/o `coffescript` y `jquery`.
+    Se usa de manera predeterminada `chosen` para cuadros de selección simple 
+     y múltiple y `bootstrap-datepicker` para campos de fecha.
+  - Incluye biblioteca para operaciones comunes con javascript, por ejemplo para
+    facilitar actualización automática mediante AJAX (ver
+    `msip_enviarautomatico_formulario` en
+    `app/asset/javascript/msip/motor.js.coffee.erb` que enviará
+    automáticamente formularios cuando cambien campos con clase
+    `enviarautomatico` o se presionen enlaces a anclas con esa clase)
+  - Localización con mecanismos estándar de `rails` y de `twitter_cldr`.
+    Propuesta para localización de campos tipo fecha(s) (que en español no es
+    bien soportado por `rails`) especificando el formato local en
+    `config.x.formato_fecha`, así como ayudas para definir campos de fecha
+    localizados en ese formato.
+  - Maquetación configurable, viene con dos ejemplos uno con menús horizontales
+    en la parte superior y otro con menús verticales e icónos al lado izquierdo.
+  - Sistema de temas que permite configurar diversos temas de colores para la
+    interfaz con uno predeterminado y facilidad para que cada usuario elija el
+    suyo.
 
 
-Control de Acceso
-- Propuesta inicial para control de acceso con:
-- Autenticación con tabla `usuario` (modelo `::Usuario`), gema `devise`
+- Modelos:
+  - Concepto y propuesta de tablas básicas (también llamados tesauros
+    de la aplicación o parámetros de la aplicación) con
+    vistas automáticas y controladores y modelos semiautomáticos vía un
+    generador. 
+    Validación automática de campos `has_many` cuando se borra un registro
+    para reportar si existen  registros dependientes en otras tablas (en lugar
+    de fallar)
+  
+- Componentes ampliables (i.e modelos, controladores, vistas)
+  - Modelos y controladores básicos con diversos propósitos y fácilmente
+    ampliables o modificables con herencia o con `ActiveSupport::Concern`
+    para aplicaciones más complejas. 
+  - Componente para ubicaciones geográficas 
+    `msip_pais`, `msip_departamento`, `msip_municipio`, `msip_clase` para centros
+    poblados), `msip_tclase` (tipos de centros poblados), `msip_tsitio`
+    (tipo de sitio) y `msip_ubicacion`. Con datos de todos los países,
+    aunque estados y municipios completos para Colombia, Venezuela y
+    Honduras y ciudades completas para Colombia de acuerdo a DIVIPOLA 2022 
+    con actualización periódica (vía migraciones de `rails`) de acuerdo a 
+    esa fuente oficial.
+      - Siluetas en SVG de los mapas de departamentos y municipios de Colombia
+      con coordenadas listas para su composición.  Convertidas de OpenStreetMap
+      y actualizadas con periodicidad.
+  - Componente para personas y relaciones entre personas
+    `msip_persona`, `msip_trelacion` (tipo de relación entre 
+    personas), `tdocumento` (tipo de documento de identificación personal),
+    `msip_persona_trelacion` (relación entre 2 personas).
+  - Componente para grupos de personas
+    `msip_grupoper`, organizaciones sociales `msip_orgsocial` (así llamamos a 
+    un grupo de personas que se ponen de acuerdo para un objetivo o 
+    representación conjunta), sus sectores `msip_sectororgsocial` y la 
+    relación entre una persona y una organización social con su perfil 
+    `msip_orgsocial_persona` y `msip_perfilorgsocial`
+  - Componente para anexos con tabla `msip_anexo` y vistas
+    incrustables y gema `kt-paperclip`
+  - Propuesta de respaldo cifrado y comprimido con `7z` por parte de usuario
+    final (del rol que se configure) desde menús de la aplicación.
+
+
+- Control de Acceso
+  - Propuesta inicial para control de acceso con:
+  - Autenticación con tabla `usuario` (modelo `::Usuario`), gema `devise`
     y cifrado `bcrypt`
-- Autorización muy configurable con gema `cancancan` que puede valerse
-            de roles (inicialmente sólo Administrador y Operador) o grupos
-            (implementados en tablas `msip_grupo` --modelo `Msip::Grupo`--,
-            y `msip_grupo_usuario`), o en otras tablas o métodos que elija.
+  - Autorización muy configurable con gema `cancancan` que puede valerse
+    de roles (inicialmente sólo Administrador y Operador) o grupos
+    (implementados en tablas `msip_grupo` --modelo `Msip::Grupo`--,
+    y `msip_grupo_usuario`), o en otras tablas o métodos que elija.
 
 
-Facilidades para desarrollar y configurar aplicaciones que usen este motor:
+- Facilidades para desarrollar y configurar aplicaciones que usen este motor:
   - Variables de ambiente en un archivo `.env` y la gema `dotenv`.  
   - Con variables de configuración de rails en el espacio de 
     nombres `config.x`, 
@@ -111,7 +110,7 @@ Facilidades para desarrollar y configurar aplicaciones que usen este motor:
     de datos
 
 
-Pruebas:
+- Pruebas:
   - Pruebas con `minitest`
 
 - Pila actualizada
