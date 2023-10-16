@@ -98,15 +98,16 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Trivalente.pluck(:id)
       assert_difference("Msip::Trivalente.count") do
         post admin_trivalentes_url, params: { trivalente: PRUEBA_TRIVALENTE }
-        # puts response.body
       end
 
       assert_redirected_to msip.admin_trivalente_path(
         assigns(:trivalente),
       )
-      idof = response.body.gsub(%r{.*trivalentes/}, "").gsub(/">.*/, "").to_i
+      ids2 = Msip::Trivalente.pluck(:id)
+      idof = (ids2-ids1).first
 
       assert_difference("Trivalente.count", -1) do
         delete msip.admin_trivalente_path(Trivalente.find(idof)) # Trivalente sin clases

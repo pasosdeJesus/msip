@@ -98,6 +98,7 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Tsitio.pluck(:id)
       assert_difference("Msip::Tsitio.count") do
         post admin_tsitios_url, params: { tsitio: PRUEBA_TSITIO }
         # puts response.body
@@ -106,7 +107,8 @@ module Msip
       assert_redirected_to msip.admin_tsitio_path(
         assigns(:tsitio),
       )
-      idof = response.body.gsub(%r{.*tsitios/}, "").gsub(/">.*/, "").to_i
+      ids2 = Msip::Tsitio.pluck(:id)
+      idof = (ids2-ids1).first
 
       assert_difference("Tsitio.count", -1) do
         delete msip.admin_tsitio_path(Tsitio.find(idof)) # Tsitio sin clases

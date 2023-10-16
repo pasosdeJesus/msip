@@ -98,6 +98,7 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Tclase.pluck(:id)
       assert_difference("Msip::Tclase.count") do
         post admin_tclases_url, params: { tclase: PRUEBA_TCLASE }
         # puts response.body
@@ -106,7 +107,8 @@ module Msip
       assert_redirected_to msip.admin_tclase_path(
         assigns(:tclase),
       )
-      idr = response.body.gsub(%r{.*tclases/}, "").gsub(/">.*/, "")
+      ids2 = Msip::Tclase.pluck(:id)
+      idr = (ids2-ids1).first
 
       assert_difference("Tclase.count", -1) do
         delete msip.admin_tclase_path(Tclase.find(idr)) # Tclase sin clases

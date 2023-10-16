@@ -98,6 +98,7 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Trelacion.pluck(:id)
       assert_difference("Msip::Trelacion.count") do
         post admin_trelaciones_url, params: { trelacion: PRUEBA_TRELACION }
         # puts response.body
@@ -106,7 +107,8 @@ module Msip
       assert_redirected_to msip.admin_trelacion_path(
         assigns(:trelacion),
       )
-      idr = response.body.gsub(%r{.*trelaciones/}, "").gsub(/">.*/, "")
+      ids2 = Msip::Trelacion.pluck(:id)
+      idr = (ids2-ids1).first
 
       assert_difference("Trelacion.count", -1) do
         delete msip.admin_trelacion_path(Trelacion.find(idr)) # Trelacion sin clases

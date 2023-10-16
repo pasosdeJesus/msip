@@ -13,7 +13,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   BUNDLE_PATH: "/var/www/bundler"
   BUNDLE_DISABLE_SHARED_GEMS: "true"
   EOF
-  $ CXX=c++ rails new minmsip --database=postgresql --javascript=esbuild
+  $ rails new minmsip --database=postgresql --javascript=esbuild --skip-docker --skip-keeps --skip-active-storage --skip-system-test
   ```
   Es posible que el último paso genere algunos mensajes de error por gemas que 
   no logra instalar porque requieren permisos de superusuario --entre otras 
@@ -64,7 +64,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   ```
   $ psql -h/var/www/var/run/postgresql/ -Uisa5417 minmsip_des
   Password for user isa5417:
-  psql (14.5)
+  psql (15.4)
   Type "help" for help.
   [local:/var/www/var/run/postgresql/] msipdes@minmsip_des=#
   ```
@@ -102,7 +102,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   
   gem "dotenv-rails"               # Configuración de servidor en .env
   
-  gem "jbuilder", ">= 2.7"         # Json
+  gem "jbuilder"                   # Json
   
   gem "jsbundling-rails"
   
@@ -149,7 +149,7 @@ Para iniciar una aplicación que usará **msip** en adJ sugerimos:
   end
   
   group :development do
-  gem "web-console", ">= 3.3.0" # Depura en navegador
+  gem "web-console"             # Depura en navegador
   end
   
   group :test do
@@ -317,7 +317,7 @@ A continuación prueba que puedes ingresar a la interfaz `psql` de la base de
 desarrollo pero mediante rails:
 ```sh
 $ bin/rails dbconsole
-psql (14.5)
+psql (15.4)
 Type "help" for help.
 
 minmsip_des=# \q
@@ -335,7 +335,7 @@ minmsip_des=# \q
   
   module Minmsip
     class Application < Rails::Application
-      config.load_defaults 7.0
+      config.load_defaults 7.1
   
       config.active_record.schema_format = :sql
       config.railties_order = [:main_app, Msip::Engine, :all]
@@ -394,13 +394,13 @@ minmsip_des=# \q
   PostgreSQL y realizando una consulta:
   ```$
   $ bin/rails dbconsole
-  psql (14.5)
+  psql (15.4)
   Type "help" for help.
   
   minmsip_des=# select count(*) from msip_clase;
    count
   -------
-   14416
+   44501
   (1 row)
   
   minmsip_des=# \q
@@ -461,7 +461,6 @@ minmsip_des=# \q
   ```
 - Remplaza `app/controllers/application_controller.rb` por
   ```rb
-  require 'msip/application_controller'
   class ApplicationController < Msip::ApplicationController
     # Previente ataques CSRF elevando una excepción
     # En el caso de APIs, en cambio puedes querer usar :null_session
@@ -526,9 +525,10 @@ minmsip_des=# \q
   ```sh
   yarn add @hotwired/stimulus @hotwired/turbo-rails @rails/ujs \
     @popperjs/core @fortawesome/fontawesome-free bootstrap \
+    https://gitlab.com/pasosdeJesus/autocompleta_ajax.git \
     bootstrap-datepicker chosen-js esbuild popper.js@2.0.0-next.4 jquery
   yarn add -D  babel-plugin-macros 
-  CXX=c++ yarn install
+  yarn install
   ```
   En `app/javascript/application.js` debes configurar como cargar los módulos 
   javascript, dejando jQuery de manera global (mientras ̣`msip` deja de 

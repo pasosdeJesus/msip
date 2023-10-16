@@ -82,6 +82,7 @@ module Msip
     end
 
     test "crear presentar editar eliminar" do
+      ids1 = Msip::Perfilorgsocial.pluck(:id)
       assert_difference("Msip::Perfilorgsocial.count") do
         post admin_perfilesorgsocial_url, params: { perfilorgsocial: PRUEBA_PERFILORGSOCIAL }
         # puts response.body
@@ -90,7 +91,8 @@ module Msip
       assert_redirected_to msip.admin_perfilorgsocial_path(
         assigns(:perfilorgsocial),
       )
-      idr = response.body.gsub(%r{.*perfilesorgsocial/}, "").gsub(/">.*/, "").to_i
+      ids2 = Msip::Perfilorgsocial.pluck(:id)
+      idr = (ids2-ids1).first
 
       perfilorgsocial = Msip::Perfilorgsocial.all.take
       get admin_perfilorgsocial_url(perfilorgsocial)

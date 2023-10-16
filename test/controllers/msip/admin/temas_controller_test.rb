@@ -98,6 +98,7 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Tema.pluck(:id)
       assert_difference("Msip::Tema.count") do
         post admin_temas_url, params: { tema: PRUEBA_TEMA }
         # puts response.body
@@ -106,7 +107,8 @@ module Msip
       assert_redirected_to msip.admin_tema_path(
         assigns(:tema),
       )
-      idof = response.body.gsub(%r{.*temas/}, "").gsub(/">.*/, "").to_i
+      ids2 = Msip::Tema.pluck(:id)
+      idof = (ids2-ids1).first
 
       assert_difference("Tema.count", -1) do
         delete msip.admin_tema_path(Tema.find(idof)) # Tema sin clases
