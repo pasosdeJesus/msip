@@ -232,7 +232,7 @@ module Msip
           end
 
           # Despliega detalle de un registro
-          def show
+          def show_msip
             @registro = clase.constantize.find(params[:id])
             if @registro.respond_to?("current_usuario=")
               @registro.current_usuario = current_usuario
@@ -258,6 +258,10 @@ module Msip
               )
             end
             render(layout: "application")
+          end
+
+          def show
+            show_msip
           end
 
           # Filtro al contenido de params
