@@ -22,6 +22,12 @@ module Msip
             {}
           end
 
+          # Atributos data para boton de envío del formulario generado
+          # @return un diccionario de atributos data por agregar
+          #         { 'disable_with': false }
+          def datos_boton_envio
+          end
+
           # Permite modificar params
           def prefiltrar
           end
