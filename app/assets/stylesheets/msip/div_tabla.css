@@ -21,3 +21,11 @@
   padding: 8px;
   vertical-align: top;
 }
+
+.div-tabla-celda-encabezado {
+  display: table-cell;
+  border: 1px solid #dddddd;
+  padding: 8px;
+  vertical-align: top;
+  font-weight: bold;
+}
