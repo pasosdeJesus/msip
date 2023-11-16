@@ -13,7 +13,9 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   BUNDLE_PATH: "/var/www/bundler-miusuario"
   BUNDLE_DISABLE_SHARED_GEMS: "true"
   EOF
-  $ rails new minmsip --database=postgresql --javascript=esbuild
+  $ rails new minmsip --database=postgresql --javascript=esbuild \
+    --skip-active-storage --skip-action-mailbox --skip-action-text \
+    --skip-action-cable --skip-docker --skip-keeps --skip-system-test
   ```
   Es posible que el último paso genere algunos mensajes de error por gemas que 
   no logra instalar porque requieren permisos de superusuario --entre otras 
