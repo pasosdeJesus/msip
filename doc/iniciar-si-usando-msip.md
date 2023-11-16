@@ -1,6 +1,6 @@
 # Iniciar un sistema de información usando Msip
 
-Para iniciar una aplicación que usará **msip** en adJ sugerimos:
+Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos:
 
 - Disponer una plataforma que cumpla 
   [los requisitos de instalación](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md)
