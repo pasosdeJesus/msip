@@ -41,7 +41,7 @@
   ```
 * Recomendamos emplear `zsh`, `tmux` y `vim` con los archivos de configuración
   e instrucciones disponibles en
-  <https://github.com/pasosdeJesus/adJ/tree/master/arboldd/usr/local/share/adJ/archconf>
+  <https://gitlab.com/pasosdeJesus/adJ/-/tree/main/arboldd/usr/local/share/adJ/archconf?ref_type=heads>
 
 
 
