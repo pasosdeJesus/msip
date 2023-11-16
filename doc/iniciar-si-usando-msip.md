@@ -605,8 +605,8 @@ minmsip_des=# \q
   ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/assets/images/favicon-{114,120,144,150,152,16,160,180,192,310,32,57,60,64,70,72,76,96}.png
   cd ../../..
   ```
-  Sprockets también servirá los javascript que pongas en app/assets/javascripts
-  y el javascript modular empaquetado por esbuild en app/assets/build.
+  Sprockets también servirá los javascript que pongas en `app/assets/javascripts`
+  y el javascript modular empaquetado por esbuild en `app/assets/build`.
 
   Puedes usar sprockets para transmitir hojas de estilo preconfiguradas de 
   msip y sobrecargables en `app/assets/stylesheets/` dejando en 
@@ -618,7 +618,7 @@ minmsip_des=# \q
    *= require_self
    */
   ```
-  Para cargar otros javascript de msip que no se manjan con esbuild, asegurate 
+  Para cargar otros javascript de msip que no se manejen con esbuild, asegurate 
   de dejar en `app/assets/javascripts/recursos_sprockets.js` el siguiente 
   contenido (creando antes el directorio `app/assets/javascripts`):
   ```js
@@ -695,10 +695,10 @@ minmsip_des=# \q
   y examínala en el puerto 3000 con tu navegador <http://localhost:3000/minmsip>,
   recuerda que el usuario inicial es `msip` con clave `msip`.
   
-- Para facilitar arrancar, detener o actualizar sugerimos copiar de 
-  `msip/test/dummy/bin` en el directorio `bin` de tu aplicación los guiones 
-  `corre`, `detiene` y `migra`. Así podrás configurar puerto e IP en .env 
-  e iniciar con:
+- Para facilitar arrancar, detener o actualizar sugerimos copiar de las fuentes
+  `msip` los guiones `corre`, `detiene` y `migra` del directorio `test/dummy/bin` 
+  en el directorio `bin` de tu aplicación. 
+  Así podrás configurar puerto e IP en .env e iniciar con:
   ```
   bin/corre
   ```
