@@ -39,11 +39,7 @@
   ---
   BUNDLE_PATH: "/var/www/bundler-miusuario/"
   ```
-<<<<<<< HEAD
-* Recomendamos emplear zsh, tmux y vim con los archivos de configuración
-=======
 * Recomendamos emplear `zsh`, `tmux` y `vim` con los archivos de configuración
->>>>>>> 2881e65 (Update requisitos.md)
   e instrucciones disponibles en
   <https://gitlab.com/pasosdeJesus/adJ/-/blob/main/arboldd/usr/local/share/adJ/archconf/README.md>
 
