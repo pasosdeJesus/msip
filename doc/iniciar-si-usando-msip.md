@@ -66,7 +66,7 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```
   $ psql -h/var/www/var/run/postgresql/ -Uisa5417 minmsip_des
   Password for user isa5417:
-  psql (14.5)
+  psql (15.4)
   Type "help" for help.
   [local:/var/www/var/run/postgresql/] msipdes@minmsip_des=#
   ```
@@ -320,7 +320,7 @@ A continuación prueba que puedes ingresar a la interfaz `psql` de la base de
 desarrollo pero mediante rails:
 ```sh
 $ bin/rails dbconsole
-psql (14.5)
+psql (15.4)
 Type "help" for help.
 
 minmsip_des=# \q
@@ -397,7 +397,7 @@ minmsip_des=# \q
   PostgreSQL y realizando una consulta:
   ```$
   $ bin/rails dbconsole
-  psql (14.5)
+  psql (15.4)
   Type "help" for help.
   
   minmsip_des=# select count(*) from msip_clase;
