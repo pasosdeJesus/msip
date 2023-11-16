@@ -356,7 +356,9 @@ minmsip_des=# \q
   
       config.time_zone = 'America/Bogota'
       config.i18n.default_locale = :es
-  
+
+      config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/minmsip/')
+
       config.x.formato_fecha = ENV.fetch('MSIP_FORMATO_FECHA', 'dd/M/yyyy')
       config.hosts.concat(
         ENV.fetch('CONFIG_HOSTS', '127.0.0.1').downcase.split(',')
@@ -452,7 +454,7 @@ minmsip_des=# \q
     end
   end
   ```
-    puedes probar desde `bin/rails console` con:
+  puedes probar desde `bin/rails console` con:
   ```
   irb(main):001:0> UsuariosController
   => UsuariosController
@@ -525,8 +527,7 @@ minmsip_des=# \q
   
   En `config/initializers/punto_montaje.rb`:
   ```
-  Minmsip::Application.config.relative_url_root = ENV.fetch(
-    'RUTA_RELATIVA', '/minmsip')
+  # relative_url_root configurada en config/application.rb
   Minmsip::Application.config.assets.prefix = ENV.fetch(
     'RUTA_RELATIVA', '/minmsip') == '/' ?
    '/assets' : (ENV.fetch('RUTA_RELATIVA', '/minmsip') + '/assets')
@@ -536,13 +537,14 @@ minmsip_des=# \q
   mkdir public/minmsip
   ```
 - Para preparar experiencia de usuario con Bootstrap 5, Javascript con 
-  módulos y Stimulus + Jquery debes instalar paquetes `npm` mínimos:
+  módulos, Turbo, Stimulus, autocompletación y partes legadas con Jquery y cocoon debes instalar paquetes `npm` mínimos:
   ```sh
   yarn add @hotwired/stimulus @hotwired/turbo-rails @rails/ujs \
     @popperjs/core @fortawesome/fontawesome-free bootstrap \
     bootstrap-datepicker chosen-js esbuild popper.js@2.0.0-next.4 jquery
   yarn add -D  babel-plugin-macros 
-  CXX=c++ yarn install
+  yarn add https://gitlab.com/pasosdeJesus/autocompleta_ajax.git
+  yarn install
   ```
   En `app/javascript/application.js` debes configurar como cargar los módulos 
   javascript, dejando jQuery de manera global (mientras ̣`msip` deja de 
@@ -574,7 +576,7 @@ minmsip_des=# \q
     mkdir app/javascript/controllers
     bin/rails msip:stimulus_motores
   ```
-  y crea el archivo `app/javascript/controllers/application.js` con:
+  si hace falta crea el archivo `app/javascript/controllers/application.js` con:
   ```
 
   import { Application } from "@hotwired/stimulus"
@@ -587,7 +589,7 @@ minmsip_des=# \q
   export { application }
   ```
 
-  Y verifica que la configuración de javascript con módulos y esbuild es 
+  Y verifica que la configuración de javascript con módulos y `esbuild` es 
   correcta empaquetando en `app/assets/builds/application.js` con:
   ```
   touch app/javascript/controllers/index.js
