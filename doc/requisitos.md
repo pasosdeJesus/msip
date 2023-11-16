@@ -9,7 +9,7 @@
 * Ruby on Rails >= 7.0.4 (la instalas con `gem install rails`)
 * PostgreSQL >= 15.4 con extensión `unaccent` disponible y posibilidad
   de crearle un usuario con permisos para crear bases de datos
-* `node.js` >= 18.18.0 y `coffescript` instalado globalmente 
+* `node.js` >= 18.15.0 y `coffescript` instalado globalmente 
   (i.e.  `doas npm install -g coffee-script`)
 * Una cuenta en el sistema operativo para desarrollo, esta cuenta 
   debe tener permiso de usar al menos 1024M en RAM y para abrir al menos 
