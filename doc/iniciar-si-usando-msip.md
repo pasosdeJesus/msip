@@ -13,7 +13,7 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   BUNDLE_PATH: "/var/www/bundler"
   BUNDLE_DISABLE_SHARED_GEMS: "true"
   EOF
-  $ CXX=c++ rails new minmsip --database=postgresql --javascript=esbuild
+  $ rails new minmsip --database=postgresql --javascript=esbuild
   ```
   Es posible que el último paso genere algunos mensajes de error por gemas que 
   no logra instalar porque requieren permisos de superusuario --entre otras 
@@ -22,7 +22,9 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```
   doas gem install --install-dir /var/www/bundler/ruby/3.2 nokogiri -v 1.13.3
   ```
-  Y después desde el directorio `minmsip` vuelve a ejecutar
+  (lo anterior se simplifica a `gemil nokogiri@1.13.3` si usas los scripts que recomendamos con [zsh, tmux y vim](https://github.com/pasosdeJesus/adJ/tree/main/arboldd/usr/local/share/adJ/archconf))
+  
+  Después desde el directorio `minmsip` vuelve a ejecutar
   ```sh
   $ bundle install
   ```
