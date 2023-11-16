@@ -80,7 +80,8 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   `doas gem install dotenv foreman` e incluye otras gemas necesarias, así como 
   `msip` en el archivo `Gemfile` que debe quedar al menos con:
   ```
-    source "https://rubygems.org"
+  source "https://rubygems.org"
+
   git_source(:gitlab) { |repo| "https://gitlab.com/#{repo}.git" }
   
   ruby ">=3.2.0"
@@ -89,12 +90,12 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   
   gem "bcrypt"                     # Condensando de claves con bcrypt
   
-  gem "bootsnap"                   # Arranque rápido
+  gem "bootsnap", require: false   # Arranque rápido
   
   gem "cancancan"                  # Control de acceso
   
   gem "cocoon", git: "https://github.com/vtamara/cocoon.git",
-  branch: "new_id_with_ajax" # Formularios anidados (algunos con ajax)
+  branch: "new_id_with_ajax"       # Formularios anidados por reemplazar con turbo
   
   gem "coffee-rails"               # Parte de msip aún usa Coffescript
   
@@ -130,36 +131,36 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   
   gem "turbo-rails"                # Acelera HTML
   
-  gem "twitter_cldr"               # Localiación e internacionalización
+  gem "twitter_cldr"               # Localización e internacionalización
   
   gem "will_paginate"              # Pagina listados
   
   
   #### Motores que sobrecargan vistas o basados en MSIP en orden de apilamento
   gem "msip",                       # SI estilo Pasos de Jesús
-  git: "https://gitlab.com/pasosdeJesus/msip.git"
+    git: "https://gitlab.com/pasosdeJesus/msip.git"
   
   
   group :development, :test do
-  gem "code-scanning-rubocop"   # Busca fallas de seguridad
+    gem "code-scanning-rubocop"   # Busca fallas de seguridad
   
-  gem "colorize"
+    gem "colorize"
   
-  gem "debug"                 # Depura
+    gem "debug"                   # Depura
   
-  gem "rails-erd"               # Genera diagrama entidad asociación
+    gem "rails-erd"               # Genera diagrama entidad asociación
   end
   
   group :development do
-  gem "web-console"             # Depura en navegador
+    gem "web-console"             # Depura en navegador
   end
   
   group :test do
-  gem "minitest"                # Pruebas automáticas de regresión con minitest
+    gem "minitest"                # Pruebas automáticas de regresión con minitest
   
-  gem "rails-controller-testing"
+    gem "rails-controller-testing"
   
-  gem "simplecov"
+    gem "simplecov"               # Mide cobertura de pruebas de regresión
   end
   ```
   Y después instala las nuevas gemas con:
