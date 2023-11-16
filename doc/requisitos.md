@@ -6,10 +6,10 @@
   Puedes consultar sobre el uso de Ruby on Rails en adJ en
   <http://pasosdejesus.github.io/usuario_adJ/conf-programas.html#ruby>
 * Ruby versión >= 3.2.2
-* Ruby on Rails >= 7.0.8 (la instalas con `gem install rails`)
+* Ruby on Rails >= 7.1.2 (la instalas con `gem install rails`)
 * PostgreSQL >= 15.4 con extensión `unaccent` disponible y posibilidad
   de crearle un usuario con permisos para crear bases de datos
-* `node.js` >= 18.5.0 y `coffescript` instalado globalmente 
+* `node.js` >= 18.18.0 y `coffescript` instalado globalmente 
   (i.e.  `doas npm install -g coffee-script`)
 * Una cuenta en el sistema operativo para desarrollo, esta cuenta 
   debe tener permiso de usar al menos 1024M en RAM y para abrir al menos 
@@ -26,7 +26,7 @@
   ```
 * Gema `dotenv` instalada globalmente i.e `doas gem install dotenv`
 * Gema `foreman` instalada globalmente i.e `doas gem install foreman`
-* Gema `rails` instalada globalmente i.e `doas gem install rails`
+* Gema `rails` instalada globalmente i.e `doas gem install rails` y actualizada `doas gem update rails`
 * Recomendado usar `bundler` para mantener gemas en un
   directorio de la forma `/var/www/bundler-miusuario`, ejecutando:
   ```
@@ -39,7 +39,11 @@
   ---
   BUNDLE_PATH: "/var/www/bundler-miusuario/"
   ```
+<<<<<<< HEAD
 * Recomendamos emplear zsh, tmux y vim con los archivos de configuración
+=======
+* Recomendamos emplear `zsh`, `tmux` y `vim` con los archivos de configuración
+>>>>>>> 2881e65 (Update requisitos.md)
   e instrucciones disponibles en
   <https://gitlab.com/pasosdeJesus/adJ/-/blob/main/arboldd/usr/local/share/adJ/archconf/README.md>
 
