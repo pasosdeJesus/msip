@@ -10,7 +10,7 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   $ mkdir -p minmsip/.bundle
   $ cat > minmsip/.bundle/config <<EOF
   ---
-  BUNDLE_PATH: "/var/www/bundler"
+  BUNDLE_PATH: "/var/www/bundler-miusuario"
   BUNDLE_DISABLE_SHARED_GEMS: "true"
   EOF
   $ rails new minmsip --database=postgresql --javascript=esbuild --skip-docker --skip-keeps --skip-active-storage --skip-system-test
@@ -20,9 +20,9 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   esto ocurre con `nokogiri`-- en tal caso anota la versión por 
   instalar --ejemplo 1.13.3-- y ejecuta algo como:
   ```
-  doas gem install --install-dir /var/www/bundler/ruby/3.2 nokogiri -v 1.13.3
+  doas gem install --install-dir /var/www/bundler-miusuario/ruby/3.2 nokogiri -v 1.13.3
   ```
-  (lo anterior se simplifica a `gemil nokogiri@1.13.3` si usas [los archivos de configuración para adJ](https://github.com/pasosdeJesus/adJ/tree/main/arboldd/usr/local/share/adJ/archconf) que recomendamos).
+  (lo anterior se simplifica a `gemil nokogiri@1.13.3` si usas [los archivos de configuración para adJ](https://gitlab.com/pasosdeJesus/adJ/-/tree/main/arboldd/usr/local/share/adJ/archconf?ref_type=heads) que recomendamos).
   
   Después desde el directorio `minmsip` vuelve a ejecutar
   ```sh
