@@ -24,7 +24,7 @@ for i in `git ls-tree -r main --name-only`; do
       git mv $i $n
     } fi;
     antn="";
-    for j in tclases:tcentrospoblados tclase:tcentropoblado Tclases:Tcentrospoblados tclase:tcentropoblado Tclase:Tcentropoblado clases:centrospoblados Clases:Centrospoblados clase:centropoblado Clase:Centropoblado CLASE:CENTROPOBLADO clalocal:cplocal tb_centropoblado:tb_clase gencentropoblado:genclase "def centropoblado:def clase"; do
+    for j in tclases:tcentrospoblados tclase:tcentropoblado Tclases:Tcentrospoblados tclase:tcentropoblado Tclase:Tcentropoblado clases:centrospoblados Clases:Centrospoblados clase:centropoblado Clase:Centropoblado CLASE:CENTROPOBLADO clalocal:cplocal tb_centropoblado:tb_clase gencentropoblado:genclase "def centropoblado:def clase" rencentropoblado:renclase; do
       antes=`echo $j | sed -e 's/:.*//g'`;
       despues=`echo $j | sed -e 's/.*://g'`;
       grep "$antes" $n > /dev/null;
