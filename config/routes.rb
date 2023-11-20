@@ -48,7 +48,7 @@ Msip::Engine.routes.draw do
   get "/tablasbasicas" => "hogar#tablasbasicas"
   get "/temausuario" => "admin/temas#temausuario"
   get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
-  get "/tipoclase" => "admin/clases#tipo_clase"
+  get "/tipocentropoblado" => "admin/centrospoblados#tipo_centropoblado"
   get "/ubicacionespre_mundep" => "ubicacionespre#mundep"
 
   resources :bitacoras, path_names: { new: "nueva", edit: "edita" }

@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :usuarios, path_names: { new: "nuevo", edit: "edita" }
 
     root "msip/hogar#index"
+    mount Msip::Engine, at: "/", as: :msip
   end
 
-  mount Msip::Engine, at: rutarel, as: "msip"
 end

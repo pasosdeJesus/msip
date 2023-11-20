@@ -23,11 +23,11 @@ module Msip
       # no definamos escritores para los siguientes atributos,
       # parece que rails prefiere que estén declarados o al
       # ejecutar update da:
-      # unknown attribute 'ubicacionpre_clase_id' for Cor1440Gen::Actividad.
+      # unknown attribute 'ubicacionpre_centropoblado_id' for Cor1440Gen::Actividad.
       send(:attr_accessor, "#{prefijo}_pais_id")
       send(:attr_accessor, "#{prefijo}_departamento_id")
       send(:attr_accessor, "#{prefijo}_municipio_id")
-      send(:attr_accessor, "#{prefijo}_clase_id")
+      send(:attr_accessor, "#{prefijo}_centropoblado_id")
       send(:attr_accessor, "#{prefijo}_lugar")
       send(:attr_accessor, "#{prefijo}_sitio")
       send(:attr_accessor, "#{prefijo}_tsitio_id")
@@ -98,23 +98,23 @@ module Msip
         optional: true,
       )
 
-      define_method("#{prefijo}_clase_id") do
+      define_method("#{prefijo}_centropoblado_id") do
         if send(prefijo.to_s)
-          send(prefijo.to_s).clase_id
+          send(prefijo.to_s).centropoblado_id
         else
           ""
         end
       end
 
-      define_method("#{prefijo}_clase") do
-        send(prefijo.to_s)&.clase
+      define_method("#{prefijo}_centropoblado") do
+        send(prefijo.to_s)&.centropoblado
       end
 
       send(
         :belongs_to,
-        "#{prefijo}_clase".to_sym,
-        class_name: "Msip::Clase",
-        foreign_key: "#{prefijo}_clase_id",
+        "#{prefijo}_centropoblado".to_sym,
+        class_name: "Msip::Centropoblado",
+        foreign_key: "#{prefijo}_centropoblado_id",
         optional: true,
       )
 

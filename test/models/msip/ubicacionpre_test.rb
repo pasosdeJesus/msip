@@ -90,7 +90,7 @@ module Msip
         pais_id: 170,
         departamento_id: 11,
         municipio_id: 1013,
-        clase_id: 1248,
+        centropoblado_id: 1248,
         nombre: "x",
       )
       # no ponemos tsitio_id porque hasta centros poblados por convención
@@ -224,7 +224,7 @@ module Msip
 
     # test "existe" do
     #  ubicacionpre = Ubicacionpre.where(
-    #    pais_id: 170, departamento_id: nil, municipio_id: nil, clase_id: nil)
+    #    pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil)
     #  assert_equal 1, ubicacionpre.count
     # end
   end

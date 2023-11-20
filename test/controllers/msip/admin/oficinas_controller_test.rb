@@ -109,7 +109,7 @@ module Msip
       idof = response.body.gsub(%r{.*oficinas/}, "").gsub(/">.*/, "").to_i
 
       assert_difference("Oficina.count", -1) do
-        delete msip.admin_oficina_path(Oficina.find(idof)) # Oficina sin clases
+        delete msip.admin_oficina_path(Oficina.find(idof))
       end
 
       assert_redirected_to msip.admin_oficinas_path

@@ -1,6 +1,0 @@
-<%= f.association :clase,
-  collection: (Msip::Clase.habilitados.where(
-  municipio_id: f.object.municipio_id)),
-  label_method: :nombre,
-  value_method: :id 
-%>

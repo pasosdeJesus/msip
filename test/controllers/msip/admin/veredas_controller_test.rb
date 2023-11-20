@@ -99,7 +99,7 @@ module Msip
 
     test "debe eliminar" do
       assert_difference("Vereda.count", -1) do
-        delete msip.admin_vereda_path(Vereda.find(323)) # Vereda sin clases
+        delete msip.admin_vereda_path(Vereda.find(323))
       end
 
       assert_redirected_to msip.admin_veredas_path

@@ -55,7 +55,7 @@
       "file": "app/controllers/msip/ubicacionespre_controller.rb",
       "line": 66,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre_sin_pais) AS value, id AS id FROM public.msip_ubicacionpre AS ubicacionpre WHERE #{\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre_sin_pais)) @@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\"} AND pais_id=170 AND clase_id IS NULL AND departamento_id IS NOT NULL AND lugar IS NULL AND sitio IS NULL  ORDER BY 1 LIMIT 10\")",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre_sin_pais) AS value, id AS id FROM public.msip_ubicacionpre AS ubicacionpre WHERE #{\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre_sin_pais)) @@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\"} AND pais_id=170 AND centropoblado_id IS NULL AND departamento_id IS NOT NULL AND lugar IS NULL AND sitio IS NULL  ORDER BY 1 LIMIT 10\")",
       "render_path": null,
       "location": {
         "type": "method",
@@ -124,14 +124,14 @@
       "file": "app/controllers/msip/modelos_controller.rb",
       "line": 163,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
+      "code": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Msip::ModelosController",
         "method": "index_msip"
       },
-      "user_input": "filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
+      "user_input": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
       "confidence": "Weak",
       "cwe_id": [
         89
@@ -147,14 +147,14 @@
       "file": "app/controllers/msip/modelos_controller.rb",
       "line": 166,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
+      "code": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Msip::ModelosController",
         "method": "index_msip"
       },
-      "user_input": "filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
+      "user_input": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
       "confidence": "Weak",
       "cwe_id": [
         89
@@ -170,14 +170,14 @@
       "file": "app/controllers/msip/modelos_controller.rb",
       "line": 169,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
+      "code": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Msip::ModelosController",
         "method": "index_msip"
       },
-      "user_input": "filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
+      "user_input": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
       "confidence": "Weak",
       "cwe_id": [
         89
@@ -331,7 +331,7 @@
       "file": "lib/msip/concerns/controllers/ubicacionespre_controller.rb",
       "line": 66,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre_sin_pais) AS value, id AS id FROM public.msip_ubicacionpre AS ubicacionpre WHERE #{\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre_sin_pais)) @@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\"} AND pais_id=170 AND clase_id IS NULL AND departamento_id IS NOT NULL AND lugar IS NULL AND sitio IS NULL  ORDER BY 1 LIMIT 10\")",
+      "code": "ActiveRecord::Base.connection.select_all(\"SELECT TRIM(nombre_sin_pais) AS value, id AS id FROM public.msip_ubicacionpre AS ubicacionpre WHERE #{\" to_tsvector('spanish', f_unaccent(ubicacionpre.nombre_sin_pais)) @@ to_tsquery('spanish', '#{(Msip::Ubicacion.connection.quote_string(params[:term]).downcase.strip + \":*\")}')\"} AND pais_id=170 AND centropoblado_id IS NULL AND departamento_id IS NOT NULL AND lugar IS NULL AND sitio IS NULL  ORDER BY 1 LIMIT 10\")",
       "render_path": null,
       "location": {
         "type": "method",
@@ -699,14 +699,14 @@
       "file": "lib/msip/concerns/controllers/modelos_controller.rb",
       "line": 163,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "filtrar_ca(clase.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
+      "code": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).where(((\" to_tsvector('simple', unaccent(\" + filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")) + \")) @@ to_tsquery('simple', ?)\"), (ActiveRecord::Base.connection.quote_string(params[:term]).downcase.strip + \":*\"))",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Msip::Concerns::Controllers::ModelosController",
         "method": "index_msip"
       },
-      "user_input": "filtrar_ca(clase.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
+      "user_input": "filtrar_ca(centropoblado.constantize.accessible_by(current_ability)).busca_etiqueta_campos.join(\" || ' ' || \")",
       "confidence": "Weak",
       "cwe_id": [
         89

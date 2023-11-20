@@ -59,11 +59,11 @@
     </div>
 
     <% mun =  f.object.send("#{campomunicipio}_id") #salida_municipio_id %>
-    <% col = mun ? Msip::Clase.habilitados.where(municipio_id: mun).
+    <% col = mun ? Msip::Centropoblado.habilitados.where(municipio_id: mun).
       order(:nombre) : [] %>
     <% estsinmun = (mun && mun != "") ? false : true %>
     <div class="col-md-6 collapse" id='<%= "restocp-#{htmlid}" %>'>
-      <%= f.association campocentropoblado, #:salida_clase,
+      <%= f.association campocentropoblado, #:salida_centropoblado,
         collection: col,
         label_method: :nombre,
         value_method: :id,

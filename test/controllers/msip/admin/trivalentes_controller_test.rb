@@ -109,7 +109,7 @@ module Msip
       idof = response.body.gsub(%r{.*trivalentes/}, "").gsub(/">.*/, "").to_i
 
       assert_difference("Trivalente.count", -1) do
-        delete msip.admin_trivalente_path(Trivalente.find(idof)) # Trivalente sin clases
+        delete msip.admin_trivalente_path(Trivalente.find(idof))
       end
 
       assert_redirected_to msip.admin_trivalentes_path

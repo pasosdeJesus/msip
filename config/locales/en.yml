@@ -129,17 +129,17 @@ en:
         Bitacora: Log in
         Bitacoras: Log records
         modelo_id: Id
-      "msip/clase":
-        Clase: Populated center
-        Clases: Population centers
+      "msip/centropoblado":
+        Centropoblado: Populated center
+        Centrospoblados: Populated centers
         municipio_id: Municipality
-        clalocal_cod: Code within the country
-        tclase_id: Type of populated center
+        cplocal_cod: Code within the country
+        tcentropoblado_id: Type of populated center
         latitud: Latitude
         longitud: Longitude
         municipio: Municipality
         pais: Country
-        tclase: Type of populated center
+        tcentropoblado: Type of populated center
       "msip/departamento":
         Departamento: Department / State
         Departamentos: Departments / States
@@ -229,11 +229,11 @@ en:
         Persona: Beneficiary
         anionac: Year of birth
         apellidos: Lastname
-        clase: Town center birth
+        centropoblado: Town center birth
         departamento: Birth department
         dianac: Day of birth
         fechanac: Date of birth
-        clase_id: Town center birth
+        centropoblado_id: Town center birth
         departamento_id: Birth department
         municipio_id: Municipality of birth
         pais_id: Country of birth
@@ -253,11 +253,11 @@ en:
       "msip/sectororgsocial":
         Sectororgsocial: Social organization sector
         Sectoresorgsocial: Sectors of social organizations
-      "msip/tclase":
-        Tclase: Type of populated center
-        Tclases: Types of populated centers
-        tclase_id: Type of populated center
-        clalocal_cod: Code within the municipality
+      "msip/tcentropoblado":
+        Tcentropoblado: Type of populated center
+        Tcentrospoblados: Types of populated centers
+        tcentropoblado_id: Type of populated center
+        cplocal_cod: Code within the municipality
       "msip/tdocumento":
         Tdocumento: Type of document of identy
         Tdocumentos: Types of identity documents

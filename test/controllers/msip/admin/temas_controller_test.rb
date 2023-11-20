@@ -109,7 +109,7 @@ module Msip
       idof = response.body.gsub(%r{.*temas/}, "").gsub(/">.*/, "").to_i
 
       assert_difference("Tema.count", -1) do
-        delete msip.admin_tema_path(Tema.find(idof)) # Tema sin clases
+        delete msip.admin_tema_path(Tema.find(idof))
       end
 
       assert_redirected_to msip.admin_temas_path

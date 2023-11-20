@@ -15,7 +15,7 @@ module Msip
           belongs_to :pais, class_name: "Msip::Pais", validate: true, optional: true
           belongs_to :departamento, class_name: "Msip::Departamento", validate: true, optional: true
           belongs_to :municipio, class_name: "Msip::Municipio", validate: true, optional: true
-          belongs_to :clase, class_name: "Msip::Clase", validate: true, optional: true
+          belongs_to :centropoblado, class_name: "Msip::Centropoblado", validate: true, optional: true
           belongs_to :tsitio, class_name: "Msip::Tsitio", validate: true, optional: true
 
           flotante_localizado :latitud
@@ -33,7 +33,7 @@ module Msip
               pais.nombre,
               departamento ? departamento.nombre : "",
               municipio ? municipio.nombre : "",
-              clase ? clase.nombre : "",
+              centropoblado ? centropoblado.nombre : "",
               lugar,
               sitio,
             )
@@ -43,7 +43,7 @@ module Msip
 
         class_methods do
           def nomenclatura(pais, departamento, municipio,
-            clase, lugar, sitio)
+            centropoblado, lugar, sitio)
             if pais.to_s.strip == ""
               nombre = nil
               nombre_sinp = nil
@@ -55,34 +55,34 @@ module Msip
                 pais.to_s
               nombre_sinp = departamento.to_s
             elsif lugar.to_s.strip == ""
-              nombre = (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+              nombre = (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s.strip + " / " +
                 pais.to_s
               nombre_sinp = (
-                clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s
             elsif sitio.to_s.strip == ""
               nombre = lugar.to_s + " / " +
-                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s.strip + " / " +
                 pais.to_s
               nombre_sinp = lugar.to_s + " / " +
-                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s
             else
               nombre = sitio.to_s + " / " +
                 lugar.to_s + " / " +
-                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s.strip + " / " +
                 pais.to_s
               nombre_sinp = sitio.to_s + " / " +
                 lugar.to_s + " / " +
-                (clase.to_s.strip == "" ? "" : clase.to_s.strip + " / ") +
+                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
                 municipio.to_s.strip + " / " +
                 departamento.to_s
             end
@@ -97,7 +97,7 @@ module Msip
           # @param pais_id id de país
           # @param departamento_id id de departamento
           # @param municipio_id id de municipio
-          # @param clase_id id del centro poblado
+          # @param centropoblado_id id del centro poblado
           # @param lugar lugar
           # @param sitio sitio
           # @param tsitio_id tipo de sitio
@@ -105,11 +105,11 @@ module Msip
           # @param longitud Longitud no localizada
           # @param usa_latlon Si usa_latlon es falso y la ubicación con lugar
           #   es válida ignora las que recibe y pone unas de acuerdo al pais,
-          #   departamento, municipio y clase.
+          #   departamento, municipio y centropoblado.
           # @return id de ubicación que encuentra o que crea o nil si
           #   tiene problema
           def buscar_o_agregar(pais_id, departamento_id, municipio_id,
-            clase_id, lugar, sitio, tsitio_id,
+            centropoblado_id, lugar, sitio, tsitio_id,
             latitud, longitud,
             usa_latlon = true)
 
@@ -133,7 +133,7 @@ module Msip
               pais_id: opais.id,
               departamento_id: nil,
               municipio_id: nil,
-              clase_id: nil,
+              centropoblado_id: nil,
               lugar: nil,
               sitio: nil,
               tsitio_id: nil, # SIN INFORMACIÓN
@@ -177,10 +177,10 @@ module Msip
             end
             w[:municipio_id] = omunicipio.id
 
-            # clase debe ser NULL para ubicaciones rurales
-            if clase_id.to_i > 0 &&
-                Msip::Clase.where(
-                  id: clase_id.to_i,
+            # centropoblado debe ser NULL para ubicaciones rurales
+            if centropoblado_id.to_i > 0 &&
+                Msip::Centropoblado.where(
+                  id: centropoblado_id.to_i,
                   municipio_id: omunicipio.id,
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
@@ -190,15 +190,15 @@ module Msip
               return Msip::Ubicacionpre.where(w).take.id
             end
 
-            w[:clase_id] = nil # Posiblemente Rural
-            if clase_id.to_i > 0
-              w[:clase_id] = clase_id.to_i # Urbana
-              oclase = Msip::Clase.find(clase_id.to_i)
+            w[:centropoblado_id] = nil # Posiblemente Rural
+            if centropoblado_id.to_i > 0
+              w[:centropoblado_id] = centropoblado_id.to_i # Urbana
+              ocentropoblado = Msip::Centropoblado.find(centropoblado_id.to_i)
               if (latitud == omunicipio.latitud &&
                   longitud == omunicipio.longitud &&
-                  oclase.latitud && oclase.longitud) || !usa_latlon
-                latitud = oclase.latitud
-                longitud = oclase.longitud
+                  ocentropoblado.latitud && ocentropoblado.longitud) || !usa_latlon
+                latitud = ocentropoblado.latitud
+                longitud = ocentropoblado.longitud
               end
             end
 
@@ -223,15 +223,15 @@ module Msip
             # Revisamos posible error en información de entrada que pondría
             # como lugar un centro poblado y en tal caso se retorna el centro
             # poblado
-            if !w[:clase_id] && Msip::Clase.where(
+            if !w[:centropoblado_id] && Msip::Centropoblado.where(
               nombre: lugar.to_s.strip,
               municipio_id: omunicipio.id,
             ).count == 1
-              oclase = Msip::Clase.where(
+              ocentropoblado = Msip::Centropoblado.where(
                 nombre: lugar.to_s.strip,
                 municipio_id: omunicipio.id,
               ).first
-              clase_id = w[:clase_id] = oclase.id
+              centropoblado_id = w[:centropoblado_id] = ocentropoblado.id
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w)
                 return nil
@@ -245,7 +245,7 @@ module Msip
                 if tsitio_id != 2
                   Rails.logger.debug("** Ignorando tsitio_id errado")
                 end
-                if latitud.to_f != oclase.latitud || longitud.to_f != oclase.longitud
+                if latitud.to_f != ocentropoblado.latitud || longitud.to_f != ocentropoblado.longitud
                   Rails.logger.debug do
                     "** Ignorando (latitud, longitud) erradas "\
                       "(#{latitud.to_f}, #{longitud.to_f})"
@@ -323,7 +323,7 @@ module Msip
               opais.nombre,
               odepartamento.nombre,
               omunicipio.nombre,
-              oclase ? oclase.nombre : "",
+              ocentropoblado ? ocentropoblado.nombre : "",
               w[:lugar],
               w[:sitio],
             )

@@ -60,7 +60,7 @@ module Msip
               :pais_id,
               :departamento_id,
               :municipio_id,
-              :clase_id,
+              :centropoblado_id,
               :lugar,
               :sitio,
               :latitud,

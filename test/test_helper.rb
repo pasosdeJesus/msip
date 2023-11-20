@@ -33,15 +33,15 @@ PRUEBA_GRUPOPER = {
   nombre: "grupoper1",
 }
 
-PRUEBA_CLASE = {
+PRUEBA_CENTROPOBLADO = {
   id: 100000,
-  nombre: "CLASE1",
+  nombre: "CENTROPOBLADO1",
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
   fechadeshabilitacion: "2014-08-04",
   municipio_id: 1,
-  tclase_id: "CAS",
+  tcentropoblado_id: "CAS",
 }
 
 PRUEBA_ANEXO = {
@@ -192,7 +192,7 @@ PRUEBA_SOLICITUD = {
   updated_at: "2022-06-24",
 }
 
-PRUEBA_TCLASE = {
+PRUEBA_TCENTROPOBLADO = {
   id: "x",
   nombre: "TX",
   fechacreacion: "2014-09-09",
@@ -225,7 +225,7 @@ PRUEBA_UBICACION = {
   pais_id: 862, # VENEZUELA
   departamento_id: 1, # DISTRITO CAPITAL
   municipio_id: 25, # BOLIVARIANO LIBERTADOR
-  clase_id: 217, # CARACAS
+  centropoblado_id: 217, # CARACAS
   created_at: "2014-11-06",
 }
 
@@ -233,7 +233,7 @@ PRUEBA_UBICACIONPRE = {
   pais_id: 100, # BULGARIA
   departamento_id: 20,
   municipio_id: nil,
-  clase_id: nil,
+  centropoblado_id: nil,
   nombre: "IMAGINA / BULGARIA",
   latitud: 0.1,
   longitud: 0.2,

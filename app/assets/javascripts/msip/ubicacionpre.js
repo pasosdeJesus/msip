@@ -29,7 +29,7 @@ function msip_ubicacionpre_expandible_maneja_evento_busca_lugar(e) {
   pais = +epais.val()
   dep = +ubicacionpre.find('[id$=departamento_id]').val()
   mun = +ubicacionpre.find('[id$=municipio_id]').val()
-  clas = +ubicacionpre.find('[id$=clase_id]').val()
+  clas = +ubicacionpre.find('[id$=centropoblado_id]').val()
   ubi = [pais, dep, mun, clas]
   msip_ubicacionpre_expandible_busca_lugar($(this), ubi)
 }
@@ -64,7 +64,7 @@ function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
       "ubicacionespre_lugar.json" + '?pais=' + ubi[0] + 
       '&dep=' + ubi[1] + '&mun=' + ubi[2] + '&clas=' + ubi[3] + '&', 
       'fuente-lugar', function (event, nomop, idop, otrosop) { 
-        msip_ubicacionpre_expandible_autocompleta_lugar(otrosop['clase_id'],
+        msip_ubicacionpre_expandible_autocompleta_lugar(otrosop['centropoblado_id'],
           otrosop['tsitio_id'], otrosop['lugar'], 
           otrosop['sitio'], otrosop['latitud'], otrosop['longitud'], 
           ubipre, window)
@@ -77,9 +77,9 @@ function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
   return
 }
 
-function msip_ubicacionpre_expandible_autocompleta_lugar(clase_id, tsit, lug, sit, lat, lon, ubipre, root){
+function msip_ubicacionpre_expandible_autocompleta_lugar(centropoblado_id, tsit, lug, sit, lat, lon, ubipre, root){
   msip_arregla_puntomontaje(root)
-  ubipre.parent().find('[id$=_clase_id]').val(clase_id).trigger('chosen:updated')
+  ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id).trigger('chosen:updated')
   ubipre.find('[id$=_lugar]').val(lug)
   ubipre.find('[id$=_sitio]').val(sit)
   if (lat != 0 && lat != null){
@@ -220,14 +220,14 @@ function msip_ubicacionpre_expandible_registra(iniid, campoubi, root,
 
   // Cambia coordenadas y habilita otros campos al cambiar centro poblado
   $(document).on('change', 
-    '[id^=' + iniid + '][id$=' + campoubi + '_clase_id]', 
+    '[id^=' + iniid + '][id$=' + campoubi + '_centropoblado_id]', 
     function (evento) {
       if($(this).val()==""){
         ubp = $(evento.target).closest('.ubicacionpre')
         mun = ubp.find('[id$='+campoubi+'_municipio_id]')
         msip_ubicacionpre_fija_coordenadas(evento, campoubi, mun, "municipios")
       }else{
-        msip_ubicacionpre_fija_coordenadas(evento, campoubi, $(this), "clases")
+        msip_ubicacionpre_fija_coordenadas(evento, campoubi, $(this), "centrospoblados")
       }
       habilita_otros_sihaymun(evento, 1, campoubi)
     })

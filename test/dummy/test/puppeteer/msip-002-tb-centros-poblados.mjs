@@ -392,7 +392,7 @@ import {
       ],
       selectors: [
         [
-          'text/Msip::Clase eliminado.'
+          'text/Msip::Centropoblado eliminado.'
         ]
       ]
     }, frame, timeout);
