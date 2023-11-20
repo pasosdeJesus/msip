@@ -61,8 +61,8 @@ es:
     one: '%{count} día'
     other: '%{count} días'
   attributes:
-    clase: Centro poblado
-    clases: Centros poblados
+    centropoblado: Centro poblado
+    centrospoblados: Centros poblados
     created_at: Fecha de creacíon
     created_at_localizada: Fecha de creacíon
     updated_at: Fecha de actualizacíon
@@ -142,16 +142,16 @@ es:
         Bitacora: Registro en bitácora
         Bitacoras: Registros en bitácora
         modelo_id: Id
-      "msip/clase":
-        Clase: Centro poblado
-        Clases: Centros poblados
+      "msip/centropoblado":
+        Centropoblado: Centro poblado
+        Centrospoblados: Centros poblados
         municipio_id: Municipio
-        clalocal_cod: Código dentro del municipio 
-        tclase_id: Tipo de centro poblado
-        tclase: Tipo de centro poblado
+        cplocal_cod: Código dentro del municipio 
+        tcentropoblado_id: Tipo de centro poblado
+        tcentropoblado: Tipo de centro poblado
       "msip/departamento":
         codreg: Código secundario del país
-        clalocal_cod: Código dentro del municipio 
+        cplocal_cod: Código dentro del municipio 
         Departamento: Departamento/Estado
         Departamentos: Departamentos/Estados
         deplocal_cod: Código dentro del país
@@ -236,13 +236,13 @@ es:
         orgsocial: Organización social a la que pertenece
       "msip/persona":
         anionac: Año nacimiento
-        clase: Centro poblado nacimiento
+        centropoblado: Centro poblado nacimiento
         departamento: Departamento nacimiento
         dianac: Día nacimiento
         etiqueta_ids: Etiquetas
         familiar_ids: Familiares
         fechanac: Fecha de nacimiento
-        clase_id: Centro poblado nacimiento
+        centropoblado_id: Centro poblado nacimiento
         departamento_id: Departamento nacimiento
         municipio_id: Municipio nacimiento
         pais_id: País nacimiento
@@ -260,11 +260,11 @@ es:
       "msip/sectororgsocial":
         Sectororgsocial: Sector de organización social
         Sectoresorgsocial: Sectores de organizaciones sociales
-      "msip/tclase":
-        Tclase: Tipo de centro poblado
-        Tclases: Tipos de centros poblados
-        tclase_id: Tipo de centro poblado
-        clalocal_cod: Código dentro del municipio
+      "msip/tcentropoblado":
+        Tcentropoblado: Tipo de centro poblado
+        Tcentrospoblados: Tipos de centros poblados
+        tcentropoblado_id: Tipo de centro poblado
+        cplocal_cod: Código dentro del municipio
       "msip/tdocumento":
         Tdocumento: Tipo de documento de identidad
         Tdocumentos: Tipos de documentos de identidad

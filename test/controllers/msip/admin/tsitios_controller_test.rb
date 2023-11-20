@@ -111,7 +111,7 @@ module Msip
       idof = (ids2-ids1).first
 
       assert_difference("Tsitio.count", -1) do
-        delete msip.admin_tsitio_path(Tsitio.find(idof)) # Tsitio sin clases
+        delete msip.admin_tsitio_path(Tsitio.find(idof))
       end
 
       assert_redirected_to msip.admin_tsitios_path

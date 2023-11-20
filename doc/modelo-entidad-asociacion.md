@@ -15,8 +15,8 @@ make erd
 ```
 
 Podríamos dividir las tablas en grandes bloques así (tener en cuenta que todas tienen el prefijo ```msip__``` que a continuación se omite):
-- Ubicación geográfica: pais, departamento, municipio, clase, tclase (tipo de 
-  clase), ubicacion, tsitio (tipo de sitio).
+- Ubicación geográfica: pais, departamento, municipio, centropoblado, tcentropoblado (tipo de 
+  centropoblado), ubicacion, tsitio (tipo de sitio).
 - Vista auxiliar: mundep.
 - Personas y relaciones entre personas: persona, trelacion (tipo de relación 
   entre personas), persona_trelacion.

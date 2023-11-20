@@ -31,7 +31,7 @@ module Msip
               :pais,
               :departamento,
               :municipio,
-              :clase,
+              :centropoblado,
               :nacionalde,
               :tdocumento_id,
               :numerodocumento,
@@ -260,7 +260,7 @@ module Msip
               :pais_id,
               :departamento_id,
               :municipio_id,
-              :clase_id,
+              :centropoblado_id,
               :tdocumento_id,
             ] + [ 
               etiqueta_persona_attributes:  [

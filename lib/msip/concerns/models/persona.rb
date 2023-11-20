@@ -178,8 +178,8 @@ module Msip
             class_name: "Msip::OrgsocialPersona",
             validate: true
           # inverse_of: :persona
-          belongs_to :clase,
-            class_name: "Msip::Clase",
+          belongs_to :centropoblado,
+            class_name: "Msip::Centropoblado",
             validate: true,
             optional: true
           belongs_to :nacional,
@@ -328,7 +328,7 @@ module Msip
           def msip_presenta(atr)
             case atr.to_s
             when "centro_poblado"
-              clase ? clase.nombre : ""
+              centropoblado ? centropoblado.nombre : ""
             when "nacionalde"
               nacionalde ? nacional.nombre : ""
             when "sexo"
@@ -433,7 +433,7 @@ module Msip
                 if municipio_id.nil?
                   menserror << "  No puede ubicarse centro_poblado #{datosent[:centro_poblado]} sin municipio."
                 else
-                  cp = Msip::Clase.where(
+                  cp = Msip::Centropoblado.where(
                     municipio_id: municipio_id,
                   ).where(
                     "upper(unaccent(nombre))=upper(unaccent(?))",
@@ -442,7 +442,7 @@ module Msip
                   if cp.count == 0
                     menserror << "  No se encontró centro poblado #{datosent[:centro_poblado]} en el municipio #{Msip::Municipio.find(municipio_id).nombre}."
                   else
-                    self.clase_id = cp.take.id
+                    self.centropoblado_id = cp.take.id
                   end
                 end
               end

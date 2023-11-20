@@ -764,7 +764,7 @@ if (typeof String.prototype.endsWith != 'function')
     })
   return
 
-# Busca ubicacionpre por nombre pais, nombre dep, nombre mun, nombre clase
+# Busca ubicacionpre por nombre pais, nombre dep, nombre mun, nombre centropoblado
 # s es objeto con foco donde se busca ubicacionpre
 @msip_busca_ubicacionpre = (s) ->
   root = window
@@ -928,17 +928,17 @@ if (typeof String.prototype.endsWith != 'function')
 
   # Al cambiar municipio se recalcula lista de centros poblados
   $(document).on('change', 'select[id$=_municipio_id]', (e) ->
-    llena_clase($(this), root, sincoord)
+    llena_centropoblado($(this), root, sincoord)
   )
   $(document).on('change', 'select[id$=_municipio_id]', (e) ->
-    llena_clase($(this), root, sincoord)
+    llena_centropoblado($(this), root, sincoord)
   )
 
   # Al cambiar centro poblado se deja tipo de ubicación en Urbano
-  $(document).on('change', 'select[id$=_clase_id]', (e) ->
+  $(document).on('change', 'select[id$=_centropoblado_id]', (e) ->
     pone_tipourbano($(this))
   )
-  $(document).on('change', 'select[id$=_clase_id]', (e) ->
+  $(document).on('change', 'select[id$=_centropoblado_id]', (e) ->
     pone_tipourbano($(this))
   )
 

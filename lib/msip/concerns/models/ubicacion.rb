@@ -22,9 +22,9 @@ module Msip
             validate: true,
             class_name: "Msip::Municipio",
             optional: true
-          belongs_to :clase,
+          belongs_to :centropoblado,
             validate: true,
-            class_name: "Msip::Clase",
+            class_name: "Msip::Centropoblado",
             optional: true
           belongs_to :tsitio,
             validate: true,
@@ -52,8 +52,8 @@ module Msip
               r += sep + municipio.nombre
               sep = " / "
             end
-            if opciones[:sin_clase].nil? && clase
-              r += sep + clase.nombre
+            if opciones[:sin_centropoblado].nil? && centropoblado
+              r += sep + centropoblado.nombre
               sep = " / "
             end
             r

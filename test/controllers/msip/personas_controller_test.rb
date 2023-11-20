@@ -105,7 +105,7 @@ module Msip
       assert_template :edit
 
       assert_difference("Persona.count", -1) do
-        delete msip.persona_path(Persona.find(idr)) # Persona sin clases
+        delete msip.persona_path(Persona.find(idr))
       end
 
       assert_redirected_to msip.personas_path

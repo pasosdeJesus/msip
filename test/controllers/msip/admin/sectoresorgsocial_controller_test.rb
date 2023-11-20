@@ -111,7 +111,7 @@ module Msip
       assert_template :edit
 
       assert_difference("Sectororgsocial.count", -1) do
-        delete msip.admin_sectororgsocial_path(Sectororgsocial.find(idr)) # Sectororgsocial sin clases
+        delete msip.admin_sectororgsocial_path(Sectororgsocial.find(idr))
       end
 
       assert_redirected_to msip.admin_sectoresorgsocial_path

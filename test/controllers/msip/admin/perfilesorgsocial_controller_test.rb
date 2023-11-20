@@ -106,7 +106,7 @@ module Msip
       assert_template :edit
 
       assert_difference("Perfilorgsocial.count", -1) do
-        delete msip.admin_perfilorgsocial_path(Perfilorgsocial.find(idr)) # Perfilorgsocial sin clases
+        delete msip.admin_perfilorgsocial_path(Perfilorgsocial.find(idr))
       end
 
       assert_redirected_to msip.admin_perfilesorgsocial_path

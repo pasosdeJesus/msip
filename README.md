@@ -62,8 +62,8 @@ de información a diversos niveles:
     ampliables o modificables con herencia o con `ActiveSupport::Concern`
     para aplicaciones más complejas. 
   - Componente para ubicaciones geográficas 
-    `msip_pais`, `msip_departamento`, `msip_municipio`, `msip_clase` para centros
-    poblados), `msip_tclase` (tipos de centros poblados), `msip_tsitio`
+    `msip_pais`, `msip_departamento`, `msip_municipio`, `msip_centropoblado` para centros
+    poblados), `msip_tcentropoblado` (tipos de centros poblados), `msip_tsitio`
     (tipo de sitio) y `msip_ubicacion`. Con datos de todos los países,
     aunque estados y municipios completos para Colombia, Venezuela y
     Honduras y ciudades completas para Colombia de acuerdo a DIVIPOLA 2022 

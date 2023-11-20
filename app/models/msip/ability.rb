@@ -33,7 +33,7 @@ module Msip
     ]
 
     BASICAS_PROPIAS = [
-      ["Msip", "clase"],
+      ["Msip", "centropoblado"],
       ["Msip", "departamento"],
       ["Msip", "estadosol"],
       ["Msip", "etiqueta"],
@@ -44,7 +44,7 @@ module Msip
       ["Msip", "pais"],
       ["Msip", "perfilorgsocial"],
       ["Msip", "sectororgsocial"],
-      ["Msip", "tclase"],
+      ["Msip", "tcentropoblado"],
       ["Msip", "tema"],
       ["Msip", "tdocumento"],
       ["Msip", "tipoorg"],
@@ -55,7 +55,7 @@ module Msip
     ]
 
     INISEC_TB = {
-      msip_clase: 1000000,
+      msip_centropoblado: 1000000,
       msip_departamento: 10000,
       msip_municipio: 100000,
       msip_pais: 1000,
@@ -79,7 +79,7 @@ module Msip
     end
 
     BASICAS_ID_NOAUTO = [
-      ["Msip", "tclase"],
+      ["Msip", "tcentropoblado"],
       ["Msip", "trelacion"],
     ]
 
@@ -90,7 +90,7 @@ module Msip
 
     NOBASICAS_INDSEQID = [
       ["Msip", "anexo"],
-      ["Msip", "clase_histvigencia"],
+      ["Msip", "centropoblado_histvigencia"],
       ["Msip", "departamento_histvigencia"],
       ["Msip", "municipio_histvigencia"],
       ["Msip", "pais_histvigencia"],
@@ -107,11 +107,11 @@ module Msip
     end
 
     BASICAS_PRIO = [
-      ["Msip", "tclase"],
+      ["Msip", "tcentropoblado"],
       ["Msip", "pais"],
       ["Msip", "departamento"],
       ["Msip", "municipio"],
-      ["Msip", "clase"],
+      ["Msip", "centropoblado"],
       ["Msip", "oficina"],
     ]
 
@@ -166,7 +166,7 @@ module Msip
 
       # Sin autenticación puede consultarse DIVIPOLA
       can(:read, [
-        Msip::Pais, Msip::Departamento, Msip::Municipio, Msip::Clase, Msip::Vereda,
+        Msip::Pais, Msip::Departamento, Msip::Municipio, Msip::Centropoblado, Msip::Vereda,
       ])
       if !usuario || usuario.fechadeshabilitacion
         return

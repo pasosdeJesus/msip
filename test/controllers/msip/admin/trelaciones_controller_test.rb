@@ -111,7 +111,7 @@ module Msip
       idr = (ids2-ids1).first
 
       assert_difference("Trelacion.count", -1) do
-        delete msip.admin_trelacion_path(Trelacion.find(idr)) # Trelacion sin clases
+        delete msip.admin_trelacion_path(Trelacion.find(idr))
       end
 
       assert_redirected_to msip.admin_trelaciones_path
