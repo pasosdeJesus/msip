@@ -54,3 +54,4 @@ test/dummy/cobertura-sistema
 yard_doc/
 creaparchesip.sh
 test/dummy/app/javascript/controllers/msip
+ref
