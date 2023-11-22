@@ -31,6 +31,14 @@ class RenClaCpCor1440 < ActiveRecord::Migration[7.0]
         "msip_ubicacion_centropoblado_id_fkey"
       )
     end
+    if existe_restricción_pg?("clase_id_tipo_clase_fkey")
+      renombrar_restricción_pg(
+        "msip_centropoblado",
+        "clase_id_tipo_clase_fkey",
+        "msip_centropoblado_tcentropoblado_id_fkey"
+      )
+    end
+
   end
 
   def down
