@@ -271,6 +271,7 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
 }
 
 function msip_pone_tema(root, tema) {
+    debugger
     $('.table-striped>tbody>tr:nth-child(odd)').css('background-color', tema.fondo_lista);
     $('.navbar').css('background-image', `linear-gradient(${tema.nav_ini}, ${tema.nav_fin})`);
     $('.navbar-default .navbar-nav>li>a').css('color', tema.nav_fuente);
@@ -308,6 +309,38 @@ function msip_pone_tema(root, tema) {
     $('table').css('color', tema.color_fuente);
 }
 
+function msip_temausuario_ajax(){
+  var root = window
+  var ruta = 'temausuario'
+  var funproc = msip_pone_tema
+  var datos = {}
+  var t = Date.now();
+  var d = -1;
+  if (root.msip_ajax_recibe_json_t) {
+        if (root.msip_ajax_recibe_json_t[ruta]) {
+                d = (t - root.msip_ajax_recibe_json_t[ruta]) / 1000;
+              }
+      } else {
+            root.msip_ajax_recibe_json_t = {};
+          }
+  root.msip_ajax_recibe_json_t[ruta] = t;
+
+  if (d === -1 || d > 2) {
+        var rutac = root.puntomontaje + ruta + ".json";
+        $.ajax({
+                url: rutac,
+                data: datos,
+                dataType: 'json',
+                method: 'GET'
+              }).fail(function(jqXHR, texto) {
+                      alert('Error - ' + texto);
+                    }).done(function(e, r) {
+                            funproc(root, e);
+                          });
+      }
+
+  return true;
+}
 function MsipIniciar() {
 
   MsipAutocompletaAjaxContactos.iniciar()

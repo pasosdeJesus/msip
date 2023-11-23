@@ -870,8 +870,7 @@ if (typeof String.prototype.endsWith != 'function')
   )
 
   # Pone colores de acuerdo al tema
-  msip_ajax_recibe_json(root, 'temausuario', {}, msip_pone_tema)
-
+  msip_temausuario_ajax()
   jQuery ->
     $("a[rel~=popover], .has-popover").popover()
     $("a[rel~=tooltip], .has-tooltip").tooltip()
@@ -997,7 +996,7 @@ if (typeof String.prototype.endsWith != 'function')
   MsipIniciar()
 
   # Pone colores de acuerdo al tema
-  msip_ajax_recibe_json(root, 'temausuario', {}, msip_pone_tema)
+  msip_temausuario_ajax()
 
   jQuery ->
     $("a[rel~=popover], .has-popover").popover()
