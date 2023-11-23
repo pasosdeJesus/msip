@@ -129,13 +129,13 @@ if (test "$SALTASIADDHH" != "1") then {
   actuno siaddhh;
 } fi;
 
-if (test "$SALTASIBDHN" != "1") then {
-  actuno si_bdhn
-} fi;
-
 if (test "$SALTAAPO214" != "1") then {
   echo "**** apo214"
   actuno apo214 test/dummy; 
+} fi;
+
+if (test "$SALTASIBDHN" != "1") then {
+  actuno si_bdhn
 } fi;
 
 if (test "$SALTASIVEL2" != "1") then {
