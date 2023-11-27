@@ -1,15 +1,16 @@
-
 # Ubicaciones predefinidas - Ubicacionpre
 
-Su objetivo es facilitar reusar ubicaciones previamente empleadas en el 
+Su objetivo es permitir reusar lugares geográficos previamente empleadas en el 
 sistema de información.
 
 Por ejemplo Tierra Amarilla es un sector rural en el municipio de San José de
 Apartado en Antioquia, Colombia, donde los paramilitares han montado
 retenes en muchas oportunidades para violentar a la población.  
-En un sistema sin  ubicaciones predefinidas cada caso tendría
-duplicada esa ubicación, con ubicaciones predefinidas sería posible
-reusar la misma ubicación de casos anteriores.
+En un sistema de información sin  ubicaciones predefinidas cada caso en eese lugsr tendría
+duplicada esa ubicación, con ubicaciones predefinidas sería posible tener un solo lugar y 
+reusarlo en los diversos casos, por ejemplo mediante autocompletación.
+
+Estas ubicaciones predefinidas pueden ser bien (1) divisones político-administrativas ya definidas en las tablas básicas pais, departamento, municipio, centro poblado o vereda ya eao bien (2) nuevo lugares dentro de una división politico administrativa particulares de un sistema de información.
 
 Para implementar esta funcionalidad se emplea la tabla `msip_ubicacionpre`
 cuyos campos son:
