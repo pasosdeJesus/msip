@@ -3,24 +3,24 @@
 ## División político administrativa
 
 Para modelar la división político administrativa de diversos países
-usamos 4 niveles:
+usamos 4 niveles especificados en 5 tablas básicas:
 
-| Nivel | Urbano o Rural | Tabla (con prefijo `msip_`)|
+| Nivel | Urbano o Rural | Tabla Básica (con prefijo `msip_`)|
 |---|---|---|
-| 1 | Ambos | pais |
-| 2 | Ambos | departamento |
-| 3 | Ambos | municipio |
-| 4 | Urbano | centropoblado |
-| 4 | Rural | vereda |
+| 1 | Ambos | `pais` |
+| 2 | Ambos | `departamento` |
+| 3 | Ambos | `municipio` |
+| 4 | Urbano | `centropoblado` |
+| 4 | Rural | `vereda` |
 
 Como fuentes de información para el caso de Colombia hemos empleado 
-principalemente el DIVIPOLA publicado por el DANE (ver 
-<https://geoportal.dane.gov.co/geovisores/territorio/consulta-divipola-division-politico-administrativa-de-colombia/>), 
-que suele tener varias actualizaciones al año que procuramos
+principalemente el DIVIPOLA y el Mapa Veredal publicados por el DANE (ver 
+<https://geoportal.dane.gov.co/geovisores/territorio/consulta-divipola-division-politico-administrativa-de-colombia/> y 
+<https://geoportal.dane.gov.co/servicios/descarga-y-metadatos/descarga-nivel-de-referencia-de-veredas/#gsc.tab=00>).
+El DIVIPOLA suele tener varias actualizaciones al año que procuramos
 seguir y publicar como actualización de msip al menos una vez al año 
-y que solemos comentar y publicar con un artículo en:
-https://gitlab.com/pasosdeJesus/msip/-/wikis/home
-
+con nuevas versiones de msip y un par de artículos por cada actualización
+al DIVIPOLA en: <https://gitlab.com/pasosdeJesus/msip/-/wikis/home>
 
 Para el caso de Venezuela empleamos datos recolectados por Randolf Laverde
 en 2014.
@@ -30,6 +30,9 @@ Estadística de Honduras gestionados por Oslin George.
 
 Para el listado de países hemos empleado especialmente
 https://www.iso.org/obp/ui/#search/code/
+
+Las siluetas (o polígonos) de diversas divisiones político administrativa 
+solemos obtenerlas, actualizarlas y retroalimentar https://openstreetmap.org
 
 Mantenemos un archivo histórico de la información que hemos usado como fuente
 así como las comunicaciones que hemos tenido para reportar errores y 
@@ -49,14 +52,26 @@ retenes en muchas oportunidades para violentar a la población.
 En un sistema de información sin  ubicaciones predefinidas cada caso en 
 Tierra Amarilla tendría duplicado ese lugar, con ubicaciones predefinidas 
 sería posible tener un solo lugar y reusarlo en los diversos casos, 
-por ejemplo mediante autocompletación.
+por ejemplo mediante autocompletación
 
-Hemos experimentado este concepto con un prototipo en el sistema de información del JRS-Colombia que tiene la siguiente presentación visual:
+Hemos experimentado este concepto (sin veredas) con un prototipo en el 
+sistema de información del JRS-Colombia que tiene la siguiente 
+presentación visual:
 ![Prototipo para usar-agregar ubicaciones predefinidas en JRS-Colombia](https://gitlab.com/pasosdeJesus/msip/-/raw/main/doc/prototipo-ubicacionpre-jrscol.png)
 
 
+Tras especificar país y tal vez otros niveles de la división político
+administrativa, en el campo lugar al escribir se hace una búsqueda
+de lugares predefinidos dentro de la división política especificada que 
+coincida con lo tecleado y sus resultados se presentan 
+para permitir seleccionar alguno y en caso de elegir uno se completan
+automáticamente los diversos campos a la vez que se se reusa la misma
+ubicación empleada en otros casos.  Si no hay un resultado coincidente
+con el lugar que se especifica o no se elige ninguno se crea una nueva
+ubicacionpre que estará disponibles en autocompletaciones posteriores.
+
 Las ubicaciones predefinidas pueden ser bien (1) **divisiones político
-administrativas** cuando corresponden a  divisiones político-administrativas 
+administrativas** cuando corresponden a  divisiones político administrativas 
 definidas en las tablas básicas país, departamento, municipio, 
 centro poblado o vereda o bien (2) **lugares** cuando corresponden
 a lugares dentro de una división político administrativa.
@@ -66,10 +81,10 @@ se definen y mantienen en msip para los diversos sistemas de información
 que lo usan o (2)  **propias** de un sistema de información.
 
 Al momento de este escrito en msip se definen y mantienen con actualizaciones
-periódicas sólo divisiones político administrativas y sus correspondiendtes
-ubicacionespre, así que al momento las ubicacionespre que son lugares siempre 
+periódicas sólo divisiones político administrativas y sus correspondientes
+ubicacionespre, así que al momento las ubicacionespre que sean lugares siempre 
 son propias del sistema donde se especifican y sólo pueden agregarse desde
-la interfaz por ejemplo de caso o donde se usan. 
+la interfaz donde se usan. 
 
 Un sistema de información puede tener divisiones político administrativas 
 compartidas y divisiones político administrativas propias (si los 
@@ -84,8 +99,7 @@ requieren mejoras agradecemos contribuciones en el repositorio de msip
 de información que lo usan).
 
 
-# Consistencia entre tablas básicas de divisiones político administrativa y 
-  ubicacionespre
+# Consistencia entre tablas básicas de divisiones político administrativa y ubicacionespre
 
 Como la información de la división política (i.e. tablas básicas
 país, departamento, municipio, centro poblado y vereda) queda "replicada" en 
@@ -103,10 +117,11 @@ básicas y de su "replica" en ubicacionespre.
 Se mantienen bien en 
 (1) archivos semilla SQL de msip que se usan al instalar nuevos sistemas de 
     información.
-(2) migraciones de msip que usadas en actualizaciones de sistema de
-    información existente (por ejemplo en Colombia para actualizar DIVIPOLA 
+(2) migraciones de msip usadas en actualizaciones de sistemas de
+    información existentes (por ejemplo para actualizar DIVIPOLA  de Colombia
     por sus cambios frecuentes) que pueden crear, actualizar y esporadicamente
-    eliminar registros --aunque lo típico será deshabilitarla.
+    eliminar registros --aunque lo recomendado no es eliminar
+    sino deshabilitarla diligenciando una fecha de deshabilitación.
 
 A nivel de base de datos se diferencia porque tienen identificaciones 
 inferiores a unos valores cota:
@@ -123,8 +138,7 @@ inferiores a unos valores cota:
 Los usuarios de un sistema de información particular tienen posibilidad de 
 modificar esta información desde las tablas básicas país, departamento, 
 municipio, centropoblado y vereda.  No se recomienda hacerlo, pero de
-hacerlo se buscará garantizar de ubicacionespre.
-
+hacerlo se buscará garantizar actualizar su "respaldo" en ubicacionpre.
 
 
 # Especificación técnica para realizar operaciones
@@ -132,8 +146,7 @@ hacerlo se buscará garantizar de ubicacionespre.
 Para implementar la funcionalidad de ubicacionpre se emplea la tabla 
 `msip_ubicacionpre` cuyos campos son:
 
-| nombre | tipo | cotejacion | puede ser null | predeterminado | llave foranea
-de |
+| nombre | tipo | cotejacion | puede ser null | predeterminado | llave foranea de |
 |---|---|---|---|---|
 | id               | bigint                      |             | not null | nextval('msip_ubicacionpre_id_seq'::regclass)|
 | nombre           | character varying(2000)     | es_co_utf_8 | not null | |
