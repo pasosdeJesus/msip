@@ -225,7 +225,7 @@ Los ubicacionespre de lugares se caracterizan por:
 * Si no tiene sitio el nombre consta del lugar barra y el nombre de la
   ubicacionpre correspondiente al de la división política del
   pais_id, departamento_id, municipio_id, centropoblado_id o vereda_id
-  Por ejemplo 
+  Por ejemplo Tierra Amarilla / San José de Apartado / Antioquia / Colombia
 * Si tiene sitio el nombre será como el del lugar precedido del sitio
   y una barra.
 
