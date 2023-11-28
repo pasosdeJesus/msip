@@ -146,19 +146,19 @@ hacerlo se buscará garantizar actualizar su "respaldo" en ubicacionpre.
 Para implementar la funcionalidad de ubicacionpre se emplea la tabla 
 `msip_ubicacionpre` cuyos campos son:
 
-| nombre | tipo | cotejacion | puede ser null | predeterminado | llave foranea de |
+| nombre | tipo | cotejacion | puede ser null | predeterminado | llave foranea |
 |---|---|---|---|---|---|
 | id | bigint | | not null | nextval('msip_ubicacionpre_id_seq'::regclass)|
 | nombre           | character varying(2000)     | es_co_utf_8 | not null | |
 | nombre_sin_pais  | character varying(500)      |             |          | |
-| pais_id          | integer                     |             | not null OJO | | msip_pais |
-| departamento_id  | integer                     |             |          | | msip_departamento |
-| municipio_id     | integer                     |             |          | | msip_municipio |
-| centropoblado_id | integer                     |             |          | | msip_centropoblado
-| vereda_id        | integer                     |             |          | | msip_vereda |
+| pais_id          | integer                     |             | not null OJO | | con `id` de `msip_pais` |
+| departamento_id  | integer                     |             |          | | `(departamento_id, pais_id)` con `(id, pais_id)` de `msip_departamento` |
+| municipio_id     | integer                     |             |          | | `(municipio_id, departamento_id)` con `(id, departamento_id)` de `msip_municipio` |
+| centropoblado_id | integer                     |             |          | | `(centropoblado_id, municipio_id)` con `(id, municipio_id)` de `msip_centropoblado` |
+| vereda_id        | integer                     |             |          | | `(vereda_id, municipio_id)` con `(id, municipio_id)` de `msip_vereda` |
 | lugar            | character varying(500)      |             |          | | |
 | sitio            | character varying(500)      |             |          | | |
-| tsitio_id        | integer                     |             |          | | msip_tsitio |
+| tsitio_id        | integer                     |             |          | | con `id` de `msip_tsitio` |
 | latitud          | double precision            |             |          | | |
 | longitud         | double precision            |             |          | | |
 | created_at       | timestamp without time zone |             | not null | | |
@@ -184,7 +184,7 @@ por:
 * Tener en `NULL` los campos `lugar` y `sitio`
 * Los países tienen en `NULL` los campos `departamento_id`,  `municipio_id`,
   `centropoblado_id`, `vereda_id`, `tsitio_id`. La latitud y la longitud 
-  corresponden al proveniente de la tabla básica país.  
+  provienen de la tabla básica país.  
   El nombre corresponde al del país e.g. Venezuela. El `nombre_sin_pais` es ''
 * Los departamentos tienen en `NULL` los campos `municipio_id`,
   `centropoblado_id`, `vereda_id`, `tsitio_id`. La latitud y la longitud 
