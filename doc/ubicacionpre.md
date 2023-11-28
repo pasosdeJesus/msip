@@ -147,7 +147,7 @@ Para implementar la funcionalidad de ubicacionpre se emplea la tabla
 `msip_ubicacionpre` cuyos campos son:
 
 | nombre | tipo | cotejacion | puede ser null | predeterminado | llave foranea de |
-|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 | id               | bigint                      |             | not null | nextval('msip_ubicacionpre_id_seq'::regclass)|
 | nombre           | character varying(2000)     | es_co_utf_8 | not null | |
 | nombre_sin_pais  | character varying(500)      |             |          | |
