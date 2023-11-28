@@ -18,6 +18,9 @@ Honduras del Censo 2013 ante el Instituo Nacional de Estadística de Honduras.
 Agradecimientos a Alejandro Cadena <sig@cinep.org.co> por identificar 
 actualización a DIVIPOLA 2015
 
+Agradecimiento a Randolf Laverde por recolectar datos geográficos de
+Venezuela en 2014.
+
 Este motor ha sido re-factorizado por Pasos de Jesús
 de aplicaciones web desarrolladas voluntariamente o financiadas por 
 diversas organizaciones que han cedido al dominio público lo desarrollado, 
