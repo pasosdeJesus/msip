@@ -18,7 +18,7 @@ principalemente el DIVIPOLA publicado por el DANE (ver
 <https://geoportal.dane.gov.co/geovisores/territorio/consulta-divipola-division-politico-administrativa-de-colombia/>), 
 que suele tener varias actualizaciones al año que procuramos
 seguir y publicar como actualización de msip al menos una vez al año 
-que solemos comentar y publicar con un artículo en:
+y que solemos comentar y publicar con un artículo en:
 https://gitlab.com/pasosdeJesus/msip/-/wikis/home
 
 
@@ -51,9 +51,8 @@ Tierra Amarilla tendría duplicado ese lugar, con ubicaciones predefinidas
 sería posible tener un solo lugar y reusarlo en los diversos casos, 
 por ejemplo mediante autocompletación.
 
-Hemos experimentado este concepto en el sistema de información del JRS-Colombia
-con la siguiente presentación visual:
-
+Hemos experimentado este concepto con un prototipo en el sistema de información del JRS-Colombia que tiene la siguiente presentación visual:
+![Prototipo para usar-agregar ubicaciones predefinidas en JRS-Colombia](https://gitlab.com/pasosdeJesus/msip/-/raw/main/doc/prototipo-ubicacionpre-jrscol.png)
 
 
 Las ubicaciones predefinidas pueden ser bien (1) **divisiones político
