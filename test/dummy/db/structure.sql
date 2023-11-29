@@ -144,6 +144,95 @@ CREATE FUNCTION public.msip_eliminar_familiar_inverso() RETURNS trigger
 
 
 --
+-- Name: msip_nombre_vereda(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_nombre_vereda() RETURNS character varying
+    LANGUAGE sql
+    AS $$
+        SELECT 'Vereda '
+      $$;
+
+
+--
+-- Name: msip_ubicacionpre_id_rtablabasica(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_ubicacionpre_id_rtablabasica() RETURNS integer
+    LANGUAGE sql
+    AS $$
+        SELECT min(id+1) FROM msip_ubicacionpre WHERE 
+          (id+1) NOT IN (SELECT id FROM msip_ubicacionpre) AND 
+          id<10000000
+      $$;
+
+
+--
+-- Name: msip_ubicacionpre_nomenclatura(character varying, character varying, character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_ubicacionpre_nomenclatura(pais character varying, departamento character varying, municipio character varying, vereda character varying, centropoblado character varying, lugar character varying, sitio character varying) RETURNS text[]
+    LANGUAGE sql
+    AS $$
+        SELECT CASE
+        WHEN pais IS NULL OR pais = '' THEN
+          array[NULL, NULL]
+        WHEN departamento IS NULL OR departamento = '' THEN
+          array[pais, NULL]
+        WHEN municipio IS NULL OR municipio = '' THEN
+          array[departamento || ' / ' || pais, departamento]
+        WHEN (vereda IS NULL OR vereda = '') AND 
+          (centropoblado IS NULL OR centropoblado = '') THEN
+          array[ municipio || ' / ' || departamento || ' / ' || pais,
+            municipio || ' / ' || departamento ]
+        WHEN (vereda IS NULL OR vereda = '') AND 
+          (lugar IS NULL OR lugar = '') THEN
+          array[ centropoblado || ' / ' || municipio || ' / ' || 
+            departamento || ' / ' || pais,
+            centropoblado || ' / ' || municipio || ' / ' || 
+            departamento ]
+        WHEN (lugar IS NULL OR lugar = '') THEN
+          array[ msip_nombre_vereda() || vereda || ' / ' || 
+            municipio || ' / ' ||
+            departamento || ' / ' || pais,
+            msip_nombre_vereda() || vereda || ' / ' || 
+            municipio || ' / ' || departamento]
+        WHEN (vereda IS NULL OR vereda = '') AND 
+          (sitio IS NULL OR sitio = '') THEN
+          array[ lugar || ' / ' || centropoblado || ' / ' ||
+            municipio || ' / ' || departamento || ' / ' || pais,
+            lugar || ' / ' || centropoblado || ' / ' ||
+            municipio || ' / ' || departamento]
+        WHEN (sitio IS NULL OR sitio = '') THEN
+          array[ lugar || ' / ' || 
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' || departamento || ' / ' || pais,
+            lugar || ' / ' || 
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' || departamento]
+        WHEN (vereda IS NULL OR vereda = '') THEN
+          array[ sitio || ' / ' || lugar || ' / ' ||
+            centropoblado || ' / ' || 
+            municipio || ' / ' ||
+            departamento || ' / ' || pais,
+            sitio || ' / ' || lugar || ' / ' ||
+            centropoblado || ' / ' || 
+            municipio || ' / ' ||
+            departamento ]
+        ELSE
+          array[ sitio || ' / ' || lugar || ' / ' ||
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' ||
+            departamento || ' / ' || pais,
+            sitio || ' / ' || lugar || ' / ' ||
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' ||
+            departamento ]
+         END
+      $$;
+
+
+--
 -- Name: soundexesp(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1517,7 +1606,8 @@ CREATE TABLE public.msip_ubicacionpre (
     longitud double precision,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    nombre_sin_pais character varying(500)
+    nombre_sin_pais character varying(500),
+    vereda_id integer
 );
 
 
@@ -2318,6 +2408,14 @@ ALTER TABLE ONLY public.msip_orgsocial_persona
 
 
 --
+-- Name: msip_ubicacionpre fk_rails_558c98f353; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_rails_558c98f353 FOREIGN KEY (vereda_id) REFERENCES public.msip_vereda(id);
+
+
+--
 -- Name: msip_etiqueta_municipio fk_rails_5672729520; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2726,6 +2824,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230927001422'),
 ('20231007095930'),
 ('20231120094041'),
-('20231121203443');
+('20231121203443'),
+('20231124200056'),
+('20231125152802'),
+('20231125152810'),
+('20231125230000');
 
 
