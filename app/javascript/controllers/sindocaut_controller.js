@@ -35,10 +35,13 @@ export default class extends Controller {
     console.log("numerodocumento ahora es", this.numerodocumentoTarget.value)
     if (e.target.value == '11' && 
       this.numerodocumentoTarget.value == '') { // SIN DOCUMENTO
+      let indice = this.idTarget.id.match(
+        new RegExp("attributes_([0-9]+)_persona")
+      )
       window.Rails.ajax({
         type: 'GET',
         url: purl + '/personas/identificacionsd?persona_id=' + 
-          this.idTarget.value ,
+          this.idTarget.value + '&indice=' + indice[1],
         data: null,
         success: (resp, estado, xhr) => {
           this.numerodocumentoTarget.value = resp;
