@@ -168,8 +168,12 @@ module Msip
             if params && params[:persona_id] && params[:persona_id] != ""
               pid = params[:persona_id].to_i
             end
+            indice = nil
+            if params && params[:indice] && params[:indice] != ""
+              indice = params[:indice].to_i
+            end
             ndoc = Msip::PersonasController
-              .nueva_persona_sd_posible_numerodocumento(pid)
+              .nueva_persona_sd_posible_numerodocumento(pid, indice)
             Rails.logger.debug { "OJO ndoc=#{ndoc}" }
             respond_to do |format|
               format.json do
@@ -185,11 +189,11 @@ module Msip
 
           # Retorna una propuesta para número de documento con base
           # en la id de la persona (no nil)
-          def self.mejora_nuevo_numerodocumento_sindoc(persona_id)
-            numerodocumento = persona_id
+          def self.mejora_nuevo_numerodocumento_sindoc(numdoc)
+            numerodocumento = numdoc
             while Msip::Persona.where(
               tdocumento_id: 11, numerodocumento: numerodocumento,
-            ).where("id<>?", persona_id).count > 0
+            ).where("id<>?", numdoc).count > 0
               numerodocumento = numerodocumento.to_s
               if !numerodocumento.empty? && numerodocumento[-1] >= "A" &&
                   numerodocumento[-1] < "Z"
@@ -202,7 +206,9 @@ module Msip
             numerodocumento
           end
 
-          def self.nueva_persona_sd_posible_numerodocumento(persona_id)
+          def self.nueva_persona_sd_posible_numerodocumento(
+            persona_id, indice=nil
+          )
             if persona_id.nil?
               ruid = Msip::Persona.connection.execute(<<-SQL.squish)
                   SELECT last_value FROM msip_persona_id_seq;
@@ -210,7 +216,7 @@ module Msip
               persona_id = ruid[0]["last_value"] + 1
             end
             numerodocumento = mejora_nuevo_numerodocumento_sindoc(
-              persona_id,
+              persona_id.to_s+indice.to_s,
             )
             numerodocumento
           end
