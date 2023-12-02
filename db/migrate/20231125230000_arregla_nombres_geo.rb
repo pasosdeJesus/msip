@@ -4,6 +4,8 @@ class ArreglaNombresGeo < ActiveRecord::Migration[7.0]
       UPDATE msip_municipio SET nombre='Antonio Pinto Salinas'
         WHERE id=510;
 
+      DELETE FROM msip_municipio WHERE id=399;  --No existe Sa en Bolívar/Ven
+
       UPDATE msip_centropoblado SET nombre='San Jacinto de Achi'
         WHERE id=99;
       UPDATE msip_centropoblado SET nombre='Florido Viejo'
