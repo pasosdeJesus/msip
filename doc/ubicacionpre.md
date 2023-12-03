@@ -214,7 +214,7 @@ estas se caracterizan por:
 
 
 Las ubicacionespre de registros propios se caracterizan por:
-* Emplear un id superior o igual a 1'000.000, los nuevos típicamente emplean 
+* Emplear un id superior o igual a 10'000.000, los nuevos típicamente emplean 
   la secuencia `msip_ubicacionpre_id_seq`
 
 Los ubicacionespre de lugares se caracterizan por:
@@ -368,12 +368,16 @@ desarrolladores de msip.
 
 * Cuando se agregue un pais/departamento/municipio/centropoblado con 
   identificación menor a la cota para registros comunes debe crearse una 
-  ubicacionpre con identificación < 1´000.0000 por ejemplo con id:
+  ubicacionpre con identificación < 10´000.0000 por ejemplo con id:
   
-        SELECT MIN(id+1) FROM msip_ubicacionpre 
+        SELECT MAX(id+1) FROM msip_ubicacionpre 
           WHERE (id+1) NOT IN (SELECT id FROM msip_ubicacionpre) 
-          AND id<1000000;
+          AND id<10000000;
 
+  (no usamos MIN en el ejemplo anterior porque no deben sobreescribirse posibles
+  identificaciones usadas para datos deshabilitados   --que pueden cambiar de un
+  sistema a otro, pues nuevos sistemas deben comenzar con toda su división p.a. y
+  todas sus ubicaciones pre habilitadas)
   Bien en los datos semilla o bien en migraciones debe corresponder a
   una doble inserción, primero en 
   pais/departamento/municipio/centropoblado/vereda y después en la
