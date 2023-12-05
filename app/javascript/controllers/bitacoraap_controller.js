@@ -19,7 +19,7 @@ export default class extends Controller {
   connect() {
     console.log('conectado controlador bitacoraap')
     let campo = document.querySelector('input.bitacora_cambio')
-    if (campo != null) {
+    if (campo != null && typeof MsipSerializarFormularioEnArreglo == 'function') {
       window.bitacora_estado_inicial_formulario =
         MsipSerializarFormularioEnArreglo( 
           campo.closest('form') 
