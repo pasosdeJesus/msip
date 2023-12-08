@@ -216,9 +216,9 @@ module Msip
         Ubicacionpre.nomenclatura("a", "b", nil, "d", nil, nil, nil)
       assert_equal ["d / c / b / a", "d / c / b"],
         Ubicacionpre.nomenclatura("a", "b", "c", "d", nil, nil, nil)
-      assert_equal ["v / m / d / p", "v / m / d"],
+      assert_equal ["Vereda v / m / d / p", "Vereda v / m / d"],
         Ubicacionpre.nomenclatura("p", "d", "m", nil, "v", nil, nil)
-      assert_equal ["v / m / d / p", "v / m / d"],
+      assert_equal ["Vereda v / m / d / p", "Vereda v / m / d"],
         Ubicacionpre.nomenclatura("p", "d", "m", "c", "v", nil, nil)
 
       assert_equal ["e / d / c / b / a", "e / d / c / b"],
