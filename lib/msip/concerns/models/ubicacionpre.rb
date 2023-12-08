@@ -162,22 +162,31 @@ module Msip
             if pais.to_s.strip == ""
               return [nil, nil]
             end
-            nombre = pais.to_s
-            nombre_sinp = nil
-            if departamento.to_s.strip != ""
-              nombre = departamento.to_s.strip + " / "  + nombre
+            if departamento.to_s.strip == ""
+              nombre = pais.to_s.strip
+              nombre_sinp = nil
+            elsif municipio.to_s.strip == ""
+              nombre = departamento.to_s.strip + " / "  + pais.to_s.strip
               nombre_sinp = departamento.to_s.strip
-              if municipio.to_s.strip != ""
-                nombre = municipio.to_s.strip + " / "  + nombre
-                nombre_sinp = municipio.to_s.strip + " / "  + nombre_sinp
-                if vereda.to_s.strip != ""
-                  nombre = vereda.to_s.strip + " / "  + nombre
-                  nombre_sinp = vereda.to_s.strip + " / "  + nombre_sinp
-                elsif centropoblado.to_s.strip != ""
-                  nombre = centropoblado.to_s.strip + " / "  + nombre
-                  nombre_sinp = centropoblado.to_s.strip + " / "  + nombre_sinp
-                end
-              end
+            elsif vereda.to_s.strip == "" && centropoblado.to_s.strip == ""
+              nombre = municipio.to_s.strip + " / "  +
+                departamento.to_s.strip + " / "  + pais.to_s.strip
+              nombre_sinp = municipio.to_s.strip + " / "  + 
+                departamento.to_s.strip
+            elsif vereda.to_s.strip != ""
+              nombre = "Vereda " + vereda.to_s.strip + " / " +
+                municipio.to_s.strip + " / "  +
+                departamento.to_s.strip + " / "  + pais.to_s.strip
+              nombre_sinp = "Vereda " + vereda.to_s.strip + " / " +
+                municipio.to_s.strip + " / "  + 
+                departamento.to_s.strip
+            else # centropoblado != ""
+              nombre = centropoblado.to_s.strip + " / "  + 
+                municipio.to_s.strip + " / "  +
+                departamento.to_s.strip + " / "  + pais.to_s.strip
+              nombre_sinp = centropoblado.to_s.strip + " / "  + 
+                municipio.to_s.strip + " / "  + 
+                departamento.to_s.strip
             end
             if lugar.to_s.strip != ""
               nombre = lugar.to_s.strip + " / "  + nombre
