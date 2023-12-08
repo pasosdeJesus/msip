@@ -59,10 +59,8 @@ Msip::Engine.routes.draw do
 
   resources :solicitudes, path_names: { new: "nueva", edit: "edita" }
 
-  get "/ubicacionespre/validar_conjunto" => "ubicacionespre#validar_conjunto",
-    as: :ubicacionespre_validar_conjunto
 
-  resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
+  #resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
 
 
 
@@ -94,6 +92,9 @@ Msip::Engine.routes.draw do
   namespace :admin do
     get "/trelaciones/validar_conjunto" => "trelaciones#validar_conjunto",
       as: :trelaciones_validar_conjunto
+
+    get "/ubicacionespre/validar_conjunto" => "ubicacionespre#validar_conjunto",
+      as: :ubicacionespre_validar_conjunto
 
     ab = Ability.new
     ab.tablasbasicas.each do |t|

@@ -9,6 +9,11 @@
      # para modelos que tengan validación de conjunto 
   ayudador = controller.clase.demodulize.downcase.pluralize +
   "_validar_conjunto_path" %>
+
+  <% if !respond_to?(ayudador) %>
+    <% ayudador = "admin_"+ controller.clase.demodulize.downcase.pluralize +
+      "_validar_conjunto_path" %>
+  <% end %>
   <% if respond_to?(ayudador) %>
     <% ruta = send(ayudador) %>
     <%= link_to t(
