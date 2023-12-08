@@ -1,0 +1,20 @@
+<% clases = "btn " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+<% if defined?(controller) && 
+    defined?(controller.lista_validaciones_conjunto) && 
+    controller.lista_validaciones_conjunto.count > 0 %>
+  <% # La ruta estandar es /modelos/validar_conjunto que  debe definir
+     # para modelos que tengan validación de conjunto 
+  ayudador = controller.clase.demodulize.downcase.pluralize +
+  "_validar_conjunto_path" %>
+  <% if respond_to?(ayudador) %>
+    <% ruta = send(ayudador) %>
+    <%= link_to t(
+      ".validar_conjunto", default: "Validar registros"),
+      ruta,
+      class: clases,
+      "data-turbo": false %>
+  <% end %>
+<% end %>

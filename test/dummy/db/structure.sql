@@ -1595,7 +1595,7 @@ CREATE TABLE public.msip_ubicacion (
 CREATE TABLE public.msip_ubicacionpre (
     id bigint NOT NULL,
     nombre character varying(2000) NOT NULL COLLATE public.es_co_utf_8,
-    pais_id integer,
+    pais_id integer NOT NULL,
     departamento_id integer,
     municipio_id integer,
     centropoblado_id integer,
@@ -1607,7 +1607,10 @@ CREATE TABLE public.msip_ubicacionpre (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     nombre_sin_pais character varying(500),
-    vereda_id integer
+    vereda_id integer,
+    observaciones character varying(5000),
+    fechacreacion date DEFAULT now() NOT NULL,
+    fechadeshabilitacion date
 );
 
 
@@ -1920,6 +1923,14 @@ ALTER TABLE ONLY public.msip_centropoblado
 
 
 --
+-- Name: msip_centropoblado msip_centropoblado_municipio_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_centropoblado
+    ADD CONSTRAINT msip_centropoblado_municipio_id_id_unico UNIQUE (municipio_id, id);
+
+
+--
 -- Name: msip_centropoblado msip_centropoblado_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1949,6 +1960,14 @@ ALTER TABLE ONLY public.msip_departamento
 
 ALTER TABLE ONLY public.msip_departamento
     ADD CONSTRAINT msip_departamento_id_pais_id_deplocal_unico UNIQUE (pais_id, deplocal_cod);
+
+
+--
+-- Name: msip_departamento msip_departamento_pais_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_departamento
+    ADD CONSTRAINT msip_departamento_pais_id_id_unico UNIQUE (pais_id, id);
 
 
 --
@@ -1997,6 +2016,14 @@ ALTER TABLE ONLY public.msip_grupo
 
 ALTER TABLE ONLY public.msip_grupoper
     ADD CONSTRAINT msip_grupoper_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_municipio msip_municipio_departamento_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_municipio
+    ADD CONSTRAINT msip_municipio_departamento_id_id_unico UNIQUE (departamento_id, id);
 
 
 --
@@ -2149,6 +2176,14 @@ ALTER TABLE ONLY public.msip_trivalente
 
 ALTER TABLE ONLY public.msip_ubicacionpre
     ADD CONSTRAINT msip_ubicacionpre_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_vereda msip_vereda_municipio_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_vereda
+    ADD CONSTRAINT msip_vereda_municipio_id_id_unico UNIQUE (municipio_id, id);
 
 
 --
@@ -2568,6 +2603,38 @@ ALTER TABLE ONLY public.msip_solicitud
 
 
 --
+-- Name: msip_ubicacionpre fk_ubicacionpre_departamento_municipio; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_departamento_municipio FOREIGN KEY (departamento_id, municipio_id) REFERENCES public.msip_municipio(departamento_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_municipio_centropoblado; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_municipio_centropoblado FOREIGN KEY (municipio_id, centropoblado_id) REFERENCES public.msip_centropoblado(municipio_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_municipio_vereda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_municipio_vereda FOREIGN KEY (municipio_id, vereda_id) REFERENCES public.msip_vereda(municipio_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_pais_departamento; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_pais_departamento FOREIGN KEY (pais_id, departamento_id) REFERENCES public.msip_departamento(pais_id, id);
+
+
+--
 -- Name: msip_centropoblado msip_centropoblado_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2829,7 +2896,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231125152802'),
 ('20231125152810'),
 ('20231125230000'),
-('20231205201654'),
-('20231205202418');
+('20231205202418'),
+('20231205205549'),
+('20231205205600');
 
 

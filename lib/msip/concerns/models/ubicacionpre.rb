@@ -12,11 +12,30 @@ module Msip
 
           self.table_name = "msip_ubicacionpre"
 
-          belongs_to :pais, class_name: "Msip::Pais", validate: true, optional: true
-          belongs_to :departamento, class_name: "Msip::Departamento", validate: true, optional: true
-          belongs_to :municipio, class_name: "Msip::Municipio", validate: true, optional: true
-          belongs_to :centropoblado, class_name: "Msip::Centropoblado", validate: true, optional: true
-          belongs_to :tsitio, class_name: "Msip::Tsitio", validate: true, optional: true
+          belongs_to :pais, 
+            class_name: "Msip::Pais", 
+            validate: true, 
+            optional: true
+          belongs_to :departamento, 
+            class_name: "Msip::Departamento", 
+            validate: true, 
+            optional: true
+          belongs_to :municipio, 
+            class_name: "Msip::Municipio", 
+            validate: true, 
+            optional: true
+          belongs_to :centropoblado, 
+            class_name: "Msip::Centropoblado", 
+            validate: true, 
+            optional: true
+          belongs_to :vereda, 
+            class_name: "Msip::Vereda", 
+            validate: true, 
+            optional: true
+          belongs_to :tsitio, 
+            class_name: "Msip::Tsitio", 
+            validate: true, 
+            optional: true
 
           flotante_localizado :latitud
           flotante_localizado :longitud
@@ -25,8 +44,102 @@ module Msip
             uniqueness: true,
             presence: true,
             length: { maximum: 2000 }
+          validates :nombre_sin_pais,
+            length: { maximum: 2000 }
+
           validates :lugar, length: { maximum: 500 }
           validates :sitio, length: { maximum: 500 }
+
+          validates :pais_id, presence: true
+
+          validate :centropoblado_nand_vereda
+          def centropoblado_nand_vereda
+            if centropoblado_id and vereda_id
+              errors.add(
+                :centropoblado, "No puede tener centro poblado y vereda"
+              )
+            end
+          end
+
+          validate :llave_tsitio
+          # Evita errores como
+          # PG::ForeignKeyViolation: ERROR: insert or update on table
+          # "msip_ubicacionpre" violates foreign key constraint
+          # "fk_rails_c8024a90df"
+          # DETAIL: Key (tsitio_id)=(14) is not present in table "msip_tsitio".
+          def llave_tsitio
+            if tsitio_id && Msip::Tsitio.where(id: tsitio_id).count != 1
+                errors.add(
+                  :tsitio_id, "Elegir un tipo de sitio válido"
+                )
+            end
+          end
+
+          # Evita errores como:
+          # PG::ForeignKeyViolation: ERROR: insert or update on table
+          # "msip_ubicacionpre" violates foreign key constraint
+          # "fk_ubicacionpre_pais_departamento"
+          # DETAIL: Key (pais_id, departamento_id)=(170, 9) is not present in
+          # table "msip_departamento"
+          validate :par_pais_departamento
+          def par_pais_departamento
+            if pais_id && departamento_id
+              if Msip::Departamento.where(pais_id: pais_id, 
+                  id: departamento_id).count != 1
+                errors.add(
+                  :departamento_id, "El departamento debe pertenecer al país"
+                )
+              end
+            end
+          end
+
+          validate :par_departamento_municipio
+          def par_departamento_municipio
+            if (centropoblado_id || vereda_id || municipio_id) && 
+                !departamento_id
+                errors.add(
+                  :departamento_id, "Falta departamento"
+                )
+            end
+            if departamento_id && municipio_id
+              if Msip::Municipio.where(departamento_id: departamento_id, 
+                  id: municipio_id).count != 1
+                errors.add(
+                  :municipio_id, "El municipio debe pertenecer al departamento"
+                )
+              end
+            end
+          end
+
+          validate :par_municipio_centropoblado
+          def par_municipio_centropoblado
+            if (centropoblado_id || vereda_id ) && !municipio_id
+                errors.add(
+                  :municipio_id, "Falta municipio"
+                )
+            end
+            if municipio_id && centropoblado_id
+              if Msip::Centropoblado.where(municipio_id: municipio_id, 
+                  id: centropoblado_id).count != 1
+                errors.add(
+                  :centropoblado_id, 
+                  "El centropoblado debe pertenecer al municipio"
+                )
+              end
+            end
+          end
+
+          validate :par_municipio_vereda
+          def par_municipio_vereda
+            if municipio_id && vereda_id
+              if Msip::Vereda.where(municipio_id: municipio_id, 
+                  id: vereda_id).count != 1
+                errors.add(
+                  :vereda_id, "El vereda debe pertenecer al municipio"
+                )
+              end
+            end
+          end
 
           def poner_nombre_estandar
             self.nombre, self.nombre_sin_pais = Msip::Ubicacionpre.nomenclatura(
@@ -34,6 +147,7 @@ module Msip
               departamento ? departamento.nombre : "",
               municipio ? municipio.nombre : "",
               centropoblado ? centropoblado.nombre : "",
+              vereda ? vereda.nombre : "",
               lugar,
               sitio,
             )
@@ -42,51 +156,38 @@ module Msip
         end # include
 
         class_methods do
+          # Corresponde a función PostgreSQL msip_ubicacionpre_nomenclatura
           def nomenclatura(pais, departamento, municipio,
-            centropoblado, lugar, sitio)
+            centropoblado, vereda, lugar, sitio)
             if pais.to_s.strip == ""
-              nombre = nil
-              nombre_sinp = nil
-            elsif departamento.to_s.strip == ""
-              nombre = pais.to_s
-              nombre_sinp = nil
-            elsif municipio.to_s == ""
-              nombre = departamento.to_s.strip + " / " +
-                pais.to_s
-              nombre_sinp = departamento.to_s
-            elsif lugar.to_s.strip == ""
-              nombre = (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s.strip + " / " +
-                pais.to_s
-              nombre_sinp = (
-                centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s
-            elsif sitio.to_s.strip == ""
-              nombre = lugar.to_s + " / " +
-                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s.strip + " / " +
-                pais.to_s
-              nombre_sinp = lugar.to_s + " / " +
-                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s
-            else
-              nombre = sitio.to_s + " / " +
-                lugar.to_s + " / " +
-                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s.strip + " / " +
-                pais.to_s
-              nombre_sinp = sitio.to_s + " / " +
-                lugar.to_s + " / " +
-                (centropoblado.to_s.strip == "" ? "" : centropoblado.to_s.strip + " / ") +
-                municipio.to_s.strip + " / " +
-                departamento.to_s
+              return [nil, nil]
             end
-
+            nombre = pais.to_s
+            nombre_sinp = nil
+            if departamento.to_s.strip != ""
+              nombre = departamento.to_s.strip + " / "  + nombre
+              nombre_sinp = departamento.to_s.strip
+              if municipio.to_s.strip != ""
+                nombre = municipio.to_s.strip + " / "  + nombre
+                nombre_sinp = municipio.to_s.strip + " / "  + nombre_sinp
+                if vereda.to_s.strip != ""
+                  nombre = vereda.to_s.strip + " / "  + nombre
+                  nombre_sinp = vereda.to_s.strip + " / "  + nombre_sinp
+                elsif centropoblado.to_s.strip != ""
+                  nombre = centropoblado.to_s.strip + " / "  + nombre
+                  nombre_sinp = centropoblado.to_s.strip + " / "  + nombre_sinp
+                end
+              end
+            end
+            if lugar.to_s.strip != ""
+              nombre = lugar.to_s.strip + " / "  + nombre
+              nombre_sinp = lugar.to_s.strip + 
+                (nombre_sinp  ? " / "  + nombre_sinp.to_s : "")
+              if sitio.to_s.strip != ""
+                nombre = sitio.to_s.strip + " / "  + nombre
+                nombre_sinp = sitio.to_s.strip + " / "  + nombre_sinp
+              end
+            end
             [nombre, nombre_sinp]
           end
 
@@ -98,6 +199,7 @@ module Msip
           # @param departamento_id id de departamento
           # @param municipio_id id de municipio
           # @param centropoblado_id id del centro poblado
+          # @param vereda_id id del centro poblado
           # @param lugar lugar
           # @param sitio sitio
           # @param tsitio_id tipo de sitio
@@ -323,6 +425,7 @@ module Msip
               opais.nombre,
               odepartamento.nombre,
               omunicipio.nombre,
+              "", # Vereda por hacer
               ocentropoblado ? ocentropoblado.nombre : "",
               w[:lugar],
               w[:sitio],
