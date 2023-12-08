@@ -7,7 +7,7 @@ module Msip
     test "crea simple" do
       assert_equal 1, Msip::Pais.where(id: 100).count
       pais = Msip::Pais.find(100)
-      ubicacionpre = Ubicacionpre.create(PRUEBA_UBICACIONPRE)
+      ubicacionpre = Ubicacionpre.create(PRUEBA_UBICACIONPRE2)
 
       assert_predicate ubicacionpre, :valid?
       assert_equal ubicacionpre.pais_id, pais.id
@@ -15,12 +15,12 @@ module Msip
 
     test "no valido pais 0" do
       assert_raises Exception do
-        Ubicacionpre.create(PRUEBA_UBICACIONPRE.merge(pais_id: 0))
+        Ubicacionpre.create(PRUEBA_UBICACIONPRE2.merge(pais_id: 0))
       end
     end
 
     test "no valido sin nombre" do
-      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE.merge(nombre: nil))
+      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE2.merge(nombre: nil))
 
       assert_not_predicate u, :valid?
     end
@@ -32,9 +32,12 @@ module Msip
 
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
-        nombre: "x",
+        nombre: "x - por generar",
+        lugar: "x",
+        fechacreacion: "2023-12-07"
       )
       u.save
+      assert u.valid?
 
       assert u.poner_nombre_estandar
       idu = Msip::Ubicacionpre.buscar_o_agregar(
@@ -50,9 +53,12 @@ module Msip
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
         departamento_id: 11,
-        nombre: "x",
+        nombre: "x - por completar",
+        lugar: "x",
+        fechacreacion: "2023-12-07"
       )
       u.save
+      assert u.valid?
 
       assert u.poner_nombre_estandar
 
@@ -71,6 +77,7 @@ module Msip
         departamento_id: 11,
         municipio_id: 1013,
         nombre: "x",
+        lugar: "x",
       )
       u.save
 
@@ -92,6 +99,7 @@ module Msip
         municipio_id: 1013,
         centropoblado_id: 1248,
         nombre: "x",
+        lugar: "x",
       )
       # no ponemos tsitio_id porque hasta centros poblados por convención
       # se han puesto en nil (tal vez porque podrían ser urbano o
@@ -169,14 +177,14 @@ module Msip
       assert idu > 0
     end
 
-    test "no valido con nombre muuy largo" do
-      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE.merge(lugar: " " * 3000))
+    test "no valido con nombre muy laaaaargo" do
+      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE2.merge(lugar: " " * 3000))
 
       assert_not_predicate u, :valid?
     end
 
     test "no valido con lugar largo" do
-      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE.merge(lugar: " " * 1000))
+      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE2.merge(lugar: " " * 1000))
 
       assert_not_predicate u, :valid?
     end
@@ -188,30 +196,35 @@ module Msip
     end
 
     test "nombre estandar 2" do
-      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE)
+      u = Ubicacionpre.create(PRUEBA_UBICACIONPRE2)
       u.poner_nombre_estandar
 
-      assert_equal("Cesar / Bulgaria", u.nombre)
-      assert_equal("Cesar", u.nombre_sin_pais)
+      assert_equal("IMAGINA / Bulgaria", u.nombre)
+      assert_equal("IMAGINA", u.nombre_sin_pais)
     end
 
     test "nomenclatura" do
       assert_equal [nil, nil],
-        Ubicacionpre.nomenclatura(nil, nil, nil, nil, nil, nil)
+        Ubicacionpre.nomenclatura(nil, nil, nil, nil, nil, nil, nil)
       assert_equal ["a", nil],
-        Ubicacionpre.nomenclatura("a", nil, nil, nil, nil, nil)
+        Ubicacionpre.nomenclatura("a", nil, nil, nil, nil, nil, nil)
       assert_equal ["b / a", "b"],
-        Ubicacionpre.nomenclatura("a", "b", nil, nil, nil, nil)
+        Ubicacionpre.nomenclatura("a", "b", nil, nil, nil, nil, nil)
       assert_equal ["c / b / a", "c / b"],
-        Ubicacionpre.nomenclatura("a", "b", "c", nil, nil, nil)
+        Ubicacionpre.nomenclatura("a", "b", "c", nil, nil, nil, nil)
       assert_equal ["b / a", "b"],
-        Ubicacionpre.nomenclatura("a", "b", nil, "d", nil, nil)
+        Ubicacionpre.nomenclatura("a", "b", nil, "d", nil, nil, nil)
       assert_equal ["d / c / b / a", "d / c / b"],
-        Ubicacionpre.nomenclatura("a", "b", "c", "d", nil, nil)
+        Ubicacionpre.nomenclatura("a", "b", "c", "d", nil, nil, nil)
+      assert_equal ["v / m / d / p", "v / m / d"],
+        Ubicacionpre.nomenclatura("p", "d", "m", nil, "v", nil, nil)
+      assert_equal ["v / m / d / p", "v / m / d"],
+        Ubicacionpre.nomenclatura("p", "d", "m", "c", "v", nil, nil)
+
       assert_equal ["e / d / c / b / a", "e / d / c / b"],
-        Ubicacionpre.nomenclatura("a", "b", "c", "d", "e", nil)
+        Ubicacionpre.nomenclatura("a", "b", "c", "d", nil, "e", nil)
       assert_equal ["e / c / b / a", "e / c / b"],
-        Ubicacionpre.nomenclatura("a", "b", "c", "", "e", nil)
+        Ubicacionpre.nomenclatura("a", "b", "c", "", nil, "e", nil)
     end
 
     test "buscar o agregar" do
@@ -219,13 +232,13 @@ module Msip
         170, nil, nil, nil, nil, nil, nil, nil, nil, false
       )
 
-      assert_nil u
+      assert_equal 1, u
     end
 
-    # test "existe" do
-    #  ubicacionpre = Ubicacionpre.where(
-    #    pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil)
-    #  assert_equal 1, ubicacionpre.count
-    # end
+    test "existe" do
+      ubicacionpre = Ubicacionpre.where(
+        pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil)
+      assert_equal 1, ubicacionpre.count
+    end
   end
 end

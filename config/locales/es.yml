@@ -301,6 +301,13 @@ es:
         Tsitios: Tipos de sitios
       "msip/ubicacion":
         Ubicacion: Ubicación
+      "msip/ubicacionpre":
+        Ubicacionpre: Ubicación predefinida
+        Ubicacionespre: Ubicaciones predefinidas
+        centropoblado: Centro poblado
+        centropoblado_id: Centro poblado
+        tsitio: Tipo de sitio
+        tsitio_id: Tipo de sitio
       "msip/vereda":
         verlocal_id: Código dentro del municipio
         verlocal: Código dentro del municipio

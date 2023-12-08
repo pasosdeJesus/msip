@@ -51,6 +51,7 @@ module Msip
       ["Msip", "trelacion"],
       ["Msip", "trivalente"],
       ["Msip", "tsitio"],
+      ["Msip", "ubicacionpre"],
       ["Msip", "vereda"],
     ]
 
@@ -59,6 +60,8 @@ module Msip
       msip_departamento: 10000,
       msip_municipio: 100000,
       msip_pais: 1000,
+      msip_ubicacionpre: 10000000,
+      msip_vereda: 1000000,
     }
 
     # Retorna diccionario con inicialización para secuencia de ids de
@@ -112,6 +115,7 @@ module Msip
       ["Msip", "departamento"],
       ["Msip", "municipio"],
       ["Msip", "centropoblado"],
+      ["Msip", "vereda"],
       ["Msip", "oficina"],
     ]
 

@@ -37,7 +37,7 @@ solemos obtenerlas, actualizarlas y retroalimentar https://openstreetmap.org
 Mantenemos un archivo histórico de la información que hemos usado como fuente
 así como las comunicaciones que hemos tenido para reportar errores y 
 proponer correcciones (particularmente derechos de petición y sus respuesta 
-al DANE y al IGACC) en:
+al DANE y al IGAC) en:
 https://gitlab.com/pasosdeJesus/division-politica
 
 
@@ -60,15 +60,16 @@ presentación visual:
 ![Prototipo para usar-agregar ubicaciones predefinidas en JRS-Colombia](https://gitlab.com/pasosdeJesus/msip/-/raw/main/doc/prototipo-ubicacionpre-jrscol.png)
 
 
-Tras especificar país y tal vez otros niveles de la división político
-administrativa, en el campo lugar al escribir se hace una búsqueda
+Tras especificar país, depatamento y municipio, en el campo 
+lugar (que dice "Barrio o vereda") se hace una búsqueda
 de lugares predefinidos dentro de la división política especificada que 
 coincida con lo tecleado y sus resultados se presentan 
-para permitir seleccionar alguno y en caso de elegir uno se completan
-automáticamente los diversos campos a la vez que se se reusa la misma
-ubicación empleada en otros casos.  Si no hay un resultado coincidente
-con el lugar que se especifica o no se elige ninguno se crea una nueva
-ubicacionpre que estará disponibles en autocompletaciones posteriores.
+para permitir seleccionar alguno y en caso de que el usuario elija uno 
+se completan automáticamente los diversos campos a la vez que se se 
+reusa la misma ubicación empleada en otros casos.  Si no hay un 
+resultado coincidente con el lugar que se especifica o no se elige 
+ninguno se crea una nueva ubicacionpre que estará disponibles para
+autocompletaciones posteriores.
 
 Las ubicaciones predefinidas pueden ser bien (1) **divisiones político
 administrativas** cuando corresponden a  divisiones político administrativas 
@@ -98,6 +99,14 @@ requieren mejoras agradecemos contribuciones en el repositorio de msip
 <https://gitlab.com/pasosdeJesus/msip> para que mejoren todos los sistemas
 de información que lo usan).
 
+### 2.1 Nombres automáticos
+
+El nombre de una ubicacionpre no puede ser modificado por el usuario
+se asigna de manera automatica separando las divisiones territoriales
+con " / ".  Por ejemplo:
+*  Una división p.a. con pais y departamento: Arauca / Colombia
+* Un lugar en un municipio: Tierra Amarilla / San José de Apartado / Antioquia / Colombia
+* Un sitio con lugar en un departamento: Arroyo el lodo / Finca en varios municipios / Cauca / Colombia
 
 ## 3. Consistencia entre tablas básicas de divisiones político administrativa y ubicacionespre
 
@@ -116,13 +125,14 @@ básicas y de sus referencias en ubicacionespre.
 ### 3.1 Divisiones político adminsitrativas comunes
 
 Se mantienen bien en 
-(1) archivos semilla SQL de msip que se usan al instalar nuevos sistemas de 
-    información.
-(2) migraciones de msip usadas en actualizaciones de sistemas de
-    información existentes (por ejemplo para actualizar DIVIPOLA  de Colombia
-    por sus cambios frecuentes) que pueden crear, actualizar y esporadicamente
-    eliminar registros --aunque lo recomendado no es eliminar
-    sino deshabilitarla diligenciando una fecha de deshabilitación.
+
+1. archivos semilla SQL de msip que se usan al instalar nuevos sistemas de 
+   información, o bien en
+2. migraciones de msip usadas en actualizaciones de sistemas de
+   información existentes (por ejemplo para actualizar DIVIPOLA  de Colombia
+   por sus cambios frecuentes) que pueden crear, actualizar y esporadicamente
+   eliminar registros --aunque lo recomendado no es eliminar
+   sino deshabilitar diligenciando una fecha de deshabilitación.
 
 A nivel de base de datos se diferencia porque tienen identificaciones 
 inferiores a unos valores cota:
@@ -138,7 +148,7 @@ inferiores a unos valores cota:
 
 Los usuarios de un sistema de información particular tienen posibilidad de 
 modificar esta información desde las tablas básicas país, departamento, 
-municipio, centropoblado y vereda.  No se recomienda hacerlo, pero lo
+municipio, centro poblado y vereda.  No se recomienda hacerlo, pero lo
 que se permita modificar deberá actualizarse automáticamente
 en su "respaldo" en ubicacionpre.
 
@@ -153,23 +163,27 @@ la tabla `msip_ubicacionpre` cuyos campos son:
 | id | bigint | | not null | nextval('msip_ubicacionpre_id_seq'::regclass)|
 | nombre           | character varying(2000)     | es_co_utf_8 | not null | |
 | nombre_sin_pais  | character varying(500)      |             |          | |
-| pais_id          | integer                     |             | not null | | con `id` de `msip_pais` |
-| departamento_id  | integer                     |             |          | | `(departamento_id, pais_id)` con `(id, pais_id)` de `msip_departamento` |
-| municipio_id     | integer                     |             |          | | `(municipio_id, departamento_id)` con `(id, departamento_id)` de `msip_municipio` |
-| centropoblado_id | integer                     |             |          | | `(centropoblado_id, municipio_id)` con `(id, municipio_id)` de `msip_centropoblado` |
-| vereda_id        | integer                     |             |          | | `(vereda_id, municipio_id)` con `(id, municipio_id)` de `msip_vereda` |
-| lugar            | character varying(500)      |             |          | | |
-| sitio            | character varying(500)      |             |          | | |
-| tsitio_id        | integer                     |             |          | | con `id` de `msip_tsitio` |
-| latitud          | double precision            |             |          | | |
-| longitud         | double precision            |             |          | | |
-| created_at       | timestamp without time zone |             | not null | | |
-| updated_at       | timestamp without time zone |             | not null | | |
+| pais_id          | integer | | not null | | con `id` de `msip_pais` |
+| departamento_id  | integer | | | | con `id` de `msip_departamento` y además `(departamento_id, pais_id)` con `(id, pais_id)` de `msip_departamento` |
+| municipio_id     | integer | | | | con `id` de `msip_municipio` y además `(municipio_id, departamento_id)` con `(id, departamento_id)` de `msip_municipio` |
+| centropoblado_id | integer | | | | con `id` de `msip_centropoblado` y además `(centropoblado_id, municipio_id)` con `(id, municipio_id)` de `msip_centropoblado` |
+| vereda_id        | integer | | | | con `id` de `msip_vereda` y además `(vereda_id, municipio_id)` con `(id, municipio_id)` de `msip_vereda` |
+| lugar            | character varying(500) | | | | |
+| sitio            | character varying(500) | | | | |
+| tsitio_id        | integer | | | | con `id` de `msip_tsitio` |
+| latitud          | double precision | | | | |
+| longitud         | double precision | | | | |
+| observaciones | character varying(500) | | | | |
+| fechacreacion | date | | | | |
+| fechadeshabilitacion | date | | | | |
+| created_at       | timestamp without time zone | | not null | | |
+| updated_at       | timestamp without time zone | | not null | | |
 
 
 Además teniendo en cuenta que:
-* `nombre` es único.
-* `nombre_sin_pais` corresponde a `nombre` pero quitandole el país.
+* `nombre` es único y asignado automáticamente.
+* `nombre_sin_pais` corresponde a `nombre` pero quitandole el país y también
+  se asigna automáticamente.
 * Los campos `latitud`, `longitud` y `tsitio_id` tendrán un valor 
   predeterminado para esos campos donde se use en el sistema de información
   que el usuario podrá cambiar sin alterar los de la ubicacionpre.
@@ -179,38 +193,24 @@ Además teniendo en cuenta que:
    el usuario podrá modificar).
 
 Las ubicacionespre de registros comunes se caracterizan por:
-* Emplear `id` inferior a 1'000.000
+* Emplear `id` inferior a 10'000.000
 
 Para que cada registro de las tablas básicas de división política
-corresponda a una sóla ubicacionpre de divisiones político administrativas, 
+corresponda a una única ubicacionpre de divisiones político administrativas, 
 estas se caracterizan por:
-* Tener en `NULL` los campos `lugar` y `sitio`
+* Tener en `NULL` los campos `lugar` y `sitio`.
+* La latitud y la longitud provienen de la tabla básica de división p.a.
+  más fina que no sea NULL.
 * Los países tienen en `NULL` los campos `departamento_id`,  `municipio_id`,
-  `centropoblado_id`, `vereda_id`, `tsitio_id`. La latitud y la longitud 
-  provienen de la tabla básica país.  
-  El nombre corresponde al del país e.g. Venezuela. El `nombre_sin_pais` es ''
+  `centropoblado_id`, `vereda_id`, `tsitio_id`. 
 * Los departamentos tienen en `NULL` los campos `municipio_id`,
-  `centropoblado_id`, `vereda_id`, `tsitio_id`. La latitud y la longitud 
-  se copian del registro en la tabla básica.
-  El nombre consta del departamento y el país separados por barra de
-  división, e.g. Arauca / Colombia
+  `centropoblado_id`, `vereda_id`, `tsitio_id`.
 * Los municipios tienen en `NULL` los campos `centropoblado_id`, 
-  `vereda_id`, `tsitio_id`. La latitud y la longitud  se copian 
-  del registro de la tablas básica municipio.
-  El nombre consta del municipio, el departamento y el país separados 
-  por barras de división, e.g. Angelópolis / Antioquia / Colombia
+  `vereda_id`, `tsitio_id`.
 * Los centros poblados tienen en `NULL` el campo `vereda_id`. 
   El campo `tsitio_id` es 2 (i.e. URBANO). 
-  La latitud y la longitud se copian de la tabla básica.
-  El nombre consta del centro poblado, el municipio, el departamento 
-  y el país separados por barras de división, e.g. 
-  Paloma / Tucupita / Delta Amacuro / Venezuela
 * Las veredas tienen en `NULL` el campo `centropoblado_id`. 
   El campo `tsitio_id` es 3 (i.e. RURAL). 
-  La latitud y la longitud se copian de la tabla básica.
-  El nombre consta de la palabra `Vereda ` seguida del nombre
-  de la vereda, el municipio, el departamento y el país separados por 
-  barras de división, e.g. Vereda Los Alpes / Saravena / Arauca / Colombia
 
 
 Las ubicacionespre de registros propios se caracterizan por:
@@ -225,12 +225,6 @@ Los ubicacionespre de lugares se caracterizan por:
    `NULL` se especifica un lugar dentro del municipio).
 * Los campos `tsitio_id`, `latitud` o `longitud`  pueden o no tener un 
   valor.
-* Si no tiene sitio el nombre consta del lugar barra y el nombre de la
-  ubicacionpre correspondiente al de la división política del
-  pais_id, departamento_id, municipio_id, centropoblado_id o vereda_id
-  Por ejemplo Tierra Amarilla / San José de Apartado / Antioquia / Colombia
-* Si tiene sitio el nombre será como el del lugar precedido del sitio
-  y una barra.
 
 
 

@@ -59,7 +59,12 @@ Msip::Engine.routes.draw do
 
   resources :solicitudes, path_names: { new: "nueva", edit: "edita" }
 
+  get "/ubicacionespre/validar_conjunto" => "ubicacionespre#validar_conjunto",
+    as: :ubicacionespre_validar_conjunto
+
   resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
+
+
 
   # En su aplicación al emplear ayudadores de rutas utilice prefijo
   # "msip." si viene de msip o "main_app." si es de las rutas de la aplicación.
