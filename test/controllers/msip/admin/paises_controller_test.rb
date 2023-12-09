@@ -100,6 +100,7 @@ module Msip
 
     test "debe eliminar" do
       assert_difference("Pais.count", -1) do
+        Msip::Ubicacionpre.where(pais_id: 100).delete_all
         delete msip.admin_pais_path(Pais.find(100)) # Pais sin deptos
       end
 

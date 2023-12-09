@@ -99,6 +99,7 @@ module Msip
 
     test "debe eliminar" do
       assert_difference("Centropoblado.count", -1) do
+        Msip::Ubicacionpre.where(centropoblado_id: 1).delete_all
         delete msip.admin_centropoblado_path(Centropoblado.find(1))
       end
 
