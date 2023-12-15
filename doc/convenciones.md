@@ -1,15 +1,14 @@
 # Convenciones respecto al código fuente
 
-Respecto a licenciamiento y uso de github por favor ver 
-<https://github.com/pasosdeJesus/sip/blob/master/CONTRIBUTING.md>
+Respecto a licenciamiento y uso de gitlab por favor ver 
+<https://gitlab.com/pasosdeJesus/msip/-/blob/main/CONTRIBUTING.md?ref_type=heads>
 
 
-En general adoptamos las de thoughtbot:    
-<https://github.com/thoughtbot/guides>
-
-
-Junto con la guía de estilo de Shopify:
+Para ruby adoptamos las convenciones de thoughtbot <https://github.com/thoughtbot/guides>,  junto con la guía de estilo de Shopify:
 <https://ruby-style-guide.shopify.dev/>
+
+Y para javascript usamos: 
+<https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript>
 
 En las siguientes secciones enfatizamos o cambiamos algunas convenciones.
 
@@ -186,7 +185,8 @@ set autoindent
 # Javascript
 
 Seguir sugerencias de 
-<https://github.com/thoughtbot/guides/blob/main/javascript/README.md>
+<https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript>
+
 
 * Para localizar elementos en el DOM preferir ids y clases (o atributos data) 
   en lugar de posiciones.  Así pueden moverse los elementos en la página sin 
