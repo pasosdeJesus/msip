@@ -16,8 +16,8 @@ export default class MsipMotor {
       dia = +fechaLocalizada.slice(0,2)
       let nmes = fechaLocalizada.slice(3,6)
       if (typeof nmes != 'undefined' && 
-        MESES.includes(nmes.toLowerCase())) {
-        mes = MESES.indexOf(nmes.toLowerCase()) + 1;
+        MsipMotor.MESES.includes(nmes.toLowerCase())) {
+        mes = MsipMotor.MESES.indexOf(nmes.toLowerCase()) + 1;
       } else {
         mes = 6;
       }
