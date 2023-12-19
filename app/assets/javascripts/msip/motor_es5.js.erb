@@ -1,10 +1,15 @@
 'use strict';
 
-// Motor con funciones en Javascript ES6 puro (sin CoffeeScript y sin jQuery)
+// Motor con funciones en Javascript ES5 puro (sin CoffeeScript y sin jQuery)
 // Capitalización Camello. Comienzan con Msip sigue Verbo en infinitivo y más.
 
-/*!
- * Serializa valores de un formulario en un arreglo
+
+/* Retorna partes de una fecha localizada
+ * @param fechaLocalizada
+ * @param formato
+ **/
+
+/* Serializa valores de un formulario en un arreglo
  * Idea de serializeArray de jQuery, implemantación basada en
  * https://vanillajstoolkit.com/helpers/serializearray/
  * FormData debería dejar esto obsoleto
@@ -258,7 +263,7 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
       document.body.style.cursor = 'default'
       window.alert('No se pudo guardar formulario.')
       if (retrollamada_falla != null) {
-        retrollamada_falla(argumentos_falla)
+        retrollamada_falla(argumentos_falla);
       }
       return
     }
