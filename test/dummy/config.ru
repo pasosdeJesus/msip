@@ -5,7 +5,7 @@
 require_relative "config/environment"
 rutarel = ENV.fetch("RUTA_RELATIVA", "msip/")
 if rutarel[0] != '/'
-  rutarel = "/" + rutalrel
+  rutarel = "/" + rutarel
 end
 map rutarel do
   #run Rack::File.new("/msip/assets")
