@@ -81,6 +81,7 @@ module Msip
     end
 
     test "crear presentar editar eliminar" do
+      ids1 = Msip::Persona.pluck(:id)
       assert_difference("Msip::Persona.count") do
         post personas_url, params: { persona: PRUEBA_PERSONA }
         # puts response.body
@@ -89,7 +90,8 @@ module Msip
       assert_redirected_to msip.persona_path(
         assigns(:persona),
       )
-      idr = response.body.gsub(%r{.*personas/}, "").gsub(/">.*/, "").to_i
+      ids2 = Msip::Persona.pluck(:id)
+      idr = (ids2-ids1).first
 
       persona = Msip::Persona.all.take
       get persona_url(persona)

@@ -11,7 +11,7 @@ module Msip
           include Msip::Modelo
           include Msip::Localizacion
 
-          serialize :params
+          serialize :params, coder: YAML
           belongs_to :usuario,
             validate: true,
             class_name: "Usuario",

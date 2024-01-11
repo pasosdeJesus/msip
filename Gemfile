@@ -39,7 +39,7 @@ gem "pg"    # PostgreSQL
 
 gem "puma"                      # Lanza en modo desarrollo
 
-gem "rails", ">= 7.0", "< 7.1"
+gem "rails", ">= 7.1", "< 7.2"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
 gem "rails-i18n", "~> 7.0"      # Localización e Internacionalización

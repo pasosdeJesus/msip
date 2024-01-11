@@ -40,7 +40,7 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```sh
   $ bin/rails s
   => Booting Puma
-  => Rails 7.0.4.2 application starting in development
+  => Rails 7.1.2 application starting in development
   => Run `rails server --help` for more startup options
   Puma starting in single mode...
   * Version 5.6.5 (ruby 3.2.0-p0) ("Birdie's Version")
@@ -351,7 +351,7 @@ minmsip_des=# \q
 
   module Minmsip
     class Application < Rails::Application
-      config.load_defaults 7.0
+      config.load_defaults 7.1
 
       config.active_record.schema_format = :sql
       config.railties_order = [:main_app, Msip::Engine, :all]
@@ -380,7 +380,7 @@ minmsip_des=# \q
   y verifica que carga correctamente con:
   ```
   % bin/rails console
-  Loading development environment (Rails 7.0.4)
+  Loading development environment (Rails 7.1.2)
   irb(main):001:0> Rails.configuration.x.formato_fecha
   => "dd/M/yyyy"
   ```
@@ -418,7 +418,7 @@ minmsip_des=# \q
   minmsip_des=# select count(*) from msip_centropoblado;
    count
   -------
-   14416
+   44501
   (1 row)
 
   minmsip_des=# \q
@@ -542,6 +542,7 @@ minmsip_des=# \q
   ```sh
   yarn add @hotwired/stimulus @hotwired/turbo-rails @rails/ujs \
     @popperjs/core @fortawesome/fontawesome-free bootstrap \
+    https://gitlab.com/pasosdeJesus/autocompleta_ajax.git \
     bootstrap-datepicker chosen-js esbuild popper.js@2.0.0-next.4 jquery
   yarn add -D  babel-plugin-macros
   yarn add https://gitlab.com/pasosdeJesus/autocompleta_ajax.git

@@ -98,6 +98,7 @@ module Msip
     end
 
     test "crear y eliminar" do
+      ids1 = Msip::Tcentropoblado.pluck(:id)
       assert_difference("Msip::Tcentropoblado.count") do
         post admin_tcentrospoblados_url, params: { tcentropoblado: PRUEBA_TCENTROPOBLADO }
         # puts response.body
@@ -106,7 +107,8 @@ module Msip
       assert_redirected_to msip.admin_tcentropoblado_path(
         assigns(:tcentropoblado),
       )
-      idr = response.body.gsub(%r{.*tcentrospoblados/}, "").gsub(/">.*/, "")
+      ids2 = Msip::Tcentropoblado.pluck(:id)
+      idr = (ids2-ids1).first
 
       assert_difference("Tcentropoblado.count", -1) do
         delete msip.admin_tcentropoblado_path(Tcentropoblado.find(idr)) # Tcentropoblado sin centrospoblados

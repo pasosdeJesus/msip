@@ -6,7 +6,7 @@
   Puedes consultar sobre el uso de Ruby on Rails en adJ en
   <http://pasosdejesus.github.io/usuario_adJ/conf-programas.html#ruby>
 * Ruby versión >= 3.2.2
-* Ruby on Rails >= 7.0.4 (la instalas con `gem install rails`)
+* Ruby on Rails >= 7.1.2 (la instalas con `gem install rails`)
 * PostgreSQL >= 15.4 con extensión `unaccent` disponible y posibilidad
   de crearle un usuario con permisos para crear bases de datos
 * `node.js` >= 18.15.0 y `coffescript` instalado globalmente 
@@ -16,7 +16,7 @@
   2048 archivos.  
   Para asegurarlo, en adJ como superusuario pon un valor alto al 
   máximo de archivos que el kernel puede abrir
-  simularlestaneamente en la variable de configuración `kern.maxfiles`, por
+  simultáneamente en la variable de configuración `kern.maxfiles`, por
   ejemplo 20000 en `/etc/sysctl.conf`, y en la clase de la cuenta de desarrollo
   (en `/etc/login.conf`) que al menos diga
   `:datasize-cur=1024M:` y  `:openfiles-cur=2048:`
@@ -41,7 +41,7 @@
   ```
 * Recomendamos emplear `zsh`, `tmux` y `vim` con los archivos de configuración
   e instrucciones disponibles en
-  <https://gitlab.com/pasosdeJesus/adJ/-/tree/main/arboldd/usr/local/share/adJ/archconf?ref_type=heads>
+  <https://gitlab.com/pasosdeJesus/adJ/-/blob/main/arboldd/usr/local/share/adJ/archconf/README.md>
 
 
 
