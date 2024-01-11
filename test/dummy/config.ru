@@ -8,7 +8,6 @@ if rutarel[0] != '/'
   rutarel = "/" + rutarel
 end
 map rutarel do
-  #run Rack::File.new("/msip/assets")
   run Rails.application
   Rails.application.load_server
 end

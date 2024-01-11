@@ -63,10 +63,7 @@ module Dummy
       ENV.fetch("CONFIG_HOSTS", "defensor.info").downcase.split(";"),
     )
 
-    # La siguiente puede producir rutas /msip/msip en las pruebas
-    # En general debe bastar dejarla solo en
-    #   config/initializers/punto_montaje.rb
-    # config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/msip')
+    config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/msip')
 
     # msip
     config.x.formato_fecha = ENV.fetch("MSIP_FORMATO_FECHA", "dd/M/yyyy")
