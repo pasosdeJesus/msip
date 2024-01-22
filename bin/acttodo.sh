@@ -39,8 +39,8 @@ function actuno {
     echo "rm -rf $rutapore/*"
     rm -rf $rutapore/*
   } fi;
-  bundle update
   bundle update --bundler
+  bundle update
   if (test "$?" != 0) then {
     exit 1;
   } fi;

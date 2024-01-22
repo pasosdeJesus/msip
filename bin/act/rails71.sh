@@ -121,8 +121,9 @@ if (test -f .env) then {
       } fi;
   
       echo "Creando public/assets"
-      (cd public; doas ln -sf $RUTA_RELATIVA/assets .)
+      (cd public; doas ln -sf ./$RUTA_RELATIVA/assets .)
       ls -l public/assets/
-      g add public/assets
+      git add public/assets
     } fi;
   } fi;
+} fi;
