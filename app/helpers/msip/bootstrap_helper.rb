@@ -243,8 +243,9 @@ module Msip
     #
     # @param bloque Que se presenta al expandir
     def item_acordeon_bs(
-      acid, idit, titulo, expandido = false, opciones = {}, &bloque
+      acid, idit, titulo, expandido = false, opciones_ps = {}, &bloque
     )
+      opciones = opciones_ps.stringify_keys
       content_tag(
         :div,
         class: "accordion-item " + opciones.fetch("clase_accordion-item", ""),
