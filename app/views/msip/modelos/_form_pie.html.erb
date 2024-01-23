@@ -1,4 +1,7 @@
-<% atdata={turbo: false} # Permite presentar errores de validación  %>
+<% atdata={
+  turbo: false,
+  disable_with: false
+} # Permite presentar errores de validación  %>
 <% if defined?(datos_boton_envio) && datos_boton_envio %>
   <% atdata = atdata.merge(datos_boton_envio) %>
 <% end %>
