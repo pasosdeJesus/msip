@@ -37,7 +37,10 @@ export default class extends Controller {
       this.numerodocumentoTarget.value == '') { // SIN DOCUMENTO
       let indice = this.idTarget.id.match(
         new RegExp("attributes_([0-9]+)_persona")
-      )
+      );
+      if (indice == null) {
+        indice = [0, 0];
+      }
       window.Rails.ajax({
         type: 'GET',
         url: purl + '/personas/identificacionsd?persona_id=' + 
