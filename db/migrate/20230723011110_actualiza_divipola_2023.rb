@@ -1,5 +1,10 @@
 class ActualizaDivipola2023 < ActiveRecord::Migration[7.0]
   def up
+    res=execute 'SELECT count(*) from msip_tclase'
+    if res && res[0] && res[0]["count"] && res[0]["count"] == 0
+      puts "Suponemos aplicando migraciones a base desactualiza"
+      return
+    end
     execute <<-SQL
       -- Municipios con nombre cambiado
       UPDATE msip_municipio SET nombre='TURBANA' WHERE id=1350; 
