@@ -22,6 +22,12 @@
     </span>
   </li>
 
+  <li>Turbo Rails
+    <span id='ver_turbo-rails'>
+      <%= Gem::Specification.find_by_name("turbo-rails").version.to_s %>
+    </span>
+  </li>
+
   <li>jQuery 
     <span id='ver_jquery'></span>
     <script type="module">$('#ver_jquery').html($.fn.jquery)</script>
@@ -30,8 +36,11 @@
   <li>
     <div class='btn'>Bootstrap</div>  
     <span id='ver_bootstrap'></span>
-    <script type="module"> setTimeout(() => {
-      $('#ver_bootstrap').html($.fn.tooltip.Constructor.VERSION)}, 2000);
+    <script type="module"> 
+      setTimeout(() => {
+        let vb = document.querySelector("#ver_bootstrap");
+        vb.innerHTML = $.fn.tooltip.Constructor.VERSION;
+      }, 2000);
     </script>
   </li>
 
@@ -52,13 +61,17 @@
           const font = it.next();
           if (!font.done && font.value[0].family.includes('Font Awesome')) {
             ver = font.value[0].family;
+            done = true;
           } else {
             done = font.done;
           }
         }
         return ver
       }
-      setTimeout(() => {$('#ver_fontawesome').html(verFontAwesome())}, 1000);
+      setTimeout(() => {
+        let vf = document.querySelector("#ver_fontawesome");
+        vf.innerHTML = verFontAwesome();
+      }, 1000);
     </script>
 
   </li>
