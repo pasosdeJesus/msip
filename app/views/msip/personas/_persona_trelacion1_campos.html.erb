@@ -5,104 +5,103 @@
 <% if Rails.configuration.x.msip_docid_obligatorio === true %>
   <% cont = "msip--sindocaut" %>
 <% end %>
-<%= turbo_frame_tag "persona_trelacion1_#{f.index}", 
-  class: "div-tabla-fila nested-fields",
-  data: {
-    controller: "msip--sindocaut"
-  } do %>
-    <% if f.object.personados.nil? %>
-      <% f.object.personados = Msip::Persona.new %>
-    <% end %>
-    <%= f.simple_fields_for :personados do |p| %>
-      <div class="div-tabla-celda">
-        <%= p.input :id, 
-          as: :hidden,
-          input_html: {
-            "data-msip--sindocaut-target": "id"
-          } %>
-        <% ph = 'N'%>
-        <% ac = {
-          'data-autocompleta' => 'no',
+<div id="persona_trelacion1_#{f.index}"
+     class="div-tabla-fila nested-fields campos_personados",
+     data-controller="msip--sindocaut">
+  <% if f.object.personados.nil? %>
+    <% f.object.personados = Msip::Persona.new %>
+  <% end %>
+  <%= f.simple_fields_for :personados do |p| %>
+    <div class="div-tabla-celda">
+      <%= p.input :id, 
+        as: :hidden,
+        input_html: {
+          "data-msip--sindocaut-target": "id"
+        } %>
+      <% ph = 'N'%>
+      <% ac = {
+        'data-autocompleta' => 'no',
+        style: 'width: 9em' } %>
+      <% if (!p.object.nombres || p.object.nombres == 'N' || 
+          p.object.nombres == '') %>
+        <% ph = 'Buscar' %>
+        <% ac = { 
+          list: datalist,
           style: 'width: 9em' } %>
-        <% if (!p.object.nombres || p.object.nombres == 'N' || 
-            p.object.nombres == '') %>
-          <% ph = 'Buscar' %>
-          <% ac = { 
-            list: datalist,
-            style: 'width: 9em' } %>
-        <% end %>
+      <% end %>
 
-        <%= p.input :nombres, placeholder: ph, 
-          value_method: lambda {|t| '' if t.nombres == 'N'},
-          input_html: ac,
-          label: false %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= p.input :apellidos, label: false %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= p.input :sexo, 
-          collection: ::Msip::Persona::sexo_opciones,
-          include_blank: false,
-          label: false %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= p.input :tdocumento_id,
-          collection: Msip::ModeloHelper.opciones_tabla_basica(
-            Msip::Tdocumento, p, :tdocumento_id
-          ),
-          label_method: :sigla,
-          value_method: :id ,
-          label: false,
-          input_html: { 
-            style: 'width: 5em',
-            "data-action": "change->msip--sindocaut#cambia_tdocumento"
-          }
-        %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= p.input :numerodocumento, 
-          label: false,
-          input_html: {
-            "data-msip--sindocaut-target": "numerodocumento"
-          }
-        %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= f.input :trelacion_id, 
-          collection: Msip::ModeloHelper.opciones_tabla_basica(
-            Msip::Trelacion, f, :trelacion_id
-          ),
-          label_method: :nombre,
-          value_method: :id,
-          label: false %>
-      </div>
-      <div class="div-tabla-celda">
-        <%= f.input :id, as: :hidden %>
- 
-        <%= p.submit "Eliminar", 
-          formaction: msip.eliminar_familiar_path(
-            id: f.object.id, index: f.index
-          ),
-          formmethod: :delete, 
-          formnovalidate: true, 
-          class: 'btn btn-sm btn-danger',
-          data: { 
-            turbo_frame: "persona_trelacion1_#{f.index}",
-            disable_with: false
-          } %>
-        <%= p.submit "Actualizar", 
-          formaction: msip.actualizar_familiar_path(
-            id: f.object.id, index: f.index
-          ),
-          formmethod: :post, 
-          formnovalidate: true, 
-          class: 'btn btn-sm',
-          data: { 
-            turbo_frame: "persona_trelacion1_#{f.index}",
-            disable_with: false
-          } %>
+      <%= p.input :nombres, placeholder: ph, 
+        value_method: lambda {|t| '' if t.nombres == 'N'},
+        input_html: ac,
+        label: false %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= p.input :apellidos, label: false %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= p.input :sexo, 
+        collection: ::Msip::Persona::sexo_opciones,
+        include_blank: false,
+        label: false %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= p.input :tdocumento_id,
+        collection: Msip::ModeloHelper.opciones_tabla_basica(
+          Msip::Tdocumento, p, :tdocumento_id
+        ),
+        label_method: :sigla,
+        value_method: :id ,
+        label: false,
+        input_html: { 
+          style: 'width: 5em',
+          "data-action": "change->msip--sindocaut#cambia_tdocumento"
+        }
+      %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= p.input :numerodocumento, 
+        label: false,
+        input_html: {
+          "data-msip--sindocaut-target": "numerodocumento"
+        }
+      %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= f.input :trelacion_id, 
+        collection: Msip::ModeloHelper.opciones_tabla_basica(
+          Msip::Trelacion, f, :trelacion_id
+        ),
+        label_method: :nombre,
+        value_method: :id,
+        label: false %>
+    </div>
+    <div class="div-tabla-celda">
+      <%= f.input :id, as: :hidden %>
 
-      </div>
-    <% end %>
-<% end %>
+      <%= p.submit "Eliminar", 
+        formaction: msip.eliminar_familiar_path(
+          id: f.object.id, index: f.index
+        ),
+        formmethod: :delete, 
+        formnovalidate: true, 
+        class: 'btn btn-sm btn-danger',
+        data: { 
+          turbo_frame: "persona_trelacion1_#{f.index}",
+          disable_with: false
+        } %>
+      <% # Este boton es usado para actualizar cuando se autocompleta, pero si es confuso y tal vez innecesario para el usuario final %>
+      <%= p.submit "Actualizar", 
+        formaction: msip.actualizar_familiar_path(
+        id: f.object.id, index: f.index
+        ),
+        formmethod: :post, 
+        formnovalidate: true, 
+        class: 'btn btn-sm',
+        data: { 
+        turbo_frame: "persona_trelacion1_#{f.index}",
+        disable_with: false
+        } %>
+
+    </div>
+  <% end %>
+</div>
