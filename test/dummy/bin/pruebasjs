@@ -10,7 +10,10 @@ if (test "$IPDES" = "") then {
 	export IPDES=127.0.0.1
 } fi;
 if (test "$RAILS_ENV" = "") then {
-	export RAILS_ENV=test
+# Si ejecutamos en RAILS_ENV=test RUTA_RELATIVA será / por
+# https://github.com/rails/rails/issues/49688
+ 	export RAILS_ENV=development
+ 	#export RAILS_ENV=test
 } fi;
 if (test "$CONFIG_HOSTS" = "") then {
 	export CONFIG_HOSTS=127.0.0.1
@@ -32,6 +35,8 @@ if (test "$IPDES" = "127.0.0.1") then {
 	bin/detiene
 
 	echo "=== Precompilando"
+	echo "rm -rf public/${RUTA_RELATIVA}/assets/*"
+	rm -rf public/${RUTA_RELATIVA}/assets/*
 	bin/rails assets:precompile
 
 	echo "=== Iniciando servidor"
@@ -54,9 +59,10 @@ for i in *.mjs; do
   echo "Ejecutando $i"
   node $i | tee /tmp/pruebasjs.bitacora
   te=`grep Tiempo /tmp/pruebasjs.bitacora | sed -e "s/.*: //g;s/ ms//g"`
-  if (test "$?" = "0") then {
-    echo "te=$te"
-    t=`ruby -e "puts $t + $te"`
+  if (test "$?" = "0" -a "$te" != "") then {
+    echo "OJO te=$te"
+    t=`ruby -e "puts '$t'.to_f + '$te'.to_f"`
+    echo "OJO t=$t"
     np=`expr $np + 1`
   } fi;
 done
