@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "../../test_helper"
-require "msip/procesos_helper"
 
 module Msip
   class ProcesosHelperTest < ActionView::TestCase

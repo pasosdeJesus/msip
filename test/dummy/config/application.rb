@@ -28,7 +28,7 @@ require "msip"
 
 module Dummy
   class Application < Rails::Application
-    config.load_defaults(7.0)
+    config.load_defaults Rails::VERSION::STRING.to_f
 
     config.action_view.automatically_disable_submit_tag = false
 
@@ -52,7 +52,11 @@ module Dummy
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
 
-    config.railties_order = [:main_app, Msip::Engine, :all]
+    config.railties_order = [
+      :main_app, 
+      Msip::Engine, 
+      :all
+    ]
 
     config.colorize_logging = true
 

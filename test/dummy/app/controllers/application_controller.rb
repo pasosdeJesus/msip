@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "msip/application_controller"
 class ApplicationController < Msip::ApplicationController
   include Turbo::Redirection
 
