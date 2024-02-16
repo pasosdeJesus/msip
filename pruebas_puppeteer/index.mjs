@@ -1,6 +1,7 @@
 import fs from "fs";
 import dotenv from "dotenv";
-import puppeteer from "puppeteer-core"
+import puppeteer from "puppeteer-core";
+import puppeteerd from "puppeteer";
 
 
 export async function preparar(timeout = 5000, rutainicial = '/msip') {
@@ -17,7 +18,7 @@ export async function preparar(timeout = 5000, rutainicial = '/msip') {
   //console.log("sincabeza=", sincabeza);
   let browser = null;
   if (typeof process.env.CI == "string") {
-    ep = require('puppeteer').executablePath();
+    let ep = puppeteerc.executablePath;
     browser = await puppeteer.launch({
       executablePath: ep,
       defaultViewport: { width: 1240, height: 800},
