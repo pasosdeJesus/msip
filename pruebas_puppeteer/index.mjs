@@ -1,7 +1,9 @@
 import fs from "fs";
 import dotenv from "dotenv";
 import puppeteer from "puppeteer-core";
-import puppeteerd from "puppeteer";
+if (typeof process.env.CI == "string") {
+  import puppeteerd from "puppeteer";
+}
 
 
 export async function preparar(timeout = 5000, rutainicial = '/msip') {
