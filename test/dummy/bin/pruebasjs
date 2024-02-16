@@ -55,7 +55,7 @@ yarn upgrade
 yarn
 t=0
 np=0
-for i in *.mjs; do
+for i in *-*.mjs; do
   echo "Ejecutando $i"
   node $i | tee /tmp/pruebasjs.bitacora
   te=`grep Tiempo /tmp/pruebasjs.bitacora | sed -e "s/.*: //g;s/ ms//g"`

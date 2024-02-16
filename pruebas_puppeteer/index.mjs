@@ -1,9 +1,6 @@
 import fs from "fs";
 import dotenv from "dotenv";
 import puppeteer from "puppeteer-core";
-if (typeof process.env.CI == "string") {
-  import puppeteerd from "puppeteer";
-}
 
 
 export async function preparar(timeout = 5000, rutainicial = '/msip') {
@@ -20,17 +17,8 @@ export async function preparar(timeout = 5000, rutainicial = '/msip') {
   //console.log("sincabeza=", sincabeza);
   let browser = null;
   if (typeof process.env.CI == "string") {
-    let ep = puppeteerc.executablePath;
-    browser = await puppeteer.launch({
-      executablePath: ep,
-      defaultViewport: { width: 1240, height: 800},
-      headless: sincabeza,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage'
-      ]
-    });
+    console.log("Esta función no opera en gitlab");
+    exit(1);
   } else {
     if (fs.existsSync("/usr/local/bin/chrome")) {
       console.log("Corriendo en OpenBSD")
@@ -483,7 +471,7 @@ export async function typeIntoElement(element, value) {
 
 
 export async function prepararYAutenticarDeAmbiente(timeout = 5000, 
-  rutaAmbiente = '../../.env') {
+  funcionPreparar, rutaAmbiente = '../../.env') {
   dotenv.config({ path: rutaAmbiente });
 
   const rutaRelativa = typeof process != "undefined" &&
@@ -499,7 +487,7 @@ export async function prepararYAutenticarDeAmbiente(timeout = 5000,
     process.env.CLAVE_ADMIN_PRUEBA : 'msip';
 
   let urlini, browser, page;
-  [urlini, browser, page] = await preparar(timeout, rutaRelativa);
+  [urlini, browser, page] = await funcionPreparar(timeout, rutaRelativa);
 
   await autenticar(page, timeout, usuarioAdminPrueba, claveAdminPrueba);
 
