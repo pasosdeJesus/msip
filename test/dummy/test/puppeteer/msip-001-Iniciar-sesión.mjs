@@ -1,4 +1,3 @@
-import { preparar } from "./pgitlab.mjs";
 import puppeteer from "puppeteer-core"
 import {
   changeSelectElement,

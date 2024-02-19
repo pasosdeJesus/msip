@@ -2,6 +2,7 @@ import puppeteer from "puppeteer-core"
 import {
   changeSelectElement,
   changeElementValue,
+  preparar,
   prepararYAutenticarDeAmbiente,
   querySelectorsAll,
   querySelectorAll,
@@ -22,7 +23,7 @@ import {
 
   let timeout = 5000;
   let urlini, browser, page;
-  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
+  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
 
   {
     const targetPage = page;
