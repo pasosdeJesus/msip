@@ -17,6 +17,18 @@ module Msip
             @basica = Etnia.find(params[:id])
           end
 
+          def atributos_index
+            [
+              :id,
+              :nombre,
+              :descripcion,
+              :observaciones,
+              :fechacreacion_localizada,
+              :habilitado
+            ]
+          end
+
+
           def etnia_params
             params.require(:etnia).permit(*atributos_form)
           end
