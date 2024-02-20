@@ -11,8 +11,8 @@ module Msip
         included do
           self.table_name = "msip_etnia"
 
-          #has_many :persona, class_name: 'Msip::Persona',
-          #  foreign_key: 'etnia_id', dependent: :delete_all
+          has_many :persona, class_name: 'Msip::Persona',
+            foreign_key: 'etnia_id', dependent: :delete_all
 
           validates :nombre, presence: true, allow_blank: false
           validates :fechacreacion, presence: true, allow_blank: false

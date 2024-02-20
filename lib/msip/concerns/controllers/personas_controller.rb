@@ -28,6 +28,7 @@ module Msip
               :mesnac,
               :dianac,
               :sexo,
+              :etnia,
               :pais,
               :departamento,
               :municipio,
@@ -268,6 +269,7 @@ module Msip
               :municipio_id,
               :centropoblado_id,
               :tdocumento_id,
+              :etnia_id,
             ] + [ 
               etiqueta_persona_attributes:  [
                 :etiqueta_id, 

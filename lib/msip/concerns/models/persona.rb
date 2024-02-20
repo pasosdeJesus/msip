@@ -178,27 +178,38 @@ module Msip
             class_name: "Msip::OrgsocialPersona",
             validate: true
           # inverse_of: :persona
+          
           belongs_to :centropoblado,
             class_name: "Msip::Centropoblado",
             validate: true,
             optional: true
+
           belongs_to :nacional,
             class_name: "Msip::Pais",
             foreign_key: "nacionalde",
             validate: true,
             optional: true
+
           belongs_to :departamento,
             validate: true,
             class_name: "Msip::Departamento",
             optional: true
+
+          belongs_to :etnia,
+            validate: true,
+            class_name: "Msip::Etnia",
+            optional: false 
+
           belongs_to :municipio,
             validate: true,
             class_name: "Msip::Municipio",
             optional: true
+
           belongs_to :pais,
             class_name: "Msip::Pais",
             validate: true,
             optional: true
+
           belongs_to :tdocumento,
             class_name: "Msip::Tdocumento",
             validate: true,

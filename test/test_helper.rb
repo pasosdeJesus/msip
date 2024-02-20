@@ -153,7 +153,7 @@ PRUEBA_PERFILORGSOCIAL = {
 PRUEBA_PERSONA = {
   nombres: "Nombres",
   apellidos: "Apellidos",
-
+  etnia_id: 2,
   anionac: 1980,
   mesnac: 2,
   dianac: 2,
