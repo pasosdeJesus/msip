@@ -160,6 +160,9 @@ es:
         svgcdy: Lado superior de cuadro delimitador SVG
         svgcdancho: Ancho de cuadro delimitador SVG
         svgcdalto: Alto de cuadro delimitador SVG
+      "msip/etnia":
+        Etnia: Etnia
+        Etnias: Etnias
       "msip/estadosol":
         Estadosol: Estado de solicitud
         Estadossol: Estados de solicitudes

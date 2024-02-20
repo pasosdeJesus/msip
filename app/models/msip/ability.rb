@@ -37,6 +37,7 @@ module Msip
       ["Msip", "departamento"],
       ["Msip", "estadosol"],
       ["Msip", "etiqueta"],
+      ["Msip", "etnia"],
       ["Msip", "fuenteprensa"],
       ["Msip", "grupo"],
       ["Msip", "municipio"],

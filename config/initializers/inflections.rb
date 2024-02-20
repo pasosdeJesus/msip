@@ -30,6 +30,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular("centropoblado", "centrospoblados")
   inflect.irregular("estadosol", "estadossol")
   inflect.irregular("etiqueta", "etiquetas")
+  inflect.irregular("etnia", "etnias")
   inflect.irregular("error", "errores")
   inflect.irregular("fuenteprensa", "fuentesprensa")
   inflect.irregular("grupoper", "gruposper")

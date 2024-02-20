@@ -88,6 +88,15 @@ PRUEBA_ETIQUETA = {
   created_at: "2014-09-04",
 }
 
+PRUEBA_ETNIA = {
+  id: 1001,
+  nombre: "Etni",
+  observaciones: "O",
+  descripcion: "D",
+  fechacreacion: "2024-02-19",
+  created_at: "2024-02-19",
+}
+
 PRUEBA_FUENTEPRENSA = {
   id: 1000,
   nombre: "Fuenteprensa",
