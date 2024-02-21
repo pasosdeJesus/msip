@@ -2324,6 +2324,13 @@ CREATE INDEX index_msip_orgsocial_on_pais_id ON public.msip_orgsocial USING btre
 
 
 --
+-- Name: index_msip_persona_on_etnia_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_msip_persona_on_etnia_id ON public.msip_persona USING btree (etnia_id);
+
+
+--
 -- Name: index_msip_solicitud_usuarionotificar_on_solicitud_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2898,6 +2905,7 @@ ALTER TABLE ONLY public.msip_ubicacion
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240221002426'),
 ('20240220164637'),
 ('20240220111410'),
 ('20240219221519'),
