@@ -2,6 +2,9 @@ class AjustaBasicas202402 < ActiveRecord::Migration[7.1]
   def up
     # Quitamos COMUNAS
     execute <<-SQL
+      DELETE FROM public.msip_ubicacionpre WHERE centropoblado_id IN (
+        9031, 9046, 9051, 9069, 9070, 9076, 9082, 9083, 9084, 9088
+      );
       DELETE FROM public.msip_centropoblado WHERE id IN (
         9031, 9046, 9051, 9069, 9070, 9076, 9082, 9083, 9084, 9088
       );
