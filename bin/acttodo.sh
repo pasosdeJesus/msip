@@ -40,7 +40,7 @@ function actuno {
     rm -rf $rutapore/*
   } fi;
   bundle update --bundler
-  bundle update
+  bundle update --conservative
   if (test "$?" != 0) then {
     exit 1;
   } fi;
