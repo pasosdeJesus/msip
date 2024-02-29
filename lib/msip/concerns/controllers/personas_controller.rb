@@ -9,7 +9,8 @@ module Msip
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-          before_action :set_persona, only: [:show, :edit, :update, :destroy]
+          before_action :prepara_persona, 
+            only: [:show, :edit, :update, :destroy]
 
           def clase
             "Msip::Persona"
@@ -257,10 +258,16 @@ module Msip
             [:validar_conjunto_familiar_diferente]
           end
 
-          def set_persona
-            @persona = Msip::Persona.find(params[:id])
+          def prepara_persona
+            if params && params[:id] &&
+                Msip::Persona.where(id: params[:id]).count > 0
+              @persona = Msip::Persona.find(params[:id])
+            else
+              @persona = Msip::Persona.new
+            end
             @registro = @persona
           end
+          alias_method :set_persona, :prepara_persona
 
           def lista_params_msip
             atributos_form + [
