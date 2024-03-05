@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <% Msip::Bitacora.where(
-            modelo: clase, 
+            modelo: clase.constantize.to_s, 
             modelo_id: @registro.id, 
             operacion: ['actualizar', 'importar', 'iniciar', 'tocar']).order('fecha DESC').each do |r| %>
             <tr>
