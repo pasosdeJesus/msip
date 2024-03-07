@@ -191,11 +191,11 @@ module Msip
 
           # Retorna una propuesta para número de documento con base
           # en la id de la persona (no nil)
-          def self.mejora_nuevo_numerodocumento_sindoc(numdoc)
-            numerodocumento = numdoc
+          def self.mejora_nuevo_numerodocumento_sindoc(numdoc, persona_id)
+            numerodocumento = numdoc #% 2147483647 # Max. INTEGER de PostgreSQL
             while Msip::Persona.where(
               tdocumento_id: 11, numerodocumento: numerodocumento,
-            ).where("id<>?", numdoc).count > 0
+            ).where("id<>?", persona_id).count > 0
               numerodocumento = numerodocumento.to_s
               if !numerodocumento.empty? && numerodocumento[-1] >= "A" &&
                   numerodocumento[-1] < "Z"
@@ -218,7 +218,7 @@ module Msip
               persona_id = ruid[0]["last_value"] + 1
             end
             numerodocumento = mejora_nuevo_numerodocumento_sindoc(
-              persona_id.to_s+indice.to_s,
+              persona_id.to_s+indice.to_s, persona_id
             )
             numerodocumento
           end
