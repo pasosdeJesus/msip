@@ -11,10 +11,12 @@ class AjustaBasicas202402 < ActiveRecord::Migration[7.1]
     SQL
 
     # Asegurar que las ids SIN DOCUMENTO puedan ser números y letras
-    tdsd = Msip::Tdocumento.find(11)
-    if tdsd.formatoregex == "[0-9]*"
-      tdsd.formatoregex = "[0-9]*[A-Z]*"
-      tdsd.save!
+    if Msip::Tdocumento.where(id: 11).count > 0 # Facilita actualizaciones
+      tdsd = Msip::Tdocumento.find(11)
+      if tdsd.formatoregex == "[0-9]*"
+        tdsd.formatoregex = "[0-9]*[A-Z]*"
+        tdsd.save!
+      end
     end
   end
 
