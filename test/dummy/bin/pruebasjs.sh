@@ -30,23 +30,48 @@ if (test ! -f .env) then {
 } fi;
 . ./.env
 
+echo "IPDES=$IPDES"
+
 if (test "$IPDES" = "127.0.0.1") then {
 	echo "=== Deteniendo"
 	bin/detiene
 
-	echo "=== Precompilando"
-	echo "rm -rf public/${RUTA_RELATIVA}/assets/*"
-	rm -rf public/${RUTA_RELATIVA}/assets/*
-	bin/rails assets:precompile
+  if (test "$SALTAPRECOMPILA" != "1") then {
+    echo "=== Precompilando"
+    echo "rm -rf public/${RUTA_RELATIVA}/assets/*"
+    rm -rf public/${RUTA_RELATIVA}/assets/*
+    bin/rails assets:precompile
+  } fi;
 
 	echo "=== Iniciando servidor"
 	CONFIG_HOSTS=127.0.0.1 R=f bin/corre &
+  CORRE_PID=$!
+	sleep 5;
+  echo "CORRE_PID=$CORRE_PID"
+} fi;
 
-	sleep 10;
+if (test "$CORRE_PID" = "") then {
+  echo "No pudo determinarse PID del proceso con el lado del servidor"
+  exit 1;
+} fi;
+rps=`ps $CORRE_PID`
+if (test "$?" != "0") then {
+  echo "No arrancó proceso con el lado del servidor"
+  exit 1;
+} fi;
+clrps=`echo $rps | wc -l | sed -e "s/ //g"`
+if (test "$clrps" != "1") then {
+  # 2 desde una terminal, 1 desde un script
+  echo "Problema identificado proceso con el lado del servidor"
+  echo "clrps=$clrps rps=$rps"
+  exit 1;
 } fi;
 
 echo "***"
-w3m -dump http://${IPDES}:${PUERTODES}/${RUTA_RELATIVA}
+w3m -dump http://${IPDES}:${PUERTODES}/${RUTA_RELATIVA} | tee /tmp/salw3m
+if (test "$?" != "0" -o  ! -s /tmp/salw3m) then {
+  exit 1;
+} fi;
 echo "***"
 
 cd test/puppeteer
