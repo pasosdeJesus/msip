@@ -65,113 +65,58 @@ function actuno {
 
 if (test "$SALTAMSIP" != "1") then {
   echo "**** msip"
-  actuno msip test/dummy
-  actuno msip_carto test/dummy
+  actuno msip-2.2 test/dummy
 } fi;
 
-
-if (test "$SALTASIP" != "1") then {
-  echo "**** sip"
-  actuno sip-2.0 test/dummy
-  actuno sip-2.1 test/dummy
-} fi;
 
 # Usan solo msip
 if (test "$SALTAMSIPD" != "1") then {
   echo "**** msipd"
-  actuno msipd test/dummy
+  actuno msipd-2.2 test/dummy
 } fi;
 
 if (test "$SALTAJN316" != "1") then {
   echo "**** jn316"
-  actuno jn316_gen test/dummy; 
+  actuno jn316_gen-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTAMR519" != "1") then {
   echo "**** mr519"
-  actuno mr519_gen-2.0 test/dummy; 
-  actuno mr519_gen-2.1 test/dummy; 
-  actuno mr519_gen test/dummy; 
+  actuno mr519_gen-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTAHEB412" != "1") then {
   echo "**** heb412"
-  actuno heb412_gen-2.0 test/dummy; 
-  actuno heb412_gen-2.1 test/dummy; 
-  actuno heb412_gen test/dummy; 
-  actuno heb412
-  actuno si_fup
+  actuno heb412_gen-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTACOR1440" != "1") then {
   echo "**** cor1440"
-  actuno cor1440_gen test/dummy; 
-  actuno cor1440; 
-  actuno cor1440_pdJ; 
-  actuno si_codacop
+  actuno cor1440_gen-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTASAL7711" != "1") then {
   echo "**** sal7711"
-  actuno sal7711_gen test/dummy; 
-  actuno sal7711; 
-  actuno sal7711_web test/dummy; 
+  actuno sal7711_gen-2.2 test/dummy; 
+  actuno sal7711-2.2; 
+  actuno sal7711_web-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2GEN" != "1") then {
   echo "**** sivel"
-  actuno sivel2_gen-2.0 test/dummy; 
-  actuno sivel2_gen-2.1 test/dummy; 
-  actuno sivel2_gen test/dummy; 
-} fi;
-
-if (test "$SALTASIADDHH" != "1") then {
-  actuno siaddhh;
-} fi;
-
-if (test "$SALTAAPO214" != "1") then {
-  echo "**** apo214"
-  actuno apo214 test/dummy; 
-} fi;
-
-if (test "$SALTASIBDHN" != "1") then {
-  actuno si_bdhn
+  actuno sivel2_gen-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel"
-  actuno sivel2-2.0; 
-  actuno sivel2-2.1
-  actuno sivel2
-} fi;
-
-# Usan 3 o más motores
-if (test "$SALTASIASOM" != "1") then {
-  actuno si_asom
+  actuno sivel2-2.2; 
 } fi;
 
 if (test "$SALTAJOS19" != "1") then {
   echo "**** jos19"
-  actuno jos19
+  actuno jos19-2.2
 } fi;
 
-if (test "$SALTASIFASOL" != "1") then {
-  actuno si_fasol; 
-} fi;
-
-if (test "$SALTASIVELSJR" != "1") then {
-  echo "**** sivelsjr"
-  actuno sivel2_sjr test/dummy; 
-} fi;
-
-if (test "$SALTAMIND" != "1") then {
-  echo "**** mind"
-  actuno sivel2_mujeresindigenas;
-} fi;
-
-# Usan 4 motores
-#actuno si_jrslac; 
-#actuno sivel2_sjrven; 
 if (test "$SALTASIJRSCOL" != "1") then {
   actuno si_jrscol
 } fi;
