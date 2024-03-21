@@ -1,5 +1,5 @@
 'use strict';
-
+var FetchRequest = require('@rails/request.js').FetchRequest;
 // Motor con funciones en Javascript ES5 puro (sin CoffeeScript y sin jQuery)
 // Capitalización Camello. Comienzan con Msip sigue Verbo en infinitivo y más.
 
@@ -351,19 +351,19 @@ function msip_temausuario_ajax(){
   root.msip_ajax_recibe_json_t[ruta] = t;
 
   if (d === -1 || d > 2) {
-        var rutac = root.puntomontaje + ruta + ".json";
-        $.ajax({
-                url: rutac,
-                data: datos,
-                dataType: 'json',
-                method: 'GET'
-              }).fail(function(jqXHR, texto) {
-                      alert('Error - ' + texto);
-                    }).done(function(e, r) {
-                            funproc(root, e);
-                          });
-      }
+    var rutac = root.puntomontaje + ruta + ".json";
+    var request = new FetchRequest('get', rutac, { body: datos });
 
+      return request.perform().then(function(response) {
+            if (response.ok) {
+              return funproc(root, e);
+            } else {
+              console.error('Request failed with status:', response.status);
+            }
+          }).catch(function(error) {
+                console.error('Fetch error:', error);
+              });
+      }
   return true;
 }
 function MsipIniciar() {
