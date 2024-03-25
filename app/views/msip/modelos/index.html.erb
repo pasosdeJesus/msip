@@ -120,8 +120,15 @@
                     locals: {mas_clases: "btn-sm", registro: registro} %>
                 <% end %>
               <% end %>
-              <%= render partial: 'index_mas_acciones', 
-                locals: {f: f, registro: registro} %>
+              <% rutama = clase.pluralize.underscore + '/index_mas_acciones' %>
+              <% if lookup_context.
+                  find_all( rutama, [], true).any? %>
+                <% # Hay un parcial %>
+                <%= render partial: rutama, locals: {f: f, registro: registro} %>
+              <% else %>
+                <%= render partial: 'index_mas_acciones', 
+                  locals: {f: f, registro: registro} %>
+              <% end %>
               <% if can?(:destroy, registro) %>
                 <%= render partial: 'boton_eliminar',
                   locals: {registro: registro, mas_clases: 'btn-sm'} %>
