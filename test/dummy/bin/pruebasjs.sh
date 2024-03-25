@@ -34,6 +34,7 @@ if (test ! -d test/puppeteer) then {
 } fi;
 
 export PUERTODES=$PUERTOPRU
+
 echo "IPDES=$IPDES"
 echo "PUERTODES=$PUERTODES"
 
