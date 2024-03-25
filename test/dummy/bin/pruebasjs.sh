@@ -30,6 +30,11 @@ if (test ! -f .env) then {
 } fi;
 . ./.env
 
+if (test ! -d test/puppeteer) then {
+  echo "No hay pruebas puppeteer"
+  exit 0;
+} fi;
+
 echo "IPDES=$IPDES"
 
 if (test "$IPDES" = "127.0.0.1") then {
