@@ -214,6 +214,31 @@ module Msip
       raise "No se encontro ruta para editar #{n}"
     end
 
+    # Ruta para copiar un registro 
+    def copiar_modelo_path(o)
+      n = "copiar_#{nombreobj(o)}_path"
+      arr = ruta_responde_1p(n, o)
+      if arr != []
+        return arr[1]
+      end
+
+      n = "copiar_admin_#{nombreobj(o)}_path"
+      arr = ruta_responde_1p(n, o)
+      if arr != []
+        return arr[1]
+      end
+
+      n = "admin_copiar_#{nombreobj(o)}_path"
+      arr = ruta_responde_1p(n, o)
+      if arr != []
+        return arr[1]
+      end
+
+
+      raise "No se encontro ruta para copiar #{n}"
+    end
+
+
     def self.poromision(params, s, valorsp = "")
       if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
         valorsp

@@ -1,0 +1,8 @@
+<% clases = "btn " %>
+<% if defined?(mas_clases) %>
+  <% clases += mas_clases %>
+<% end %>
+
+<%= link_to t('Crear copia'),
+  copiar_modelo_path(registro), 
+  class: clases %>

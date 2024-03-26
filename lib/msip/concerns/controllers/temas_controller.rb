@@ -86,6 +86,10 @@ module Msip
             "M"
           end
 
+          def con_boton_copiar?
+              true
+          end
+
           def tema_params
             params.require(:tema).permit(*atributos_form)
           end
