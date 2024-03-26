@@ -14,12 +14,49 @@ Msip::Engine.routes.draw do
     to: "anexos#mostrar_portada",
     as: "mostrar_portada"
 
-  resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
-
-  get "/controldeacceso", to: "hogar#ayuda_controldeacceso",
+  get "/controldeacceso" => "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"
+  get "/espacio" => "hogar#espacio", as: "espacio"
+  get "/gruposper" => "gruposper#index"
+  get "/gruposper/remplazar" => "gruposper#remplazar"
+  get "/hogar" => "hogar#index"
+  get "/mundep" => "admin/municipios#mundep"
+  get "/personas" => "personas#index"
+  get "/personas/datos" => "personas#datos"
+  get "/personas/remplazar" => "personas#remplazar"
+  get "/personas/identificacionsd" => "personas#identificacionsd",
+    as: :personas_identificacionsd
 
-  get "/espacio", to: "hogar#espacio", as: "espacio"
+  get "/personas/remplazarfamiliar" => "personas#remplazarfamiliar",
+    as: :personas_remplazarfamiliar
+
+  post '/persona_trelaciones/actualizar' => 'persona_trelaciones#update',
+    as: :actualizar_familiar
+  post '/persona_trelaciones/crear' => 'persona_trelaciones#create',
+    as: :crear_familiar
+  delete '/persona_trelaciones/eliminar' => 'persona_trelaciones#destroy',
+    as: :eliminar_familiar
+
+  get "/personas/validar_conjunto" => "personas#validar_conjunto",
+    as: :personas_validar_conjunto
+
+  post '/personas/unificar' => 'personas#unificar',
+    as: :personas_unificar
+  get '/personas/unificar' => 'personas#unificar',
+    as: :personas_unificar_get
+
+
+  get "/respaldo7z" => "respaldo7z#new", as: "respaldo7z"
+  post "/respaldo7z" => "respaldo7z#create"
+  get "/tablasbasicas" => "hogar#tablasbasicas"
+  get "/temausuario" => "admin/temas#temausuario"
+
+
+  get "/tipocentropoblado" => "admin/centrospoblados#tipo_centropoblado"
+  get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
+  get "/ubicacionespre_mundep" => "admin/ubicacionespre#mundep"
+
+  resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
 
   resources :etiqueta_persona, only: [], param: :index do
     member do
@@ -27,13 +64,6 @@ Msip::Engine.routes.draw do
       post "/", to: "etiquetas_persona#create", as: "crear"
     end
   end
-
-  get "/gruposper", to: "gruposper#index"
-  get "/gruposper/remplazar", to: "gruposper#remplazar"
-
-  get "/hogar", to: "hogar#index"
-
-  get "/mundep", to: "admin/municipios#mundep"
 
   resources :orgsocial_persona, only: [], param: :index do
     member do
@@ -128,7 +158,11 @@ Msip::Engine.routes.draw do
       c = t[1].pluralize
       resources c.to_sym,
         path_names: { new: "nueva", edit: "edita" }
+<<<<<<< HEAD
       get "#{t[1]}/copiar/:id", to: "#{c}#copiar",
+=======
+      get "#{t[1]}/copiar/:id" => "#{c}#copiar",
+>>>>>>> 7ebdc14 (Funcionalidad generia para copiar registros. Ver https://gitlab.com/pasosdeJesus/msip/-/wikis/2024_03-Propuesta-de-bot%C3%B3n-para-copiar-registro. Avanza https://gitlab.com/pasosdeJesus/si_jrscol/-/issues/1022)
         as: "copiar_#{t[1]}".to_sym
     end
   end

@@ -214,7 +214,7 @@ module Msip
       raise "No se encontro ruta para editar #{n}"
     end
 
-    # Ruta para copiar un registro
+    # Ruta para copiar un registro 
     def copiar_modelo_path(o)
       n = "copiar_#{nombreobj(o)}_path"
       arr = ruta_responde_1p(n, o)
@@ -234,9 +234,12 @@ module Msip
         return arr[1]
       end
 
+
       raise "No se encontro ruta para copiar #{n}"
     end
 
+
+>>>>>>> 7ebdc14 (Funcionalidad generia para copiar registros. Ver https://gitlab.com/pasosdeJesus/msip/-/wikis/2024_03-Propuesta-de-bot%C3%B3n-para-copiar-registro. Avanza https://gitlab.com/pasosdeJesus/si_jrscol/-/issues/1022)
     def self.poromision(params, s, valorsp = "")
       if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
         valorsp

@@ -231,57 +231,58 @@ module Msip
         true
       end
 
+
       # Procedimiento genérico de copiar y guardar asociaciones
       # del registro actual en el que tiene identificacióno foranea_id
       #
-      # @param [Integer] foranea_id id de nuevo registro en el
+      # @param [Integer] foranea_id id de nuevo registro en el 
       #   cual se copian asociaciones
       # @raise RuntimeError en caso de no poder completar la copia
       def copiar_asociaciones(foranea_id, excepciones)
         self.class.reflect_on_all_associations.each do |ua|
-          next unless ((ua.macro == :has_many && !ua.options[:through]) ||
-              ua.macro == :has_and_belongs_to_many) &&
-            !excepciones.include?(ua.name)
-
-          if ua.macro == :has_and_belongs_to_many
-            cn = ua.join_table.classify
-            if cn.starts_with?("Cor1440Gen")
-              cn.sub!("Cor1440Gen", "Cor1440Gen::")
+          if ((ua.macro == :has_many && !ua.options[:through]) || 
+              ua.macro == :has_and_belongs_to_many ) &&
+             !excepciones.include?(ua.name)
+            if ua.macro == :has_and_belongs_to_many
+              cn = ua.join_table.classify
+              if cn.starts_with?("Cor1440Gen")
+                cn.sub!("Cor1440Gen", "Cor1440Gen::")
+              end
+            else
+              cn = ua.class_name
             end
-          else
-            cn = ua.class_name
-          end
-          cn.constantize.where(ua.foreign_key => id).each do |tr|
-            ntr = tr.dup
-            ntr[ua.foreign_key] = foranea_id
-            unless ntr.save
-              raise "No pudo guardar copia de #{tr}"
-            end
-          end # each
-          # if
+            cn.constantize.where(ua.foreign_key => self.id).each do |tr|
+              ntr = tr.dup
+              ntr[ua.foreign_key] = foranea_id
+              unless ntr.save
+                raise "No pudo guardar copia de #{tr.to_s}"
+              end
+            end # each
+          end # if
         end # each
       end # def
+
 
       def excepciones_al_copiar_asociacoines
         []
       end
 
       # Procedimientos específicos para sacar copia de modelo
-      #
+      # 
       # @param registro Copia ya guardada del registro principal que se copia
       # @raise RuntimeError si no logra completar
       def copiar_especifico(registro)
       end
 
-      # Crea una copia de este registro y de sus asociaciones con
+      # Crea una copia de este registro y de sus asociaciones con 
       # algunas excepciones.
       #
       # @raise RuntimeError Si no logra completar la copia
       def copiar_y_guardar
         # Copiamos lo mínimo y lo cambiamos para poder guardar
-        registro = dup
+        registro = self.dup
         registro.nombre += " " + Time.now.to_s
-        unless registro.save(validate: false)
+        unless registro.save(validate: false) 
           raise "No pudo duplicar registro"
         end
 
@@ -289,8 +290,8 @@ module Msip
 
         copiar_especifico(registro)
 
-        registro
-      end # copiar_y_guardar
+        return registro
+      end #copiar_y_guardar
 
       # Por omisión es posible filtrar por id
       scope :filtro_id, lambda { |id|

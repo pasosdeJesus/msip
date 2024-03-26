@@ -16,6 +16,7 @@ module Msip
 
           def copiar_especifico(registro)
           end
+
         end
       end
     end

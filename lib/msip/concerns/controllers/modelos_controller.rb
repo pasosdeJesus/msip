@@ -654,7 +654,7 @@ module Msip
           def con_boton_copiar?
             false
           end
-
+      
           def copiar
             if !params || !params[:id]
               render(inline: "Falta parámetro id")
@@ -662,7 +662,7 @@ module Msip
             end
             modelo = clase.constantize
             if modelo.where(id: params[:id].to_i).count != 1
-              render(inline: "No existe registro con la id #{params[:id].to_i}")
+              render(inline: "No existe registro con la id #{params[:id]}")
               return
             end
             a = modelo.find(params[:id].to_i)
@@ -670,7 +670,7 @@ module Msip
 
             @registro = a.copiar_y_guardar
             @registro_orig_id = a.id
-            render(:copiar, layout: "application")
+            render :copiar, layout: "application"
           end
 
           # Nombre del modelo
