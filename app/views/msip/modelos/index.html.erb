@@ -114,6 +114,11 @@
               <% if can?(:edit, registro) %>
                 <%= render partial: 'boton_editar',
                   locals: {registro: registro, mas_clases: 'btn-sm'} %>
+                <% if defined?(controller.con_boton_copiar?) && 
+                    controller.con_boton_copiar? %>
+                  <%= render partial: 'boton_copiar', 
+                    locals: {mas_clases: "btn-sm", registro: registro} %>
+                <% end %>
               <% end %>
               <%= render partial: 'index_mas_acciones', 
                 locals: {f: f, registro: registro} %>

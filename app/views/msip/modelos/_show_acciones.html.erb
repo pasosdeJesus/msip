@@ -9,7 +9,13 @@
 <% if can?(:edit, @registro) %>
   <%= render partial: 'boton_editar', 
     locals: {registro: @registro} %>
+  <% if defined?(controller.con_boton_copiar?) &&
+      controller.con_boton_copiar? %>
+    <%= render partial: 'boton_copiar', 
+      locals: {registro: @registro} %>
+  <% end %>
 <% end %>
+
 <% rutamas = clase.pluralize.underscore + '/show_mas_acciones' %>
 <% if lookup_context.find_all( rutamas, [], true).any? %>
   <% # Hay un parcial %>
@@ -18,6 +24,6 @@
   <%= render 'show_mas_acciones' %>
 <% end %>
 <% if can?(:destroy, @registro) %>
-  <%= render partial: 'boton_eliminar', 
+  <%= render partial: 'boton_eliminar',
     locals: {registro: @registro} %>
 <% end %>
