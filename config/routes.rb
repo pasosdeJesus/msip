@@ -47,8 +47,10 @@ Msip::Engine.routes.draw do
   post "/respaldo7z" => "respaldo7z#create"
   get "/tablasbasicas" => "hogar#tablasbasicas"
   get "/temausuario" => "admin/temas#temausuario"
-  get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
+
+
   get "/tipocentropoblado" => "admin/centrospoblados#tipo_centropoblado"
+  get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
   get "/ubicacionespre_mundep" => "admin/ubicacionespre#mundep"
 
   resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
@@ -103,6 +105,8 @@ Msip::Engine.routes.draw do
       c = t[1].pluralize
       resources c.to_sym,
         path_names: { new: "nueva", edit: "edita" }
+      get "#{t[1]}/copiar/:id" => "#{c}#copiar",
+        as: "copiar_#{t[1]}".to_sym
     end
 
   end
