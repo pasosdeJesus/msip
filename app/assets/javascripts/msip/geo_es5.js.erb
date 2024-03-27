@@ -1,0 +1,152 @@
+function busca_campo_similar_es5(idactual, tipoactual, tipobuscado) {
+  var idb = idactual.replace('id_' + tipoactual, 'id_' + tipobuscado);
+  if (idb !== idactual && document.getElementById(idb) !== null) {
+     return idb;
+      }
+  idb = idactual.replace(tipoactual + '_id', tipobuscado + '_id');
+  if (idb !== idactual && document.getElementById(idb) !== null) {
+     return idb;
+      }
+  idb = idactual.replace('_' + tipoactual, '_' + tipobuscado);
+  if (idb !== idactual && document.getElementById(idb) !== null) {
+     return idb;
+      }
+  return "";
+}
+
+var llena_departamento_es5 = async function(element, root, sincoord) {
+  msip_arregla_puntomontaje(root);
+  var idpais = element.id;
+  var iddep = busca_campo_similar_es5(idpais, 'pais', 'departamento');
+  var idmun = busca_campo_similar_es5(idpais, 'pais', 'municipio');
+  var idcla = busca_campo_similar_es5(idpais, 'pais', 'centropoblado');
+  var pais = element.value;
+  if (+pais > 0 && iddep) {
+    await fetch(root.puntomontaje + "admin/departamentos.json?pais_id=" + pais)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Red no respondió ok');
+      }
+      return response.json();
+    })
+    .then(function(data) {
+      msip_remplaza_opciones_select(iddep, data, true, 'id', 'nombre', true);
+      document.getElementById(iddep).removeAttribute('disabled');
+      document.getElementById(iddep).dispatchEvent(new Event('chosen:updated'));
+      if (idmun) {
+        document.querySelector("#" + idmun + " option[value='']").selected = true;
+        document.getElementById(idmun).setAttribute('disabled', true);
+        document.getElementById(idmun).dispatchEvent(new Event('chosen:updated'));
+      }
+      if (idcla) {
+        document.querySelector("#" + idcla + " option[value='']").selected = true;
+        document.getElementById(idcla).setAttribute('disabled', true);
+        document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+      }
+    })
+    if (sincoord !== true && root.msip_sincoord !== true) {
+      pone_coord(root, 'pais', pais, idpais);
+    }
+  }else {
+    if (iddep) {
+      document.getElementById(iddep).value = "";
+      document.getElementById(iddep).setAttribute("disabled", true);
+      document.getElementById(iddep).dispatchEvent(new Event('chosen:updated'));
+          }
+    if (idmun) {
+      document.getElementById(idmun).value = "";
+      document.getElementById(idmun).setAttribute("disabled", true);
+      document.getElementById(idmun).dispatchEvent(new Event('chosen:updated'));
+          }
+    if (idcla) {
+      document.getElementById(idcla).value = "";
+      document.getElementById(idcla).setAttribute("disabled", true);
+      document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+    }
+  }
+};
+
+var llena_municipio_es5 = async function(element, root, sincoord) {
+  if (sincoord === undefined) sincoord = false;
+  msip_arregla_puntomontaje(root);
+  var iddep = element.id;
+  var idpais = busca_campo_similar_es5(iddep, 'departamento', 'pais');
+  var idmun = busca_campo_similar_es5(iddep, 'departamento', 'municipio');
+  var idcla = busca_campo_similar_es5(iddep, 'departamento', 'centropoblado');
+  var dep = element.value;
+  if (+dep > 0 && idmun !== '') {
+    await fetch(root.puntomontaje + "admin/municipios.json?departamento_id=" + dep)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Red no respondió ok');
+          alert('Problema leyendo Municipios de ' + dep);
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        msip_remplaza_opciones_select(idmun, data, true, 'id', 'nombre', true);
+        document.getElementById(idmun).disabled = false;
+        document.getElementById(idmun).dispatchEvent(new Event('chosen:updated'));
+        if (idcla) {
+          document.querySelector("#" + idcla + " option[value='']").selected = true;
+          document.getElementById(idcla).disabled = true;
+          document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+        }
+      })
+      if (sincoord !== true && root.msip_sincoord !== true) {
+        pone_coord(root, 'departamento', dep, iddep);
+      }
+  }else {
+    if (idmun) {
+      document.getElementById(idmun).value = "";
+      document.getElementById(idmun).disabled = true;
+      document.getElementById(idmun).dispatchEvent(new Event('chosen:updated'));
+    }
+    if (idcla) {
+      document.getElementById(idcla).value = "";
+      document.getElementById(idcla).disabled = true;
+      document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+    }
+  }
+};
+
+var llena_centropoblado_es5 = async function(element, root, sincoord) {
+  if (sincoord === undefined) sincoord = false;
+  msip_arregla_puntomontaje(root);
+  var idmun = element.id;
+  var idpais = busca_campo_similar_es5(idmun, 'municipio', 'pais');
+  var iddep = busca_campo_similar_es5(idmun, 'municipio', 'departamento');
+  var idcla = busca_campo_similar_es5(idmun, 'municipio', 'centropoblado');
+  var mun = element.value;
+  if (+mun > 0 && idcla !== '') {
+    await fetch(root.puntomontaje + "admin/centrospoblados.json?municipio_id=" + mun)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Red no respondió ok');
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        msip_remplaza_opciones_select(idcla, data, true, 'id', 'nombre', true);
+        document.getElementById(idcla).disabled = false;
+        document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+      })
+      if (sincoord !== true && root.msip_sincoord !== true) {
+        pone_coord(root, 'municipio', mun, idmun);
+      }
+  }else if (idcla !== '') {
+    document.querySelector("#" + idcla + " option[value='']").selected = true;
+    document.getElementById(idcla).disabled = true;
+    document.getElementById(idcla).dispatchEvent(new Event('chosen:updated'));
+  }
+};
+
+function pone_tipourbano_es5(element) {
+  var idcla = element.id;
+  var idts = busca_campo_similar_es5(idcla, 'centropoblado', 'tsitio');
+  var cla = element.value;
+  if (+cla > 0 && idcla !== '') {
+    document.querySelector("#" + idts + " option[value='2']").selected = true;
+  }
+}
+
