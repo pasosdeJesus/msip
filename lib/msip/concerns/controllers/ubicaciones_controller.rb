@@ -22,7 +22,7 @@ module Msip
           # Crea un nuevo registro para el caso que recibe por parametro
           # params[:caso_id].  Pone valores simples en los campos requeridos
           def nuevo
-            authorize!(:nuevo, Msip::Ubicacion)
+            authorize! :nuevo, Msip::Ubicacion
             if !params[:caso_id] || params[:caso_id] == ""
               respond_to do |format|
                 format.html { render(inline: "Falta identificacion del caso") }
