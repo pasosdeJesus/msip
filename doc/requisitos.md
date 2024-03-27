@@ -1,15 +1,15 @@
 # Requisitos
 
-* Recomendamos emplear la distribución adJ 7.3 del sistema operativo OpenBSD,
+* Recomendamos emplear la distribución adJ 7.4 del sistema operativo OpenBSD,
   que ya incluye configurada la pila de software que presentamos a 
   continuación.
   Puedes consultar sobre el uso de Ruby on Rails en adJ en
-  <http://pasosdejesus.github.io/usuario_adJ/conf-programas.html#ruby>
-* Ruby versión >= 3.2.2
-* Ruby on Rails >= 7.1.2
-* PostgreSQL >= 15.4 con extensión `unaccent` disponible y posibilidad
+  <https://pasosdejesus.org/doc/usuario_adJ/conf-programas.html#ruby>
+* Ruby versión >= 3.3.0
+* Ruby on Rails >= 7.1.3
+* PostgreSQL >= 16.2 con extensión `unaccent` disponible y posibilidad
   de crearle un usuario con permisos para crear bases de datos
-* `node.js` >= 18.15.0 y `coffescript` instalado globalmente 
+* `node.js` >= 18.18.0 y `coffescript` instalado globalmente 
   (i.e.  `doas npm install -g coffee-script`)
 * Una cuenta en el sistema operativo para desarrollo, esta cuenta 
   debe tener permiso de usar al menos 1024M en RAM y para abrir al menos 
@@ -19,7 +19,8 @@
   simultáneamente en la variable de configuración `kern.maxfiles`, por
   ejemplo 20000 en `/etc/sysctl.conf`, y en la clase de la cuenta de desarrollo
   (en `/etc/login.conf`) que al menos diga
-  `:datasize-cur=1024M:` y  `:openfiles-cur=2048:`
+  `:datasize-cur=1024M:` y  `:openfiles-cur=2048:`  --recuerda ejecutar
+  `cap_mkdb /etc/login.conf` después de modificar `/etc/loginf.conf`
 * `yarn` instalado globalmente
   ```
   doas npm install -g yarn
@@ -29,9 +30,9 @@
 * Recomendado usar `bundler` para mantener gemas en un
   directorio de la forma `/var/www/bundler-miusuario`, ejecutando:
   ```
-  doas mkdir /var/www/bundler-miusuaro
-  doas chown $USER:www /var/www/bundler-miusuaro
-  bundle config path /var/www/bundler-miusuario/
+  doas mkdir /var/www/bundler-$USER
+  doas chown $USER:www /var/www/bundler-$USER
+  bundle config path /var/www/bundler-$USER/
   ```
   o asegurando que el archivo ~/.bundle/config contiene:
   ```
