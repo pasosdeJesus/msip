@@ -5,7 +5,7 @@
   continuación.
   Puedes consultar sobre el uso de Ruby on Rails en adJ en
   <https://pasosdejesus.org/doc/usuario_adJ/conf-programas.html#ruby>
-* Ruby versión >= 3.3.1
+* Ruby versión >= 3.3.3
 * Ruby on Rails >= 7.1.3
 * PostgreSQL >= 16.2 con extensión `unaccent` disponible y posibilidad
   de crearle un usuario con permisos para crear bases de datos
@@ -19,7 +19,8 @@
   simultáneamente en la variable de configuración `kern.maxfiles`, por
   ejemplo 32568 en `/etc/sysctl.conf`, y en la clase de la cuenta de desarrollo
   (en `/etc/login.conf`) que al menos diga
-  `:datasize-cur=1024M:` y  `:openfiles-cur=2048:`
+  `:datasize-cur=1024M:` y  `:openfiles-cur=2048:`  --recuerda ejecutar
+  `cap_mkdb /etc/login.conf` después de modificar `/etc/loginf.conf`
 * `yarn` instalado globalmente
   ```
   doas npm install -g yarn
@@ -29,9 +30,9 @@
 * Recomendado usar `bundler` para mantener gemas en un
   directorio de la forma `/var/www/bundler-miusuario`, ejecutando:
   ```
-  doas mkdir /var/www/bundler-miusuaro
-  doas chown $USER:www /var/www/bundler-miusuaro
-  bundle config path /var/www/bundler-miusuario/
+  doas mkdir /var/www/bundler-$USER
+  doas chown $USER:www /var/www/bundler-$USER
+  bundle config path /var/www/bundler-$USER/
   ```
   o asegurando que el archivo ~/.bundle/config contiene:
   ```
