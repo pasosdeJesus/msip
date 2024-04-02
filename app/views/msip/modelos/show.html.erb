@@ -61,6 +61,7 @@
 </div>
 
 <% if current_usuario  &&  controller.registrar_en_bitacora %>
+  <hr>
   <div class="bitacora">
     <% rutap4 = "#{clase.pluralize.underscore}/resumen_registros_bitacora" %>
     <% if lookup_context.find_all(rutap4, [], true).any? %>
