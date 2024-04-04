@@ -27,7 +27,7 @@
       label: false,
       :input_html => { 
         "data-behaviour" => "datepicker", 
-        value: Msip::FormatoFechaHelper.fecha_estandar_local(Date.today), 
+        value: sol.object.fecha_localizada || Msip::FormatoFechaHelper.fecha_estandar_local(Date.today), 
         class: 'deshabilitado'},
       :as => :string %>
     </td>
