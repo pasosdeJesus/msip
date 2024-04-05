@@ -407,5 +407,24 @@ module Msip
       end
     end
     module_function :renombrar_vistamat_pg
+
+
+    # Convierte cadena por hacer búsqueda de textos completos (full text search)
+    # en secuencia de palabras para tsquery
+    def cadena_a_palabras_tsquery(cadena)
+      # escapado y en minúsuculas
+      sp = Sivel2Gen::Caso.connection.quote_string(cadena).downcase 
+      sp.gsub!(/[^-_@#$%&A-Za-z0-9áéíóúÁÉÍÓÚñÑüÜ]/, " ") # Solo simples
+      sp.gsub!(/^  */, "") # Sin espacios al comienzo
+      sp.gsub!(/  *$/, "") # Sin espacios al final
+      sp.gsub!(/  */, " ") # Sin espacios extra
+      sp.gsub!(/ +/, ":* & ") # Cambiar espacios por marcador de fin de palabra
+      if sp.length > 0
+          sp += ":*"
+      end
+      return sp
+    end
+    module_function :cadena_a_palabras_tsquery
+
   end
 end
