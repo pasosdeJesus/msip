@@ -75,13 +75,9 @@ module Msip
               c = Msip::Persona.all
             end
             if params[:term]
-              # usado en autocompletación limitado a 10
-              term = Msip::Ubicacion.connection.quote_string(params[:term])
-              consNomvic = term.downcase.strip # sin_tildes
-              consNomvic.gsub!(/ +/, ":* & ")
-              unless consNomvic.empty?
-                consNomvic += ":*"
-              end
+              consNomvic = Msip::SqlHelper.cadena_a_palabras_tsquery(
+                params[:term]
+              )
               where = " to_tsvector('spanish', unaccent(persona.nombres) " \
                 " || ' ' || unaccent(persona.apellidos) " \
                 " || ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " \
