@@ -5,7 +5,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   // Conecta por ejemplo en form con data-controller="msip--bitacoraap"
   // En el botón para enviar agregar
-  // data-msip--bitacoraap-action='submit->msip--bitacoraap#enviarFormulario'
+  // data-action='submit->msip--bitacoraap#enviarFormulario'
 
   static targets = [ 
   ]

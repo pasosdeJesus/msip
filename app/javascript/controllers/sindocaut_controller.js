@@ -7,7 +7,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   // Conecta con data-controller="msip--sindocaut"
   // En el campo para el tipo de documento agregar
-  // data-msip--sindocaut-action='change->msip--sindocaut#cambia_tdocumento
+  // data-action='change->msip--sindocaut#cambia_tdocumento
   // En el campo con la id de la persona agregar
   // data-msip--sindocaut-target='id'
   // Y en el campo con el número de documento agregar
