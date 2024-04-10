@@ -21,7 +21,7 @@
 
   <%= render partial: 'index_filtro_antestabla', locals: {f: f} %>
 
-  <table class="table table-striped">
+  <table class="table table-striped" data-controller="<%= @filtro_controladores || '' %>">
     <thead>
       <tr>
         <!-- http://blog.crowdint.com/2013/08/22/rails-template-inheritance.html -->
