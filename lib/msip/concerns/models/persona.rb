@@ -474,7 +474,58 @@ module Msip
             importa_msip(datosent, datossal, menserror, opciones)
           end
 
-          # Si busca cadena entre comillas la busca completa
+
+          scope :filtro_anionac, lambda { |anionac|
+            where("anionac = ?", anionac.to_i)
+          }
+
+          # En apellido si busca cadena entre comillas la busca completa
+          # por ejemplo "N" busca apellidos N
+          # Mientras que N busca apellidos que incluyan N
+          scope :filtro_apellidos, lambda { |a|
+            if a.match("^ *\"(.*)\" *$")
+              where("unaccent(apellidos) ILIKE unaccent(?)", ::Regexp.last_match(1))
+            else
+              where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
+            end
+          }
+
+          scope :filtro_centropoblado, lambda { |cid|
+            where(centropoblado_id: cid.to_i)
+          }
+ 
+          scope :filtro_departamento, lambda { |did|
+            where(departamento_id: did.to_i)
+          }
+ 
+          scope :filtro_dianac, lambda { |dianac|
+            where("dianac = ?", dianac.to_i)
+          }
+
+          scope :filtro_etiqueta_ids, lambda {|e|
+            joins(:etiqueta_persona).
+              where("msip_etiqueta_persona.etiqueta_id": e.to_i)
+          }
+
+          scope :filtro_etnia, lambda { |ide|
+            where("etnia_id = ?", ide.to_i)
+          }
+
+          scope :filtro_mesnac, lambda { |mesnac|
+            if mesnac != "0"
+              where("mesnac = ?", mesnac.to_i)
+            end
+          }
+
+          scope :filtro_municipio, lambda { |mid|
+            where(municipio_id: mid.to_i)
+          }
+
+          scope :filtro_nacionalde, lambda { |idp|
+            where(nacionalde: idp.to_i)
+          }
+
+          # En nombre si busca cadena entre comillas la busca completa
           # por ejemplo "N" busca nombres N
           # Mientras que N busca nombres que incluyan N
           scope :filtro_nombres, lambda { |n|
@@ -485,18 +536,6 @@ module Msip
             end
           }
 
-          scope :filtro_apellidos, lambda { |a|
-            if a.match("^ *\"(.*)\" *$")
-              where("unaccent(apellidos) ILIKE unaccent(?)", ::Regexp.last_match(1))
-            else
-              where("unaccent(apellidos) ILIKE '%' || unaccent(?) || '%'", a)
-            end
-          }
-
-          scope :filtro_etiqueta_ids, lambda {|e|
-            joins(:etiqueta_persona).where("msip_etiqueta_persona.etiqueta_id" => e)
-          }
-
           scope :filtro_numerodocumento, lambda { |n|
             where(
               "unaccent(numerodocumento) ILIKE '%' || " \
@@ -505,13 +544,18 @@ module Msip
             )
           }
 
-          scope :filtro_tdocumento_id, lambda { |tid|
-            where(tdocumento_id: tid.to_i)
+          scope :filtro_pais, lambda { |pid|
+            where(pais_id: pid.to_i)
           }
 
           scope :filtro_sexo, lambda { |s|
             where(sexo: s)
           }
+
+          scope :filtro_tdocumento_id, lambda { |tid|
+            where(tdocumento_id: tid.to_i)
+          }
+
         end # include
 
         class_methods do
