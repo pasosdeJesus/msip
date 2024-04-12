@@ -15,8 +15,9 @@ module Msip
 
           def index
             c = nil
-            if params[:departamento_id] && params[:departamento_id].to_i > 0
-              iddep = params[:departamento_id].to_i
+            if params[:departamento_id]
+              iddep = params[:departamento_id].to_i > 0 ? 
+                params[:departamento_id].to_i : nil
               c = Msip::Municipio.where(
                 fechadeshabilitacion: nil,
                 departamento_id: iddep,
