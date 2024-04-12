@@ -1,5 +1,5 @@
 
-export default class MsipMotor {
+export default class Msip__Motor {
   /* 
    * Librería de funciones comunes.
    *
@@ -12,11 +12,11 @@ export default class MsipMotor {
    *
    * Desde controladores stimulus importelo con
    *
-   *  import MsipMotor from "../msip/motor"
+   *  import Msip__Motor from "../msip/motor"
    *
    * Use funciones por ejemplo con
    *
-   *  MsipMotor.partiFechaLocalizada(fl, formato)
+   *  Msip__Motor.partiFechaLocalizada(fl, formato)
    */
 
   static MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -40,8 +40,8 @@ export default class MsipMotor {
       dia = +fechaLocalizada.slice(0,2)
       let nmes = fechaLocalizada.slice(3,6)
       if (typeof nmes != 'undefined' && 
-        MsipMotor.MESES.includes(nmes.toLowerCase())) {
-        mes = MsipMotor.MESES.indexOf(nmes.toLowerCase()) + 1;
+        Msip__Motor.MESES.includes(nmes.toLowerCase())) {
+        mes = Msip__Motor.MESES.indexOf(nmes.toLowerCase()) + 1;
       } else {
         mes = 6;
       }

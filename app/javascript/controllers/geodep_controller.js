@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Controles de geografía pais, departamento, municipio, centro poblado
 // dependientes
 
-import MsipMotor from "../msip/motor"
+import Msip__Motor from "../msip/motor"
 
 export default class extends Controller {
   // Conecta un área que incluye campos pais/dep/mun con 
@@ -35,7 +35,7 @@ export default class extends Controller {
   }
 
   cambiar_pais(e) {
-    var purl = MsipMotor.arreglarPuntoMontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("departamento ahora es", this.departamentoTarget.value)
     let url = purl + '/admin/departamentos.json?pais_id=' + e.target.value
@@ -44,7 +44,7 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        MsipMotor.remplazarOpcionesSelect(this.departamentoTarget.id,
+        Msip__Motor.remplazarOpcionesSelect(this.departamentoTarget.id,
           resp, true, 'id', 'nombre', true)
       },
       error: (req, estado, xhr) => {
@@ -54,7 +54,7 @@ export default class extends Controller {
   }
 
   cambiar_departamento(e) {
-    var purl = MsipMotor.arreglarPuntoMontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("municipio ahora es", this.municipioTarget.value)
     let url = purl + '/admin/municipios.json?departamento_id=' + 
@@ -64,7 +64,7 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        MsipMotor.remplazarOpcionesSelect(this.municipioTarget.id,
+        Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
           resp, true, 'id', 'nombre', true)
       },
       error: (req, estado, xhr) => {
@@ -74,7 +74,7 @@ export default class extends Controller {
   }
 
   cambiar_municipio(e) {
-    var purl = MsipMotor.arreglarPuntoMontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("centro poblado ahora es", this.centropobladoTarget.value)
     let url = purl + '/admin/centrospoblados.json?municipio_id=' + 
@@ -84,7 +84,7 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        MsipMotor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
           resp, true, 'id', 'nombre', true)
       },
       error: (req, estado, xhr) => {
