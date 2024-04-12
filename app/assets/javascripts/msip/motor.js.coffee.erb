@@ -411,7 +411,14 @@ if (typeof String.prototype.endsWith != 'function')
           if alertaerror && response.status != 0 && response.responseText != ''
             alert('Error: el servicio respondió: ' + 
               response.status + '\n' + response.responseText) 
-        )
+        ),
+        success: ((response) ->
+          a = document.querySelectorAll(".tom-select")
+          a.forEach( (el) ->
+            s = {}
+            new TomSelect(el, s)
+          )
+        ) 
       })
   return
 
