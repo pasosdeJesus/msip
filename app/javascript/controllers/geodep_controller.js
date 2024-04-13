@@ -46,6 +46,10 @@ export default class extends Controller {
       success: (resp, estado, xhr) => {
         Msip__Motor.remplazarOpcionesSelect(this.departamentoTarget.id,
           resp, true, 'id', 'nombre', true)
+        Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
+          [], true, 'id', 'nombre', true)
+        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+          [], true, 'id', 'nombre', true)
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar departamentos')
@@ -66,6 +70,8 @@ export default class extends Controller {
       success: (resp, estado, xhr) => {
         Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
           resp, true, 'id', 'nombre', true)
+        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+          [], true, 'id', 'nombre', true)
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar municipios')
