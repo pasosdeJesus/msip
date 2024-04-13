@@ -2,7 +2,6 @@
 export default class Msip__Motor {
   /* 
    * Librería de funciones comunes.
-   *
    * Aunque no es un controlador lo dejamos dentro del directorio
    * controllers para aprovechar método de msip para compartir controladores
    * Stimulus de motores.
@@ -84,9 +83,13 @@ export default class Msip__Motor {
       elemento.add(opt);
     }
     let index = 0
+    let encontrado = false
     for(const v of nuevasop) {
       const opt = document.createElement("option");
       opt.value = v[cid] 
+      if (opt.value == sel) {
+        encontrado = true;
+      }
       opt.text = v[cetiqueta];
       elemento.add(opt);
       index++;
@@ -95,13 +98,20 @@ export default class Msip__Motor {
         nh = nh + ' selected'
       } */
     }
-    elemento.value = sel
+
+    if (!encontrado) {
+      sel = "";
+      elemento.value = ""
+    }
 
     if (usatomselect) {
       if (typeof elemento.tomselect != 'undefined') {
+        elemento.tomselect.clear(); 
+        elemento.tomselect.clearOptions();
         elemento.tomselect.sync();
-      } else {
-        new TomSelect('#' + idElemento, {
+        elemento.tomselect.refreshOptions();
+      }  else {
+        let et = new TomSelect('#' + idElemento, {
           create: true,
           sortField: {
             field: "text",
@@ -110,6 +120,7 @@ export default class Msip__Motor {
         })
       }
     } 
+    elemento.value = sel
   }
 
 }
