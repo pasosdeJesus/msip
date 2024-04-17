@@ -15,8 +15,8 @@ module Msip
 
           def index
             c = nil
-            if params[:pais_id] && params[:pais_id] != ""
-              idpais = params[:pais_id].to_i
+            if params[:pais_id]
+              idpais = params[:pais_id] != "" ? params[:pais_id].to_i : nil
               c = Msip::Departamento.where(
                 fechadeshabilitacion: nil,
                 pais_id: idpais,
