@@ -1,5 +1,5 @@
 'use strict';
-var FetchRequest = require('@rails/request.js').FetchRequest;
+
 // Motor con funciones en Javascript ES5 puro (sin CoffeeScript y sin jQuery)
 // Capitalización Camello. Comienzan con Msip sigue Verbo en infinitivo y más.
 
@@ -272,6 +272,8 @@ function MsipGuardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
 
 
 function msip_pone_tema(root, tema) {
+      console.log("entro a msip_ pone_tema")
+      debugger
       document.querySelectorAll('.table-striped>tbody>tr:nth-child(odd)').forEach((element) => {
                 element.style.backgroundColor = tema.fondo_lista;
             });
@@ -279,7 +281,7 @@ function msip_pone_tema(root, tema) {
       document.querySelectorAll('.navbar-default .navbar-nav>li>a').forEach((element) => {
                 element.style.color = tema.nav_fuente;
             });
-      document.querySelector('.navbar-default .navbar-brand').style.color = tema.nav_fuente;
+      document.querySelector('.navbar .navbar-brand').style.color = tema.nav_fuente;
       document.querySelectorAll('.navbar-light .navbar-nav .nav-link').forEach((element) => {
                 element.style.color = tema.nav_fuente;
             });
@@ -334,7 +336,7 @@ function msip_pone_tema(root, tema) {
             });
 }
 
-function msip_temausuario_ajax(){
+async function msip_temausuario_ajax(){
   var root = window
   var ruta = 'temausuario'
   var funproc = msip_pone_tema
@@ -352,18 +354,17 @@ function msip_temausuario_ajax(){
 
   if (d === -1 || d > 2) {
     var rutac = root.puntomontaje + ruta + ".json";
-    var request = new FetchRequest('get', rutac, { body: datos });
-
-      return request.perform().then(function(response) {
-            if (response.ok) {
-              return funproc(root, e);
-            } else {
-              console.error('Request failed with status:', response.status);
-            }
-          }).catch(function(error) {
-                console.error('Fetch error:', error);
-              });
+    await fetch(rutac)
+    .then(function(response) {
+      if (!response.ok) {
+        console.error('Request failed with status:', response.status);
       }
+      return response.json();
+    })
+    .then(function(data) {
+      return funproc(root, data);
+    })
+  }
   return true;
 }
 function MsipIniciar() {
