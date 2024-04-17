@@ -16,6 +16,14 @@ export default class Msip__Motor {
    * Use funciones por ejemplo con
    *
    *  Msip__Motor.partiFechaLocalizada(fl, formato)
+   *
+   * Para poderlo usar desde Javascript global con 
+   * window.Msip__Motor 
+   * asegure que en app/javascript/application.js ejecuta:
+   *
+   * import Msip__Motor from './controllers/msip/motor.js'
+   * window.Msip__Motor = Msip__Motor
+   *
    */
 
   static MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
