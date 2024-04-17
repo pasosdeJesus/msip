@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: es_co_utf_8; Type: COLLATION; Schema: public; Owner: -
 --
 
@@ -1758,58 +1751,6 @@ ALTER SEQUENCE public.msip_vereda_id_seq OWNED BY public.msip_vereda.id;
 
 
 --
--- Name: pgbench_accounts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.pgbench_accounts (
-    aid integer NOT NULL,
-    bid integer,
-    abalance integer,
-    filler character(84)
-)
-WITH (fillfactor='100');
-
-
---
--- Name: pgbench_branches; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.pgbench_branches (
-    bid integer NOT NULL,
-    bbalance integer,
-    filler character(88)
-)
-WITH (fillfactor='100');
-
-
---
--- Name: pgbench_history; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.pgbench_history (
-    tid integer,
-    bid integer,
-    aid integer,
-    delta integer,
-    mtime timestamp without time zone,
-    filler character(22)
-);
-
-
---
--- Name: pgbench_tellers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.pgbench_tellers (
-    tid integer NOT NULL,
-    bid integer,
-    tbalance integer,
-    filler character(84)
-)
-WITH (fillfactor='100');
-
-
---
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2372,30 +2313,6 @@ ALTER TABLE ONLY public.msip_persona
 
 
 --
--- Name: pgbench_accounts pgbench_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pgbench_accounts
-    ADD CONSTRAINT pgbench_accounts_pkey PRIMARY KEY (aid);
-
-
---
--- Name: pgbench_branches pgbench_branches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pgbench_branches
-    ADD CONSTRAINT pgbench_branches_pkey PRIMARY KEY (bid);
-
-
---
--- Name: pgbench_tellers pgbench_tellers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pgbench_tellers
-    ADD CONSTRAINT pgbench_tellers_pkey PRIMARY KEY (tid);
-
-
---
 -- Name: msip_tdocumento tdocumento_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2496,13 +2413,6 @@ CREATE INDEX index_msip_ubicacion_on_municipio_id ON public.msip_ubicacion USING
 --
 
 CREATE INDEX index_msip_ubicacion_on_pais_id ON public.msip_ubicacion USING btree (pais_id);
-
-
---
--- Name: index_msip_ubicacionpre_on_vereda_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_msip_ubicacionpre_on_vereda_id ON public.msip_ubicacionpre USING btree (vereda_id);
 
 
 --
