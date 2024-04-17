@@ -45,7 +45,8 @@ promesaRecursosSprocketsYDocumento.then((mensaje) => {
   var root;
   root = window;
   msip_prepara_eventos_comunes(root);
-  MsipIniciar();
+  MsipIniciar();  // ES5 y cuasi ES6 con sprockets
+  Msip__Motor.prepararEventosComunes() // ES6 con mecanismo de msip para cont. stimulus
 })
 
 
