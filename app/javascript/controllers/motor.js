@@ -66,6 +66,9 @@ export default class Msip__Motor {
     return [anio, mes, dia]
   }
 
+  static prepararEventosComunes() {
+
+  }
 
   /* Remplaza las opciones de un cuadro de seleccion por unas nuevas
    * @idsel es identificación del select
