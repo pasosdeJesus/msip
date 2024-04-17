@@ -128,7 +128,7 @@ module Msip
       if w != ""
         w += " #{con}"
       end
-      w += " " + n + opcmp + Sivel2Gen::Caso.connection.quote(v)
+      w += " " + n + opcmp + Msip::Persona.connection.quote(v)
     end
     module_function :ampliar_where
     alias_method :consulta_and, :ampliar_where
@@ -159,7 +159,7 @@ module Msip
 
     # Escapa la cadena c para usarla en consulta SQL
     def escapar(c)
-      Sivel2Gen::Caso.connection.quote_string(c)
+      Msip::Persona.connection.quote_string(c)
     end
     module_function :escapar
 
@@ -413,7 +413,7 @@ module Msip
     # en secuencia de palabras para tsquery
     def cadena_a_palabras_tsquery(cadena)
       # escapado y en minúsuculas
-      sp = Sivel2Gen::Caso.connection.quote_string(cadena).downcase 
+      sp = Msip::Persona.connection.quote_string(cadena).downcase 
       sp.gsub!(/[^-_@#$%&A-Za-z0-9áéíóúÁÉÍÓÚñÑüÜ]/, " ") # Solo simples
       sp.gsub!(/^  */, "") # Sin espacios al comienzo
       sp.gsub!(/  *$/, "") # Sin espacios al final
