@@ -48,7 +48,7 @@ module Msip
     def separa_apellidos_nombres(nombre, menserror)
       apellidos = "N"
       nombres = "N"
-      n = nombre.gsub(/  */, " ").gsub(/^ /, "").gsub(/ $/, "")
+      n = nombre.to_s.gsub(/  */, " ").gsub(/^ /, "").gsub(/ $/, "")
       p = n.split(" ")
       if p.count == 0
       elsif p.count == 1
@@ -71,8 +71,9 @@ module Msip
       elsif p.count == 7
         apellidos = p[0] + " " + p[1] + " " + p[2] + " " + p[3]
         nombres = p[4] + " " + p[5] + " " + p[6]
-      else
-        menserror << "No se esperaban tantas partes en nombre '#{n}'"
+      else 
+        apellidos = p[0] + " " + p[1] + " " + p[2] + " " + p[3]
+        nombres = p[4..-1].join(" ")
       end
       [nombres, apellidos]
     end
