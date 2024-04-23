@@ -3,12 +3,16 @@
 module Msip
   module SqlHelper
     # Pone cotejación dada a una columna tipo varchar (longitud long)
+    # Si la cotejación es nil o "" quita la posible cotejación
+    # que la columna tuviera
     def cambiar_cotejacion(tabla, columna, long, cotejacion)
-      ActiveRecord::Base.connection.execute(<<-SQL.squish)
-      ALTER TABLE #{tabla}
-        ALTER COLUMN #{columna} SET DATA TYPE#{" "}
-          VARCHAR(#{long.to_i}) COLLATE "#{cotejacion}";
-      SQL
+      orden = "ALTER TABLE #{tabla} "\
+        "ALTER COLUMN #{columna} "\
+        "SET DATA TYPE VARCHAR(#{long.to_i})"
+      if !cotejacion.nil? && cotejacion != ""
+        orden += " COLLATE \"#{cotejacion}\";"
+      end
+      ActiveRecord::Base.connection.execute(orden)
     end
     module_function :cambiar_cotejacion
 
