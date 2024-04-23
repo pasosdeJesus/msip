@@ -324,6 +324,9 @@ module Msip
               mesnac >= 1 && mesnac <= 12
             r += "/"
             r += anionac.to_s if anionac
+            if r == "//" 
+              r = ""
+            end
             r
           end
 
