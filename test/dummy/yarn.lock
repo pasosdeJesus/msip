@@ -103,10 +103,10 @@
     regexpu-core "^5.3.1"
     semver "^6.3.1"
 
-"@babel/helper-define-polyfill-provider@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.6.1.tgz#fadc63f0c2ff3c8d02ed905dcea747c5b0fb74fd"
-  integrity sha512-o7SDgTJuvx5vLKD6SFvkydkSMBvahDKGiNJzG22IZYXhiqoe9efY7zocICBgzHV4IRg5wdgl2nEL/tulKIEIbA==
+"@babel/helper-define-polyfill-provider@^0.6.1", "@babel/helper-define-polyfill-provider@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.6.2.tgz#18594f789c3594acb24cfdb4a7f7b7d2e8bd912d"
+  integrity sha512-LV76g+C502biUK6AyZ3LK10vDpDyCzZnhZFXkH1L75zHPj68+qc8Zfpx2th+gzwA2MzyK+1g/3EPl62yFnVttQ==
   dependencies:
     "@babel/helper-compilation-targets" "^7.22.6"
     "@babel/helper-plugin-utils" "^7.22.5"
@@ -1706,12 +1706,12 @@ babel-plugin-macros@^3.1.0:
     resolve "^1.19.0"
 
 babel-plugin-polyfill-corejs2@^0.4.10:
-  version "0.4.10"
-  resolved "https://registry.yarnpkg.com/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.4.10.tgz#276f41710b03a64f6467433cab72cbc2653c38b1"
-  integrity sha512-rpIuu//y5OX6jVU+a5BCn1R5RSZYWAl2Nar76iwaOdycqb6JPxediskWFMMl7stfwNJR4b7eiQvh5fB5TEQJTQ==
+  version "0.4.11"
+  resolved "https://registry.yarnpkg.com/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.4.11.tgz#30320dfe3ffe1a336c15afdcdafd6fd615b25e33"
+  integrity sha512-sMEJ27L0gRHShOh5G54uAAPaiCOygY/5ratXuiyb2G46FmlSpc9eFCzYVyDiPxfNbwzA7mYahmjQc5q+CZQ09Q==
   dependencies:
     "@babel/compat-data" "^7.22.6"
-    "@babel/helper-define-polyfill-provider" "^0.6.1"
+    "@babel/helper-define-polyfill-provider" "^0.6.2"
     semver "^6.3.1"
 
 babel-plugin-polyfill-corejs3@^0.10.1, babel-plugin-polyfill-corejs3@^0.10.4:
@@ -1723,11 +1723,11 @@ babel-plugin-polyfill-corejs3@^0.10.1, babel-plugin-polyfill-corejs3@^0.10.4:
     core-js-compat "^3.36.1"
 
 babel-plugin-polyfill-regenerator@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-polyfill-regenerator/-/babel-plugin-polyfill-regenerator-0.6.1.tgz#4f08ef4c62c7a7f66a35ed4c0d75e30506acc6be"
-  integrity sha512-JfTApdE++cgcTWjsiCQlLyFBMbTUft9ja17saCc93lgV33h4tuCVj7tlvu//qpLwaG+3yEz7/KhahGrUMkVq9g==
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-polyfill-regenerator/-/babel-plugin-polyfill-regenerator-0.6.2.tgz#addc47e240edd1da1058ebda03021f382bba785e"
+  integrity sha512-2R25rQZWP63nGwaAswvDazbPXfrM3HwVoBXK6HcqeKrSrL/JqcC/rDcf95l4r7LXLyxDXc8uQDa064GubtCABg==
   dependencies:
-    "@babel/helper-define-polyfill-provider" "^0.6.1"
+    "@babel/helper-define-polyfill-provider" "^0.6.2"
 
 babel-preset-current-node-syntax@^1.0.0:
   version "1.0.1"
@@ -1864,9 +1864,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001587:
-  version "1.0.30001610"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001610.tgz#2f44ed6e21d359e914271ae35b68903632628ccf"
-  integrity sha512-QFutAY4NgaelojVMjY63o6XlZyORPaLfyMnsl3HgnWdJUcX6K0oaJymHjH8PT5Gk7sTm8rvC/c5COUQKXqmOMA==
+  version "1.0.30001612"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001612.tgz#d34248b4ec1f117b70b24ad9ee04c90e0b8a14ae"
+  integrity sha512-lFgnZ07UhaCcsSZgWW0K5j4e69dK1u/ltrL9lTUiFOwNHs12S3UMIEYgBV0Z6C6hRDev7iRnMzzYmKabYdXF9g==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -2087,9 +2087,9 @@ dom-accessibility-api@^0.5.6:
   integrity sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==
 
 electron-to-chromium@^1.4.668:
-  version "1.4.739"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.739.tgz#ca9f773c9f14085fd2e46f34bc937652c9a4978a"
-  integrity sha512-koRkawXOuN9w/ymhTNxGfB8ta4MRKVW0nzifU17G1UwTWlBg0vv7xnz4nxDnRFSBe9nXMGRgICcAzqXc0PmLeA==
+  version "1.4.747"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.747.tgz#e37fa5b7b7e4c22607c5f59b5cf78f947266e77d"
+  integrity sha512-+FnSWZIAvFHbsNVmUxhEqWiaOiPMcfum1GQzlWCg/wLigVtshOsjXHyEFfmt6cFK6+HkS3QOJBv6/3OPumbBfw==
 
 emittery@^0.13.1:
   version "0.13.1"
