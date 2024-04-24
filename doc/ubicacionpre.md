@@ -81,8 +81,8 @@ Las ubicaciones predefinidas también pueden ser (1) **comunes** cuando
 se definen y mantienen en msip para los diversos sistemas de información
 que lo usan o (2)  **propias** de un sistema de información.
 
-Al momento de este escrito en msip se definen y mantienen con actualizaciones
-periódicas sólo divisiones político administrativas y sus correspondientes
+Al momento de este escrito en `msip` se definen y mantienen con actualizaciones
+periódicas sólo divisiones político administrativas comunes y sus correspondientes
 ubicacionespre, así que al momento las ubicacionespre que sean lugares siempre 
 son propias del sistema donde se especifican y sólo pueden agregarse desde
 la interfaz donde se usan. 
@@ -94,15 +94,16 @@ básicas país, departamento, municipio, centro poblado o vereda) y en
 tales casos deberían crearse automáticamente ubicacionespre correspondientes.
 
 Como las divisiones político administrativas comunes son responsabilidad
-de Pasos de Jesús (desarrollador de msip) no se recomienda modificarlas (si
-requieren mejoras agradecemos contribuciones en el repositorio de msip
+de Pasos de Jesús (desarrollador de `msip`) no se recomienda modificarlas porque
+los cambios que se hagan podrían resultar sobreescritos y perderse con 
+actualizaciones a `msip` (si requieren mejoras agradecemos contribuciones en el repositorio de msip
 <https://gitlab.com/pasosdeJesus/msip> para que mejoren todos los sistemas
 de información que lo usan).
 
 ### 2.1 Nombres automáticos
 
 El nombre de una ubicacionpre no puede ser modificado por el usuario
-se asigna de manera automatica separando las divisiones territoriales
+y se asigna de manera automatica separando las divisiones territoriales
 con " / ".  Por ejemplo:
 *  Una división p.a. con pais y departamento: Arauca / Colombia
 * Un lugar en un municipio: Tierra Amarilla / San José de Apartado / Antioquia / Colombia
