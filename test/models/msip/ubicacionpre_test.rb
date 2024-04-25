@@ -4,6 +4,28 @@ require_relative "../../test_helper"
 
 module Msip
   class UbicacionpreTest < ActiveSupport::TestCase
+
+    test "trigger crea" do
+      ActiveRecord::Base.connection.execute <<-SQL
+        INSERT INTO msip_ubicacionpre (nombre, pais_id, lugar,
+          fechacreacion, created_at, updated_at)
+          VALUES ('x', 212, 'y', '2024-04-25', '20240-04-25', '2024-04-25');
+      SQL
+      c = Msip::Ubicacionpre.where(fechacreacion: '2024-04-25')
+      assert_equal 'y / Dominica', c.take.nombre
+      c.delete_all
+    end
+
+    test "trigger actualiza" do
+      ActiveRecord::Base.connection.execute <<-SQL
+        UPDATE msip_ubicacionpre 
+          SET lugar='z'
+          WHERE id=61;
+      SQL
+      u = Msip::Ubicacionpre.find(61)
+      assert_equal 'z / Dominica', u.nombre
+    end
+
     test "crea simple" do
       assert_equal 1, Msip::Pais.where(id: 100).count
       pais = Msip::Pais.find(100)
@@ -48,7 +70,7 @@ module Msip
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Colombia", u.nombre
-      assert_nil u.nombre_sin_pais
+      assert_equal "", u.nombre_sin_pais
 
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
@@ -204,9 +226,9 @@ module Msip
     end
 
     test "nomenclatura" do
-      assert_equal [nil, nil],
+      assert_equal ['', ''],
         Ubicacionpre.nomenclatura(nil, nil, nil, nil, nil, nil, nil)
-      assert_equal ["a", nil],
+      assert_equal ["a", ''],
         Ubicacionpre.nomenclatura("a", nil, nil, nil, nil, nil, nil)
       assert_equal ["b / a", "b"],
         Ubicacionpre.nomenclatura("a", "b", nil, nil, nil, nil, nil)

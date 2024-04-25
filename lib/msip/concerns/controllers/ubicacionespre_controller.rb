@@ -125,8 +125,6 @@ module Msip
             vereda = Msip::Vereda.
               where(id: params[:ubicacionpre][:vereda_id]).take
 
-
-            
             n = Msip::Ubicacionpre.nomenclatura(
               pais.nombre,
               departamento ? departamento.nombre : "",

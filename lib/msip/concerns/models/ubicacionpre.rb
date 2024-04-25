@@ -160,11 +160,11 @@ module Msip
           def nomenclatura(pais, departamento, municipio,
             centropoblado, vereda, lugar, sitio)
             if pais.to_s.strip == ""
-              return [nil, nil]
+              return ['', '']
             end
             if departamento.to_s.strip == ""
               nombre = pais.to_s.strip
-              nombre_sinp = nil
+              nombre_sinp = ''
             elsif municipio.to_s.strip == ""
               nombre = departamento.to_s.strip + " / "  + pais.to_s.strip
               nombre_sinp = departamento.to_s.strip
@@ -191,7 +191,7 @@ module Msip
             if lugar.to_s.strip != ""
               nombre = lugar.to_s.strip + " / "  + nombre
               nombre_sinp = lugar.to_s.strip + 
-                (nombre_sinp  ? " / "  + nombre_sinp.to_s : "")
+                (nombre_sinp != "" ? " / "  + nombre_sinp.to_s : "")
               if sitio.to_s.strip != ""
                 nombre = sitio.to_s.strip + " / "  + nombre
                 nombre_sinp = sitio.to_s.strip + " / "  + nombre_sinp

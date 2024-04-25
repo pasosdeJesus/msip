@@ -6,29 +6,32 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
       LANGUAGE sql
       AS $$
         SELECT CASE
-        WHEN pais IS NULL OR pais = '' THEN
+        WHEN pais IS NULL OR TRIM(pais) = '' THEN
           array['', '']
-        WHEN departamento IS NULL OR departamento = '' THEN
-          array[pais, '']
-        WHEN municipio IS NULL OR municipio = '' THEN
-          array[departamento || ' / ' || pais, departamento]
-        WHEN (vereda IS NULL OR vereda = '') AND
-        (centropoblado IS NULL OR centropoblado = '') THEN
+        WHEN departamento IS NULL OR TRIM(departamento) = '' THEN
+          array[TRIM(pais), '']
+        WHEN municipio IS NULL OR TRIM(municipio) = '' THEN
+          array[TRIM(departamento) || ' / ' || TRIM(pais), TRIM(departamento)]
+        WHEN (vereda IS NULL OR TRIM(vereda) = '') AND
+        (centropoblado IS NULL OR TRIM(centropoblado) = '') THEN
           array[
-            municipio || ' / ' || departamento || ' / ' || pais,
-            municipio || ' / ' || departamento ]
-        WHEN vereda IS NOT NULL THEN
+            TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+              TRIM(pais),
+            TRIM(municipio) || ' / ' || TRIM(departamento) ]
+        WHEN (vereda IS NOT NULL AND TRIM(vereda)<>'') THEN
           array[
-            msip_nombre_vereda() || vereda || ' / ' ||
-            municipio || ' / ' || departamento || ' / ' || pais,
-            msip_nombre_vereda() || vereda || ' / ' ||
-            municipio || ' / ' || departamento ]
+            public.msip_nombre_vereda() || TRIM(vereda) || ' / ' ||
+              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+              TRIM(pais),
+            public.msip_nombre_vereda() || TRIM(vereda) || ' / ' ||
+              TRIM(municipio) || ' / ' || TRIM(departamento) ]
         ELSE
           array[
-            centropoblado || ' / ' ||
-            municipio || ' / ' || departamento || ' / ' || pais,
-            centropoblado || ' / ' ||
-            municipio || ' / ' || departamento ]
+            TRIM(centropoblado) || ' / ' ||
+              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+              TRIM(pais),
+            TRIM(centropoblado) || ' / ' ||
+            TRIM(municipio) || ' / ' || TRIM(departamento) ]
          END
       $$;
 
@@ -42,7 +45,7 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
       DECLARE
         dpa TEXT[];
       BEGIN
-        dpa := msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+        dpa := public.msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
             municipio, vereda, centropoblado);
         --RAISE NOTICE 'dpa[1]=%', dpa[1];
         --RAISE NOTICE 'dpa[2]=%', dpa[2];
@@ -75,19 +78,19 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
         nomcp TEXT;
       BEGIN
         RAISE NOTICE 'Al comienzo new.nombre=%', new.nombre;
-        nompais := COALESCE((SELECT nombre FROM msip_pais WHERE id=new.pais_id LIMIT 1), '');
+        nompais := COALESCE((SELECT nombre FROM public.msip_pais WHERE id=new.pais_id LIMIT 1), '');
         RAISE NOTICE 'nompais=%', nompais;
-        nomdep := COALESCE((SELECT nombre FROM msip_departamento WHERE id=new.departamento_id LIMIT 1), '');
+        nomdep := COALESCE((SELECT nombre FROM public.msip_departamento WHERE id=new.departamento_id LIMIT 1), '');
         RAISE NOTICE 'nomdep=%', nomdep;
-        nommun := COALESCE((SELECT nombre FROM msip_municipio WHERE id=new.municipio_id LIMIT 1), '');
+        nommun := COALESCE((SELECT nombre FROM public.msip_municipio WHERE id=new.municipio_id LIMIT 1), '');
         RAISE NOTICE 'nommun=%', nommun;
-        nomcp := COALESCE((SELECT nombre FROM msip_centropoblado WHERE id=new.centropoblado_id LIMIT 1), '');
+        nomcp := COALESCE((SELECT nombre FROM public.msip_centropoblado WHERE id=new.centropoblado_id LIMIT 1), '');
         RAISE NOTICE 'nomcp=%', nomcp;
-        nomver := COALESCE((SELECT nombre FROM msip_vereda WHERE id=new.vereda_id LIMIT 1), '');
+        nomver := COALESCE((SELECT nombre FROM public.msip_vereda WHERE id=new.vereda_id LIMIT 1), '');
         RAISE NOTICE 'nomver=%', nomver;
 
         temp = public.msip_ubicacionpre_nomenclatura(nompais,
-          nomdep, nommun, nomcp, nomver, new.lugar, new.sitio);
+          nomdep, nommun, nomver, nomcp, new.lugar, new.sitio);
         new.nombre := temp[1];
         RAISE NOTICE 'new.nombre=%', new.nombre;
         new.nombre_sin_pais := temp[2];
