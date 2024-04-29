@@ -59,6 +59,11 @@ export default class Msip__Motor {
   }
 
 
+  static prepararEventosComunes() {
+
+  }
+
+
   /* Remplaza las opciones de un cuadro de seleccion por unas nuevas
    * @idsel es identificación del select
    * @nuevasop Arreglo de hashes con nuevas opciones, cada una tiene propiedades
