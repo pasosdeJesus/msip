@@ -690,40 +690,6 @@ if (typeof String.prototype.endsWith != 'function')
   root.puntomontaje = '/' if typeof root.puntomontaje == 'undefined'
   root.puntomontaje += '/' if root.puntomontaje[root.puntomontaje.length-1] != '/'
 
-@msip_pone_tema = (root, tema) ->
-  $('.table-striped>tbody>tr:nth-child(odd)').css('background-color', tema.fondo_lista)
-  $('.navbar').css('background-image', 'linear-gradient(' + tema.nav_ini + ', ' + tema.nav_fin + ')')
-  $('.navbar-default .navbar-nav>li>a').css('color', tema.nav_fuente)
-  $('.navbar-default .navbar-brand').css('color', tema.nav_fuente)
-  $('.navbar-light .navbar-nav .nav-link').attr('style', 'color: ' + tema.nav_fuente + ' !important')
-  $('.navbar-light .navbar-brand').attr('style', 'color: ' + tema.nav_fuente + ' !important')
-  $('.dropdown-menu').css('background-color', tema.nav_fin)
-  $('.dropdown-item').css('color', tema.nav_fuente)
-  $('.dropdown-item').hover(
-    ->
-      $(this).css({'color' : tema.color_flota_subitem_fuente, 'background-color': tema.color_flota_subitem_fondo})
-    ->
-      $(this).css({'color' : tema.nav_fuente, 'background-color': tema.nav_fin})
-      )
-  $('.alert-success').css('color', tema.alerta_exito_fuente)
-  $('.alert-success').css('background-color', tema.alerta_exito_fondo)
-  $('.alert-danger').css('color', tema.alerta_problema_fuente)
-  $('.alert-danger').css('background-color', tema.alerta_problema_fondo)
-  $('.btn').css('background-image', 'linear-gradient(to bottom, ' + tema.btn_accion_fondo_ini + ', ' + tema.btn_accion_fondo_fin + ')')
-  $('.btn').css('color', tema.btn_accion_fuente)
-  $('.btn-primary').css('background-image', 'linear-gradient(to bottom, ' + tema.btn_primario_fondo_ini + ', ' + tema.btn_primario_fondo_fin + ')')
-  $('.btn-primary').css('color', tema.btn_primario_fuente)
-  $('.btn-danger').css('background-image', 'linear-gradient(to bottom, ' + tema.btn_peligro_fondo_ini + ', ' + tema.btn_peligro_fondo_fin + ')')
-  $('.btn-danger').css('color', tema.btn_peligro_fuente)
-  $('body').css('background-color', tema.fondo)
-  $('.card').css('background-color', tema.fondo)
-  $('.msip-sf-bs-input:not(.form-check-input)').css('background-color', tema.fondo)
-  $('.msip-sf-bs-input:not(.form-check-input)').css('color', tema.color_fuente)
-  $('.page-link').attr('style', 'background-color: ' + tema.fondo + ' !important')
-  $('body').css('color', tema.color_fuente)
-  $('table').css('color', tema.color_fuente)
-
-
 # Elije ubicacionpre en autocompletación
 # Tras autocompletar disparar el evento msip:autocompletada-ubicacionpre
 @msip_autocompleta_ubicacionpre = (etiqueta, id, ubipre, root) ->
@@ -911,8 +877,7 @@ if (typeof String.prototype.endsWith != 'function')
   )
 
   # Pone colores de acuerdo al tema
-  msip_ajax_recibe_json(root, 'temausuario', {}, msip_pone_tema)
-
+  msip_temausuario_ajax()
   jQuery ->
     $("a[rel~=popover], .has-popover").popover()
     $("a[rel~=tooltip], .has-tooltip").tooltip()
@@ -1038,7 +1003,7 @@ if (typeof String.prototype.endsWith != 'function')
   MsipIniciar()
 
   # Pone colores de acuerdo al tema
-  msip_ajax_recibe_json(root, 'temausuario', {}, msip_pone_tema)
+  msip_temausuario_ajax()
 
   jQuery ->
     $("a[rel~=popover], .has-popover").popover()
