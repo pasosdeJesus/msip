@@ -415,8 +415,8 @@ if (typeof String.prototype.endsWith != 'function')
         success: ((response) ->
           a = document.querySelectorAll(".tom-select")
           a.forEach( (el) ->
-            s = {}
-            new TomSelect(el, s)
+            if (typeof el.tomselect == 'undefined')
+              new TomSelect(el, window.configuracionTomSelect)
           )
         ) 
       })
