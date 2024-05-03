@@ -187,7 +187,9 @@ module Msip
 
           # Retorna una propuesta para número de documento con base
           # en la id de la persona (no nil)
-          def self.mejora_nuevo_numerodocumento_sindoc(numdoc, persona_id)
+          def self.mejora_nuevo_numerodocumento_sindoc(
+            numdoc, persona_id
+          )
             numerodocumento = numdoc #% 2147483647 # Max. INTEGER de PostgreSQL
             while Msip::Persona.where(
               tdocumento_id: 11, numerodocumento: numerodocumento,
@@ -202,39 +204,6 @@ module Msip
               end
             end
             numerodocumento
-          end
-
-          def self.nueva_persona_sd_posible_numerodocumento(
-            persona_id, indice=nil
-          )
-            if persona_id.nil?
-              ruid = Msip::Persona.connection.execute(<<-SQL.squish)
-                  SELECT last_value FROM msip_persona_id_seq;
-              SQL
-              persona_id = ruid[0]["last_value"] + 1
-            end
-            numerodocumento = mejora_nuevo_numerodocumento_sindoc(
-              persona_id.to_s+indice.to_s, persona_id
-            )
-            numerodocumento
-          end
-
-          def self.nueva_persona_valores_predeterminados(menserror)
-            numerodocumento = nueva_persona_sd_posible_numerodocumento(
-              nil,
-            )
-            persona = Msip::Persona.create(
-              nombres: "N",
-              apellidos: "N",
-              sexo: "S",
-              tdocumento_id: 11, # SIN DOCUMENTO
-              numerodocumento: numerodocumento,
-            )
-            unless persona.save(validate: false)
-              menserror << "No pudo crear persona"
-              return nil
-            end
-            persona
           end
 
           def validar_conjunto_familiar_diferente(validaciones)
@@ -309,25 +278,43 @@ module Msip
 
         class_methods do
 
-          def nueva_persona_sd_posible_numerodocumento(persona_id)
-            rand(10000).to_s + "AAA"
+          #def nueva_persona_sd_posible_numerodocumento(persona_id)
+          #  rand(10000).to_s + "AAA"
+          #end
+
+          def nueva_persona_sd_posible_numerodocumento(
+            persona_id, indice=nil
+          )
+            if persona_id.nil?
+              ruid = Msip::Persona.connection.execute(<<-SQL.squish)
+                  SELECT last_value FROM msip_persona_id_seq;
+              SQL
+              persona_id = ruid[0]["last_value"] + 1
+            end
+            numerodocumento = mejora_nuevo_numerodocumento_sindoc(
+              persona_id.to_s+indice.to_s, persona_id
+            )
+            numerodocumento
           end
 
           def nueva_persona_valores_predeterminados(menserror)
-            numerodocumento = 
+            numerodocumento = nueva_persona_sd_posible_numerodocumento(
+              nil,
+            )
             persona = Msip::Persona.create(
-              nombres: 'N',
-              apellidos: 'N',
+              nombres: "N",
+              apellidos: "N",
               sexo: Msip::Persona.convencion_sexo[:sexo_sininformacion],
               tdocumento_id: 11, # SIN DOCUMENTO
-              numerodocumento: numerodocumento
+              numerodocumento: numerodocumento,
             )
             if !persona.save(validate: false)
               menserror << 'No pudo crear persona'
               return nil
             end
-            return persona
+            persona
           end
+
 
         end
       end

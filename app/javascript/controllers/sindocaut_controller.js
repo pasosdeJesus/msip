@@ -35,16 +35,19 @@ export default class extends Controller {
     console.log("numerodocumento ahora es", this.numerodocumentoTarget.value)
     if (e.target.value == '11' && 
       this.numerodocumentoTarget.value == '') { // SIN DOCUMENTO
-      let indice = this.idTarget.id.match(
-        new RegExp("attributes_([0-9]+)_persona")
+      // Obtiene último indice pensando en formularios anidados
+      // como familiar dentro de persona
+      let bindice = this.idTarget.id.match(
+        new RegExp("attributes_([0-9]+)_persona", "g")
       );
-      if (indice == null) {
-        indice = [0, 0];
+      if (bindice == null) {
+        bindice = ["attributes_0_persona"];
       }
+      let indice = bindice.at(-1).substr(11, bindice.at(-1).length-19)
       window.Rails.ajax({
         type: 'GET',
         url: purl + '/personas/identificacionsd?persona_id=' + 
-          this.idTarget.value + '&indice=' + indice[1],
+          this.idTarget.value + '&indice=' + indice,
         data: null,
         success: (resp, estado, xhr) => {
           this.numerodocumentoTarget.value = resp;
