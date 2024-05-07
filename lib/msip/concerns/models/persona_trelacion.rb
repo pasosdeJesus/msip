@@ -30,7 +30,7 @@ module Msip
 
           validate :vdiferentes
           def vdiferentes
-            if persona1 == persona2
+            if persona1 == persona2 && !persona1.nil? && !persona2.nil?
               errors.add(:persona1, 
                          "Una persona no puede ser familiar de si misma")
             end
