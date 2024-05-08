@@ -185,27 +185,6 @@ module Msip
             end
           end
 
-          # Retorna una propuesta para número de documento con base
-          # en la id de la persona (no nil)
-          def self.mejora_nuevo_numerodocumento_sindoc(
-            numdoc, persona_id
-          )
-            numerodocumento = numdoc #% 2147483647 # Max. INTEGER de PostgreSQL
-            while Msip::Persona.where(
-              tdocumento_id: 11, numerodocumento: numerodocumento,
-            ).where("id<>?", persona_id).count > 0
-              numerodocumento = numerodocumento.to_s
-              if !numerodocumento.empty? && numerodocumento[-1] >= "A" &&
-                  numerodocumento[-1] < "Z"
-                ul = numerodocumento[-1].ord + 1
-                numerodocumento = numerodocumento[0..-2] + ul.chr(Encoding::UTF_8)
-              else
-                numerodocumento += "A"
-              end
-            end
-            numerodocumento
-          end
-
           def validar_conjunto_familiar_diferente(validaciones)
             cp = Msip::PersonaTrelacion.joins(:personauno).
               where('persona1=persona2')
@@ -278,9 +257,28 @@ module Msip
 
         class_methods do
 
-          #def nueva_persona_sd_posible_numerodocumento(persona_id)
-          #  rand(10000).to_s + "AAA"
-          #end
+          # Retorna una propuesta para número de documento con base
+          # en la id de la persona (no nil)
+          def mejora_nuevo_numerodocumento_sindoc(
+            numdoc, persona_id
+          )
+            numerodocumento = numdoc.to_s + rand(100).to_s
+            #% 2147483647 # Max. INTEGER de PostgreSQL
+            while Msip::Persona.where(
+              tdocumento_id: 11, numerodocumento: numerodocumento,
+            ).where("id<>?", persona_id).count > 0
+              numerodocumento = numerodocumento.to_s
+              if !numerodocumento.empty? && numerodocumento[-1] >= "A" &&
+                  numerodocumento[-1] < "Z"
+                ul = numerodocumento[-1].ord + 1
+                numerodocumento = numerodocumento[0..-2] + ul.chr(Encoding::UTF_8)
+              else
+                numerodocumento += "A"
+              end
+            end
+            numerodocumento
+          end
+
 
           def nueva_persona_sd_posible_numerodocumento(
             persona_id, indice=nil
