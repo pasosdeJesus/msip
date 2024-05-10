@@ -26,41 +26,53 @@ export default class Msip__Motor {
    *
    */
 
-  static MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  static MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
 
 
 
   static arreglarPuntoMontaje() {
     var purl = window.puntomontaje
     if (purl == "/") {
-      purl = "";
+      purl = ""
     }
-    return purl;
+    return purl
+  }
+
+  // Busca elementos input y select con la clase tom-select
+  // y si les falta los inicializa como campos de selección
+  // con TomSelect
+  static configurarElementosTomSelect() {
+    document.querySelectorAll('.tom-select').forEach((el) => {
+      if (typeof el.tomselect == 'undefined' && 
+        (el.tagName == "INPUT" || el.tagName == "SELECT")) {
+        new window.TomSelect(el, window.configuracionTomSelect)
+      }
+    })
   }
 
   static partirFechaLocalizada(fechaLocalizada, formato) {
-    let anio = 1900;
-    let dia = 15;
-    let mes = 6;
+    let anio = 1900
+    let dia = 15
+    let mes = 6
     if (formato == 'dd/M/yyyy' || formato == 'dd-M-yyyy') {
       anio = +fechaLocalizada.slice(7,11)
       dia = +fechaLocalizada.slice(0,2)
       let nmes = fechaLocalizada.slice(3,6)
       if (typeof nmes != 'undefined' && 
         Msip__Motor.MESES.includes(nmes.toLowerCase())) {
-        mes = Msip__Motor.MESES.indexOf(nmes.toLowerCase()) + 1;
+        mes = Msip__Motor.MESES.indexOf(nmes.toLowerCase()) + 1
       } else {
-        mes = 6;
+        mes = 6
       }
     } else {
       if (typeof fechaLocalizada == 'string') {
-        anio = +fechaLocalizada.slice(0,4);
-        mes = +fechaLocalizada.slice(5,7);
-        dia = +fechaLocalizada.slice(8,10);
+        anio = +fechaLocalizada.slice(0,4)
+        mes = +fechaLocalizada.slice(5,7)
+        dia = +fechaLocalizada.slice(8,10)
       } else {
-        anio = 1900;
-        mes = 1;
-        dia = 1;
+        anio = 1900
+        mes = 1
+        dia = 1
       }
     }
     return [anio, mes, dia]
@@ -93,22 +105,22 @@ export default class Msip__Motor {
     for (; elemento.length > 0; elemento.remove(0)) {
     }
     if (opvacia) {
-      const opt = document.createElement("option");
-      opt.value = "";
-      opt.text = "";
-      elemento.add(opt);
+      const opt = document.createElement("option")
+      opt.value = ""
+      opt.text = ""
+      elemento.add(opt)
     }
     let index = 0
     let encontrado = false
     for(const v of nuevasop) {
-      const opt = document.createElement("option");
+      const opt = document.createElement("option")
       opt.value = v[cid] 
       if (opt.value == sel) {
-        encontrado = true;
+        encontrado = true
       }
-      opt.text = v[cetiqueta];
-      elemento.add(opt);
-      index++;
+      opt.text = v[cetiqueta]
+      elemento.add(opt)
+      index++
       /*if (id != '' && sel != null && 
         (('' + id) == ('' + sel)  || sel.indexOf('' + id) >= 0)) {
         nh = nh + ' selected'
@@ -116,16 +128,16 @@ export default class Msip__Motor {
     }
 
     if (!encontrado) {
-      sel = "";
+      sel = ""
       elemento.value = ""
     }
 
     if (usatomselect) {
       if (typeof elemento.tomselect != 'undefined') {
-        elemento.tomselect.clear(); 
-        elemento.tomselect.clearOptions();
-        elemento.tomselect.sync();
-        elemento.tomselect.refreshOptions();
+        elemento.tomselect.clear() 
+        elemento.tomselect.clearOptions()
+        elemento.tomselect.sync()
+        elemento.tomselect.refreshOptions()
       }  else {
         let et = new TomSelect('#' + idElemento, {
           create: true,
