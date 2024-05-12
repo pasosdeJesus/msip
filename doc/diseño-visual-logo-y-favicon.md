@@ -6,7 +6,7 @@ portada por omisión en `app/views/msip/hogar/index.html.erb` , incluyen
 soporte para:
 * Encabezado fijo, pie de página y espacio para el contenido
 * Una imagen de portada que debe ubicar en `app/assets/images/logo.jpg`
-* Favicons de diversos tamaños. Podrás generalos desde <http://faviconit.com/> 
+* Favicons de diversos tamaños. Podrás generalos desde <https://favicomatic.com/> 
   a partir de una imagen de al menos de 310x310.  
   Ubicalos en el directorio ```app/assets/images``` con los nombres dados por 
   esa página.
