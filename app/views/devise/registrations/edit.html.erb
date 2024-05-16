@@ -21,7 +21,10 @@
     <%= f.association :tema, 
       collection: Msip::Tema.habilitados,
       label_method: :nombre,
-      :required => false
+      input_html: {
+        class: "tom-select"
+      },
+      required: false
     %>
 
 
