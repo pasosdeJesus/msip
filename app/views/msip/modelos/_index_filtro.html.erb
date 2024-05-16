@@ -57,7 +57,7 @@
         value_method: :id,
         selected: Msip::ModeloHelper.poromision(params, n),
         input_html: { 
-          class: 'chosen-select',
+          class: 'tom-select',
           "data-enviarautomatico" => "" } 
         %>
     <% elsif defined?(cregistro.asociacion_combinada) && 
@@ -81,7 +81,7 @@
           label_method: :presenta_nombre,
           value_method: :id ,
           selected: Msip::ModeloHelper.poromision(params, n),
-          input_html: { class: 'chosen-select',
+          input_html: { class: 'tom-select',
                         "data-enviarautomatico" => "" } %>
       <% end %>
     <% elsif defined?(cregistro.columns_hash[atrsl]) && respfiltro %>
