@@ -1,5 +1,8 @@
 <%= f.input :rol,
   collection: Ability::ROLES.select { |v| v.last != 0 },
   label: t("Rol"),
+  input_html: {
+    class: 'tom-select'
+  },
   include_blank: false
 %>
