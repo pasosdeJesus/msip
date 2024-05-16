@@ -13,6 +13,21 @@ import "@hotwired/turbo-rails"
 import "./jquery"
 import 'popper.js'              // Dialogos emergentes usados por bootstrap
 import * as bootstrap from 'bootstrap'              // Maquetacion y elementos de diseño
+
+import Msip__Motor from "./controllers/msip/motor"
+window.Msip__Motor = Msip__Motor
+
+import TomSelect from 'tom-select';
+window.TomSelect = TomSelect;
+window.configuracionTomSelect = {
+  create: false,
+  diacritics: true, //no sensitivo a acentos
+  sortField: {
+    field: "text",
+    direction: "asc"
+  }
+}
+
 import 'chosen-js/chosen.jquery';       // Cuadros de seleccion potenciados
 import 'bootstrap-datepicker'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js'
@@ -44,6 +59,8 @@ promesaRecursosSprocketsYDocumento.then((mensaje) => {
   console.log('Cargando recursos sprockets')
   var root;
   root = window;
+
+  Msip__Motor.iniciar()
   msip_prepara_eventos_comunes(root);
   MsipIniciar();  // ES5 y cuasi ES6 con sprockets
   Msip__Motor.prepararEventosComunes() // ES6 con mecanismo de msip para cont. stimulus
@@ -58,6 +75,7 @@ document.addEventListener('turbo:load', (e) => {
   
   console.log('Escuchador turbo:load')
 
+  Msip__Motor.ejecutarAlCargarPagina()
   msip_ejecutarAlCargarPagina(window)
 })
 

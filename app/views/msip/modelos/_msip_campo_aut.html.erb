@@ -10,8 +10,8 @@
   #                      div del control
   #   atributos_internos Diccionario con atributos HTML para el control
   #   opciones  Diccionario con opciones sus claves posibles son:
-  #             chosen       Por omisión se usa chosen en campos de selección, 
-  #                          pero si es falso no se emplea chosen.
+  #             tomselect   Por omisión se usa tom-select en campos de 
+  #                          selección, pero si es falso no se emplea.
   #             habilitar    Por omisión el campo está habilitado. Si esta
   #                          opción es false se presenta deshabilitado.
   #             etiqueta     Por omisión se presenta etiqueta. Si esta opción
@@ -74,8 +74,8 @@
     } %>
     <% # Solución de https://github.com/heartcombo/simple_form/issues/1513 %>
   <% end %>
-  <% if !defined?(opciones) || !opciones.keys.include?(:chosen) || opciones[:chosen] %>
-    <% atinternos.merge!({ class: desh ? '' : 'chosen-select' }) %>
+  <% if !defined?(opciones) || !opciones.keys.include?(:tomselect) || opciones[:tomselect] %>
+    <% atinternos.merge!({ class: desh ? '' : 'tom-select' }) %>
   <% end %>
   <% atinternos.merge!(nosel) %>
   <% opassoc = {
@@ -121,7 +121,7 @@
     <% n = r.name %>
     <% nclase = r.class_name.constantize %>
     <% col = Msip::ModeloHelper.opciones_tabla_basica(nclase, f, n) %>
-    <% atinternos.merge!({ class: 'chosen-select' }) %>
+    <% atinternos.merge!({ class: 'tom-select' }) %>
     <%= f.association n,
       collection: col.order(nclase.send(:orden_presenta_nombre)),
       label_method: lambda {|e| e.presenta_nombre }, #:nombre,
