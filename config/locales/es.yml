@@ -135,6 +135,8 @@ es:
         sectororgsocial: Sector(es)
         sectororgsocial_ids: Sector(es)
         telefono: Teléfono
+        tipoorg: Tipo de organización
+        tipoorg_id: Tipo de organización
         "{:sectororgsocial_ids=>[]}": Sector(es)
       "msip/anexo":
         descripcion: Descripción

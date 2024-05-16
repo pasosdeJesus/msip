@@ -42,6 +42,21 @@ export default class Msip__Motor {
     })
   }
 
+  // Llamar después de cargar el documento, los paquetes javascript
+  // y los recurso sprockets
+  static iniciar() {
+    Msip__Motor.configurarElementosTomSelect()
+  }
+
+  // Llamar cada vez que se cargue una página detectada con turbo:load
+  // Tal vez en cache por lo que podría no haberse ejecutado iniciar 
+  // nuevamente.
+  // Podría ser llamada varias veces consecutivas por lo que debe detectarlo
+  // y no ejecutar dos veces lo que no necesita.
+  static ejecutarAlCargarPagina() {
+    Msip__Motor.configurarElementosTomSelect()
+  }
+
   static partirFechaLocalizada(fechaLocalizada, formato) {
     let anio = 1900
     let dia = 15
