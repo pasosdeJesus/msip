@@ -5,7 +5,7 @@
 <% if Rails.configuration.x.msip_docid_obligatorio === true %>
   <% cont = "msip--sindocaut" %>
 <% end %>
-<div id="persona_trelacion1_#{f.index}"
+<div id="persona_trelacion1_<%= f.index %>"
      class="div-tabla-fila nested-fields campos_personados",
      data-controller="msip--sindocaut">
   <% if f.object.personados.nil? %>

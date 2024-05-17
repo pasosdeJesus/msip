@@ -8,14 +8,11 @@ module Msip
 
         included do
 
-          before_action :prepara
-
           def create
-            authorize! :create, Msip::Persona
           end
 
           def destroy
-            authorize! :update, Msip::Persona
+            render :destroy, layout: nil
           end
 
           def update
@@ -57,8 +54,8 @@ module Msip
 
           private
 
-          def prepara
-            @persona = Msip::Persona.new(
+          def preparar_persona
+            @registro = @persona = Msip::Persona.new(
               persona_trelacion1: [Msip::PersonaTrelacion.new]
             )
           end
