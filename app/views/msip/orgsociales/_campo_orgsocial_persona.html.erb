@@ -1,40 +1,39 @@
-<% ao = f.object ? f.object : @orgsocial %>
-<% if ao.id %>
-  <% div_id = "orgsocial_persona_#{ao.id}" %>
+<% orgsocial = f.object ? f.object : @orgsocial %>
+<% if orgsocial.id %>
+  <% div_id = "orgsocial_persona_#{orgsocial.id}" %>
   <div id="<%= div_id %>" class="orgsocial_persona">
     <label class="string optional control-label" for="tabla_<%= div_id %>"><%= t('Contactos en la organización social') %></label>
-    <table id="tabla_<%= div_id %>" class="table table-bordered">
-      <datalist id='fuente-contactos-orgsocial'>
-      </datalist>
-      <thead>
-        <tr>
-          <th scope="col"><%= t('Nombres') %></th>
-          <th scope="col"><%= t('Apellidos') %></th>
-          <th scope="col"><%= t('Sexo') %></th>
-          <th scope="col"><%= t('Perfil') %></th>
-          <th scope="col"><%= t('Cargo') %></th>
-          <th scope="col"><%= t('Correo') %></th>
-          <th scope="col"><%= t('Acciones') %></th>
-        </tr>
-      </thead>
-      <tbody id='orgsocial_persona'>
-        <%= f.simple_fields_for :orgsocial_persona, 
-          Msip::OrgsocialPersona.where(orgsocial_id: ao.id) do |ap| %>
-          <%= render 'orgsocial_persona_campos', :f => ap %>
+    
+    <datalist id='fuente-contactos-orgsocial'>
+    </datalist>
+    <div id="tabla_<%= div_id %>" class="div-tabla">
+      <div id="orgsocial_personas_marco" class="div-tabla-cuerpo">
+        <div class="div-tabla-fila"> 
+          <div class="div-tabla-celda-encabezado"><%= t('Nombres') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Apellidos') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Sexo') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Perfil') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Cargo') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Correo') %></div>
+          <div class="div-tabla-celda-encabezado"><%= t('Acciones') %></div>
+        </div>
+        <%= f.simple_fields_for :orgsocial_persona,
+          Msip::OrgsocialPersona.where(orgsocial_id: orgsocial.id) do |subf| %>
+          <%= render partial: 'orgsocial_persona_campos', locals: {f: subf} %>
         <% end %>
-      </tbody>
-    </table>
-
-    <div class="links">
-      <%= link_to_add_association t('Añadir contacto'), f, 
-        :orgsocial_persona,
-        :"data-association-insertion-node" => "tbody#orgsocial_persona", 
-        :"data-association-insertion-method" => "append", 
-        partial: 'orgsocial_persona_campos',
-        :class => 'btn btn-sm btn-primary'
-      %>
+      </div>
     </div>
-
+  </div>
+  <div class="enlace-agregar-contacto">
+    <%= f.submit t('Añadir contacto'),
+      formaction: msip.crear_orgsocial_persona_path(index: @orgsocial.orgsocial_persona.size),
+      formmethod: :post,
+      formnovalidate: true,
+      class: 'btn btn-sm btn-primary',
+      name: "agregar-orgsocial-persona",
+      id: "agregar-orgsocial-persona", 
+      data:  {
+        disable_with: false } %>
   </div>
 <% else %>
   <p>Podrá crear contactos una vez cree la organización social</p>
