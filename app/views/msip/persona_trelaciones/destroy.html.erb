@@ -1,4 +1,4 @@
-<%= simple_form_for @persona do |f| %>
+<%= fields model: @persona do |f| %>
   <%= f.simple_fields_for :persona_trelacion1,
     child_index: params[:index] do |subf| %>
     <%= turbo_frame_tag "persona_trelacion1_#{subf.index}" do %>

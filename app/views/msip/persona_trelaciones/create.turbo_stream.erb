@@ -1,6 +1,22 @@
 <%= simple_form_for @persona do |f| %>
   <%= f.simple_fields_for :persona_trelacion1,
     child_index: params[:index] do |subf| %>
+
+    <%= turbo_stream.replace "agregar-familiar" do %>
+      <%= f.submit "Agregar familiar",
+        formaction: msip.crear_familiar_path(
+          index: subf.index.to_i + 1
+        ),
+        formmethod: :post,
+        formnovalidate: true,
+        class: 'btn btn-sm btn-primary',
+        name: "agregar-familiar-persona",
+        id: "agregar-familiar-persona",
+        data:  {
+          disable_with: false
+        } %>
+    <% end %>
+
     <%= turbo_stream.append "persona_trelacion1_marco" do %>
       <%= render "msip/personas/persona_trelacion1_campos", f: subf %>
     <% end %>

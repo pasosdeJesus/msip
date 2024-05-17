@@ -25,8 +25,8 @@
     </div>
   </div>
   <div class="enlace-agregar-contacto">
-    <%= f.submit t('Añadir contacto'),
-      formaction: msip.crear_orgsocial_persona_path(index: @orgsocial.orgsocial_persona.size),
+    <%= f.submit t('Agregar contacto'),
+      formaction: msip.crear_orgsocial_persona_path(index: orgsocial.orgsocial_persona.size),
       formmethod: :post,
       formnovalidate: true,
       class: 'btn btn-sm btn-primary',
