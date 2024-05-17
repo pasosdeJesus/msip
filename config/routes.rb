@@ -64,7 +64,12 @@ Msip::Engine.routes.draw do
 
   #resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
 
-
+  resources :orgsocial_persona, only: [], param: :index do
+    member do
+      delete '(:id)', to: "orgsocial_personas#destroy", as: "eliminar"
+      post '/' => "orgsocial_personas#create", as: "crear"
+    end
+  end
 
   # En su aplicación al emplear ayudadores de rutas utilice prefijo
   # "msip." si viene de msip o "main_app." si es de las rutas de la aplicación.

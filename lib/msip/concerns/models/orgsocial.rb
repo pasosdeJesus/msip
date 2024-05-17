@@ -23,6 +23,7 @@ module Msip
 
           has_many :orgsocial_persona,
             class_name: "Msip::OrgsocialPersona",
+            dependent: :destroy,
             foreign_key: "orgsocial_id"
           accepts_nested_attributes_for :orgsocial_persona,
             allow_destroy: true,
@@ -31,7 +32,8 @@ module Msip
           has_many :persona,
             through: :orgsocial_persona,
             class_name: "Msip::Persona"
-          accepts_nested_attributes_for :persona, reject_if: :all_blank
+          accepts_nested_attributes_for :persona, 
+            reject_if: :all_blank
 
           has_and_belongs_to_many :sectororgsocial,
             class_name: "Msip::Sectororgsocial",
