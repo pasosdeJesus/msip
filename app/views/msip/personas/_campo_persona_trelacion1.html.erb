@@ -13,6 +13,7 @@
       Una vez guarde este registro y vuelva a editar podrá agregar familiares
       <% return %>
     <% end %>
+    <% persona = f.object ? f.object : @persona %>
     <div class="div-tabla tabla_familiares">
       <div id="persona_trelacion1_marco" class="div-tabla-cuerpo">
         <div class="div-tabla-fila"> 
@@ -24,25 +25,24 @@
           <div class="div-tabla-celda">Parentesco</div>
           <div class="div-tabla-celda">Acciones</div>
         </div> 
-        <%= f.simple_fields_for :persona_trelacion1 do |pt| %>
+        <%= f.simple_fields_for :persona_trelacion1 do |subf| %>
           <%= render partial: "msip/personas/persona_trelacion1_campos", 
-            locals: {f: pt} %>
+            locals: {f: subf} %>
         <% end %>
       </div>
     </div>
-    <div class="links">
-      <%= f.submit "Agregar Familiar",
+    <div class="enlace-agregar-familiar">
+      <%= f.submit t("Agregar familiar"),
         formaction: msip.crear_familiar_path(
-          index: @persona.persona_trelacion1.size
+          index: persona.persona_trelacion1.size
         ),
         formmethod: :post,
         formnovalidate: true,
         class: 'btn btn-sm btn-primary',
         name: "agregar-familiar",
         id: "agregar-familiar",
-        "data-x": "x",
-        "data-disable_with": false
-       %>
+        data:  {
+          disable_with: false } %>
     </div>
   <% end %>
 </div> <!-- accordion -->
