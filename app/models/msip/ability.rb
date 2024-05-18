@@ -188,12 +188,12 @@ module Msip
 
       if usuario&.rol
 
-        can(:read, [Msip::Persona])
+        can(:read, [Msip::Persona, Msip::EtiquetaPersona])
         case usuario.rol
         when Ability::ROLANALI
           can([:new, :create, :read, :update], Msip::Grupoper)
           can([:new, :create, :read, :update], Msip::Orgsocial)
-          can([:new, :create, :read, :update], Msip::Persona)
+          can([:new, :create, :read, :update], [Msip::Persona, Msip::EtiquetaPersona])
           can([:new, :create, :read, :update], Msip::Solicitud)
           can(:read, Msip::Ubicacion)
           can(:new, Msip::Ubicacion)
@@ -204,7 +204,7 @@ module Msip
           can(:manage, Msip::Bitacora)
           can(:manage, Msip::Grupoper)
           can(:manage, Msip::Orgsocial)
-          can(:manage, Msip::Persona)
+          can(:manage, [Msip::Persona, Msip::EtiquetaPersona])
           can(:manage, Msip::Respaldo7z)
           can(:manage, Msip::Solicitud)
           can(:manage, Msip::Tema)

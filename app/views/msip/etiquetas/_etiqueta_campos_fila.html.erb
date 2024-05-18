@@ -1,53 +1,70 @@
-<tr class='nested-fields'>
+<% if !defined?(relacion) %>
+  Falta símbolo con relación en parámetro <tt>relacion</tt>.
+  e.g <tt>:etiqueta_persona</tt>
+  <% return %>
+<% end %>
+<% if !defined?(ruta_eliminar) %>
+  Falta cadena con función que retorna ruta para eliminar en  parámetro
+  <tt>ruta_eliminar</tt>. e.g <tt>"msip.eliminar_etiqueta_persona_path"</tt>
+  <% return %>
+<% end %>
+
+<%= turbo_frame_tag "#{relacion}_#{f.index}", class: 'div-tabla-fila nested-fields' do %>
   <% if f.object.etiqueta.nil? %>
     <% f.object.etiqueta = Msip::Etiqueta.new %>
   <% end %>
-    <td>
-      <%= f.association :usuario,
-        collection: Usuario.habilitados,
-        label_method: :nusuario,
-        value_method: :id,
-        readonly: true,
-        selected:  (f && f.object && f.object.usuario_id) || current_usuario.id,
-        wrapper_html: {style: "width: 12em"},
-        label: false,
-        input_html: {
-          class: 'deshabilitado'
-        }
-      %>
-    </td>
-    <td>
-      <%= f.input :fecha_localizada, 
-        label: false,
-        :input_html => { 
-          "data-behaviour" => "datepicker", 
-          value: Msip::FormatoFechaHelper.fecha_estandar_local(Date.today), 
-          class: 'deshabilitado'},
-          :as => :string %>
-    </td>
-    <td>
-        <%= f.association :etiqueta,
-          collection: Msip::ModeloHelper.opciones_tabla_basica(
-            Msip::Etiqueta, f, :etiqueta
-          ),
-          label: false,
-          label_method: :nombre,
-          value_method: :id %>
-    </td>
-    <td>
-        <%= f.input :observaciones,
-          as: :text,
-          label: false,
-          :input_html => { 
-            rows: 3
-          }
-        %>
-    </td>
-    <td>
-      <%= f.input :id, as: :hidden %> 
-      <%= link_to_remove_association "Eliminar", f, 
-        :class => 'btn btn-sm btn-danger',
-        :'data-existing' => true
-      %>
-    </td>
-</tr>
+  <div class="div-tabla-celda">
+    <%= f.association :usuario,
+      collection: Usuario.habilitados,
+      label_method: :nusuario,
+      value_method: :id,
+      readonly: true,
+      selected:  (f && f.object && f.object.usuario_id) || current_usuario.id,
+      wrapper_html: {style: "width: 12em"},
+      label: false,
+      input_html: {
+        class: 'deshabilitado'
+      } %>
+  </div>
+  <div class="div-tabla-celda">
+    <%= f.input :fecha_localizada,
+      label: false,
+      :input_html => {
+        "data-behaviour" => "datepicker",
+        value: Msip::FormatoFechaHelper.fecha_estandar_local(Date.today),
+        class: 'deshabilitado'},
+        :as => :string %>
+  </div>
+  <div class="div-tabla-celda">
+    <%= f.association :etiqueta,
+      collection: Msip::ModeloHelper.opciones_tabla_basica(
+        Msip::Etiqueta, f, :etiqueta
+      ),
+      label: false,
+      label_method: :nombre,
+      value_method: :id %>
+  </div>
+  <div class="div-tabla-celda">
+    <%= f.input :observaciones,
+      as: :text,
+      label: false,
+      :input_html => {
+        rows: 3
+      }
+    %>
+  </div>
+  <div class="div-tabla-celda">
+    <%= f.input :id, as: :hidden %>
+    <% # En el siguiente nos gustaria cambiar msip.eliminar_etiqueta_persona_path %>
+    <% # por algo como send(ruta_eliminar pero no nos ha operado %>
+    <%= f.submit "Eliminar",
+      formaction: msip.eliminar_etiqueta_persona_path(id: f.object.id, index: f.index),
+      formmethod: :delete,
+      formnovalidate: true,
+      class: 'btn btn-sm btn-danger',
+      data: {
+        turbo_frame: "#{relacion.to_s}_#{f.index}",
+        disable_with: false
+      } %>
+  </div>
+<% end %>

@@ -13,13 +13,21 @@ module Msip
 
           self.table_name = 'msip_etiqueta_persona'
 
-          belongs_to :persona, foreign_key: "persona_id", validate: false,
-            class_name: 'Msip::Persona', inverse_of: :etiqueta_persona,
-            optional: false
-          belongs_to :etiqueta, foreign_key: "etiqueta_id", validate: false,
-            class_name: 'Msip::Etiqueta', optional: false
-          belongs_to :usuario, foreign_key: "usuario_id", validate: false, 
-            optional: false
+          belongs_to :persona, 
+            class_name: 'Msip::Persona', 
+            foreign_key: "persona_id", 
+            inverse_of: :etiqueta_persona,
+            optional: false,
+            validate: false
+          belongs_to :etiqueta, 
+            class_name: 'Msip::Etiqueta', 
+            foreign_key: "etiqueta_id", 
+            optional: false,
+            validate: false
+          belongs_to :usuario, 
+            foreign_key: "usuario_id", 
+            optional: false,
+            validate: false
 
           campofecha_localizado :fecha
 

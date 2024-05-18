@@ -216,21 +216,25 @@ module Msip
             optional: true
 
           has_many :etiqueta_persona,  
-            foreign_key: 'persona_id',
-            validate: true,
+            class_name: 'Msip::EtiquetaPersona',
             dependent: :destroy,
-            class_name: 'Msip::EtiquetaPersona'
-          has_many :etiqueta, 
-            through: :etiqueta_persona, 
-            class_name: 'Msip::Etiqueta'
+            foreign_key: 'persona_id',
+            validate: true
           accepts_nested_attributes_for :etiqueta_persona, 
             allow_destroy: true, 
             reject_if: :all_blank
+          has_many :etiqueta, 
+            class_name: 'Msip::Etiqueta',
+            through: :etiqueta_persona
 
           has_many :persona_trelacion1,
-            foreign_key: "persona1",
+            class_name: "Msip::PersonaTrelacion",
             dependent: :delete_all,
-            class_name: "Msip::PersonaTrelacion"
+            foreign_key: "persona1"
+          accepts_nested_attributes_for :persona_trelacion1,
+            allow_destroy: true,
+            reject_if: :all_blank
+
           has_many :persona_trelacion2,
             foreign_key: "persona2",
             dependent: :delete_all,
@@ -239,10 +243,9 @@ module Msip
           has_many :personados,
             through: :persona_trelacion1,
             class_name: "Msip::Persona"
-          accepts_nested_attributes_for :personados, reject_if: :all_blank
-          accepts_nested_attributes_for :persona_trelacion1,
-            reject_if: :all_blank,
-            allow_destroy: true
+          accepts_nested_attributes_for :personados, 
+            allow_destroy: true,
+            reject_if: :all_blank
 
           # identificación autogenerada en este y demás modelos (excepto los de
           # información geográfica).

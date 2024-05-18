@@ -1,6 +1,6 @@
 <div class="accordion" id="acordeoneti-<%= f.object.id %>">
   <%= item_acordeon_bs(
-    'acordeoneti', "colapsaeti-#{f.object.id}", 
+    'acordeoneti', "colapsaeti-#{f.object.id}",
     'Etiquetas', false, {
       'estilo_accordion-header': 'text-align: center',
       'clase_accordion-body': 'table-responsive',
@@ -10,8 +10,14 @@
       Una vez guarde este registro y vuelva a editar podrá agregar etiquetas
     <% else %>
       <div id="divetiquetas">
-        <%= render partial: 'msip/etiquetas/tabla_etiquetas', 
-          locals: {f: f } %>
+        <%= render partial: 'msip/etiquetas/tabla_etiquetas',
+          locals: {
+            f: f,
+            relacion: :etiqueta_persona,
+            marco: :etiquetas_persona_marco,
+            ruta_agregar_0: msip.crear_etiqueta_persona_path(index: 0),
+            ruta_eliminar: "msip.eliminar_etiqueta_persona_path"
+          } %>
       </div>
     <% end %>
   <% end %>
