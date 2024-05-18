@@ -4,8 +4,8 @@ require "msip/concerns/controllers/persona_trelaciones_controller"
 
 module Msip
   class PersonaTrelacionesController < ApplicationController
-    before_action :preparar_persona
-    load_and_authorize_resource class: Msip::Persona
+    before_action :preparar_persona_trelacion
+    load_and_authorize_resource class: Msip::PersonaTrelacion
 
     include Msip::Concerns::Controllers::PersonaTrelacionesController
   end
