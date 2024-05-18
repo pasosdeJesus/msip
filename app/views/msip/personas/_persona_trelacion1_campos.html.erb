@@ -79,7 +79,7 @@
       <%= f.input :id, as: :hidden %>
 
       <%= p.submit "Eliminar", 
-        formaction: msip.eliminar_familiar_path(
+        formaction: msip.eliminar_persona_trelacion_path(
           id: f.object.id, index: f.index
         ),
         formmethod: :delete, 
