@@ -1,5 +1,8 @@
 <%= f.association :nacional,
   collection: Msip::Pais.habilitados,
   label_method: :nombre,
-  value_method: :id 
+  value_method: :id,
+  input_html: {
+    class: 'tom-select'
+  }
 %>
