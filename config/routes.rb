@@ -29,6 +29,14 @@ Msip::Engine.routes.draw do
   get "/personas" => "personas#index"
   get "/personas/datos" => "personas#datos"
   get "/personas/remplazar" => "personas#remplazar"
+
+  resources :persona_trelacion, only: [], param: :index do
+    member do
+      delete '(:id)', to: "persona_trelaciones#destroy", as: "eliminar"
+      post '/' => "persona_trelaciones#create", as: "crear"
+    end
+  end
+
   get "/personas/identificacionsd" => "personas#identificacionsd",
     as: :personas_identificacionsd
 
@@ -37,10 +45,6 @@ Msip::Engine.routes.draw do
 
   post '/persona_trelaciones/actualizar' => 'persona_trelaciones#update',
     as: :actualizar_familiar
-  post '/persona_trelaciones/crear' => 'persona_trelaciones#create',
-    as: :crear_familiar
-  delete '/persona_trelaciones/eliminar' => 'persona_trelaciones#destroy',
-    as: :eliminar_familiar
 
   get "/personas/validar_conjunto" => "personas#validar_conjunto",
     as: :personas_validar_conjunto

@@ -6,21 +6,23 @@ module Msip
 
         included do
 
-          def destroy
-          end
-
           def create
+          end
+          
+          def destroy
           end
 
           private
 
           def preparar_etiqueta_persona
-            @registro = @persona = Msip::Persona.new(etiqueta_persona: [Msip::EtiquetaPersona.new])
+            @registro = @persona = Msip::Persona.new(
+              etiqueta_persona: [Msip::EtiquetaPersona.new]
+            )
           end
+
         end # included
 
       end
     end
   end
 end
-
