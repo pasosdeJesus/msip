@@ -1,0 +1,20 @@
+<%= simple_form_for @orgsocial do |f| %>
+  <%= f.simple_fields_for :orgsocial_persona,
+    child_index: params[:index] do |subf| %>
+    <%= turbo_stream.replace "agregar-orgsocial-persona" do %>
+      <%= f.submit "Agregar contacto",
+            formaction: msip.crear_orgsocial_persona_path(subf.index.to_i + 1),
+            formmethod: :post,
+            formnovalidate: true,
+            class: 'btn btn-sm btn-primary',
+            id: "agregar-orgsocial-persona",
+            data:  {
+              disable_with: false
+            } %>
+    <% end %>
+
+    <%= turbo_stream.append "orgsocial_personas_marco" do %>
+      <%= render "/msip/orgsociales/orgsocial_persona_campos", f: subf %>
+    <% end %>
+  <% end %>
+<% end %>
