@@ -1,0 +1,24 @@
+<%= simple_form_for @persona do |f| %>
+  <%= f.simple_fields_for :etiqueta_persona,
+    child_index: params[:index] do |subf| %>
+    <%= turbo_stream.replace "agregar-etiqueta-persona" do %>
+      <%= f.submit "Agregar #{Msip::Solicitud.human_attribute_name(:Etiqueta)}",
+            formaction: msip.crear_etiqueta_persona_path(subf.index.to_i + 1),
+            formmethod: :post,
+            formnovalidate: true,
+            class: 'btn btn-sm btn-primary',
+            id: "agregar-etiqueta-persona",
+            data:  {
+              disable_with: false
+            } %>
+    <% end %>
+
+    <%= turbo_stream.append "etiquetas_persona_marco" do %>
+      <%= render partial: "/msip/etiquetas/etiqueta_campos_fila", locals: {
+        f: subf,
+        relacion: :etiqueta_persona,
+        ruta_eliminar: msip.eliminar_etiqueta_persona_path
+      } %>
+    <% end %>
+  <% end %>
+<% end %>

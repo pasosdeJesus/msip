@@ -14,6 +14,14 @@ Msip::Engine.routes.draw do
   get "/controldeacceso" => "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"
   get "/espacio" => "hogar#espacio", as: "espacio"
+
+  resources :etiqueta_persona, only: [], param: :index do
+    member do
+      delete '(:id)', to: "etiquetas_persona#destroy", as: "eliminar"
+      post '/' => "etiquetas_persona#create", as: "crear"
+    end
+  end
+
   get "/gruposper" => "gruposper#index"
   get "/gruposper/remplazar" => "gruposper#remplazar"
   get "/hogar" => "hogar#index"
@@ -55,6 +63,13 @@ Msip::Engine.routes.draw do
 
   resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
 
+  resources :orgsocial_persona, only: [], param: :index do
+    member do
+      delete '(:id)', to: "orgsocial_personas#destroy", as: "eliminar"
+      post '/' => "orgsocial_personas#create", as: "crear"
+    end
+  end
+
   resources :orgsociales, path_names: { new: "nueva", edit: "edita" }
 
   resources :personas, path_names: { new: "nueva", edit: "edita" }
@@ -63,13 +78,6 @@ Msip::Engine.routes.draw do
 
 
   #resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
-
-  resources :orgsocial_persona, only: [], param: :index do
-    member do
-      delete '(:id)', to: "orgsocial_personas#destroy", as: "eliminar"
-      post '/' => "orgsocial_personas#create", as: "crear"
-    end
-  end
 
   # En su aplicación al emplear ayudadores de rutas utilice prefijo
   # "msip." si viene de msip o "main_app." si es de las rutas de la aplicación.

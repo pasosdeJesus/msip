@@ -1,28 +1,66 @@
-<div id="etiqueta" class="panel-body table-responsive" >
-  <table class="table table-bordered table-sm">
-    <thead class="thead-light">
-      <tr>
-        <th>Usuario</th>
-        <th>Fecha</th>
-        <th><%= Msip::Etiqueta.human_attribute_name(:Etiqueta) %></th>
-        <th>Observaciones(s)</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="filas_etiqueta">
-      <%= f.simple_fields_for :etiqueta_persona do |ep| %>
+
+<% if !defined?(relacion) %>
+  Falta símbolo con relación en parámetro <tt>relacion</tt>. 
+  e.g <tt>:etiqueta_persona</tt>
+  <% return %>
+<% end %>
+<% if !defined?(marco) %>
+  Falta símbolo con marco en parámetro <tt>marco</tt>. 
+  e.g <tt>:etiquetas_persona_marco</tt>
+  <% return %>
+<% end %>
+<% if !defined?(ruta_agregar_0) %>
+  Falta ruta para agregar con indice 0 en  parámetro 
+  <tt>ruta_agregar_0</tt>. e.g 
+  <tt>msip.nuevo_etiqueta_persona_path(0)</tt>
+  El _0 final se cambiará por el índice
+  <% return %>
+<% end %>
+<% if !defined?(ruta_eliminar) %>
+  Falta ruta para eliminar con indice 0 en  parámetro 
+  <tt>ruta_eliminar</tt>. e.g
+  <tt>msip.elimina_etiqueta_persona_path</tt>
+  <% return %>
+<% end %>
+<% if !defined?(@registro) %>
+  Debería estar definido @registro con objeto papá 
+  e.g <tt>@registro = @persona</tt>
+  <% return %>
+<% end %>
+
+
+<div class="panel-body table-responsive" >
+  <div class="div-tabla">
+    <div id="<%= marco %>" class="div-tabla-cuerpo">
+      <div class="div-tabla-fila">
+        <div class="div-tabla-celda-encabezado">Usuario</div>
+        <div class="div-tabla-celda-encabezado">Fecha</div>
+        <div class="div-tabla-celda-encabezado">
+          <%= Msip::Etiqueta.human_attribute_name(:Etiqueta) %>
+        </div>
+        <div class="div-tabla-celda-encabezado">Observaciones(s)</div>
+        <div class="div-tabla-celda-encabezado">Acciones</div>
+      </div>
+      <%= f.simple_fields_for relacion do |subf| %>
         <%= render partial: 'msip/etiquetas/etiqueta_campos_fila', 
-          locals: {f: ep} %>
+          locals: {
+            f: subf, 
+            relacion: relacion,
+            ruta_eliminar: ruta_eliminar} 
+          %>
       <% end %>
-    </tbody>
-  </table>
-  <div class="links">
-    <%= link_to_add_association "Añadir #{Msip::Etiqueta.human_attribute_name(:Etiqueta)}", f,
-      :etiqueta_persona, 
-      partial: 'msip/etiquetas/etiqueta_campos_fila',
-      "data-association-insertion-node" => "tbody#filas_etiqueta",
-      "data-association-insertion-method" => "append",
-      class: 'btn btn-sm btn-primary',
-      style: 'margin-bottom: 1em' %>
+    </div>
   </div>
+</div>
+<div class="enlace-agregar-etiqueta">
+  <%= f.submit "Agregar #{Msip::Solicitud.human_attribute_name(:Etiqueta)}",
+    formaction: ruta_agregar_0.sub(/0$/, @registro.send(relacion).size.to_s),
+    formmethod: :post,
+    formnovalidate: true,
+    class: 'btn btn-sm btn-primary',
+    name: "agregar-#{relacion.to_s.gsub('_', '-')}",
+    id: "agregar-#{relacion.to_s.gsub('_', '-')}", 
+    data:  {
+      disable_with: false 
+    } %>
 </div>
