@@ -17,6 +17,7 @@ import * as bootstrap from 'bootstrap'              // Maquetacion y elementos d
 
 import Msip__Motor from "./controllers/msip/motor"
 window.Msip__Motor = Msip__Motor
+Msip__Motor.iniciar()
 
 import TomSelect from 'tom-select';
 window.TomSelect = TomSelect;
@@ -29,7 +30,6 @@ window.configuracionTomSelect = {
   }
 }
 
-import 'chosen-js/chosen.jquery';       // Cuadros de seleccion potenciados
 import 'bootstrap-datepicker'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js'
 
@@ -61,9 +61,8 @@ promesaRecursosSprocketsYDocumento.then((mensaje) => {
   var root;
   root = window;
 
-  Msip__Motor.iniciar()
+  Msip__Motor.ejecutarAlCargarDocumentoYRecursos()
   msip_prepara_eventos_comunes(root);
-  MsipIniciar();
 })
 
 
