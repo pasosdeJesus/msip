@@ -50,9 +50,9 @@ export default class Msip__Motor {
     })
   }
 
-  // Llamar después de cargar el documento, los paquetes javascript
+  // Llamada después de cargar el documento, los paquetes javascript
   // y los recurso sprockets
-  static iniciar() {
+  static ejecutarAlCargarDocumentoYRecursos() {
     Msip__Motor.configurarElementosTomSelect()
   }
 
@@ -60,9 +60,14 @@ export default class Msip__Motor {
   // Tal vez en cache por lo que podría no haberse ejecutado iniciar 
   // nuevamente.
   // Podría ser llamada varias veces consecutivas por lo que debe detectarlo
-  // y no ejecutar dos veces lo que no necesita.
+  // para no ejecutar dos veces lo que no conviene.
   static ejecutarAlCargarPagina() {
     Msip__Motor.configurarElementosTomSelect()
+  }
+
+  // Llamada desde application.js tal vez antes de cargar el documento,
+  // paquetes javascript y recursos sprockets
+  static iniciar() {
   }
 
   static partirFechaLocalizada(fechaLocalizada, formato) {

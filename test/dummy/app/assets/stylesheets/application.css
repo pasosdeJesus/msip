@@ -12,7 +12,6 @@
  *
  *= require msip/application.css
  *= require bootstrap/dist/css/bootstrap.css
- *= require chosen-js/chosen.css
  *= require tom-select/dist/css/tom-select.bootstrap5.min.css
  *= require_tree .
  *= require_self
