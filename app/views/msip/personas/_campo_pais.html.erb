@@ -1,6 +1,12 @@
 <%= f.association :pais,
   collection: Msip::Pais.habilitados,
-  include_blank: ' ',
+  include_blank: true,
+  input_html: {
+    class: 'tom-select',
+    data: {
+      "action": "change->msip--geodep#cambiar_pais",
+    }
+  },
   label_method: :nombre,
-  value_method: :id 
+  value_method: :id
 %>

@@ -1,6 +1,15 @@
 <%= f.association :centropoblado,
-  collection: (Msip::Centropoblado.habilitados.where(
-  municipio_id: f.object.municipio_id)),
+  collection: Msip::Centropoblado.habilitados.where(
+    municipio_id: f.object.municipio_id
+  ),
+  include_blank: true,
+  input_html: {
+    class: 'tom-select',
+    data: {
+      action: "change->msip--geodep#cambiar_centropoblado",
+      "msip--geodep-target": "centropoblado"
+    },
+  },
   label_method: :nombre,
   value_method: :id 
 %>

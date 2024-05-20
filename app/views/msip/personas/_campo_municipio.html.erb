@@ -1,6 +1,15 @@
 <%= f.association :municipio,
-  collection: ( Msip::Municipio.habilitados.where(
-    departamento_id: f.object.departamento_id)),
-    label_method: :nombre,
-    value_method: :id 
+  collection: Msip::Municipio.habilitados.where(
+    departamento_id: f.object.departamento_id
+  ),
+  include_blank: true,
+  input_html: {
+    class: 'tom-select',
+    data: {
+      "action": "change->msip--geodep#cambiar_municipio",
+      "msip--geodep-target": "municipio"
+    },
+  },
+  label_method: :nombre,
+  value_method: :id 
 %>
