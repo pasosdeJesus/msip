@@ -1,5 +1,4 @@
 /*
- *= require chosen-js/chosen
  *= require bootstrap-datepicker/dist/css/bootstrap-datepicker.css
  */
 
@@ -209,27 +208,6 @@ p.derechos {
   border-radius: 5px;
 }
 
-
-/* Gráficos de chosen */
-.chosen-container-single .chosen-single abbr {
-  background: url('<%= asset_path("chosen-sprite.png") %>') -42px 1px no-repeat !important;
-}
-
-.chosen-container-single .chosen-single div b {
-  background: url('<%= asset_path("chosen-sprite.png") %>')  no-repeat 0px 2px !important;
-}
-
-.chosen-container-single .chosen-search input[type="text"] {
-  background: url('<%= asset_path("chosen-sprite.png") %>')  no-repeat 100% -20px !important;
-}
-
-.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
-  background: url('<%= asset_path("chosen-sprite.png") %>') -42px 1px no-repeat !important;
-}
-
-.chosen-rtl .chosen-search input[type="text"] {
-  background: url('<%= asset_path("chosen-sprite.png") %>') no-repeat -30px -20px !important;
-}
 
 .page-link {
   background-color: <%= tema.fondo || '#ffffff' %>;
