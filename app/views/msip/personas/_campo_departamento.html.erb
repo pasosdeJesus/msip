@@ -1,7 +1,15 @@
-
 <%= f.association :departamento,
-  collection: (Msip::Departamento.habilitados.where(
-    pais_id: f.object.pais_id)),
-    label_method: :nombre,
-    value_method: :id 
+  collection: (
+    Msip::Departamento.habilitados.where(pais_id: f.object.pais_id)
+  ),
+  include_blank: true,
+  input_html: {
+    class: 'tom-select',
+    data: {
+      "action": "change->msip--geodep#cambiar_departamento",
+      "msip--geodep-target": "departamento"
+    },
+  },
+  label_method: :nombre,
+  value_method: :id 
 %>

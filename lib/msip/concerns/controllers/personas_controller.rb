@@ -67,7 +67,7 @@ module Msip
           end
 
           def atributos_html_encabezado_formulario
-            { "data-controller": "msip--sindocaut" }
+            { "data-controller": "msip--sindocaut msip--geodep" }
           end
 
           def index_msip(c = nil)

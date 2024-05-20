@@ -3,10 +3,12 @@
 <% end %>
 <% atributos_html = controller.atributos_html_encabezado_formulario() %>
 <% datos_boton_envio = controller.datos_boton_envio() %>
-<%= simple_form_for(
-  @registro, 
-  url: modelo_path(@registro),
-  html: atributos_html) do |f| 
+<%=
+  simple_form_for(
+    @registro, 
+    html: atributos_html, 
+    url: modelo_path(@registro)
+  ) do |f| 
 %>
   <%= render partial: 'msip/hogar/errores', locals: { f: f } %> 
 
