@@ -858,24 +858,6 @@ if (typeof String.prototype.endsWith != 'function')
     $('[data-toggle="tooltip"]').tooltip()
   )
 
-  # Chosen-jquery 
-  $('.chosen-select').chosen
-    allow_single_deselect: true
-    no_results_text: '<%= I18n.t('No hay resultados') %>',
-    placeholder_text_single: '<%= I18n.t('Seleccione una opción') %>',
-    placeholder_text_multiple: '<%= I18n.t('Seleccione algunas opciones') %>',
-    width: '100%'
-
-  # Caso especial de tooltips para campos con chosen  
-  $('select[data-toggle="tooltip"]').each( (v, e) ->
-    ej = $(e)
-    t = ej.attr('data-original-title')
-    id = ej.attr('id')  
-    ns = '#' + id+'_chosen .chosen-choices'
-    $(ns).attr('title', t)
-    $(ns).attr('data-toggle', 'tooltip')
-  )
-
   # Pone colores de acuerdo al tema
   msip_temausuario_ajax()
   jQuery ->
@@ -988,24 +970,6 @@ if (typeof String.prototype.endsWith != 'function')
       language: '<%= Rails.configuration.i18n.default_locale %>'
     })
     $('[data-toggle="tooltip"]').tooltip()
-  )
-
-  # Chosen-jquery 
-  $('.chosen-select').chosen
-    allow_single_deselect: true
-    no_results_text: '<%= I18n.t('No hay resultados') %>',
-    placeholder_text_single: '<%= I18n.t('Seleccione una opción') %>',
-    placeholder_text_multiple: '<%= I18n.t('Seleccione algunas opciones') %>',
-    width: '100%'
-
-  # Caso especial de tooltips para campos con chosen  
-  $('select[data-toggle="tooltip"]').each( (v, e) ->
-    ej = $(e)
-    t = ej.attr('data-original-title')
-    id = ej.attr('id')  
-    ns = '#' + id+'_chosen .chosen-choices'
-    $(ns).attr('title', t)
-    $(ns).attr('data-toggle', 'tooltip')
   )
 
   MsipIniciar()
