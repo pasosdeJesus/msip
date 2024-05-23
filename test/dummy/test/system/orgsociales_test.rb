@@ -36,8 +36,8 @@ class SectoresorgsocialTest < ApplicationSystemTestCase
     assert_content "Msip::Orgsocial creada."
 
     click_link "Editar"
-    click_link "Añadir contacto"
     skip
+    click_link "Agregar contacto"
     find(:id, /persona_attributes_nombres$/).fill_in(with: "Juan")
     find(:id, /persona_attributes_apellidos$/).fill_in(with: "Pérez")
     find(:id, /persona_attributes_sexo$/).select("M")
