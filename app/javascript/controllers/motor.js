@@ -30,15 +30,21 @@ export default class Msip__Motor {
     return purl
   }
 
+  // Si el elemento es campos de selección le configura tom-select
+  static configurarElementoTomSelect(el) {
+    if (typeof el.tomselect == 'undefined' && 
+      (el.tagName == "INPUT" || el.tagName == "SELECT")) {
+      new window.TomSelect(el, window.configuracionTomSelect)
+    }
+  }
+
+
   // Busca elementos input y select con la clase tom-select
   // y si les falta los inicializa como campos de selección
   // con TomSelect
   static configurarElementosTomSelect() {
     document.querySelectorAll('.tom-select').forEach((el) => {
-      if (typeof el.tomselect == 'undefined' && 
-        (el.tagName == "INPUT" || el.tagName == "SELECT")) {
-        new window.TomSelect(el, window.configuracionTomSelect)
-      }
+      Msip__Motor.configurarElementoTomSelect(el)
     })
   }
 
