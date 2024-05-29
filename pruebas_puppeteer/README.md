@@ -14,7 +14,7 @@ es directorio de la aplicación:
     cd test/puppeteer
     yarn init
 
-    yarn add dotenv puppeteer-core https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main
+    yarn add dotenv https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?main
 
 Después ponga sus pruebas con puppeteer en ese directorio (por ejemplo las 
 puede crear con la Grabadora de versiones recientes de Chrome), tipicamente
@@ -71,9 +71,10 @@ archivo puede especificarlo cambiando:
         timeout, '../.env'
       );
 
-Por omisión se ejecutar la prueba en un navegador sin cabeza (headless) con:
+Por omisión se ejecutará la prueba en un navegador sin cabeza (headless) con:
 
     node prueba.mjs
 
-Si prefiere ejecutarla
+Si prefiere ejecutarla en un navegador con cabeza:
+
     CONCABEZA=1 node prueba.mjs
