@@ -10,7 +10,7 @@ on Rails, PostgreSQL y la base de datos para que opere la aplicación.
 
 En tal caso desde el directorio de la aplicación ejecute:
 ```sh
-bin/pruebasjs
+bin/pruebasjs.sh
 ```
 
 Sin embargo, si prefiere usar un sistema de ensayo/prueba corriendo en otro
@@ -18,7 +18,7 @@ computador (digamos `pruebas.miservidor.org` en puerto `4300`) puede ejecutar
 las diversas pruebas con:
 
 ```sh
-IPDES=pruebas.miservidor.org PUERTODES=4300 bin/pruebasjs
+IPDES=pruebas.miservidor.org PUERTODES=4300 bin/pruebasjs.sh
 ```
 
 Esto supone que el usuario y la clave de autenticación como administrador
@@ -49,8 +49,8 @@ el archivo `.env` y use `node` para cargar la prueba
 (`msip-003-tb-departamentos.mjs` en el siguiente ejemplo):
 
 ``` 
-(. ./.env; CONCABEZA=1; IPDES=pruebas.miservidor.org; PUERTODES=4300; \
- node test/puppeteer/msip-003-tb-departamentos.mjs )
+RUTA_RELATIVA=/msip_2_2 CONCABEZA=1 IPDES=pruebas.miservidor.org PUERTODES=4300 \
+ node test/puppeteer/msip-003-tb-departamentos.mjs
 ```
 
 Para detener la ejecución y usar un depurador visual como se explica en
@@ -58,8 +58,8 @@ Chrome Developers 2022, agregue `debugger` en la parte de la prueba donde
 desea detenerla y ejecute con `--inspect-brk`
 
 ``` 
-(. ./.env; CONCABEZA=1; IPDES=pruebas.miservidor.org; PUERTODES=4300; \
- node --inspect-brk test/puppeteer/msip-003-tb-departamentos.mjs )
+RUTA_RELATIVA=/msip_2_2 CONCABEZA=1 IPDES=pruebas.miservidor.org PUERTODES=4300 \
+ node --inspect-brk test/puppeteer/msip-003-tb-departamentos.mjs
 ```
 
 Después en su navegador abra <chrome://inspect/#devices> donde
