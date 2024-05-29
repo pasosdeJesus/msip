@@ -1,10 +1,15 @@
 {
   "name": "@pasosdeJesus/pruebas_puppeteer",
-  "version": "0.0.9-a7",
+  "version": "0.1.0-a1",
   "description": "Funciones auxiliares para implementar pruebas con puppeteer en motores y aplicaciones que usan msip",
   "main": "index.mjs",
   "repository": "https://gitlab.com/pasosdeJesus/msip/-/tree/main/pruebas_puppeteer",
   "author": "Vladimir Támara Patiño vtamara@pasosdeJesus.org",
   "license": "ISC",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "@puppeteer/replay": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "puppeteer-core": "^22.10.0"
+  }
 }
