@@ -22,35 +22,21 @@ con extensión .mjs y después modifique el comienzo de cada prueba para
 quitarle la autenticación con máquina, puerto, usuario y clave fijas por 
 lo siguiente que empleará variables de ambiente:
 
-    import puppeteer from "puppeteer-core"
-    import {
-      changeSelectElement,
-      changeElementValue,
-      prepararYAutenticarDeAmbiente,
-      querySelectorsAll,
-      querySelectorAll,
-      scrollIntoViewIfNeeded,
-      typeIntoElement,
-      waitForConnected,
-      waitForElement,
-      waitForInViewport,
-      waitForSelector,
-      waitForSelectors,
-      waitForFunction,
-    } from "@pasosdeJesus/pruebas_puppeteer";
-    
-    
-    (async () => {
-    
-      let timeout = 5000;
-      let urlini, browser, page;
-      [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout);
+        import {
+          preparar,
+          prepararYAutenticarDeAmbiente,
+          terminar
+        } from "@pasosdeJesus/pruebas_puppeteer"
+        
+        (async () => {
+            let timeout = 5000
+            let urlini, runner
+            [urlini, runner] = await prepararYAutenticarDeAmbiente(timeout, preparar);
 
-      // Dejar aquí las pruebas para puppeteer
-      // Puede generarlas por ejemplo con la Grabadora de Chrome
+            // Dejar aquí las pruebas para puppeteer
+            // Puede generarlas por ejemplo con la Grabadora de Chrome
     
-      await browser.close();
-    
+            await terminar();
     })().catch(err => {
       console.error(err);
       process.exit(1);

@@ -76,23 +76,33 @@ export async function preparar(timeout = 5000, rutainicial = '/msip') {
   const runner = new Runner(new PuppeteerRunnerOwningBrowserExtension(browser, page));
   //console.log("maq=", maq);
   //console.log("runner=", runner);
-  return [maq, runner];
+  
+  await runner.runBeforeAllSteps()
+
+  await runner.runStep({
+    type: 'setViewport',
+    width: 1206,
+    height: 569,
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    isLandscape: false
+  });
+  await runner.runStep({
+    type: 'navigate',
+    url: maq + rutainicial,
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: maq + rutainicial,
+        title: 'msip 2.2.0.beta6'
+      }
+    ]
+  });
+
+  return [maq, runner, browser, page];
 
 }
-
-//    const runner = await createRunner(extension);
-//    await runner.runStep({
-//        type: 'navigate',
-//        url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2',
-//        assertedEvents: [
-//            {
-//                type: 'navigation',
-//                url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2',
-//                title: 'msip 2.2.0.beta6'
-//            }
-//        ]
-//    });
-
 
 export async function terminar(runner) {
   await runner.runAfterAllSteps()
@@ -230,7 +240,6 @@ export async function autenticar(runner, timeout, usuario, clave) {
         ]
     });
 
-    await runner.runAfterAllSteps();
 }
 
 
@@ -247,14 +256,14 @@ export async function prepararYAutenticarDeAmbiente(timeout = 5000,
     typeof process.env.CLAVE_ADMIN_PRUEBA != "undefined" ?
     process.env.CLAVE_ADMIN_PRUEBA : 'msip';
 
-  let urlini, runner;
+  let urlini, runner, browser, page;
   //Si se ejecuta el siguiente falla: console.log("rutaRelativa=", rutaRelativa)
-  [urlini, runner] = await funcionPreparar(timeout, rutaRelativa);
+  [urlini, runner, browser, page] = await funcionPreparar(timeout, rutaRelativa);
   //console.log("urlini=", urlini)
  
   //console.log("usuarioAdminPrueba=", usuarioAdminPrueba)
   await autenticar(runner, usuarioAdminPrueba, claveAdminPrueba);
-  return [urlini, runner];
+  return [urlini, runner, browser, page];
 }
  
 

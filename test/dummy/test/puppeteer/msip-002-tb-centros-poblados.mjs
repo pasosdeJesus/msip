@@ -1,359 +1,329 @@
-import puppeteer from "puppeteer-core"
 import {
-  changeSelectElement,
-  changeElementValue,
   preparar,
   prepararYAutenticarDeAmbiente,
-  querySelectorsAll,
-  querySelectorAll,
-  scrollIntoViewIfNeeded,
-  typeIntoElement,
-  waitForConnected,
-  waitForElement,
-  waitForInViewport,
-  waitForSelector,
-  waitForSelectors,
-  waitForFunction,
-} from "@pasosdeJesus/pruebas_puppeteer";
+  terminar
+} from "@pasosdeJesus/pruebas_puppeteer"
 
 (async () => {
 
   const tiempoini = performance.now();
 
-  let timeout = 15000;
-  let urlini, browser, page;
-  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
+  let timeout = 15000
+  let urlini, runner, browser, page
+  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
 
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Administrar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Administrar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 58.9375,
-        y: 20,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Administrar'
+            ],
+            [
+                '#navbarDropdownAdministrar'
+            ],
+            [
+                'xpath///*[@id="navbarDropdownAdministrar"]'
+            ],
+            [
+                'pierce/#navbarDropdownAdministrar'
+            ],
+            [
+                'text/Administrar'
+            ]
+        ],
+        offsetY: 14,
+        offsetX: 54.453125,
     });
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Tablas básicas'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Tablas básicas'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 40.9375,
-        y: 15,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Tablas básicas'
+            ],
+            [
+                'li:nth-of-type(4) > a'
+            ],
+            [
+                'xpath///*[@id="navbarSupportedContent"]/ul[2]/li[2]/ul/li[4]/a'
+            ],
+            [
+                'pierce/li:nth-of-type(4) > a'
+            ],
+            [
+                'text/Tablas básicas'
+            ]
+        ],
+        offsetY: 5,
+        offsetX: 55.453125,
     });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Centros poblados'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Centros poblados'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 96.5,
-        y: 10,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Centros poblados'
+            ],
+            [
+                '#div_contenido li:nth-of-type(1) > a'
+            ],
+            [
+                'xpath///*[@id="div_contenido"]/article/ul/li[1]/a'
+            ],
+            [
+                'pierce/#div_contenido li:nth-of-type(1) > a'
+            ],
+            [
+                'text/Centros poblados'
+            ]
+        ],
+        offsetY: 10,
+        offsetX: 111.5,
     });
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
-      [
-        'form > div:nth-of-type(1) a'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'form > div:nth-of-type(1) a'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 36.5,
-        y: 16,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'form > div:nth-of-type(1) a'
+            ],
+            [
+                'xpath///*[@id="div_contenido"]/form/div[1]/div[1]/a'
+            ],
+            [
+                'pierce/form > div:nth-of-type(1) a'
+            ]
+        ],
+        offsetY: 8,
+        offsetX: 31.5,
+        assertedEvents: [
+            {
+                type: 'navigation',
+                url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/centrospoblados/nueva.%23%3CMsip::Centropoblado::ActiveRecord_Relation:0x000008ae6f8f2e58%3E',
+                title: ''
+            }
+        ]
     });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 137.5,
-        y: 10,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Nombre *'
+            ],
+            [
+                '#centropoblado_nombre'
+            ],
+            [
+                'xpath///*[@id="centropoblado_nombre"]'
+            ],
+            [
+                'pierce/#centropoblado_nombre'
+            ]
+        ],
+        offsetY: 23,
+        offsetX: 204.5,
     });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'aaa')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'aaa');
-    } else {
-      await changeElementValue(element, 'aaa');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'div.clase_municipio span'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'div.clase_municipio span'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 100.5,
-        y: 11.65625,
-      },
+    await runner.runStep({
+        type: 'change',
+        value: 'aaa',
+        selectors: [
+            [
+                'aria/Nombre *'
+            ],
+            [
+                '#centropoblado_nombre'
+            ],
+            [
+                'xpath///*[@id="centropoblado_nombre"]'
+            ],
+            [
+                'pierce/#centropoblado_nombre'
+            ]
+        ],
+        target: 'main'
     });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 75.5,
-        y: 14.65625,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Municipio *'
+            ],
+            [
+                '#centropoblado_municipio_id-ts-control'
+            ],
+            [
+                'xpath///*[@id="centropoblado_municipio_id-ts-control"]'
+            ],
+            [
+                'pierce/#centropoblado_municipio_id-ts-control'
+            ]
+        ],
+        offsetY: 9,
+        offsetX: 101.5,
     });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 76.5,
-        y: 32.65625,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Abejorral / Antioquia'
+            ],
+            [
+                '#centropoblado_municipio_id-opt-1'
+            ],
+            [
+                'xpath///*[@id="centropoblado_municipio_id-opt-1"]'
+            ],
+            [
+                'pierce/#centropoblado_municipio_id-opt-1'
+            ]
+        ],
+        offsetY: 22,
+        offsetX: 114.5,
     });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '999')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '999');
-    } else {
-      await changeElementValue(element, '999');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '1')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '1');
-    } else {
-      await changeElementValue(element, '1');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '2')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '2');
-    } else {
-      await changeElementValue(element, '2');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Observaciones'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Observaciones'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'obs')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'obs');
-    } else {
-      await changeElementValue(element, 'obs');
-    }
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Crear'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Crear'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Código dentro del municipio'
+            ],
+            [
+                '#centropoblado_cplocal_cod'
+            ],
+            [
+                'xpath///*[@id="centropoblado_cplocal_cod"]'
+            ],
+            [
+                'pierce/#centropoblado_cplocal_cod'
+            ]
+        ],
+        offsetY: 20,
+        offsetX: 106.5,
     });
-    await Promise.all(promises);
-  }
+    await runner.runStep({
+        type: 'change',
+        value: '999',
+        selectors: [
+            [
+                'aria/Código dentro del municipio'
+            ],
+            [
+                '#centropoblado_cplocal_cod'
+            ],
+            [
+                'xpath///*[@id="centropoblado_cplocal_cod"]'
+            ],
+            [
+                'pierce/#centropoblado_cplocal_cod'
+            ]
+        ],
+        target: 'main'
+    });
+    await runner.runStep({
+        type: 'keyDown',
+        target: 'main',
+        key: 'Tab'
+    });
+    await runner.runStep({
+        type: 'keyUp',
+        key: 'Tab',
+        target: 'main'
+    });
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'body'
+            ],
+            [
+                'xpath//html/body'
+            ],
+            [
+                'pierce/body'
+            ]
+        ],
+        offsetY: 383,
+        offsetX: 9,
+    });
+    debugger
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Crear'
+            ],
+            [
+                'div.form-actions > input'
+            ],
+            [
+                'xpath///*[@id="new_centropoblado"]/div[11]/input'
+            ],
+            [
+                'pierce/div.form-actions > input'
+            ],
+            [
+                'text/Crear'
+            ]
+        ],
+        offsetY: 16,
+        offsetX: 21.5,
+        assertedEvents: [
+            {
+                type: 'navigation',
+                url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/centrospoblados/1000001',
+                title: ''
+            }
+        ]
+    });
+
+    
+//    await runner.runStep({
+//        type: 'click',
+//        target: 'main',
+//        selectors: [
+//            [
+//                'aria/Eliminar'
+//            ],
+//            [
+//                'a.btn-danger'
+//            ],
+//            [
+//                'xpath///*[@id="div_contenido"]/div[5]/a[3]'
+//            ],
+//            [
+//                'pierce/a.btn-danger'
+//            ],
+//            [
+//                'text/Eliminar'
+//            ]
+//        ],
+//        offsetY: 10,
+//        offsetX: 65.75,
+//    });
+//    await runner.runStep({
+//        type: 'waitForElement',
+//        assertedEvents: [
+//            {
+//                type: 'navigation',
+//                url: '',
+//                title: 'Msip::Centropoblado eliminado.'
+//            }
+//        ],
+//        target: 'main',
+//        selectors: [
+//            'div.alert',
+//            'xpath///*[@id="div_contenido"]/div[2]',
+//            'pierce/div.alert'
+//        ]
+//    });
+//
+
   {
     const targetPage = page;
     const promises = []; 
@@ -400,7 +370,7 @@ import {
   }
 
 
-  await browser.close();
+  await terminar();
 
   const tiempofin = performance.now();
   console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
