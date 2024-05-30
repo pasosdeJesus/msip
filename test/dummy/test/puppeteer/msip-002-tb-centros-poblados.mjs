@@ -6,11 +6,11 @@ import {
 
 (async () => {
 
-  const tiempoini = performance.now();
+  const tiempoini = performance.now()
 
   let timeout = 15000
   let urlini, runner, browser, page
-  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
+  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar)
 
     await runner.runStep({
         type: 'click',
@@ -34,7 +34,7 @@ import {
         ],
         offsetY: 14,
         offsetX: 54.453125,
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -57,7 +57,7 @@ import {
         ],
         offsetY: 5,
         offsetX: 55.453125,
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -80,7 +80,7 @@ import {
         ],
         offsetY: 10,
         offsetX: 111.5,
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -104,7 +104,7 @@ import {
                 title: ''
             }
         ]
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -124,7 +124,7 @@ import {
         ],
         offsetY: 23,
         offsetX: 204.5,
-    });
+    })
     await runner.runStep({
         type: 'change',
         value: 'aaa',
@@ -143,7 +143,7 @@ import {
             ]
         ],
         target: 'main'
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -163,7 +163,7 @@ import {
         ],
         offsetY: 9,
         offsetX: 101.5,
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -183,7 +183,7 @@ import {
         ],
         offsetY: 22,
         offsetX: 114.5,
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -203,7 +203,7 @@ import {
         ],
         offsetY: 20,
         offsetX: 106.5,
-    });
+    })
     await runner.runStep({
         type: 'change',
         value: '999',
@@ -222,17 +222,17 @@ import {
             ]
         ],
         target: 'main'
-    });
+    })
     await runner.runStep({
         type: 'keyDown',
         target: 'main',
         key: 'Tab'
-    });
+    })
     await runner.runStep({
         type: 'keyUp',
         key: 'Tab',
         target: 'main'
-    });
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -249,8 +249,7 @@ import {
         ],
         offsetY: 383,
         offsetX: 9,
-    });
-    debugger
+    })
     await runner.runStep({
         type: 'click',
         target: 'main',
@@ -280,101 +279,65 @@ import {
                 title: ''
             }
         ]
-    });
+    })
 
-    
-//    await runner.runStep({
-//        type: 'click',
-//        target: 'main',
-//        selectors: [
-//            [
-//                'aria/Eliminar'
-//            ],
-//            [
-//                'a.btn-danger'
-//            ],
-//            [
-//                'xpath///*[@id="div_contenido"]/div[5]/a[3]'
-//            ],
-//            [
-//                'pierce/a.btn-danger'
-//            ],
-//            [
-//                'text/Eliminar'
-//            ]
-//        ],
-//        offsetY: 10,
-//        offsetX: 65.75,
-//    });
-//    await runner.runStep({
-//        type: 'waitForElement',
-//        assertedEvents: [
-//            {
-//                type: 'navigation',
-//                url: '',
-//                title: 'Msip::Centropoblado eliminado.'
-//            }
-//        ],
-//        target: 'main',
-//        selectors: [
-//            'div.alert',
-//            'xpath///*[@id="div_contenido"]/div[2]',
-//            'pierce/div.alert'
-//        ]
-//    });
-//
-
-  {
-    const targetPage = page;
+   {
+    const targetPage = page
     const promises = []; 
-    promises.push(targetPage.waitForNavigation());
+    promises.push(targetPage.waitForNavigation())
 
     targetPage.on('dialog', async dialog => {
-      console.log(dialog.message());
+      console.log(dialog.message())
       await dialog.accept(); //dismiss()
     })
 
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
-    });
-    await Promise.all(promises);
-  }
+    await runner.runStep({
+        type: 'click',
+        target: 'main',
+        selectors: [
+            [
+                'aria/Eliminar'
+            ],
+            [
+                'a.btn-danger'
+            ],
+            [
+                'xpath/*[@id="div_contenido"]/div[5]/a[3]'
+            ],
+            [
+                'pierce/a.btn-danger'
+            ],
+            [
+                'text/Eliminar'
+            ]
+        ],
+        offsetY: 10,
+        offsetX: 65.75,
+    })
+   }
 
-  {
-    const targetPage = page;
-    let frame = targetPage.mainFrame();
-    await waitForElement({
-      type: 'waitForElement',
-      target: 'main',
-      frame: [
-      ],
-      selectors: [
-        [
-          'text/Msip::Centropoblado eliminado.'
+    await runner.runStep({
+        type: 'waitForElement',
+        assertedEvents: [
+            {
+                type: 'navigation',
+                url: '',
+                title: 'Msip::Centropoblado eliminado.'
+            }
+        ],
+        target: 'main',
+        selectors: [
+            'div.alert',
+            'xpath/*[@id="div_contenido"]/div[2]',
+            'pierce/div.alert'
         ]
-      ]
-    }, frame, timeout);
-  }
+    })
 
+  await terminar(runner)
 
-  await terminar();
-
-  const tiempofin = performance.now();
-  console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
+  const tiempofin = performance.now()
+  console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`)
 })().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+  console.error(err)
+  process.exit(1)
+})
