@@ -115,7 +115,26 @@ CREATE FUNCTION public.msip_agregar_o_remplazar_familiar_inverso() RETURNS trigg
 
 CREATE FUNCTION public.msip_edad_de_fechanac_fecharef(anionac integer, mesnac integer, dianac integer, anioref integer, mesref integer, diaref integer) RETURNS integer
     LANGUAGE sql IMMUTABLE
-    AS $$ SELECT CASE WHEN anionac IS NULL THEN NULL WHEN anioref IS NULL THEN NULL WHEN anioref < anionac THEN -1 WHEN mesnac IS NOT NULL AND mesnac > 0 AND mesref IS NOT NULL AND mesref > 0 AND mesnac >= mesref THEN CASE WHEN mesnac > mesref OR (dianac IS NOT NULL AND dianac > 0 AND diaref IS NOT NULL AND diaref > 0 AND dianac > diaref) THEN anioref-anionac-1 ELSE anioref-anionac END ELSE anioref-anionac END $$;
+    AS $$
+            SELECT CASE 
+              WHEN anionac IS NULL THEN NULL
+              WHEN anioref IS NULL THEN NULL
+              WHEN anioref < anionac THEN -1
+              WHEN mesnac IS NOT NULL AND mesnac > 0 
+                AND mesref IS NOT NULL AND mesref > 0 
+                AND mesnac >= mesref THEN
+                CASE 
+                  WHEN mesnac > mesref OR (dianac IS NOT NULL 
+                    AND dianac > 0 AND diaref IS NOT NULL 
+                    AND diaref > 0 AND dianac > diaref) THEN 
+                    anioref-anionac-1
+                  ELSE 
+                    anioref-anionac
+                END
+              ELSE
+                anioref-anionac
+            END 
+          $$;
 
 
 --
@@ -1266,19 +1285,24 @@ CREATE TABLE public.msip_municipio (
 --
 
 CREATE VIEW public.divipola_msip AS
- SELECT msip_departamento.deplocal_cod AS coddep,
-    msip_departamento.nombre AS departamento,
-    ((msip_departamento.deplocal_cod * 1000) + msip_municipio.munlocal_cod) AS codmun,
-    msip_municipio.nombre AS municipio,
-    (((msip_departamento.deplocal_cod * 1000000) + (msip_municipio.munlocal_cod * 1000)) + msip_centropoblado.cplocal_cod) AS codcp,
-    msip_centropoblado.nombre AS centropoblado,
-    msip_centropoblado.tcentropoblado_id AS tipocp,
-    msip_centropoblado.id AS msip_idcp
-   FROM ((public.msip_departamento
-     JOIN public.msip_municipio ON ((msip_municipio.departamento_id = msip_departamento.id)))
-     JOIN public.msip_centropoblado ON ((msip_centropoblado.municipio_id = msip_municipio.id)))
-  WHERE ((msip_departamento.pais_id = 170) AND (msip_centropoblado.fechadeshabilitacion IS NULL))
-  ORDER BY msip_departamento.nombre, msip_municipio.nombre, msip_centropoblado.nombre;
+ SELECT sd.deplocal_cod AS coddep,
+    upper((sd.nombre)::text) AS departamento,
+    ((sd.deplocal_cod * 1000) + sm.munlocal_cod) AS codmun,
+    upper((sm.nombre)::text) AS municipio,
+    (((sd.deplocal_cod * 1000000) + (sm.munlocal_cod * 1000)) + sc.cplocal_cod) AS codcp,
+    upper((sc.nombre)::text) AS centropoblado,
+    sc.tcentropoblado_id AS tipocp,
+    sc.latitud,
+    sc.longitud,
+    sc.observaciones,
+    sc.id AS msip_idcp,
+    sm.id AS msip_idm,
+    sd.id AS msip_idd
+   FROM ((public.msip_centropoblado sc
+     JOIN public.msip_municipio sm ON (((sc.fechadeshabilitacion IS NULL) AND (sm.fechadeshabilitacion IS NULL) AND (sc.municipio_id = sm.id))))
+     JOIN public.msip_departamento sd ON (((sd.fechadeshabilitacion IS NULL) AND ((sd.nombre)::text <> 'EXTERIOR'::text) AND (sd.pais_id = 170) AND (sm.departamento_id = sd.id))))
+  WHERE (sc.id < 100000)
+  ORDER BY (upper((sd.nombre)::text)), (upper((sm.nombre)::text)), (upper((sc.nombre)::text));
 
 
 --
@@ -2958,6 +2982,14 @@ ALTER TABLE ONLY public.msip_tipoorg
 
 
 --
+-- Name: msip_trelacion msip_trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_trelacion
+    ADD CONSTRAINT msip_trelacion_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: msip_trivalente msip_trivalente_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3019,14 +3051,6 @@ ALTER TABLE ONLY public.msip_persona
 
 ALTER TABLE ONLY public.msip_tdocumento
     ADD CONSTRAINT tdocumento_pkey PRIMARY KEY (id);
-
-
---
--- Name: msip_trelacion trelacion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.msip_trelacion
-    ADD CONSTRAINT trelacion_pkey PRIMARY KEY (id);
 
 
 --
@@ -3114,6 +3138,13 @@ CREATE INDEX index_msip_ubicacion_on_municipio_id ON public.msip_ubicacion USING
 --
 
 CREATE INDEX index_msip_ubicacion_on_pais_id ON public.msip_ubicacion USING btree (pais_id);
+
+
+--
+-- Name: index_msip_ubicacionpre_on_vereda_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_msip_ubicacionpre_on_vereda_id ON public.msip_ubicacionpre USING btree (vereda_id);
 
 
 --
