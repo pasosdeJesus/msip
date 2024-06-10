@@ -1,10 +1,10 @@
 # Requisitos
 
-* Recomendamos emplear la distribución adJ 7.3 del sistema operativo OpenBSD,
+* Recomendamos emplear la distribución adJ 7.5 del sistema operativo OpenBSD,
   que ya incluye configurada la pila de software que presentamos a 
   continuación.
   Puedes consultar sobre el uso de Ruby on Rails en adJ en
-  <http://pasosdejesus.github.io/usuario_adJ/conf-programas.html#ruby>
+  <https://pasosdejesus.org/doc/usuario_adJ/conf-programas.html#ruby>
 * Ruby versión >= 3.3.1
 * Ruby on Rails >= 7.1.3
 * PostgreSQL >= 16.2 con extensión `unaccent` disponible y posibilidad
