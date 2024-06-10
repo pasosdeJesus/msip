@@ -9,7 +9,7 @@
 
 "@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect":
   version "0.1.0-a1"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect#ce26bafa5b583aa5629b549c93f9b3a11aabf28f"
+  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect#660f252d1479eada50ec0b6f41373899ce7b8587"
   dependencies:
     "@puppeteer/replay" "^3.0.0"
     dotenv "^16.4.5"
@@ -115,9 +115,9 @@ bare-path@^2.0.0, bare-path@^2.1.0:
     bare-os "^2.1.0"
 
 bare-stream@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.0.1.tgz#c8608b3669c36541e2da8cffe886adec2d6d9c0a"
-  integrity sha512-ubLyoDqPnUf5o0kSFp709HC0WRZuxVuh4pbte5eY95Xvx5bdvz07c2JFmXBfqqe60q+9PJ8S4X5GRvmcNSKMxg==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.1.2.tgz#46a1bec0a10946608ade369c170179706b9e8e1c"
+  integrity sha512-az/7TFOh4Gk9Tqs1/xMFq5FuFoeZ9hZ3orsM2x69u8NXVUDXZnpdhG8mZY/Pv6DF954MGn+iIt4rFrG34eQsvg==
   dependencies:
     streamx "^2.18.0"
 
