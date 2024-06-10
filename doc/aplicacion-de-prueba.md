@@ -15,7 +15,7 @@ predeterminada):
 $ doas su - _postgresql
 $ createuser -Upostgres -h /var/www/var/run/postgresql/ -s msipdes
 $ psql -Upostgres -h /var/www/var/run/postgresql/
-psql (12.5)
+psql (16.2)
 Type "help" for help.
 postgres=# ALTER USER msipdes WITH PASSWORD 'nuevaclave';
 postgres=# \q
