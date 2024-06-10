@@ -11,7 +11,8 @@ Como administrador de PostgreSQL (en adJ suele ser la cuenta
 `_postgresql` crea un usuario para la base de datos (digamos `msipdes` 
 que es usado en los ejemplos y archivos de configuración de manera 
 predeterminada):
-```
+
+```sh
 $ doas su - _postgresql
 $ createuser -Upostgres -h /var/www/var/run/postgresql/ -s msipdes
 $ psql -Upostgres -h /var/www/var/run/postgresql/
@@ -32,6 +33,7 @@ la interacción con las bases de datos del usuario `msipdes`
 el usuario y su clave al archivo `~/.pgpass`:
 ```
 echo "*:*:*:msipdes:nuevaclave" >> ~/.pgpass
+chmod 0600 ~/.pgpass 
 ```
 
 Crea la base de datos para el modo de desarrollo que se llama
@@ -86,10 +88,9 @@ Con el editor remplaza:
 * El nombre de la base en modo de pruebas en una línea de la forma `BD_PRUEBA=msipdes_prueba`
 
 Y desde el mismo directorio `test/dummy` prepárala para operar (suponiendo
-que ya creaste la base según se indicó en sección 1.2):
+que ya creaste la base según se indicó en la sección 1.2):
 ```sh
-bin/rails db:drop db:create db:setup db:prepare
-bin/rails msip:indices
+bin/rails db:drop db:create db:setup db:seed msip:indices
 ```
 
 # 4. Iniciar la aplicación de prueba
@@ -98,15 +99,15 @@ Para iniciar la aplicación te sugerimos usar el script `bin/corre` que
 emplea el archivo `.env`, que debes editar antes para poner el puerto
 en el que quieres correr la aplicación de prueba, lo encuentras en una 
 línea de la forma `PUERTODES=3000` (si tienes un cortafuegos recuerda
-abrir ese puerto) y en una línea de la forma `IPDES=192.168.10.1` pon
+abrir ese puerto) y en una línea de la forma `IPDES=127.0.0.1` pon
 la IP del servidor donde operas.  Después ejecuta:
 ```
 bin/corre
 ```
 Al iniciar de esta forma se actualizarán indices, se borraran caches y
-directorios con recursos HTML, CSS y Javascript (`public/packs` y 
-`public/msip/assets`) y se volveran a generar con sprockets y con 
-webpacker.    Si ya lo ejecutaste la primera vez, puedes obviar todas 
+directorios con recursos HTML, CSS y Javascript (`public/msip/assets`) 
+y se volveran a generar con sprockets.    
+Si ya lo ejecutaste la primera vez, puedes obviar todas 
 estas preparación e  iniciar más rápido con:
 ```
 R=1 bin/corre
