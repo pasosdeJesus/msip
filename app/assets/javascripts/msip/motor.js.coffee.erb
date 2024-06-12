@@ -19,11 +19,11 @@
 # @idsel es identificación del select
 # @nuevasop Arreglo de hashes con nuevas opciones, cada una tiene propiedades
 #   para la id (por omision id) y la etiqueta (por omisión nombre).
-# @usachosen Es verdadero si y solo si el cuadro de selección usa chosen
+# @usatomselect Es verdadero si y solo si el cuadro de selección usa tom-select
 # @cid campo con id en cada elemento de @nuevasop por omision id
 # @cetiqueta campo con etiqueta en cada elemento de @nuevasop por omision nombre
 # @opvacia Incluye opción vacia entre las posibles
-@msip_remplaza_opciones_select = (idsel, nuevasop, usachosen = false, cid = 'id',
+@msip_remplaza_opciones_select = (idsel, nuevasop, usatomselect = false, cid = 'id',
   cetiqueta = 'nombre', opvacia = false) ->
   s = $("#" + idsel)
   if (s.length != 1)
@@ -42,8 +42,8 @@
     nh = nh + ">" + tx + "</option>" 
   )
   s.html(nh)
-  if usachosen
-    $('#' + idsel).trigger("chosen:updated");
+  if usatomselect
+    Msip__Motor.refrescarElementoTomSelect(document.querySelector('#' + idsel))
   return
 
 # Escapa cadena por presentar para evitar HTML
@@ -72,6 +72,7 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
+      debugger
       conch = $(r).hasOwnProperty('chosen')
       msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
     )
@@ -98,6 +99,7 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
+      debugger
       conch = $(r).hasOwnProperty('chosen')
       msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
     )
