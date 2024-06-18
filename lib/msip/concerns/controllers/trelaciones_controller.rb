@@ -33,7 +33,12 @@ module Msip
           end
 
           def atributos_form
-            atributos_transf_habilitado
+            atributos_transf_habilitado - [
+              :fechacreacion_localizada,
+              "fechacreacion_localizada",
+            ] + [
+              :fechacreacion
+            ]
           end
 
           def validar_conjunto_inv_inv_identidad(validaciones)

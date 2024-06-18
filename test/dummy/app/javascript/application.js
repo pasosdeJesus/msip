@@ -30,12 +30,6 @@ window.configuracionTomSelect = {
   }
 }
 
-import 'bootstrap-datepicker'
-import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js'
-
-import Msip__Motor from "./controllers/msip/motor"
-window.Msip__Motor = Msip__Motor
-
 import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
 window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
 
