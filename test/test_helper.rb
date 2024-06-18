@@ -39,7 +39,6 @@ PRUEBA_CENTROPOBLADO = {
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
-  fechadeshabilitacion: "2014-08-04",
   municipio_id: 1,
   tcentropoblado_id: "CAS",
 }
@@ -116,7 +115,6 @@ PRUEBA_MUNICIPIO = {
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
-  fechadeshabilitacion: "2014-08-04",
   departamento_id: 1,
 }
 
@@ -305,6 +303,5 @@ PRUEBA_VEREDA = {
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
-  fechadeshabilitacion: "2014-08-04",
   municipio_id: 1417,
 }

@@ -59,7 +59,7 @@ module Msip
       assert_template :edit
     end
 
-    test "post: crea una centropoblado 1" do
+    test "post: crea un centropoblado 1" do
       assert_difference("Msip::Centropoblado.count") do
         post admin_centrospoblados_url, params: { centropoblado: PRUEBA_CENTROPOBLADO }
         # puts response.body
@@ -70,9 +70,8 @@ module Msip
       )
     end
 
-    test "post: redirige a la centropoblado creada" do
+    test "post: redirige al centropoblado creado" do
       post admin_centrospoblados_url, params: { centropoblado: PRUEBA_CENTROPOBLADO }
-
       assert_response :found
     end
 
