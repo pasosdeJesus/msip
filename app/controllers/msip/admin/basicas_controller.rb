@@ -33,19 +33,44 @@ module Msip
             r.exclude?(:fechadeshabilitacion_localizada) &&
             r.exclude?(:fechadeshabilitacion) &&
             r.exclude?("fechadeshabilitacion")
-          r << "fechadeshabilitacion_localizada"
+          r << "fechadeshabilitacion"
         end
         r
       end
 
       # Campos por mostrar en presentación de un registro
       def atributos_show
-        atributos_transf_habilitado
+        atributos_transf_habilitado - [
+          :fechacreacion,
+          "fechacreacion",
+          :fechacreacion_localizada,
+          "fechacreacion_localizada",
+          :fechadeshabilitacion,
+          "fechadeshabilitacion",
+          :fechadeshabilitacion_localizada,
+          "fechadeshabilitacion_localizada"
+        ] + [
+          :fechacreacion_localizada,
+          :fechadeshabilitacion_localizada
+        ]
       end
 
       # Campos que se presentar en formulario
       def atributos_form
-        atributos_transf_habilitado - ["id", :id]
+        l = atributos_transf_habilitado - [
+          "id", 
+          :id,
+          "fechacreacion",
+          :fechacreacion_localizada,
+          "fechacreacion_localizada",
+          "fechadeshabilitacion",
+          :fechadeshabilitacion_localizada,
+          "fechadeshabilitacion_localizada"
+        ] | [
+          :fechacreacion,
+          :fechadeshabilitacion
+        ]
+        l
       end
 
       def index_reordenar(c)

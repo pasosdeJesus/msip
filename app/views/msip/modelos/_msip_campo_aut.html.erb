@@ -174,7 +174,7 @@
 <% else %>
     <% if (atr.class == String || atr.class == Symbol) && 
         (atr.to_s[0, 5] == 'fecha' || atr.to_s[-11..-1] == '_localizada')  %>
-      <% atinternos.merge!({ "data-behaviour" => "datepicker"}) %>
+      <% atinternos.merge!({ type: "date"}) %>
       <%= f.input atr.to_sym,
         as:  :string,
         autocomplete: "off",
