@@ -45,8 +45,17 @@ module Msip
           end
 
           def atributos_show_msip
-            atributos_transf_habilitado +
-              [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
+            atributos_transf_habilitado - [
+              :fechadeshabilitacion,
+              "fechadeshabilitacion"
+            ] + [
+              :fechadeshabilitacion_localizada,
+              :svgcdx,
+              :svgcdy,
+              :svgcdancho,
+              :svgcdalto,
+              :svgruta
+            ]
           end
 
           def atributos_show
@@ -54,7 +63,9 @@ module Msip
           end
 
           def atributos_form
-            atributos_transf_habilitado
+            atributos_transf_habilitado -
+              [ :fechacreacion_localizada ] +
+              [ :fechacreacion ]
           end
 
           def genclase

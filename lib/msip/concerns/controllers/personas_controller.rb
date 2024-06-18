@@ -224,7 +224,7 @@ module Msip
             ] + [ 
               etiqueta_persona_attributes:  [
                 :etiqueta_id, 
-                :fecha_localizada,
+                :fecha,
                 :id,
                 :observaciones,
                 :usuario_id,

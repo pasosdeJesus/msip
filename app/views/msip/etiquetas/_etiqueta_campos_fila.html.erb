@@ -27,13 +27,14 @@
       } %>
   </div>
   <div class="div-tabla-celda">
-    <%= f.input :fecha_localizada,
+    <%= f.input :fecha,
       label: false,
       :input_html => {
-        "data-behaviour" => "datepicker",
-        value: Msip::FormatoFechaHelper.fecha_estandar_local(Date.today),
-        class: 'deshabilitado'},
-        :as => :string %>
+        class: 'deshabilitado',
+        type: "date",
+        value: f.object.fecha || Date.today
+      },
+      :as => :string %>
   </div>
   <div class="div-tabla-celda">
     <%= f.association :etiqueta,
@@ -50,8 +51,7 @@
       label: false,
       :input_html => {
         rows: 3
-      }
-    %>
+      } %>
   </div>
   <div class="div-tabla-celda">
     <%= f.input :id, as: :hidden %>

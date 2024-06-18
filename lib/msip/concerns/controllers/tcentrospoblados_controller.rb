@@ -28,7 +28,16 @@ module Msip
           end
 
           def atributos_form
-            atributos_show
+            l= atributos_show - [
+              "fechacreacion_localizada",
+              :fechacreacion_localizada,
+              "fechadeshabilitacion_localizada",
+              :fechadeshabilitacion_localizada,
+            ] + [
+              :fechacreacion,
+              :fechadeshabilitacion
+            ]
+            l
           end
 
           def genclase

@@ -61,7 +61,15 @@ module Msip
 
           def atributos_form
             Msip::Municipio.conf_presenta_nombre_con_origen = true
-            atributos_transf_habilitado - [:id, "id", :pais, "pais"]
+            atributos_transf_habilitado - [
+              :id, 
+              "id", 
+              :fechacreacion_localizada,
+              :pais, 
+              "pais"
+            ] + [
+              :fechacreacion
+            ]
           end
 
           def genclase

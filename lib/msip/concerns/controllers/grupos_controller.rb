@@ -40,8 +40,8 @@ module Msip
             end
             r += [
               "observaciones",
-              "fechacreacion_localizada",
-              "fechadeshabilitacion_localizada",
+              "fechacreacion",
+              "fechadeshabilitacion",
             ]
             r
           end

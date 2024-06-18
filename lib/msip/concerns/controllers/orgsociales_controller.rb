@@ -24,7 +24,7 @@ module Msip
               { orgsocial_persona: [] },
               :web,
               :habilitado,
-              :created_at_localizada,
+              :created_at,
             ]
           end
 
@@ -46,7 +46,13 @@ module Msip
           end
 
           def atributos_form
-            a = atributos_show - [:id, :created_at_localizada]
+            a = atributos_show - [
+              :id, 
+              :created_at_localizada, 
+              :fechadeshabilitacion_localizada
+            ] + [
+              :fechadeshabilitacion
+            ]
             a[a.index(:grupoper_id)] = :grupoper
             a
           end

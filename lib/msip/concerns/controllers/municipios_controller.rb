@@ -50,15 +50,36 @@ module Msip
           end
 
           def atributos_show
-            atributos_transf_habilitado +
-              [:svgcdx, :svgcdy, :svgcdancho, :svgcdalto, :svgruta]
+            l = atributos_transf_habilitado - [
+              :fechadeshabilitacion,
+              "fechadeshabilitacion"
+            ]
+           l += [
+              :fechadeshabilitacion_localizada,
+              :svgcdx,
+              :svgcdy,
+              :svgcdancho,
+              :svgcdalto,
+              :svgruta
+            ]
+           l
           end
 
           def atributos_form
             Msip::Departamento.conf_presenta_nombre_con_origen = true
             atributos_transf_habilitado -
-              [:id, "id", :pais, "pais", :etiqueta_ids] +
-              [etiqueta_ids: []]
+              [
+                :id,
+                "id",
+                :fechacreacion_localizada,
+                :pais,
+                "pais",
+                :etiqueta_ids
+              ] +
+              [
+                :fechacreacion,
+                etiqueta_ids: [],
+              ]
           end
 
           def genclase
