@@ -105,6 +105,18 @@ export async function run(extension) {
         hasTouch: false,
         isLandscape: false
     });
+    await runner.runStep({
+        type: 'navigate',
+        url: 'http://servidor.org:4300/msip_2_2/admin/estadossol',
+        assertedEvents: [
+            {
+                type: 'navigation',
+                url: 'http://servidor.org:4300/msip_2_2/admin/estadossol',
+                title: 'msip 2.2.0.beta6'
+            }
+        ]
+    });
+
 ```
 y agregue al comienzo:
 ```
