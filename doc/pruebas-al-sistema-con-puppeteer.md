@@ -16,8 +16,8 @@ Como ilustramos en <https://github.com/rails/rails/issues/49688> desde rails 7.1
 Aunque las pruebas típicamente corren en un navegador sin cabeza (del inglés 
 _headless_), es decir que el navegador se ejecuta en la CPU y la memoria 
 del computador pero desconectado del vídeo, del teclado y del ratón, por lo menos 
-en adJ 7.5 que incluye chromium 122.06261.111 con puppeteer 22 no opera el modo headless,
-por lo que es necesario correr las pruebas en un navegador que corre localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
+en adJ 7.5 que incluye chromium 122.06261.111 no opera el modo headless,
+por lo que con adJ es necesario correr las pruebas en un navegador que corra localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
  
 
 ## Ejecución de una sola prueba
@@ -141,7 +141,46 @@ Por
   console.error(err);
   process.exit(1);
 });
+```
 
+Si la prueba tiene dialogos de confirmación por ejemplo para eliminar, rodee el respectivo `runner.runStep` como se ejemplifica a continuación:
+
+```
+  {
+    const targetPage = page
+    const promises = []; 
+    promises.push(targetPage.waitForNavigation())
+
+    targetPage.on('dialog', async dialog => {
+      console.log(dialog.message())
+      await dialog.accept(); //dismiss()
+    })
+
+    await runner.runStep({
+      type: 'click',
+      target: 'main',
+      selectors: [
+        [
+          'aria/Eliminar'
+        ],
+        [
+          'a.btn-danger'
+        ],
+        [
+          'xpath///*[@id="div_contenido"]/div[4]/a[3]'
+        ],
+        [
+          'pierce/a.btn-danger'
+        ],
+        [
+          'text/Eliminar'
+        ]
+      ],
+      offsetY: 30,
+      offsetX: 40.75,
+    });
+  }
+```
 
 
 
