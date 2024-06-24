@@ -13,14 +13,14 @@ Como ilustramos en <https://github.com/rails/rails/issues/49688> desde rails 7.1
 | Uso de racc | No | Si | Si |
 | Punto de montaje | / | Configurable en `RUTA_RELATIVA` | Configurable en `RUTA_RELATIVA` |
 
-Por esto para las pruebas al sistema con pupeeteer recomendamos y preferimos una aplicación en modo desarrollo corriendo y usable con un navegador bien desde el computador donde hace
-las pruebas o bien uno remoto.
+Aunque las pruebas típicamente corren en un navegador sin cabeza (del inglés 
+_headless_), es decir que el navegador se ejecuta en la CPU y la memoria 
+del computador pero desconectado del vídeo, del teclado y del ratón, por lo menos 
+en adJ 7.5 que incluye chromium 122.06261.111 con puppeteer 22 no opera el modo headless,
+por lo que es necesario correr las pruebas en un navegador que corre localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
+ 
 
 ## Ejecución de una sola prueba
-
-Las pruebas típicamente corren en un navegador sin cabeza (del inglés 
-_headless_), es decir que el navegador se ejecuta en la CPU y la memoria 
-del computador pero desconectado del vídeo, del teclado y del ratón.
 
 Suponiendo que correrá las pruebas desde su computador personal pero empleará un
 sistema de desarrollo corriendo en un servidor remoto, digamos  `desarrollo.miservidor.org` en el puerto `4300` en su computador clone las fuentes de msip y 
@@ -40,14 +40,7 @@ Es posible correr la aplicación en en el mismo computador donde corre las
 pruebas puppeteer --siempre y cuando haya configurado el ambiente Ruby 
 on Rails, PostgreSQL y la base de datos para que opere la aplicación.
 
-## Ejecuar una sóla prueba
-
-
-
-La primera herramienta (además visual) para depurar las pruebas es ejecutarlas
-en un navegador con cabeza, es decir que presente en pantalla lo que hace
-y que permita la interacción con el teclado y el ratón (además de lo que
-haga la prueba).
+## Depurar una prueba
 
 Para esto ejecute de la misma manera explicada en la sección anterior pero
 agregando la variable de ambiente `CONCABEZA=1` por ejemplo:
@@ -80,6 +73,77 @@ debe presionar.  Al hacerlo se abrirá una consola de DevTools conectada
 a la ejecución de la prueba. Continúe en este la ejecución y notará que
 se detiene en la instrucción debugger y podrá usar esta herramienta
 como típicamente se usa para revisar el estado o poner puntos de ruptura.
+
+
+## Crear una prueba
+
+Abra en el navegador la aplicación, pase la autenticación,
+abra el inspector (DevTools) elija Grabadora y comience a grabar
+una tarea típica. En general como parte de la misma tarea elimina la información
+que agregue.
+
+
+Una vez concluya la tarea típica detenga la grabación y exportela en formato @puppeteer/replay.
+
+Edite el archivo generado y elimine del comienzo:
+```
+import url from 'url';
+import { createRunner } from '@puppeteer/replay';
+
+export async function run(extension) {
+    const runner = await createRunner(extension);
+
+    await runner.runBeforeAllSteps();
+
+    await runner.runStep({
+        type: 'setViewport',
+        width: 1263,
+        height: 529,
+        deviceScaleFactor: 1,
+        isMobile: false,
+        hasTouch: false,
+        isLandscape: false
+    });
+```
+y agregue al comienzo:
+```
+import {
+  preparar,
+  prepararYAutenticarDeAmbiente,
+  terminar
+} from "@pasosdeJesus/pruebas_puppeteer"
+
+(async () => {
+
+  const tiempoini = performance.now()
+
+  let timeout = 15000
+  let urlini, runner, browser, page
+  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar)
+```
+
+Al final de la prueba cambie
+```
+    await runner.runAfterAllSteps();
+}
+
+if (process && import.meta.url === url.pathToFileURL(process.argv[1]).href) {
+    run()
+}
+```
+Por
+``` 
+  await terminar(runner)
+
+  const tiempofin = performance.now();
+  console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
+})().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
+
+
+
 
 En tal caso desde el directorio de la aplicación ejecute:
 ```sh
