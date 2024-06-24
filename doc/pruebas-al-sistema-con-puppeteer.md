@@ -18,7 +18,8 @@ _headless_), es decir que el navegador se ejecuta en la CPU y la memoria
 del computador pero desconectado del vídeo, del teclado y del ratón, por lo menos 
 en adJ 7.5 que incluye chromium 122.06261.111 no opera el modo headless,
 por lo que con adJ es necesario correr las pruebas en un navegador que corra localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
- 
+
+## Ejecutar todas las pruebas 
 
 ## Ejecución de una sola prueba
 
@@ -61,7 +62,7 @@ RUTA_RELATIVA=/msip_2_2 CONCABEZA=1 IPDES=pruebas.miservidor.org PUERTODES=4300 
 Para detener la ejecución y usar un depurador visual como se explica en
 Chrome Developers 2022, agregue `debugger` en la parte de la prueba donde 
 desea detenerla y ejecute con `--inspect-brk`
-
+  
 ``` 
 RUTA_RELATIVA=/msip_2_2 CONCABEZA=1 IPDES=pruebas.miservidor.org PUERTODES=4300 \
  node --inspect-brk test/puppeteer/msip-003-tb-departamentos.mjs
