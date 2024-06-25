@@ -166,7 +166,7 @@ export async function autenticar(runner, timeout, usuario, clave) {
     });
     await runner.runStep({
         type: 'change',
-        value: 'msip',
+        value: usuario,
         selectors: [
             [
                 'aria/Usuario'
@@ -195,7 +195,7 @@ export async function autenticar(runner, timeout, usuario, clave) {
     });
     await runner.runStep({
         type: 'change',
-        value: 'msip',
+        value: clave
         selectors: [
             [
                 'aria/Clave'
