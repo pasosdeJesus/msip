@@ -21,6 +21,25 @@ por lo que con adJ es necesario correr las pruebas en un navegador que corra loc
 
 ## Ejecutar todas las pruebas 
 
+Para lanzar una aplicación de prueba localmente en el puerto `$PUERTOPRU` (definido en `.env`) 
+y ejecutar las pruebas localmente:
+```sh
+bin/pruebasjs.sh
+```
+
+Sin embargo, si prefiere usar un sistema de ensayo/prueba corriendo en otro
+computador (digamos `pruebas.miservidor.org` en puerto `4300`) puede ejecutar 
+las diversas pruebas con:
+
+```sh
+IPDES=pruebas.miservidor.org PUERTOPRU=4300 bin/pruebasjs.sh
+```
+
+Esto supone que el usuario y la clave de autenticación como administrador
+las ha definido en el archivo .env en las variables `USUARIO_ADMIN_PRUEBA` y
+`CLAVE_ADMIN_PRUEBA`.
+
+
 ## Ejecución de una sola prueba
 
 Suponiendo que correrá las pruebas desde su computador personal pero empleará un
@@ -196,23 +215,6 @@ Si la prueba tiene dialogos de confirmación por ejemplo para eliminar, rodee el
 ```
 
 
-
-En tal caso desde el directorio de la aplicación ejecute:
-```sh
-bin/pruebasjs.sh
-```
-
-Sin embargo, si prefiere usar un sistema de ensayo/prueba corriendo en otro
-computador (digamos `pruebas.miservidor.org` en puerto `4300`) puede ejecutar 
-las diversas pruebas con:
-
-```sh
-IPDES=pruebas.miservidor.org PUERTODES=4300 bin/pruebasjs.sh
-```
-
-Esto supone que el usuario y la clave de autenticación como administrador
-las ha definido en el archivo .env en las variables `USUARIO_ADMIN_PRUEBA` y
-`CLAVE_ADMIN_PRUEBA`.
 
 
 # Depurar
