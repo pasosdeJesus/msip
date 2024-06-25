@@ -62,7 +62,7 @@ if (test "$IPDES" = "127.0.0.1") then {
   echo "CORRE_PID=$CORRE_PID"
 } fi;
 
-if (test "$CORRE_PID" = "") then {
+if (test "$CORRE_PID" = "" -a "$IPDES" = "127.0.0.1") then {
   echo "No pudo determinarse PID del proceso con el lado del servidor"
   exit 1;
 } fi;
