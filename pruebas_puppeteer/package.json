@@ -1,6 +1,6 @@
 {
   "name": "@pasosdeJesus/pruebas_puppeteer",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Funciones auxiliares para implementar pruebas con puppeteer en motores y aplicaciones que usan msip",
   "main": "index.mjs",
   "repository": "https://gitlab.com/pasosdeJesus/msip/-/tree/main/pruebas_puppeteer",

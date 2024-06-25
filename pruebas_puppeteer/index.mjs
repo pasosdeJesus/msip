@@ -195,7 +195,7 @@ export async function autenticar(runner, timeout, usuario, clave) {
     });
     await runner.runStep({
         type: 'change',
-        value: clave
+        value: clave,
         selectors: [
             [
                 'aria/Clave'
