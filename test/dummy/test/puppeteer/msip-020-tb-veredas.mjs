@@ -1,430 +1,441 @@
-import puppeteer from "puppeteer-core"
 import {
-  changeSelectElement,
-  changeElementValue,
   preparar,
   prepararYAutenticarDeAmbiente,
-  querySelectorsAll,
-  querySelectorAll,
-  scrollIntoViewIfNeeded,
-  typeIntoElement,
-  waitForConnected,
-  waitForElement,
-  waitForInViewport,
-  waitForSelector,
-  waitForSelectors,
-  waitForFunction,
-} from "@pasosdeJesus/pruebas_puppeteer";
+  terminar
+} from "@pasosdeJesus/pruebas_puppeteer"
 
 (async () => {
 
-  const tiempoini = performance.now();
+  const tiempoini = performance.now()
 
-  let timeout = 5000;
-  let urlini, browser, page;
-  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
+  let timeout = 15000
+  let urlini, runner, browser, page
+  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar)
 
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Administrar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+      ],
       [
-        'aria/Administrar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 58.9375,
-        y: 20,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
+        '#navbarDropdownAdministrar'
+      ],
       [
-        'aria/Tablas básicas'
+        'xpath///*[@id="navbarDropdownAdministrar"]'
+      ],
+      [
+        'pierce/#navbarDropdownAdministrar'
+      ],
+      [
+        'text/Administrar'
       ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+    ],
+    offsetY: 27,
+    offsetX: 21.953125,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Tablas básicas'
+      ],
+      [
+        'li:nth-of-type(4) > a'
+      ],
+      [
+        'xpath///*[@id="navbarSupportedContent"]/ul[2]/li[2]/ul/li[4]/a'
+      ],
+      [
+        'pierce/li:nth-of-type(4) > a'
+      ],
+      [
+        'text/Tablas básicas'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 40.9375,
-        y: 15,
-      },
-    });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+    ],
+    offsetY: 7,
+    offsetX: 82.953125,
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: ' '
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: ' ',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Veredas'
       ],
       [
-        'li:nth-of-type(19) > a'
+        'li:nth-of-type(21) > a'
       ],
       [
-        'xpath///*[@id="div_contenido"]/article/ul/li[19]/a'
+        'xpath///*[@id="div_contenido"]/article/ul/li[21]/a'
       ],
       [
-        'pierce/li:nth-of-type(19) > a'
-      ],
-      [
-        'text/Veredas'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Veredas'
-      ],
-      [
-        'li:nth-of-type(19) > a'
-      ],
-      [
-        'xpath///*[@id="div_contenido"]/article/ul/li[19]/a'
-      ],
-      [
-        'pierce/li:nth-of-type(19) > a'
+        'pierce/li:nth-of-type(21) > a'
       ],
       [
         'text/Veredas'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 29.5,
-        y: 14.5,
-      },
-    });
-  }
+    ],
+    offsetY: 8,
+    offsetX: 47.5,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'form > div:nth-of-type(1) a'
+      ],
+      [
+        'xpath///*[@id="div_contenido"]/form/div[1]/div[1]/a'
+      ],
+      [
+        'pierce/form > div:nth-of-type(1) a'
+      ]
+    ],
+    offsetY: 24,
+    offsetX: 46.5,
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/veredas/nueva.%23%3CMsip::Vereda::ActiveRecord_Relation:0x00000f66515ee068%3E',
+        title: ''
+      }
+    ]
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/Nombre *'
+      ],
+      [
+        '#vereda_nombre'
+      ],
+      [
+        'xpath///*[@id="vereda_nombre"]'
+      ],
+      [
+        'pierce/#vereda_nombre'
+      ]
+    ],
+    offsetY: 35,
+    offsetX: 196.5,
+  });
+  await runner.runStep({
+    type: 'change',
+    value: 'verx',
+    selectors: [
+      [
+        'aria/Nombre *'
+      ],
+      [
+        '#vereda_nombre'
+      ],
+      [
+        'xpath///*[@id="vereda_nombre"]'
+      ],
+      [
+        'pierce/#vereda_nombre'
+      ]
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/Ábrego / Norte de Santander'
+      ],
+      [
+        '#vereda_municipio_id-opt-1'
+      ],
+      [
+        'xpath///*[@id="vereda_municipio_id-opt-1"]'
+      ],
+      [
+        'pierce/#vereda_municipio_id-opt-1'
+      ]
+    ],
+    offsetY: 7,
+    offsetX: 177.5,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/Código dentro del municipio'
+      ],
+      [
+        '#vereda_verlocal_id'
+      ],
+      [
+        'xpath///*[@id="vereda_verlocal_id"]'
+      ],
+      [
+        'pierce/#vereda_verlocal_id'
+      ]
+    ],
+    offsetY: 18,
+    offsetX: 106.5,
+  });
+  await runner.runStep({
+    type: 'change',
+    value: '10000',
+    selectors: [
+      [
+        'aria/Código dentro del municipio'
+      ],
+      [
+        '#vereda_verlocal_id'
+      ],
+      [
+        'xpath///*[@id="vereda_verlocal_id"]'
+      ],
+      [
+        'pierce/#vereda_verlocal_id'
+      ]
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'change',
+    value: '1',
+    selectors: [
+      [
+        'aria/Latitud'
+      ],
+      [
+        '#vereda_latitud'
+      ],
+      [
+        'xpath///*[@id="vereda_latitud"]'
+      ],
+      [
+        'pierce/#vereda_latitud'
+      ]
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'change',
+    value: '1',
+    selectors: [
+      [
+        'aria/Longitud'
+      ],
+      [
+        '#vereda_longitud'
+      ],
+      [
+        'xpath///*[@id="vereda_longitud"]'
+      ],
+      [
+        'pierce/#vereda_longitud'
+      ]
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'change',
+    value: 'verx',
+    selectors: [
+      [
+        'aria/Observaciones'
+      ],
+      [
+        '#vereda_observaciones'
+      ],
+      [
+        'xpath///*[@id="vereda_observaciones"]'
+      ],
+      [
+        'pierce/#vereda_observaciones'
+      ]
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/Crear'
+      ],
+      [
+        'div.form-actions > input'
+      ],
+      [
+        'xpath///*[@id="new_vereda"]/div[10]/input'
+      ],
+      [
+        'pierce/div.form-actions > input'
+      ],
+      [
+        'text/Crear'
+      ]
+    ],
+    offsetY: 15,
+    offsetX: 44.5,
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/veredas/1000001',
+        title: ''
+      }
+    ]
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: ' '
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: ' ',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/[role="contentinfo"]',
+        'aria/[role="paragraph"]'
+      ],
+      [
+        'p'
+      ],
+      [
+        'xpath//html/body/footer/p'
+      ],
+      [
+        'pierce/p'
+      ]
+    ],
+    offsetY: 0,
+    offsetX: 343,
+  });
 
   {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
-      [
-        'form > div:nth-of-type(1) a'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'form > div:nth-of-type(1) a'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 36.5,
-        y: 16,
-      },
-    });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 137.5,
-        y: 10,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Nombre *'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'aaa')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'aaa');
-    } else {
-      await changeElementValue(element, 'aaa');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'div.vereda_municipio span'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'div.vereda_municipio span'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 100.5,
-        y: 11.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'li.highlighted'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 75.5,
-        y: 14.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 76.5,
-        y: 32.65625,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Código dentro del municipio'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '999')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '999');
-    } else {
-      await changeElementValue(element, '999');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Latitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '1')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '1');
-    } else {
-      await changeElementValue(element, '1');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Longitud'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, '2')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, '2');
-    } else {
-      await changeElementValue(element, '2');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Observaciones'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Observaciones'
-      ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'obs')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'obs');
-    } else {
-      await changeElementValue(element, 'obs');
-    }
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Crear'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Crear'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
-    });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
+    const targetPage = page
     const promises = []; 
-    promises.push(targetPage.waitForNavigation());
+    promises.push(targetPage.waitForNavigation())
 
     targetPage.on('dialog', async dialog => {
-      console.log(dialog.message());
+      console.log(dialog.message())
       await dialog.accept(); //dismiss()
     })
-
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
-    });
-    await Promise.all(promises);
-  }
-
-  {
-    const targetPage = page;
-    let frame = targetPage.mainFrame();
-    await waitForElement({
-      type: 'waitForElement',
+    await runner.runStep({
+      type: 'click',
       target: 'main',
-      frame: [
-      ],
       selectors: [
         [
-          'text/Msip::Vereda eliminada.'
+          'aria/Eliminar'
+        ],
+        [
+          'a.btn-danger'
+        ],
+        [
+          'xpath///*[@id="div_contenido"]/div[5]/a[3]'
+        ],
+        [
+          'pierce/a.btn-danger'
+        ],
+        [
+          'text/Eliminar'
         ]
-      ]
-    }, frame, timeout);
+      ],
+      offsetY: 27,
+      offsetX: 64.75,
+    });
   }
 
-  await browser.close();
+
+  await runner.runStep({
+    type: 'waitForElement',
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: '',
+        title: 'Msip::Estadosol eliminado.'
+      }
+    ],
+    target: 'main',
+    selectors: [
+      'div.alert',
+      'xpath/*[@id="div_contenido"]/div[2]',
+      'pierce/div.alert'
+    ]
+  })
+
+  await terminar(runner)
 
   const tiempofin = performance.now();
   console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
