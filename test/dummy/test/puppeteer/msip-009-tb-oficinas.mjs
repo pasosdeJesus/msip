@@ -1,277 +1,271 @@
-import puppeteer from "puppeteer-core"
 import {
-  changeSelectElement,
-  changeElementValue,
   preparar,
   prepararYAutenticarDeAmbiente,
-  querySelectorsAll,
-  querySelectorAll,
-  scrollIntoViewIfNeeded,
-  typeIntoElement,
-  waitForConnected,
-  waitForElement,
-  waitForInViewport,
-  waitForSelector,
-  waitForSelectors,
-  waitForFunction,
-} from "@pasosdeJesus/pruebas_puppeteer";
+  terminar
+} from "@pasosdeJesus/pruebas_puppeteer"
 
 (async () => {
 
-  const tiempoini = performance.now();
+  const tiempoini = performance.now()
 
+  let timeout = 15000
+  let urlini, runner, browser, page
+  [urlini, runner, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar)
 
-  let timeout = 5000;
-  let urlini, browser, page;
-  [urlini, browser, page] = await prepararYAutenticarDeAmbiente(timeout, preparar);
-
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Administrar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+      ],
       [
-        'aria/Administrar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 58.9375,
-        y: 20,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
+        '#navbarDropdownAdministrar'
+      ],
       [
-        'aria/Tablas básicas'
+        'xpath///*[@id="navbarDropdownAdministrar"]'
+      ],
+      [
+        'pierce/#navbarDropdownAdministrar'
+      ],
+      [
+        'text/Administrar'
       ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+    ],
+    offsetY: 28,
+    offsetX: 85.453125,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Tablas básicas'
+      ],
+      [
+        'li:nth-of-type(4) > a'
+      ],
+      [
+        'xpath///*[@id="navbarSupportedContent"]/ul[2]/li[2]/ul/li[4]/a'
+      ],
+      [
+        'pierce/li:nth-of-type(4) > a'
+      ],
+      [
+        'text/Tablas básicas'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 40.9375,
-        y: 15,
-      },
-    });
-    await Promise.all(promises);
-  }
-
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+    ],
+    offsetY: 31,
+    offsetX: 55.453125,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Oficinas'
       ],
       [
-        'text/Oficinas'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+        'li:nth-of-type(9) > a'
+      ],
       [
-        'aria/Oficinas'
+        'xpath///*[@id="div_contenido"]/article/ul/li[9]/a'
+      ],
+      [
+        'pierce/li:nth-of-type(9) > a'
       ],
       [
         'text/Oficinas'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 36.5,
-        y: 9.5,
-      },
-    });
-  }
-
-
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
+    ],
+    offsetY: 7,
+    offsetX: 28.5,
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Nuevo'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+      ],
       [
-        'aria/Nuevo'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 36.5,
-        y: 16,
-      },
-    });
-    await Promise.all(promises);
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+        'div:nth-of-type(2) a'
+      ],
       [
-        'aria/Nombre *'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+        'xpath///*[@id="div_contenido"]/form/div[2]/div[2]/a'
+      ],
       [
-        'aria/Nombre *'
+        'pierce/div:nth-of-type(2) a'
+      ],
+      [
+        'text/Nueva'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 137.5,
-        y: 10,
-      },
-    });
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+    ],
+    offsetY: 9,
+    offsetX: 40,
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/oficinas/nueva.%23%3CMsip::Oficina::ActiveRecord_Relation:0x00000f66f5395f10%3E',
+        title: ''
+      }
+    ]
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Nombre *'
+      ],
+      [
+        '#oficina_nombre'
+      ],
+      [
+        'xpath///*[@id="oficina_nombre"]'
+      ],
+      [
+        'pierce/#oficina_nombre'
       ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+    ],
+    offsetY: 25,
+    offsetX: 140,
+  });
+  await runner.runStep({
+    type: 'change',
+    value: 'ofix',
+    selectors: [
       [
         'aria/Nombre *'
+      ],
+      [
+        '#oficina_nombre'
+      ],
+      [
+        'xpath///*[@id="oficina_nombre"]'
+      ],
+      [
+        'pierce/#oficina_nombre'
       ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'aaa')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'aaa');
-    } else {
-      await changeElementValue(element, 'aaa');
-    }
-  }
-  {
-    const targetPage = page;
-    await scrollIntoViewIfNeeded([
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'keyDown',
+    target: 'main',
+    key: 'Tab'
+  });
+  await runner.runStep({
+    type: 'keyUp',
+    key: 'Tab',
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'change',
+    value: 'ofix',
+    selectors: [
       [
         'aria/Observaciones'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+      ],
       [
-        'aria/Observaciones'
+        '#oficina_observaciones'
+      ],
+      [
+        'xpath///*[@id="oficina_observaciones"]'
+      ],
+      [
+        'pierce/#oficina_observaciones'
       ]
-    ], targetPage, { timeout, visible: true });
-    const inputType = await element.evaluate(el => el.type);
-    if (inputType === 'select-one') {
-      await changeSelectElement(element, 'obs')
-    } else if ([
-      'textarea',
-      'text',
-      'url',
-      'tel',
-      'search',
-      'password',
-      'number',
-      'email'
-    ].includes(inputType)) {
-      await typeIntoElement(element, 'obs');
-    } else {
-      await changeElementValue(element, 'obs');
-    }
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await scrollIntoViewIfNeeded([
+    ],
+    target: 'main'
+  });
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
       [
         'aria/Crear'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
+      ],
       [
-        'aria/Crear'
+        'div.form-actions > input'
+      ],
+      [
+        'xpath///*[@id="new_oficina"]/div[6]/input'
+      ],
+      [
+        'pierce/div.form-actions > input'
+      ],
+      [
+        'text/Crear'
       ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
-    });
-    await Promise.all(promises);
-  }
+    ],
+    offsetY: 19,
+    offsetX: 36,
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: 'http://nuevo.nocheyniebla.org:4300/msip_2_2/admin/oficinas/102',
+        title: ''
+      }
+    ]
+  });
+
   {
-    const targetPage = page;
+    const targetPage = page
     const promises = []; 
-    promises.push(targetPage.waitForNavigation());
+    promises.push(targetPage.waitForNavigation())
 
     targetPage.on('dialog', async dialog => {
-      console.log(dialog.message());
+      console.log(dialog.message())
       await dialog.accept(); //dismiss()
     })
-
-    await scrollIntoViewIfNeeded([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, timeout);
-    const element = await waitForSelectors([
-      [
-        'aria/Eliminar'
-      ]
-    ], targetPage, { timeout, visible: true });
-    await element.click({
-      offset: {
-        x: 32.5,
-        y: 13.3125,
-      },
-    });
-    await Promise.all(promises);
-  }
-
-  {
-    const targetPage = page;
-    let frame = targetPage.mainFrame();
-    await waitForElement({
-      type: 'waitForElement',
+    await runner.runStep({
+      type: 'click',
       target: 'main',
-      frame: [
-      ],
       selectors: [
         [
-          'text/Msip::Oficina eliminada.'
+          'aria/Eliminar'
+        ],
+        [
+          'a.btn-danger'
+        ],
+        [
+          'xpath///*[@id="div_contenido"]/div[5]/a[3]'
+        ],
+        [
+          'pierce/a.btn-danger'
+        ],
+        [
+          'text/Eliminar'
         ]
-      ]
-    }, frame, timeout);
+      ],
+      offsetY: 28,
+      offsetX: 47.25,
+    });
   }
 
+  await runner.runStep({
+    type: 'waitForElement',
+    assertedEvents: [
+      {
+        type: 'navigation',
+        url: '',
+        title: 'Msip::Oficina eliminada.'
+      }
+    ],
+    target: 'main',
+    selectors: [
+      'div.alert',
+      'xpath/*[@id="div_contenido"]/div[2]',
+      'pierce/div.alert'
+    ]
+  })
 
-  await browser.close();
+  await terminar(runner)
 
   const tiempofin = performance.now();
   console.log(`Tiempo de ejecución: ${tiempofin - tiempoini} ms`);
-
 })().catch(err => {
   console.error(err);
   process.exit(1);
 });
-
-
-
