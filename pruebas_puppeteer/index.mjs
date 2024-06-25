@@ -262,7 +262,7 @@ export async function prepararYAutenticarDeAmbiente(timeout = 5000,
   //console.log("urlini=", urlini)
  
   //console.log("usuarioAdminPrueba=", usuarioAdminPrueba)
-  await autenticar(runner, usuarioAdminPrueba, claveAdminPrueba);
+  await autenticar(runner, timeout, usuarioAdminPrueba, claveAdminPrueba);
   return [urlini, runner, browser, page];
 }
  
