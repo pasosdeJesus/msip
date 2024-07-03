@@ -297,12 +297,6 @@ if (typeof String.prototype.endsWith != 'function')
           $(selelem).replaceWith(t)
         else
          $(selelem).html(t)
-         $('[data-behaviour~=datepicker]').datepicker({
-           format: root.formato_fecha,
-           autoclose: true,
-           todayHighlight: true,
-           language: '<%= Rails.configuration.i18n.default_locale %>'
-         })
 
       return
     )
@@ -862,7 +856,7 @@ if (typeof String.prototype.endsWith != 'function')
   window.msip_sincoord = false;
   #<% puts  "formato_fecha: ", Rails.configuration.x.formato_fecha %>
   #<% puts  "relative_url_root: ", Rails.configuration.relative_url_root %>
-  # Formato de campos de fecha con datepicker
+  # Formato de campos de fecha
   window.formato_fecha = '<%= Rails.configuration.x.formato_fecha && Rails.configuration.x.formato_fecha.to_s != "{}"  ? Rails.configuration.x.formato_fecha.to_s : "yyyy-mm-dd" %>'
   window.msip_idioma_predet = '<%= Rails.configuration.i18n.default_locale %>'
   #MsipInicializaMotorES5()
@@ -876,21 +870,8 @@ if (typeof String.prototype.endsWith != 'function')
   if typeof(root.formato_fecha) == 'undefined'
     msip_inicializaMotor(conenv)
 
-  $('[data-behaviour~=datepicker]').datepicker({
-    format: root.formato_fecha,
-    autoclose: true,
-    todayHighlight: true,
-    language: '<%= Rails.configuration.i18n.default_locale %>'	
-  })
-
   $('[data-toggle="tooltip"]').tooltip()
   $(document).on('cocoon:after-insert', (e) ->
-    $('[data-behaviour~=datepicker]').datepicker({
-      format: root.formato_fecha
-      autoclose: true
-      todayHighlight: true
-      language: '<%= Rails.configuration.i18n.default_locale %>'
-    })
     $('[data-toggle="tooltip"]').tooltip()
   )
 
@@ -991,21 +972,8 @@ if (typeof String.prototype.endsWith != 'function')
     msip_inicializaMotor()
 
 
-  $('[data-behaviour~=datepicker]').datepicker({
-    format: root.formato_fecha,
-    autoclose: true,
-    todayHighlight: true,
-    language: '<%= Rails.configuration.i18n.default_locale %>'	
-  })
-
   $('[data-toggle="tooltip"]').tooltip()
   $(document).on('cocoon:after-insert', (e) ->
-    $('[data-behaviour~=datepicker]').datepicker({
-      format: root.formato_fecha
-      autoclose: true
-      todayHighlight: true
-      language: '<%= Rails.configuration.i18n.default_locale %>'
-    })
     $('[data-toggle="tooltip"]').tooltip()
   )
 
