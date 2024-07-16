@@ -3,6 +3,11 @@
 require "devise"
 require "msip/engine"
 
+# @!macro msip
+#   Motor con lo escencial de un sistema de información al estilo Pasos de 
+#   Jesús: (1) personas y relaciones entre personas, (2) grupos de personas 
+#   y organizaciones sociales, (3) control de acceso a la aplicación, 
+#   (4) ubicaciones geográficas, (5) temas y (6) tablas básicas. 
 module Msip
   # Carga un archivo con semillas SQL de un motor, ruta o app
   # @param conexion [Object] Tipicamente ActiveRecord::Base.connection()
