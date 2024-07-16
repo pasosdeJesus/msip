@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Msip
+  # Definición del control de acceso como lo requiere cancancan
   class Ability
     include CanCan::Ability
 

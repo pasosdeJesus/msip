@@ -3,6 +3,8 @@
 require "msip/concerns/models/pais"
 
 module Msip
+  # Primer nivel en división político administrativa: país. Ver:
+  # https://gitlab.com/pasosdeJesus/division-politica
   class Pais < ActiveRecord::Base
     include Msip::Concerns::Models::Pais
   end

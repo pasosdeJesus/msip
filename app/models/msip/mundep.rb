@@ -2,6 +2,7 @@
 
 # Ideas de https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/
 module Msip
+  # Vista: Municipios con departamento
   class Mundep < ActiveRecord::Base
     self.table_name = "msip_mundep"
 
