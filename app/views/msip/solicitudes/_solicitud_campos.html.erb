@@ -22,11 +22,11 @@
         } %>
     </div>
     <div class="div-tabla-celda">
-      <%= sol.input :fecha_localizada, 
+      <%= sol.input :fecha, 
         label: false,
         :input_html => { 
-          "data-behaviour" => "datepicker", 
-          value: sol.object.fecha_localizada || Msip::FormatoFechaHelper.fecha_estandar_local(Date.today), 
+          "type" => "date", 
+          value: sol.object.fecha || Date.today, 
           class: 'deshabilitado'},
           :as => :string %>
     </div>
