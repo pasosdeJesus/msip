@@ -68,8 +68,6 @@ if (test "$SALTAMSIP" != "1") then {
   actuno msip-2.2 test/dummy
 } fi;
 
-
-# Usan solo msip
 if (test "$SALTAJN316" != "1") then {
   echo "**** jn316"
   actuno jn316_gen-2.2 test/dummy; 
@@ -90,21 +88,21 @@ if (test "$SALTACOR1440" != "1") then {
   actuno cor1440_gen-2.2 test/dummy; 
 } fi;
 
-if (test "$SALTASAL7711" != "1") then {
-  echo "**** sal7711"
-  actuno sal7711_gen-2.2 test/dummy; 
-  actuno sal7711-2.2; 
-  actuno sal7711_web-2.2 test/dummy; 
-} fi;
-
 if (test "$SALTASIVEL2GEN" != "1") then {
   echo "**** sivel"
   actuno sivel2_gen-2.2 test/dummy; 
 } fi;
 
-if (test "$SALTASIVEL2" != "1") then {
-  echo "**** sivel"
-  actuno sivel2-2.2; 
+if (test "$SALTASIADDHH" != "1") then {
+  actuno siaddhh-2.2
 } fi;
 
-actuno siaddhh-2.2
+if (test "$SALTAJOS19" != "1") then {
+  echo "**** jos19"
+  actuno jos19-2.2
+} fi;
+
+if (test "$SALTASIJRSCOL" != "1") then {
+  actuno si_jrscol-2.2
+} fi;
+
