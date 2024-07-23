@@ -108,8 +108,8 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
   end
   def down
     execute <<-SQL
-    DROP TRIGGER tras_crear_o_actualizar_ubicacionpre ON msip_ubicacionpre;
-    DROP FUNCTION public.msip_ubicacionpre_actualiza_nombre;
+      DROP TRIGGER tras_crear_o_actualizar_ubicacionpre ON msip_ubicacionpre;
+      DROP FUNCTION public.msip_ubicacionpre_actualiza_nombre;
     SQL
   end
 end
