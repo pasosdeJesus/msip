@@ -319,7 +319,9 @@ hay.
  
 Una deshabilitación de una división política debería implicar la 
 deshabilitación de todas las divisiones políticas contenidas y de las
-ubicacionespre que referencien la que se deshabilita.
+ubicacionespre que referencien la que se deshabilita.  
+Se ha planteado en el requerimiento de baja prioridad 
+https://gitlab.com/pasosdeJesus/sivel2_gen/-/issues/677
 
 Un cambio en un id requiere cambiar todas las ubicaciones que lo referencian 
 --creando copia referenciando copia y después eliminando el de la id no
