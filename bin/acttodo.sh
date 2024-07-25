@@ -120,11 +120,12 @@ if (test "$SALTAJOS19" != "1") then {
   actuno jos19
 } fi;
 
-if (test "$SALTASIFASOL" != "1") then {
-  actuno si_fasol; 
-} fi;
-
 if (test "$SALTAMIND" != "1") then {
   echo "**** mind"
   actuno sivel2_mujeresindigenas;
 } fi;
+
+if (test "$SALTASIFASOL" != "1") then {
+  actuno si_fasol; 
+} fi;
+
