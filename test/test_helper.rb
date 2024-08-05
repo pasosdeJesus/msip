@@ -46,7 +46,6 @@ PRUEBA_CENTROPOBLADO = {
 
 PRUEBA_ANEXO = {
   descripcion: "x",
-  fecha: "2014-11-11",
   created_at: "2014-11-11",
 }
 
