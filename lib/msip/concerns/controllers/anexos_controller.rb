@@ -95,6 +95,33 @@ module Msip
             end
           end
         end # included
+
+        class_methods do
+
+          def validar_existencia_archivo(validaciones)
+            inexistentes = []
+            Msip::Anexo.all.each do |a|
+              n = format(
+                Msip.ruta_anexos.to_s + "/%d_%s",
+                a.id.to_i,
+                a.adjunto_file_name
+              )
+              if !File.exist?(n)
+                inexistentes << [a.id, a.adjunto_file_name]
+              end
+            end
+            if inexistentes.count > 0
+              validaciones << {
+                titulo: "Anexos con archivo inexistente",
+                encabezado: ["Código", "Archivo"],
+                cuerpo: inexistentes
+                #enlaces: inexistentes.map {|a| msip.edit_persona_path(p.id)}
+              }
+            end
+          end
+
+        end # class_methods
+
       end
     end
   end
