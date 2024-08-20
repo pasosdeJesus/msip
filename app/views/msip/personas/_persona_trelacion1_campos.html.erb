@@ -5,9 +5,9 @@
 <% if Rails.configuration.x.msip_docid_obligatorio === true %>
   <% cont = "msip--sindocaut" %>
 <% end %>
-<div id="persona_trelacion1_<%= f.index %>"
-     class="div-tabla-fila nested-fields campos_personados",
-     data-controller="msip--sindocaut">
+<%= turbo_frame_tag "persona_trelacion1_#{f.index}", 
+   class: "div-tabla-fila nested-fields campos_personados", 
+   data: { controller: "msip--sindocaut" } do %>
   <% if f.object.personados.nil? %>
     <% f.object.personados = Msip::Persona.new %>
   <% end %>
@@ -104,4 +104,4 @@
 
     </div>
   <% end %>
-</div>
+<% end %>
