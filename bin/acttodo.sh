@@ -70,11 +70,6 @@ if (test "$SALTAMSIP" != "1") then {
 
 
 # Usan solo msip
-if (test "$SALTAMSIPD" != "1") then {
-  echo "**** msipd"
-  actuno msipd-2.2 test/dummy
-} fi;
-
 if (test "$SALTAJN316" != "1") then {
   echo "**** jn316"
   actuno jn316_gen-2.2 test/dummy; 
