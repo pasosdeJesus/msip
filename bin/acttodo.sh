@@ -93,6 +93,10 @@ if (test "$SALTASIVEL2GEN" != "1") then {
   actuno sivel2_gen-2.2 test/dummy; 
 } fi;
 
+if (test "$SALTASIVEL2" != "1") then {
+  actuno sivel2-2.2
+} fi;
+
 if (test "$SALTASIADDHH" != "1") then {
   actuno siaddhh-2.2
 } fi;
