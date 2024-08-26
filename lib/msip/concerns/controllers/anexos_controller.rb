@@ -110,14 +110,12 @@ module Msip
                 inexistentes << [a.id, a.adjunto_file_name]
               end
             end
-            if inexistentes.count > 0
-              validaciones << {
-                titulo: "Anexos con archivo inexistente",
-                encabezado: ["Código", "Archivo"],
-                cuerpo: inexistentes
-                #enlaces: inexistentes.map {|a| msip.edit_persona_path(p.id)}
-              }
-            end
+            validaciones << {
+              titulo: "Anexos con archivo inexistente",
+              encabezado: ["Código de Anexo", "Archivo"],
+              cuerpo: inexistentes
+              #enlaces: inexistentes.map {|a| msip.edit_persona_path(p.id)}
+            }
           end
 
         end # class_methods
