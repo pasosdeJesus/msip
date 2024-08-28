@@ -219,6 +219,54 @@ export default class Msip__Motor {
 
   }
 
+  static enviarAutomaticoFormulario(f, metodo = 'GET', tipo = 'script', alertaerror = true, vcommit = 'Enviar', agenviarautom = true) {
+    const root = window;
+    const t = Date.now();
+    let d = -1;
+    if (root.msip_enviarautomatico_t) {
+      d = (t - root.msip_enviarautomatico_t) / 1000;
+    }
+    root.msip_enviarautomatico_t = t;
+    // NO se permite más de un envío en 2 segundos
+    if (d === -1 || d > 2) {
+      const a = f.getAttribute('action');
+      const formData = new FormData(f);
+      formData.append('commit', vcommit);
+      if (agenviarautom) {
+        formData.append('_msip_enviarautomatico', '1');
+      }
+      const dat = new
+        URLSearchParams(formData).toString();
+      if (!root.dant ||
+        root.dant !== d) {
+        root.dant = d;
+        const xhr = new XMLHttpRequest();
+        xhr.open(metodo,a);
+        xhr.setRequestHeader('Content-Type',
+          'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRF-Token',
+          document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange= function(){
+          if(xhr.readyState===4){
+            if(xhr.status === 200){
+              const elements = document.querySelectorAll(".tom-select");
+              elements.forEach(function(el){
+                if(typeof el.tomselect === 'undefined' &&
+                  (el.tagName == "INPUT" || el.tagName == "SELECT")) {
+                    new TomSelect(el, window.configuracionTomSelect);
+                }
+              });
+            }
+            else
+              if(alertaerror && xhr.status !== 0 && xhr.responseText !== ''){
+                alert('Error: el servicio respondió: ' + xhr.status + xhr.responseText);
+              }
+          }
+        };
+        xhr.send(dat);
+      }
+    }
+  }
 
   /* Remplaza las opciones de un cuadro de seleccion por unas nuevas
    * @idsel es identificación del select
