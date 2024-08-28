@@ -175,43 +175,38 @@ Por
 });
 ```
 
-Si la prueba tiene dialogos de confirmación por ejemplo para eliminar, rodee el respectivo `runner.runStep` como se ejemplifica a continuación:
+Si la prueba tiene dialogos de confirmación por ejemplo para eliminar, agregue un evento antes como se ejemplifica a continuación:
 
 ```
-  {
-    const targetPage = page
-    const promises = []; 
-    promises.push(targetPage.waitForNavigation())
+  
+  page.on('dialog', async dialog => {
+    console.log(dialog.message())
+    await dialog.accept(); //o dismiss()
+  })
 
-    targetPage.on('dialog', async dialog => {
-      console.log(dialog.message())
-      await dialog.accept(); //dismiss()
-    })
-
-    await runner.runStep({
-      type: 'click',
-      target: 'main',
-      selectors: [
-        [
-          'aria/Eliminar'
-        ],
-        [
-          'a.btn-danger'
-        ],
-        [
-          'xpath///*[@id="div_contenido"]/div[4]/a[3]'
-        ],
-        [
-          'pierce/a.btn-danger'
-        ],
-        [
-          'text/Eliminar'
-        ]
+  await runner.runStep({
+    type: 'click',
+    target: 'main',
+    selectors: [
+      [
+        'aria/Eliminar'
       ],
-      offsetY: 30,
-      offsetX: 40.75,
-    });
-  }
+      [
+        'a.btn-danger'
+      ],
+      [
+        'xpath///*[@id="div_contenido"]/div[4]/a[3]'
+      ],
+      [
+        'pierce/a.btn-danger'
+      ],
+      [
+        'text/Eliminar'
+      ]
+    ],
+    offsetY: 30,
+    offsetX: 40.75,
+  });
 ```
 
 
