@@ -3,7 +3,7 @@
 require "msip/concerns/models/sectororgsocial"
 
 module Msip
-  # Sectores de las organizaciones sociales
+  # Sector de una organización social
   class Sectororgsocial < ActiveRecord::Base
     include Msip::Concerns::Models::Sectororgsocial
   end
