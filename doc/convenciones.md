@@ -179,6 +179,27 @@ set autoindent
 * <http://betterspecs.org/>
 * <http://www.caliban.org/ruby/rubyguide.shtml>
 * <https://hakiri.io/blog/ruby-security-tools-and-resources>
+* Escribir documentación sobre el uso para desarrolladores en el 
+  directorio `doc`
+* Documentar las fuentes con YARD y agregar en el Makefile la tarea `yard`
+  que permita generarla en el directorio `yard_doc`  con:
+
+    make yard
+
+  para esto el archivo `.yardopts` debe contener:
+
+  --output-dir yard_doc
+
+* Para facilitar la extracción de un diccionarion de datos de las fuentes y su
+  documentación:
+  * Las clases de modulos deben comenzar con
+    ```
+    module NombreModulo
+      # Descripción de la clase
+      class NombreClase
+    ```
+  * Las clases que implementen relaciones entre tablas deben tener
+    una descripción que comience con la palabra "Relación"
 
 
 

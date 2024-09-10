@@ -3,7 +3,7 @@
 require "msip/concerns/models/orgsocial_persona"
 
 module Msip
-  # Implementa relación n-n entre persona y organización social
+  # Relación n:n entre persona y organización social
   class OrgsocialPersona < ActiveRecord::Base
     include Msip::Concerns::Models::OrgsocialPersona
   end
