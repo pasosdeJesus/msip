@@ -28,8 +28,8 @@ de información a diversos niveles:
     y `simple_form`. Listados paginados con `will_paginate`.
   - Preparado para construir aplicaciones adaptables (_responsive_) con
     `bootstrap`, `stimulus` y/o `coffescript` y `jquery`.
-    Se usa de manera predeterminada `chosen` para cuadros de selección simple 
-     y múltiple y `bootstrap-datepicker` para campos de fecha.
+    Se usa de manera predeterminada `tom-select` para cuadros de selección 
+    simple y múltiple y el control HTML estándar para campos de fecha.
   - Incluye biblioteca para operaciones comunes con javascript, por ejemplo para
     facilitar actualización automática mediante AJAX (ver
     `msip_enviarautomatico_formulario` en
@@ -152,5 +152,14 @@ Ver
 
 Después de tener tu primer ejemplo puedes generar tablas básicas para
 tu aplicación, personalizar los modelos, vistas y controladores que `msip`
-ofrece. 
-Consulta: <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
+ofrece. Puedes consultar:
+* Guías para varias operaciones usuales: <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
+* Documentación de las fuentes de msip en:
+  <https://rubydoc.info/github/pasosdeJesus/msip/>
+
+
+## Reportar fallas
+
+Si algo no opera como se espera puedes abrir un incidente en
+<https://gitlab.com/pasosdeJesus/msip/-/issues>
+
