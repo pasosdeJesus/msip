@@ -3,7 +3,7 @@
 require "msip/concerns/models/etiqueta_persona"
 
 module Msip
-  # Implementa relación n-n entre etiqueta y persona
+  # Relación n:n entre etiqueta y persona
   class EtiquetaPersona < ActiveRecord::Base
     include Msip::Concerns::Models::EtiquetaPersona
   end
