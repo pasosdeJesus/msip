@@ -106,13 +106,3 @@ if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel"
   actuno sivel2-2.2; 
 } fi;
-
-if (test "$SALTAJOS19" != "1") then {
-  echo "**** jos19"
-  actuno jos19-2.2
-} fi;
-
-if (test "$SALTASIJRSCOL" != "1") then {
-  actuno si_jrscol
-} fi;
-
