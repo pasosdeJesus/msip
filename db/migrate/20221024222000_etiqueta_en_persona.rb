@@ -1,6 +1,6 @@
 class EtiquetaEnPersona < ActiveRecord::Migration[7.0]
   def up
-    if !table_exist?(:msip_etiqueta_persona)
+    if !table_exists?(:msip_etiqueta_persona)
       create_table :msip_etiqueta_persona do |t|
         t.integer :etiqueta_id, null: false
         t.integer :persona_id, null: false
