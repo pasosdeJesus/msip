@@ -102,11 +102,13 @@
       x = $.getJSON(root.puntomontaje + "admin/municipios", {departamento_id: dep})
       x.done((data) -> 
         msip_remplaza_opciones_select(idmun, data, true, 'id', 'nombre', true)
-        $("#" + idmun).attr("disabled", false) if idmun
-        $('#' + idmun).trigger('chosen:updated')
-        $("#" + idcla + " option[value='']").attr('selected', true) if idcla
-        $("#" + idcla).attr("disabled", true) if idcla
-        $('#' + idcla).trigger('chosen:updated')
+        if (idmun)
+          $("#" + idmun).attr("disabled", false) if idmun
+          $('#' + idmun).trigger('chosen:updated')
+        if (idcla)
+          $("#" + idcla + " option[value='']").attr('selected', true) if idcla
+          $("#" + idcla).attr("disabled", true) if idcla
+          $('#' + idcla).trigger('chosen:updated')
       )
       x.fail((m1, m2, m3) -> 
           alert(
