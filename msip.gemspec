@@ -17,11 +17,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 3"
 
-  s.files = Dir.chdir(__dir__) do
-    %x(git ls-files -z).split("\x0").reject do |f|
-      (f == __FILE__) || f.match(%r{\A(?:(?:spec|features)/|\.(?:git|travis|circleci)|appveyor)})
-    end
-  end
+  #s.files = Dir.chdir(__dir__) do %x(git ls-files -z).split("\x0").reject do |f| (f == __FILE__) || f.match(%r{\A(?:(?:spec|features)/|\.(?:git|travis|circleci)|appveyor)}) end end
 
   # Dejamos gemas representativas, el listado completo en Gemfile
   s.add_runtime_dependency("cancancan", "~> 3")
