@@ -45,6 +45,7 @@ module Msip
   mattr_accessor :urllogo
   mattr_accessor :urlcontribuyentes
   mattr_accessor :urlcreditos
+  mattr_accessor :urllicencia
   mattr_accessor :agradecimientoDios
 
   # Tema
@@ -85,6 +86,7 @@ module Msip
   self.urllogo = "https://openclipart.org/detail/141613/a-simple-representation-of-a-electric-3-phase-motor-by-eypros"
   self.urlcontribuyentes = "https://gitlab.com/pasosdeJesus/msip/-/graphs/main"
   self.urlcreditos = "https://gitlab.com/pasosdeJesus/msip/-/blob/main/CREDITOS.md"
+  self.urllicencia = "https://gitlab.com/pasosdeJesus/msip/-/blob/main/LICENCIA.md"
   self.agradecimientoDios = "<p>
 Sobre todo agradecemos a Dios, a Jesús que nos toca y sana, cuando nadie
 más puede.
