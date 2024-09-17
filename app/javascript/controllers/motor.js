@@ -71,7 +71,10 @@ export default class Msip__Motor {
       element.style.color = tema.nav_fuente;
     });
     document.querySelector('.navbar-light .navbar-brand').style.color = tema.nav_fuente;
-    document.querySelector('.dropdown-menu').style.backgroundColor = tema.nav_fin;
+    let edm = document.querySelector('.dropdown-menu')
+    if (edm) {
+      edm.style.backgroundColor = tema.nav_fin;
+    }
     document.querySelectorAll('.dropdown-item').forEach((element) => {
       element.style.color = tema.nav_fuente;
       element.addEventListener('mouseover', () => {
