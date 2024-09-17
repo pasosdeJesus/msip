@@ -26,13 +26,15 @@ export default class MsipAutocompletaAjaxFamiliares {
   static iniciar() {
     console.log("MsipAutocompletaAjaxFamiliares")
     let url = window.puntomontaje + 'personas.json'
-    var asistentes = new window.AutocompletaAjaxExpreg(
-      [ /^persona_persona_trelacion1_attributes_[0-9]*_personados_attributes_nombres$/ ],
-      url,
-      MsipAutocompletaAjaxFamiliares.idDatalist,
-      MsipAutocompletaAjaxFamiliares.operarElegida
-    )
-    asistentes.iniciar()
+    if (window.AutocompletaAjaxExpreg) {
+      var asistentes = new window.AutocompletaAjaxExpreg(
+          [ /^persona_persona_trelacion1_attributes_[0-9]*_personados_attributes_nombres$/ ],
+          url,
+          MsipAutocompletaAjaxFamiliares.idDatalist,
+          MsipAutocompletaAjaxFamiliares.operarElegida
+          )
+        asistentes.iniciar()
+    }
   }
 
 }
