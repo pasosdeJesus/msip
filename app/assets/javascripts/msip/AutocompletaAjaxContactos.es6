@@ -90,13 +90,15 @@ export default class MsipAutocompletaAjaxContactos {
   static iniciar() {
     console.log("MsipAutocompletaAjaxContactos msip")
     let url = window.puntomontaje + 'personas.json'
-    var contactos = new window.AutocompletaAjaxExpreg(
-      [/^orgsocial_orgsocial_persona_attributes_[0-9]*_persona_attributes_nombres$/],
-      url,
-      MsipAutocompletaAjaxContactos.idDatalist,
-      MsipAutocompletaAjaxContactos.operarElegida
-    )
-    contactos.iniciar()
+    if (window.AutocompletaAjaxExpreg) {
+      var contactos = new window.AutocompletaAjaxExpreg(
+          [/^orgsocial_orgsocial_persona_attributes_[0-9]*_persona_attributes_nombres$/],
+          url,
+          MsipAutocompletaAjaxContactos.idDatalist,
+          MsipAutocompletaAjaxContactos.operarElegida
+          )
+        contactos.iniciar()
+    }
   }
 
 }
