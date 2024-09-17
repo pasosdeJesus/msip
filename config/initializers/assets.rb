@@ -16,7 +16,7 @@ Rails.application.config.assets.version = "1.0"
 Rails.application.config.assets.paths << Rails.root.join("node_modules")
 
 Rails.application.config.assets.paths << Rails.root.join("node_modules/@fortawesome/fontawesome-free/")
-Rails.application.config.assets.paths << Rails.root.join("node_modules/chosen-js/")
+Rails.application.config.assets.paths << Rails.root.join("node_modules/tom-select/")
 
 # Precompilar recursos adicionales.
 # application.js, application.css, y todo lo que no es JS/CSS
