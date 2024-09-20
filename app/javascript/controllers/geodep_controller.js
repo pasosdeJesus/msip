@@ -44,12 +44,18 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        Msip__Motor.remplazarOpcionesSelect(this.departamentoTarget.id,
-          resp, true, 'id', 'nombre', true)
-        Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
-          [], true, 'id', 'nombre', true)
-        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
-          [], true, 'id', 'nombre', true)
+        if (this.hasDepartamentoTarget) {
+          Msip__Motor.remplazarOpcionesSelect(this.departamentoTarget.id,
+            resp, true, 'id', 'nombre', true)
+          if (this.hasMunicipioTarget) {
+            Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
+              [], true, 'id', 'nombre', true)
+            if (this.hasCentropobladoTarget) {
+              Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+                [], true, 'id', 'nombre', true)
+            }
+          }
+        }
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar departamentos')
@@ -68,10 +74,14 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
-          resp, true, 'id', 'nombre', true)
-        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
-          [], true, 'id', 'nombre', true)
+        if (this.hasMunicipioTarget) {
+          Msip__Motor.remplazarOpcionesSelect(this.municipioTarget.id,
+            resp, true, 'id', 'nombre', true)
+          if (this.hasCentropobladoTarget) {
+            Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+              [], true, 'id', 'nombre', true)
+          }
+        }
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar municipios')
@@ -90,8 +100,10 @@ export default class extends Controller {
       url: url,
       data: null,
       success: (resp, estado, xhr) => {
-        Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
-          resp, true, 'id', 'nombre', true)
+        if (this.hasCentropobladoTarget) {
+          Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
+            resp, true, 'id', 'nombre', true)
+        }
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar centrospoblados')
