@@ -109,11 +109,6 @@ export default class Msip__Motor {
   }
 
 
-  static prepararEventosComunes() {
-
-  }
-
-
   /* Remplaza las opciones de un cuadro de seleccion por unas nuevas
    * @idsel es identificación del select
    * @nuevasop Arreglo de hashes con nuevas opciones, cada una tiene propiedades
@@ -176,6 +171,16 @@ export default class Msip__Motor {
       }
     } 
     elemento.value = sel
+  }
+
+
+  // Llamar cada vez que se cargue una página detectada con turbo:load
+  // Tal vez en cache por lo que podría no haberse ejecutado iniciar 
+  // nuevamente.
+  // Podría ser llamada varias veces consecutivas por lo que debe detectarlo
+  // para no ejecutar dos veces lo que no conviene.
+  static ejecutarAlCargarPagina() {
+
   }
 
 }
