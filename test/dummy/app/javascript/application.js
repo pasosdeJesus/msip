@@ -8,6 +8,7 @@ if (typeof window.Rails == 'undefined') {
   window.Rails = Rails;
   }
 
+
 import "@hotwired/turbo-rails"
 
 import "./jquery"
@@ -16,6 +17,9 @@ import * as bootstrap from 'bootstrap'              // Maquetacion y elementos d
 import 'chosen-js/chosen.jquery';       // Cuadros de seleccion potenciados
 import 'bootstrap-datepicker'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js'
+
+import Msip__Motor from "./controllers/msip/motor"
+window.Msip__Motor = Msip__Motor
 
 import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
 window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
@@ -54,7 +58,8 @@ document.addEventListener('turbo:load', (e) => {
   
   console.log('Escuchador turbo:load')
 
-  msip_ejecutarAlCargarPagina(window)
+  msip_ejecutarAlCargarPagina(window) // Establece root.puntomontaje
+  Msip__Motor.ejecutarAlCargarPagina()
 })
 
 
