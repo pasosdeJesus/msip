@@ -186,6 +186,7 @@ export default class Msip__Motor {
   // Podría ser llamada varias veces consecutivas por lo que debe detectarlo
   // para no ejecutar dos veces lo que no conviene.
   static ejecutarAlCargarPagina() {
+    console.log("* Corriendo Msip::ejecutarAlCargarPagina()")
     // Pone colores de acuerdo al tema
     Msip__Motor.ponerTemaUsuarioAjax()
 
