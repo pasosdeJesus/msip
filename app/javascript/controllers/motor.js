@@ -174,4 +174,14 @@ export default class Msip__Motor {
     elemento.value = sel
   }
 
+
+  // Llamar cada vez que se cargue una página detectada con turbo:load
+  // Tal vez en cache por lo que podría no haberse ejecutado iniciar 
+  // nuevamente.
+  // Podría ser llamada varias veces consecutivas por lo que debe detectarlo
+  // para no ejecutar dos veces lo que no conviene.
+  static ejecutarAlCargarPagina() {
+
+  }
+
 }
