@@ -172,10 +172,13 @@ export default class Msip__Motor {
     }
   }
 
-  // y los recurso sprockets
+  // Se ejecuta cada vez que se carga una página que no está en cache
+  // y tipicamente después de que se ha cargado la página y los recursos.
   static ejecutarAlCargarDocumentoYRecursos() {
+    console.log("* Corriendo Msip__Motor::ejecutarAlCargarDocumentoYRecursos()")
     Msip__Motor.configurarElementosTomSelect()
   }
+
 
   // Llamar cada vez que se cargue una página detectada con turbo:load
   // Tal vez en cache por lo que podría no haberse ejecutado iniciar 
@@ -192,6 +195,7 @@ export default class Msip__Motor {
   // Llamada desde application.js tal vez antes de cargar el documento,
   // paquetes javascript y recursos sprockets
   static iniciar() {
+    console.log("* Corriendo Msip::iniciar()")
   }
 
   static partirFechaLocalizada(fechaLocalizada, formato) {
