@@ -103,6 +103,11 @@ if (test "$SALTASIADDHH" != "1") then {
   actuno siaddhh-2.2
 } fi;
 
+if (test "$SALTASIADDHH" != "1") then {
+  echo "**** siaddhh"
+  actuno siaddhh-2.2
+} fi;
+
 if (test "$SALTAJOS19" != "1") then {
   echo "**** jos19"
   actuno jos19-2.2
