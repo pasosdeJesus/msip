@@ -30,9 +30,6 @@ window.configuracionTomSelect = {
   }
 }
 
-import Msip__Motor from "./controllers/msip/motor"
-window.Msip__Motor = Msip__Motor
-
 import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
 window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
 
