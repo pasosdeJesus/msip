@@ -48,7 +48,7 @@ module Msip
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Colombia", u.nombre
-      assert_nil u.nombre_sin_pais
+      assert_equal "", u.nombre_sin_pais
 
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
