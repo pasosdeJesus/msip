@@ -9,7 +9,7 @@
 
 "@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect":
   version "0.3.4"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect#76e588f8c64219e1cdd33a2e70b55a6b841f85cf"
+  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect#d2a969ac9c4e1cbd6a0bcbf77eab6f0811698c5f"
   dependencies:
     "@puppeteer/replay" "^3.0.0"
     dotenv "^16.4.5"
