@@ -15,10 +15,6 @@ import "./jquery"
 import 'popper.js'              // Dialogos emergentes usados por bootstrap
 import * as bootstrap from 'bootstrap'              // Maquetacion y elementos de diseño
 
-import Msip__Motor from "./controllers/msip/motor"
-window.Msip__Motor = Msip__Motor
-Msip__Motor.iniciar()
-
 import TomSelect from 'tom-select';
 window.TomSelect = TomSelect;
 window.configuracionTomSelect = {
@@ -32,6 +28,7 @@ window.configuracionTomSelect = {
 
 import Msip__Motor from "./controllers/msip/motor"
 window.Msip__Motor = Msip__Motor
+Msip__Motor.iniciar()
 
 import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
 window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
