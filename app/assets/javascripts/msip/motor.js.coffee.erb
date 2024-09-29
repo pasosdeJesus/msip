@@ -72,7 +72,6 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
-      debugger
       conch = $(r).hasOwnProperty('chosen')
       msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
     )
@@ -99,7 +98,6 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
-      debugger
       conch = $(r).hasOwnProperty('chosen')
       msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
     )
