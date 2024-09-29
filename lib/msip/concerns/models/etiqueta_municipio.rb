@@ -13,10 +13,11 @@ module Msip
 
           self.table_name = 'msip_etiqueta_municipio'
 
+          self.primary_key = [:etiqueta_id, :municipio_id]
+
           belongs_to :municipio, 
             class_name: 'Msip::Municipio', 
             foreign_key: "municipio_id", 
-            inverse_of: :etiqueta_municipio,
             optional: false,
             validate: false
           belongs_to :etiqueta, 
