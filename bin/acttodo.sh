@@ -68,11 +68,6 @@ if (test "$SALTAMSIP" != "1") then {
   actuno msip-2.2 test/dummy
 } fi;
 
-if (test "$SALTAJN316" != "1") then {
-  echo "**** jn316_gen"
-  actuno jn316_gen-2.2 test/dummy; 
-} fi;
-
 if (test "$SALTAMR519" != "1") then {
   echo "**** mr519_gen"
   actuno mr519_gen-2.2 test/dummy; 
@@ -96,11 +91,6 @@ if (test "$SALTASIVEL2GEN" != "1") then {
 if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel2"
   actuno sivel2-2.2
-} fi;
-
-if (test "$SALTASIADDHH" != "1") then {
-  echo "**** siaddhh"
-  actuno siaddhh-2.2
 } fi;
 
 if (test "$SALTASIADDHH" != "1") then {
