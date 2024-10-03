@@ -62,13 +62,10 @@
       x.done((data) -> 
         msip_remplaza_opciones_select(iddep, data, true, 'id', 'nombre', true)
         $('#' + iddep).attr('disabled', false) 
-        $('#' + iddep).trigger('chosen:updated')
         $("#" + idmun + " option[value='']").attr('selected', true) if idmun
         $('#' + idmun).attr('disabled', true) if idmun 
-        $('#' + idmun).trigger('chosen:updated')
         $("#" + idcla + " option[value='']").attr('selected', true) if idcla
         $('#' + idcla).attr('disabled', true) if idcla
-        $('#' + idcla).trigger('chosen:updated')
       )
       x.fail((m1, m2, m3) -> 
           alert(
@@ -80,13 +77,10 @@
   else
       $("#" + iddep).val("") if iddep
       $("#" + iddep).attr("disabled", true) if iddep
-      $('#' + iddep).trigger('chosen:updated')
       $("#" + idmun).val("") if idmun
       $("#" + idmun).attr("disabled", true) if idmun
-      $('#' + idmun).trigger('chosen:updated')
       $("#" + idcla).val("") if idcla
       $("#" + idcla).attr("disabled", true) if idcla
-      $('#' + idcla).trigger('chosen:updated')
 
 
 
@@ -104,11 +98,9 @@
         msip_remplaza_opciones_select(idmun, data, true, 'id', 'nombre', true)
         if (idmun)
           $("#" + idmun).attr("disabled", false) if idmun
-          $('#' + idmun).trigger('chosen:updated')
         if (idcla)
           $("#" + idcla + " option[value='']").attr('selected', true) if idcla
           $("#" + idcla).attr("disabled", true) if idcla
-          $('#' + idcla).trigger('chosen:updated')
       )
       x.fail((m1, m2, m3) -> 
           alert(
@@ -120,10 +112,8 @@
   else
       $("#" + idmun).val("") if idmun
       $("#" + idmun).attr("disabled", true) if idmun
-      $('#' + idmun).trigger('chosen:updated')
       $("#" + idcla).val("") if idcla
       $("#" + idcla).attr("disabled", true) if idcla
-      $('#' + idcla).trigger('chosen:updated')
 
 
 # Completa cuadro de selección para centropoblado de acuerdo a depto y mcpio.
@@ -139,7 +129,6 @@
     x.done( ( data ) ->
       msip_remplaza_opciones_select(idcla, data, true, 'id', 'nombre', true)
       $("#" + idcla).attr("disabled", false) if idcla
-      $('#' + idcla).trigger('chosen:updated')
     )
     x.fail( (m1, m2, m3) ->
       alert('Problema leyendo Centropoblado ' + x + m1 + m2 + m3)
@@ -149,7 +138,6 @@
   else if idcla != ''
     $("#" + idcla + " option[value='']").attr('selected', true) if idcla
     $("#" + idcla).attr("disabled", true) if idcla
-    $('#' + idcla).trigger('chosen:updated')
 
 # Completa cuadro de selección para centropoblado de acuerdo a depto y mcpio.
 @pone_tipourbano = ($this) -> 

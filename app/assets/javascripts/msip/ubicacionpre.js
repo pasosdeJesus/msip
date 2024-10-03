@@ -79,7 +79,7 @@ function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
 
 function msip_ubicacionpre_expandible_autocompleta_lugar(centropoblado_id, tsit, lug, sit, lat, lon, ubipre, root){
   msip_arregla_puntomontaje(root)
-  ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id).trigger('chosen:updated')
+  ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id)
   ubipre.find('[id$=_lugar]').val(lug)
   ubipre.find('[id$=_sitio]').val(sit)
   if (lat != 0 && lat != null){
@@ -89,7 +89,7 @@ function msip_ubicacionpre_expandible_autocompleta_lugar(centropoblado_id, tsit,
   ubipre.find('[id$=_longitud]').val(lon)
   }
   if (tsit != null){
-    ubipre.find('[id$=_tsitio_id]').val(tsit).trigger('chosen:updated')
+    ubipre.find('[id$=_tsitio_id]').val(tsit)
   }
   $(document).trigger("msip:autocompletada-ubicacionpre")
   return
@@ -104,15 +104,15 @@ function deshabilita_otros_sinohaymun(e, campoubi){
   latitud = ubp.find('[id$='+campoubi+'_latitud]')
   longitud = ubp.find('[id$='+campoubi+'_longitud]')
   lugar.val("")
-  lugar.attr('disabled', true).trigger('chosen:updated')
+  lugar.attr('disabled', true)
   sitio.val(null)
-  sitio.attr('disabled', true).trigger('chosen:updated')
+  sitio.attr('disabled', true)
   tsitio.val(3)
-  tsitio.attr('disabled', true).trigger('chosen:updated')
+  tsitio.attr('disabled', true)
   latitud.val("")
-  latitud.attr('disabled', true).trigger('chosen:updated')
+  latitud.attr('disabled', true)
   longitud.val("")
-  longitud.attr('disabled', true).trigger('chosen:updated')
+  longitud.attr('disabled', true)
 }
 
 function habilita_otros_sihaymun(e, tipo, campoubi){
@@ -123,13 +123,13 @@ function habilita_otros_sihaymun(e, tipo, campoubi){
   latitud = ubp.find('[id$='+campoubi+'_latitud]')
   longitud = ubp.find('[id$='+campoubi+'_longitud]')
   if(tipo == 1){
-    lugar.attr('disabled', false).trigger('chosen:updated')
-    tsitio.attr('disabled', false).trigger('chosen:updated')
+    lugar.attr('disabled', false)
+    tsitio.attr('disabled', false)
   }
   if(tipo == 2){
-    sitio.attr('disabled', false).trigger('chosen:updated')
-    latitud.attr('disabled', false).trigger('chosen:updated')
-    longitud.attr('disabled', false).trigger('chosen:updated')
+    sitio.attr('disabled', false)
+    latitud.attr('disabled', false)
+    longitud.attr('disabled', false)
   }
 }
 
@@ -147,12 +147,12 @@ function msip_ubicacionpre_fija_coordenadas(e, campoubi, elemento, ubi_plural){
     })
     if(ubi[0]){
       if(ubi[0].latitud){
-        latitud.val(ubi[0].latitud).trigger('chosen:updated')
-        longitud.val(ubi[0].longitud).trigger('chosen:updated')
+        latitud.val(ubi[0].latitud)
+        longitud.val(ubi[0].longitud)
       }
     }else{
-      latitud.val(null).trigger('chosen:updated')
-      longitud.val(null).trigger('chosen:updated')
+      latitud.val(null)
+      longitud.val(null)
     }
   });
 }
