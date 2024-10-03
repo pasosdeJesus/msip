@@ -44,17 +44,17 @@
           <div class="offset-sm-0 col-sm-4">
             <% fpred = Msip::FormatoFechaHelper.inicio_semestre(Date.today) %>
             <%= f.input :fechaini,
-              maxlength: 10, 
-              size: 10,
-              label: false,
-              placeholder: 'Inicial',
               input_html: {
-                "data-behaviour" => "datepicker",
+                type: "date",
                 value: (params[:validarcaso] ? 
                         params[:validarcaso][:fechaini] :
                         Msip::FormatoFechaHelper.fecha_estandar_local(fpred)
                        )
-              }
+              },
+              label: false,
+              maxlength: 10, 
+              placeholder: 'Inicial',
+              size: 10
             %>
           </div>
           <div class="offset-sm-1 col-sm-4">
@@ -64,7 +64,7 @@
               label: false,
               placeholder: 'Final',
               input_html: {
-                "data-behaviour" => "datepicker",
+                type: "date",
                 value: params[:validarcaso] ? 
                 params[:validarcaso][:fechafin] : ''
               }

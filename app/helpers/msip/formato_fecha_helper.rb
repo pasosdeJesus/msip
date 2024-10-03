@@ -36,8 +36,6 @@ module Msip
     # Este ayudador emplea Rails.application.config.x.formato_fecha
     # al que llama formato local.
     #
-    # Ese formato local es apropiado para la libreria datepicker de
-    # Javascript que infortunadamente es diferente a POSIX
     # Por el momento soporta bien:
     # dd-M-yyyy, dd/M/yyyy, dd-mm-yyyy, dd/mm/yyyy y yyyy-mm-ddd
     #
@@ -46,7 +44,6 @@ module Msip
     def fecha_local_colombia_estandar(f, menserror = nil)
       # Date.strptime(f, '%d-%M-%Y') no ha funcionado,
       # %b debe ser en ingles
-      # datepicker produce meses cortos comenzando en mayúsculas.
       # rails-i18n I18n.localize con %b produce mes en minuscula
       unless f
         return nil
