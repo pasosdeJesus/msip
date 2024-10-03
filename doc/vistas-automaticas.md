@@ -193,7 +193,7 @@ El método `genclase` retorna el genero en español del módelo, por ejemplo
 como decimos "la tasa de cambio" (femenino) se retorna 'F',  (si fueses 
 "el proyecto" sería 'M').
 
-Notará que las vistas automáticas usan bootstrap para el diseño y chosen 
+Notará que las vistas automáticas usan bootstrap para el diseño y tom-select
 para los campos de texto
 
 # 3. Prueba inicial
@@ -213,7 +213,7 @@ Notará un primer filtro en la columna id, podrá definir otros personalizando
 un poco más el modelo y el controlador o creando vistas parciales.
 
 Con el botón Nueva ingresará al formulario de edición, la cual tendrá como 
-campos de selección (agradables con chosen) los campos que en el modelo 
+campos de selección (agradables con tom-select) los campos que en el modelo 
 sean `belongs_to` y `has_many`.  
 
 
@@ -309,7 +309,7 @@ prefiere especificar un control particular para un campo cree una plantilla
   label: false,
   selected: Msip::ModeloHelper.poromision(params, :bustipomoneda_id),
   input_html: {
-    class: 'chosen-select',
+    class: 'tom-select',
     'data-enviarautomatico' => ''
   }
 %>
@@ -394,7 +394,7 @@ archivo `app/views/tasascambio/_campo_tipomoneda_id.html.erb` con contenido:
    collection: tm,
    label_method: :presenta_nombre,
    value_method: :id,
-   input_html: { class: 'chosen-select' }
+   input_html: { class: 'tom-select' }
 %>
 ```
 

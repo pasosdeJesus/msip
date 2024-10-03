@@ -72,9 +72,8 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
-      debugger
-      conch = $(r).hasOwnProperty('chosen')
-      msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
+      ts = $(r).hasOwnProperty('tom-select')
+      msip_remplaza_opciones_select($(r).attr('id'), nuevasop, ts, 'id', 'etiqueta', opvacia) 
     )
   )
   return
@@ -99,9 +98,8 @@
    )
   seldestino.forEach( (sel) ->
     $(sel).each((i,r) ->
-      debugger
-      conch = $(r).hasOwnProperty('chosen')
-      msip_remplaza_opciones_select($(r).attr('id'), nuevasop, conch, 'id', 'etiqueta', opvacia) 
+      ts = $(r).hasOwnProperty('tom-select')
+      msip_remplaza_opciones_select($(r).attr('id'), nuevasop, ts, 'id', 'etiqueta', opvacia) 
     )
   )
   return

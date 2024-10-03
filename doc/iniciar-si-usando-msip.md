@@ -543,7 +543,7 @@ minmsip_des=# \q
   yarn add @hotwired/stimulus @hotwired/turbo-rails @rails/ujs \
     @popperjs/core @fortawesome/fontawesome-free bootstrap \
     https://gitlab.com/pasosdeJesus/autocompleta_ajax.git \
-    bootstrap-datepicker chosen-js esbuild popper.js@2.0.0-next.4 jquery
+    tom-select esbuild popper.js@2.0.0-next.4 jquery
   yarn add -D  babel-plugin-macros
   yarn add https://gitlab.com/pasosdeJesus/autocompleta_ajax.git
   yarn install
@@ -634,7 +634,6 @@ minmsip_des=# \q
   //= link_tree ../images
   //= link_directory ../javascripts .js
   //= link_directory ../stylesheets .css
-  //= link_directory ../../../node_modules/chosen-js .png
   //= link application.css
   //= link recursos_sprockets.js
   //= link recursos_sprockets.js.map
