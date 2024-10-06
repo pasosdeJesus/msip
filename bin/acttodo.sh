@@ -95,7 +95,11 @@ if (test "$SALTASIVEL2" != "1") then {
 
 if (test "$SALTASIADDHH" != "1") then {
   echo "**** siaddhh"
-  actuno siaddhh-2.2
+  actuno siaddhh
+} fi;
+if (test "$SALTASIADDHH" != "1") then {
+  echo "**** siaddhh"
+  actuno si_bdhn
 } fi;
 
 if (test "$SALTAJOS19" != "1") then {
@@ -105,11 +109,18 @@ if (test "$SALTAJOS19" != "1") then {
 
 if (test "$SALTAMIND" != "1") then {
   echo "**** sivel2_mujeresindigenas"
-  actuno sivel2_mujeresindigenas-2.2
+  actuno sivel2_mujeresindigenas
 } fi;
-
+if (test "$SALTASIADDHH" != "1") then {
+  echo "**** siaddhh"
+  actuno si_asom
+} fi;
+if (test "$SALTASIADDHH" != "1") then {
+  echo "**** siaddhh"
+  actuno si_fasol
+} fi;
 if (test "$SALTASIJRSCOL" != "1") then {
   echo "**** si_jrscol"
-  actuno si_jrscol-2.2
+  actuno si_jrscol
 } fi;
 
