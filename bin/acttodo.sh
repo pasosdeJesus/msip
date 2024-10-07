@@ -114,12 +114,12 @@ if (test "$SALTAMIND" != "1") then {
 } fi;
 
 if (test "$SALTASIADDHH" != "1") then {
-  echo "**** siaddhh"
+  echo "**** si_asom"
   actuno si_asom
 } fi;
 
 if (test "$SALTASIADDHH" != "1") then {
-  echo "**** siaddhh"
+  echo "**** si_fasol"
   actuno si_fasol
 } fi;
 
