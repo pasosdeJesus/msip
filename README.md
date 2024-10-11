@@ -148,15 +148,19 @@ siguiendo las instrucciones de:
 Ver 
 <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/iniciar-si-usando-msip.md>
 
-## Resto de la documentación
+## Documentación
 
 Después de tener tu primer ejemplo puedes generar tablas básicas para
 tu aplicación, personalizar los modelos, vistas y controladores que `msip`
 ofrece. Puedes consultar:
-* Guías para varias operaciones usuales: <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
+* Guías para varias operaciones usuales: 
+  <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
 * Documentación de las fuentes de msip en:
   <https://rubydoc.info/github/pasosdeJesus/msip/>
-
+* Noticias y actualizaciones:
+ <https://gitlab.com/pasosdeJesus/msip/-/wikis/pages>
+* Versiones y resumen de cambios de cada una:
+ <https://gitlab.com/pasosdeJesus/msip/-/releases>
 
 ## Reportar fallas
 

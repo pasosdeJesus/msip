@@ -92,14 +92,6 @@ if (test "$SALTASIVEL2GEN" != "1") then {
   actuno sivel2_gen test/dummy; 
 } fi;
 
-if (test "$SALTASIADDHH" != "1") then {
-  actuno siaddhh;
-} fi;
-
-if (test "$SALTASIBDHN" != "1") then {
-  actuno si_bdhn
-} fi;
-
 if (test "$SALTAAPO214" != "1") then {
   echo "**** apo214"
   actuno apo214 test/dummy; 
@@ -111,21 +103,8 @@ if (test "$SALTASIVEL2" != "1") then {
 } fi;
 
 # Usan 3 o más motores
-if (test "$SALTASIASOM" != "1") then {
-  actuno si_asom
-} fi;
 
 if (test "$SALTAJOS19" != "1") then {
   echo "**** jos19"
   actuno jos19
 } fi;
-
-if (test "$SALTAMIND" != "1") then {
-  echo "**** mind"
-  actuno sivel2_mujeresindigenas;
-} fi;
-
-if (test "$SALTASIFASOL" != "1") then {
-  actuno si_fasol; 
-} fi;
-
