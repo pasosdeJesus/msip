@@ -63,15 +63,17 @@ export default class Msip__Motor {
     document.querySelectorAll('.table-striped>tbody>tr:nth-child(odd)').forEach((element) => {
       element.style.backgroundColor = tema.fondo_lista;
     });
-    document.querySelector('.navbar').style.backgroundImage = `linear-gradient(${tema.nav_ini}, ${tema.nav_fin})`;
-    document.querySelectorAll('.navbar-default .navbar-nav>li>a').forEach((element) => {
-      element.style.color = tema.nav_fuente;
-    });
-    document.querySelector('.navbar .navbar-brand').style.color = tema.nav_fuente;
-    document.querySelectorAll('.navbar-light .navbar-nav .nav-link').forEach((element) => {
-      element.style.color = tema.nav_fuente;
-    });
-    document.querySelector('.navbar-light .navbar-brand').style.color = tema.nav_fuente;
+    if  (document.querySelector('.navbar')) {
+      document.querySelector('.navbar').style.backgroundImage = `linear-gradient(${tema.nav_ini}, ${tema.nav_fin})`;
+      document.querySelectorAll('.navbar-default .navbar-nav>li>a').forEach((element) => {
+        element.style.color = tema.nav_fuente;
+      });
+      document.querySelector('.navbar .navbar-brand').style.color = tema.nav_fuente;
+      document.querySelectorAll('.navbar-light .navbar-nav .nav-link').forEach((element) => {
+        element.style.color = tema.nav_fuente;
+      });
+      document.querySelector('.navbar-light .navbar-brand').style.color = tema.nav_fuente;
+    }
     let edm = document.querySelector('.dropdown-menu')
     if (edm) {
       edm.style.backgroundColor = tema.nav_fin;
