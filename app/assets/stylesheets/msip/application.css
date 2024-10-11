@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require tom-select/dist/css/tom-select.bootstrap5.min.css
  *= require_tree .
  */
 
