@@ -1,17 +1,21 @@
-<div class='ubicacionpre' id='ubicacionpre-<%= htmlid %>' style='<%= estilogen %>'>
+<div class="ubicacionpre" id="ubicacionpre-<%= htmlid %>" style="<%= estilogen %>" data-controller="msip--geodep">
   <div class="row">
     <div class="offset-md-0 col-md-6">
       <%= f.association campopais, #:salida_pais,
         collection: Msip::Pais.habilitados,
-        label_method: :nombre,
-        value_method: :id,
-        label: false,
         input_html: {
-          "data-toggle" => 'tooltip',
-          placeholder: campopais_etiqueta, #'País de salida',
-          'data-placeholder' => "#{campopais_etiqueta}...",
-          class: 'tom-select' 
-        } %>
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_pais",
+            placeholder: "#{campopais_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campopais_etiqueta, #"País de salida"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
     </div>
     <% pa =  f.object.send("#{campopais}_id") #salida_pais_id %>
     <% col = pa ? Msip::Departamento.habilitados.where(pais_id: pa).
@@ -19,15 +23,20 @@
     <div class="col-md-6">
       <%= f.association campodepartamento, #:salida_departamento,
         collection: col,
-        label_method: :nombre,
-        value_method: :id,
-        label: false,
         input_html: {
-          "data-toggle" => 'tooltip',
-          placeholder: campodepartamento_etiqueta, #'Departamento',
-          'data-placeholder' => "#{campodepartamento_etiqueta}...",
-          class: 'tom-select' 
-        } %>
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_departamento",
+            "msip--geodep-target": "departamento",
+            placeholder: "#{campodepartamento_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campodepartamento_etiqueta, #"Departamento"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
     </div>
   </div> <!-- row -->
 
@@ -38,47 +47,57 @@
         order(:nombre) : [] %>
       <%= f.association campomunicipio, #:salida_municipio,
         collection: col,
-        label_method: :nombre,
-        value_method: :id,
-        label: false,
         input_html: {
-          'data-toggle' => 'tooltip',
-          placeholder: campomunicipio_etiqueta, #'Municipio',
-          'data-placeholder' => "#{campomunicipio_etiqueta}...",
-          class: 'tom-select' 
-        } %>
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_municipio",
+            "msip--geodep-target": "municipio",
+            placeholder: "#{campomunicipio_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campomunicipio_etiqueta, #"Municipio"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
     </div>
 
     <% mun =  f.object.send("#{campomunicipio}_id") #salida_municipio_id %>
     <% col = mun ? Msip::Centropoblado.habilitados.where(municipio_id: mun).
       order(:nombre) : [] %>
     <% estsinmun = (mun && mun != "") ? false : true %>
-    <div class="col-md-6" id='<%= "restocp-#{htmlid}" %>'>
+    <div class="col-md-6" id="<%= "restocp-#{htmlid}" %>">
       <%= f.association campocentropoblado, #:salida_centropoblado,
         collection: col,
-        label_method: :nombre,
-        value_method: :id,
-        label: false,
         input_html: {
-          "data-toggle" => 'tooltip',
-          placeholder: campocentropoblado_etiqueta, #'Centro poblado',
-          'data-placeholder' => "#{campocentropoblado_etiqueta}...",
-          class: 'tom-select' 
-        } %>
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_centropoblado",
+            "msip--geodep-target": "centropoblado",
+            placeholder: "#{campocentropoblado_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campocentropoblado_etiqueta, #"Centro poblado"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
     </div>
 
   </div> <!-- row -->
 
   <div class="row">
-    <% ph = campolugar_etiqueta #'Barrio o vereda de Salida' %>
+    <% ph = campolugar_etiqueta #"Barrio o vereda de Salida" %>
     <% ac = {
-      #'data-autocompleta' => 'no',
-      "data-toggle" => 'tooltip'} %>
+      #"data-autocompleta" => "no",
+      "data-toggle" => "tooltip"} %>
     <% if (!f.object.send(campolugar) || 
-        f.object.send(campolugar) == '') %>
+        f.object.send(campolugar) == "") %>
       <% ph = "#{campolugar_etiqueta}... (Buscar)" %>
-      <% #'Barrio o vereda salida... (Buscar)' %>
-      <% ac = {"data-toggle" => 'tooltip'} %>
+      <% #"Barrio o vereda salida... (Buscar)" %>
+      <% ac = {"data-toggle" => "tooltip"} %>
     <% end %>
     <div class="col-md-6">
       <%= f.input campolugar, #:salida_lugar,
@@ -93,10 +112,10 @@
     <div class="col-md-6">
       <%= f.input campositio, #:salida_sitio,
         label: false,
-        placeholder: campositio_etiqueta, #'Dirección o finca', 
+        placeholder: campositio_etiqueta, #"Dirección o finca", 
         disabled: estsinmun,
         input_html: {
-          "data-toggle" => 'tooltip'
+          "data-toggle" => "tooltip"
         } %>
     </div>
 
@@ -115,8 +134,8 @@
         selected: f.object.send("#{campotsitio}_id") ? #salida_tsitio_id ? 
         f.object.send("#{campotsitio}_id") : 1, #salida_tsitio_id : 1,
         input_html: {
-          "data-toggle" => 'tooltip',
-          "title" => "Seleccione el #{campotsitio_etiqueta}" #tipo de sitio'
+          "data-toggle" => "tooltip",
+          "title" => "Seleccione el #{campotsitio_etiqueta}" #tipo de sitio"
         } %>
     </div>
     <div class="col-md-4">
@@ -124,9 +143,9 @@
         label: false,
         disabled: estsinmun,
         input_html: {
-          "data-toggle" => 'tooltip',
-          placeholder: campolatitud_etiqueta, #'Latitud'
-          value: f.object.send(campolatitud) || '0,0'
+          "data-toggle" => "tooltip",
+          placeholder: campolatitud_etiqueta, #"Latitud"
+          value: f.object.send(campolatitud) || "0,0"
         } %>
     </div>
     <div class="col-md-4">
@@ -134,9 +153,9 @@
         label: false,
         disabled: estsinmun,
         input_html: {
-          "data-toggle" => 'tooltip',
-          placeholder: campolongitud_etiqueta, #'Longitud'
-          value: f.object.send(campolongitud) || '0,0'
+          "data-toggle" => "tooltip",
+          placeholder: campolongitud_etiqueta, #"Longitud"
+          value: f.object.send(campolongitud) || "0,0"
         } %>
     </div>
   </div> <!-- row -->

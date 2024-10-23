@@ -845,47 +845,6 @@ if (typeof String.prototype.endsWith != 'function')
     $("a[rel~=popover], .has-popover").popover()
     $("a[rel~=tooltip], .has-tooltip").tooltip()
 
-  # Al cambiar país se recalcula lista de departamentos
-  $(document).on('change', 'select[id$=_pais_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined')
-      llena_departamento($(this), root, sincoord)
-  )
-  $(document).on('change', 'select[id$=_pais_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined')
-      llena_departamento($(this), root, sincoord)
-  )
-
-  # Al cambiar departamento se recalcula lista de municipios
-  $(document).on('change', 'select[id$=_departamento_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      llena_municipio($(this), root, sincoord)
-  )
-  $(document).on('change', 'select[id$=_departamento_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      llena_municipio($(this), root, sincoord)
-  )
-
-  # Al cambiar municipio se recalcula lista de centros poblados
-  $(document).on('change', 'select[id$=_municipio_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      llena_centropoblado($(this), root, sincoord)
-  )
-  $(document).on('change', 'select[id$=_municipio_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      llena_centropoblado($(this), root, sincoord)
-  )
-
-  # Al cambiar centro poblado se deja tipo de ubicación en Urbano
-  $(document).on('change', 'select[id$=_centropoblado_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      pone_tipourbano($(this))
-  )
-  $(document).on('change', 'select[id$=_centropoblado_id]', (e) ->
-    if (typeof e.target.tomselect == 'undefined' && !e.target.dataset["action"])
-      pone_tipourbano($(this))
-  )
-
-
   $('#mundep').on('focusin', (e) ->
     msip_arregla_puntomontaje(root)
     busca_gen($(this), null, root.puntomontaje + "mundep.json")
