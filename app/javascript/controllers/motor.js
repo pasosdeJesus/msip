@@ -29,16 +29,15 @@ export default class Msip__Motor {
 
 
   static arreglarPuntomontaje(root) {
-    var purl = window.puntomontaje
     // Verifica si `puntomontaje` está definido; si no, lo establece como '/'
     if (typeof root.puntomontaje === 'undefined') {
-      purl = '/';
+      root.puntomontaje = '/';
     }
     // Asegura que `puntomontaje` termine en '/'
     if (root.puntomontaje[root.puntomontaje.length - 1] !== '/') {
-      purl += '/';
+      root.puntomontaje += '/';
     }
-    return purl
+    return root.puntomontaje
   }
 
   // Si el elemento es campos de selección le configura tom-select
