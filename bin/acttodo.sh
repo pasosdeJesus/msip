@@ -1,12 +1,10 @@
 #!/bin/sh
 # Actualiza varios sistemas que usan msip. Dominio público. 2016
 # Podria ejecutar con
-# SALTAMSIP=1 SALTASIP=1 SALTAMSIPD=1 
-# SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
-# SALTACOR1440=1 SALTASAL7711=1 
-# SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
+# SALTAMSIP=1 SALTAMR519=1 SALTAHEB412=1 
+# SALTACOR1440=1 SALTASIVEL2GEN=1 SALTASIVEL2=1 
 # SALTASIADDHH=1 SALTASIBDHN=1
-# SALTASIASOM=1 SALTAJOS19=1 SALTASIFASOL=1 
+# SALTAJOS19=1 SALTASIASOM=1 SALTASIFASOL=1 
 # SALTASIVELSJR=1 SALTAMIND=1 
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
@@ -118,7 +116,7 @@ if (test "$SALTASIADDHH" != "1") then {
   actuno si_asom
 } fi;
 
-if (test "$SALTASIADDHH" != "1") then {
+if (test "$SALTASIFASOL" != "1") then {
   echo "**** si_fasol"
   actuno si_fasol
 } fi;
