@@ -35,7 +35,8 @@ export default class extends Controller {
   }
 
   cambiar_pais(e) {
-    var purl = Msip__Motor.arreglarPuntoMontaje()
+    const root = window
+    var purl = Msip__Motor.arreglarPuntomontaje(root)
 
     console.log("departamento ahora es", this.departamentoTarget.value)
     let url = purl + '/admin/departamentos.json?pais_id=' + e.target.value
@@ -64,7 +65,8 @@ export default class extends Controller {
   }
 
   cambiar_departamento(e) {
-    var purl = Msip__Motor.arreglarPuntoMontaje()
+    const root = window
+    var purl = Msip__Motor.arreglarPuntomontaje(root)
 
     console.log("municipio ahora es", this.municipioTarget.value)
     let url = purl + '/admin/municipios.json?departamento_id=' + 
@@ -90,7 +92,8 @@ export default class extends Controller {
   }
 
   cambiar_municipio(e) {
-    var purl = Msip__Motor.arreglarPuntoMontaje()
+    const root = window
+    var purl = Msip__Motor.arreglarPuntomontaje(root)
 
     console.log("centro poblado ahora es", this.centropobladoTarget.value)
     let url = purl + '/admin/centrospoblados.json?municipio_id=' + 
