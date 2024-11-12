@@ -111,7 +111,7 @@ if (test "$SALTAMIND" != "1") then {
   actuno sivel2_mujeresindigenas
 } fi;
 
-if (test "$SALTASIADDHH" != "1") then {
+if (test "$SALTASIASOM" != "1") then {
   echo "**** si_asom"
   actuno si_asom
 } fi;
