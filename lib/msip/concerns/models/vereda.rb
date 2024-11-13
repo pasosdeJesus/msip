@@ -24,7 +24,7 @@ module Msip
             class_name: "Msip::Pais",
             source: :pais
 
-          validates_uniqueness_of :verlocal_id,
+          validates_uniqueness_of :verlocal_cod,
             scope: :municipio_id,
             message: "debe ser único en el municipio",
             allow_blank: true
