@@ -315,7 +315,7 @@ es:
         tsitio: Tipo de sitio
         tsitio_id: Tipo de sitio
       "msip/vereda":
-        verlocal_id: Código dentro del municipio
+        verlocal_cod: Código dentro del municipio
         verlocal: Código dentro del municipio
         municipio_id: Municipio
         departamento_id: Departamento

@@ -40,7 +40,7 @@ module Msip
               :pais,
               :departamento,
               :municipio_id, # belongs_to
-              :verlocal_id,
+              :verlocal_cod,
               :latitud,
               :longitud,
               :observaciones,

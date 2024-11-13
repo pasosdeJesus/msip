@@ -193,13 +193,13 @@ import {
         'aria/Código dentro del municipio'
       ],
       [
-        '#vereda_verlocal_id'
+        '#vereda_verlocal_cod'
       ],
       [
-        'xpath///*[@id="vereda_verlocal_id"]'
+        'xpath///*[@id="vereda_verlocal_cod"]'
       ],
       [
-        'pierce/#vereda_verlocal_id'
+        'pierce/#vereda_verlocal_cod'
       ]
     ],
     offsetY: 18,
@@ -213,13 +213,13 @@ import {
         'aria/Código dentro del municipio'
       ],
       [
-        '#vereda_verlocal_id'
+        '#vereda_verlocal_cod'
       ],
       [
-        'xpath///*[@id="vereda_verlocal_id"]'
+        'xpath///*[@id="vereda_verlocal_cod"]'
       ],
       [
-        'pierce/#vereda_verlocal_id'
+        'pierce/#vereda_verlocal_cod'
       ]
     ],
     target: 'main'
