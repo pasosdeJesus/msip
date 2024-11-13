@@ -45,32 +45,7 @@ module Msip
       # Si atr es llave foranea retorna asociación a este modelo
       # en otro caso retorna nil
       def self.asociacion_llave_foranea(atr)
-        aso = reflect_on_all_associations
-        bel = aso.select { |a| a.macro == :belongs_to }
-        fk = bel.map do |e|
-          e.foreign_key.to_s
-        end
-        if fk.include?(atr.to_s)
-          r = aso.select do |a|
-            (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
-             a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
-              a.foreign_key.to_s == atr.to_s
-          end[0]
-          return r
-        end
-        ln = bel.map do |e|
-          e.name.to_s
-        end
-        if ln.include?(atr.to_s)
-          r = aso.select do |a|
-            (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
-             a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
-              a.name.to_s == atr.to_s
-          end[0]
-          return r
-        end
-
-        nil
+        return Msip::ModeloHelper.llave_foranea_en_modelo(atr, self)
       end
 
       # Si atr es atributo que es llave foranea retorna su clase

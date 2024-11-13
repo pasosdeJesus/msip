@@ -378,5 +378,39 @@ module Msip
       res
     end
     module_function :opciones_tabla_basica
+
+
+    # Si atr es llave foranea en modelo m retorna asociación a 
+    # ese modelo en otro caso retorna nil
+    def llave_foranea_en_modelo(atr, m)
+      aso = m.reflect_on_all_associations
+      bel = aso.select { |a| a.macro == :belongs_to }
+      fk = bel.map do |e|
+        e.foreign_key.to_s
+      end
+      if fk.include?(atr.to_s)
+        r = aso.select do |a|
+          (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
+           a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
+          a.foreign_key.to_s == atr.to_s
+        end[0]
+        return r
+      end
+      ln = bel.map do |e|
+        e.name.to_s
+      end
+      if ln.include?(atr.to_s)
+        r = aso.select do |a|
+          (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
+           a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
+          a.name.to_s == atr.to_s
+        end[0]
+        return r
+      end
+
+      nil
+    end
+    module_function :llave_foranea_en_modelo
+
   end
 end
