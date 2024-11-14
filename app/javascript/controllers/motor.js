@@ -28,19 +28,19 @@ export default class Msip__Motor {
   static MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
 
 
+  // Verifica que `puntoMontaje` esté definido y termine en /; 
+  // si no está definido, lo establece como '/'
   static arreglarPuntomontaje(root) {
-    // Verifica si `puntomontaje` está definido; si no, lo establece como '/'
-    if (typeof root.puntomontaje === 'undefined') {
-      root.puntomontaje = '/';
+    if (typeof root.puntoMontaje === 'undefined') {
+      root.puntoMontaje = '/';
     }
-    // Asegura que `puntomontaje` termine en '/'
-    if (root.puntomontaje[root.puntomontaje.length - 1] !== '/') {
-      root.puntomontaje += '/';
+    if (root.puntoMontaje[root.puntoMontaje.length - 1] !== '/') {
+      root.puntoMontaje += '/';
     }
-    return root.puntomontaje
+    return root.puntoMontaje
   }
 
-  // Si el elemento es campos de selección le configura tom-select
+  // Si el elemento el es campo de selección le configura tom-select
   static configurarElementoTomSelect(el) {
     if (typeof el.tomselect == 'undefined' && 
       (el.tagName == "INPUT" || el.tagName == "SELECT") &&
@@ -64,7 +64,7 @@ export default class Msip__Motor {
   // (recordar en rails responder con render json: objeto, status:ok, 
   //  donde objeto es un objeto --no una cadena o entero)
   //
-  // @root
+  // @root Donde almacenar objetos globales i.e window
   // @ruta ruta (sin punto de montaje)
   // @datos Datos por enviar
   // @funproc Funcion para procesar respuesta
@@ -86,7 +86,7 @@ export default class Msip__Motor {
     root.msipAjaxRecibeJsonT[ruta] = t;
 
     if (d === -1 || d > 2) {
-      const rutac = `${root.puntomontaje}${ruta}.json`;
+      const rutac = `${root.puntoMontaje}${ruta}.json`;
 
       fetch(rutac, {
         method: 'GET',
@@ -129,7 +129,7 @@ export default class Msip__Motor {
     if (d === -1 || d > 2) {
       this.arreglarPuntomontaje(root);
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      const rutac = `${root.puntomontaje}${ruta}.js`;
+      const rutac = `${root.puntoMontaje}${ruta}.js`;
 
       const xhr = new XMLHttpRequest();
       xhr.open(metodo, rutac, true);
@@ -255,7 +255,7 @@ export default class Msip__Motor {
     root.msip_ajax_recibe_json_t[ruta] = t;
 
     if (d === -1 || d > 2) {
-      var rutac = root.puntomontaje + ruta + ".json";
+      var rutac = root.puntoMontaje + ruta + ".json";
       await fetch(rutac)
         .then(function(response) {
           if (!response.ok) {
@@ -288,9 +288,73 @@ export default class Msip__Motor {
 
   // Se ejecuta cada vez que se carga una página que no está en cache
   // y tipicamente después de que se ha cargado la página y los recursos.
-  static ejecutarAlCargarDocumentoYRecursos() {
+  //
+  // conenv indica si para el punto de montaje debe preferir 
+  // window.RailsConfig.relativeUrlRoot sobre window.RailsConfig.puntoMontaje
+  static ejecutarAlCargarDocumentoYRecursos(conenv = true) {
     console.log("* Corriendo Msip__Motor::ejecutarAlCargarDocumentoYRecursos()")
     Msip__Motor.configurarElementosTomSelect()
+    if (typeof window.formato_fecha === 'undefined') {
+      this.inicializaMotor(conenv);
+    }
+
+    document.querySelectorAll('[data-toggle="tooltip"]').forEach(elem => {
+      new bootstrap.Tooltip(elem); // Inicializa tooltips
+    });
+
+    document.addEventListener('cocoon:after-insert', () => {
+      document.querySelectorAll('[data-toggle="tooltip"]').forEach(elem => {
+        new bootstrap.Tooltip(elem);
+      });
+    });
+
+    this.ponerTemaUsuarioAjax();
+
+    document.querySelectorAll("a[rel~=popover], .has-popover").forEach(elem => {
+      new bootstrap.Popover(elem);
+    });
+
+    document.querySelectorAll("a[rel~=tooltip], .has-tooltip").forEach(elem => {
+      new bootstrap.Tooltip(elem);
+    });
+
+    const mundep = document.getElementById('mundep');
+    if (mundep) {
+      mundep.addEventListener('focusin', () => {
+        this.arreglarPuntomontaje(window);
+        this.buscaGen(mundep, null, `${window.puntoMontaje}mundep.json`);
+      });
+    }
+
+    document.addEventListener('click', event => {
+      if (event.target.matches('a.enviarautomatico[href^="#"]')) {
+        MsipEnviaAutomaticoFormulario(document.querySelector('form'), 'POST', 'json', false);
+      }
+    });
+
+    document.addEventListener('change', event => {
+      if (event.target.matches('select[data-enviarautomatico], input[data-enviarautomatico]')) {
+        MsipEnviaAutomaticoFormulario(event.target.form);
+      }
+    });
+
+    function iniciaRotador() {
+      document.documentElement.style.cursor = "progress";
+    }
+
+    function detieneRotador() {
+      document.documentElement.style.cursor = "auto";
+    }
+
+    document.addEventListener('turbo:click', event => {
+      if (event.target.getAttribute('href').charAt(0) === '#') {
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener("page:fetch", iniciaRotador);
+    document.addEventListener("page:receive", detieneRotador);
+
   }
 
 
@@ -307,7 +371,7 @@ export default class Msip__Motor {
     }
     MsipIniciar()
     this.ponerTemaUsuarioAjax()
-    
+
     Msip__Motor.configurarElementosTomSelect()
   }
 
@@ -346,68 +410,6 @@ export default class Msip__Motor {
   }
 
 
-  static preparaEventosComunes(root, sincoord = false, conenv = true) {
-    if (typeof root.formato_fecha === 'undefined') {
-      this.inicializaMotor(conenv);
-    }
-
-    document.querySelectorAll('[data-toggle="tooltip"]').forEach(elem => {
-      new bootstrap.Tooltip(elem); // Inicializa tooltips
-    });
-
-    document.addEventListener('cocoon:after-insert', () => {
-      document.querySelectorAll('[data-toggle="tooltip"]').forEach(elem => {
-        new bootstrap.Tooltip(elem);
-      });
-    });
-
-    this.ponerTemaUsuarioAjax();
-
-    document.querySelectorAll("a[rel~=popover], .has-popover").forEach(elem => {
-      new bootstrap.Popover(elem);
-    });
-
-    document.querySelectorAll("a[rel~=tooltip], .has-tooltip").forEach(elem => {
-      new bootstrap.Tooltip(elem);
-    });
-
-    const mundep = document.getElementById('mundep');
-    if (mundep) {
-      mundep.addEventListener('focusin', () => {
-        this.arreglarPuntomontaje(root);
-        this.buscaGen(mundep, null, `${root.puntomontaje}mundep.json`);
-      });
-    }
-
-    document.addEventListener('click', event => {
-      if (event.target.matches('a.enviarautomatico[href^="#"]')) {
-        MsipEnviaAutomaticoFormulario(document.querySelector('form'), 'POST', 'json', false);
-      }
-    });
-
-    document.addEventListener('change', event => {
-      if (event.target.matches('select[data-enviarautomatico], input[data-enviarautomatico]')) {
-        MsipEnviaAutomaticoFormulario(event.target.form);
-      }
-    });
-
-    function iniciaRotador() {
-      document.documentElement.style.cursor = "progress";
-    }
-
-    function detieneRotador() {
-      document.documentElement.style.cursor = "auto";
-    }
-
-    document.addEventListener('turbo:click', event => {
-      if (event.target.getAttribute('href').charAt(0) === '#') {
-        event.preventDefault();
-      }
-    });
-
-    document.addEventListener("page:fetch", iniciaRotador);
-    document.addEventListener("page:receive", detieneRotador);
-  }
 
   // Envia con AJAX datos del formulario, junto con el botón submit,
   // # evitando duplicaciones.
@@ -418,13 +420,12 @@ export default class Msip__Motor {
   // @param alertaerror Presentar alerta en caso de error (true/false)
   // @param vcommit Valor para commit
   static enviarAutomaticoFormulario(f, metodo = 'GET', tipo = 'script', alertaerror = true, vcommit = 'Enviar', agenviarautom = true) {
-    const root = window;
     const t = Date.now();
     let d = -1;
-    if (root.msip_enviarautomatico_t) {
-      d = (t - root.msip_enviarautomatico_t) / 1000;
+    if (window.msip_enviarautomatico_t) {
+      d = (t - window.msip_enviarautomatico_t) / 1000;
     }
-    root.msip_enviarautomatico_t = t;
+    window.msip_enviarautomatico_t = t;
     // NO se permite más de un envío en 2 segundos
     if (d === -1 || d > 2) {
       const a = f.getAttribute('action');
@@ -435,9 +436,9 @@ export default class Msip__Motor {
       }
       const dat = new
         URLSearchParams(formData).toString();
-      if (!root.dant ||
-        root.dant !== d) {
-        root.dant = d;
+      if (!window.dant ||
+        window.dant !== d) {
+        window.dant = d;
         const xhr = new XMLHttpRequest();
         xhr.open(metodo,a);
         xhr.setRequestHeader('Content-Type',
@@ -707,10 +708,9 @@ export default class Msip__Motor {
       }
 
       // Preparar URL para el requerimiento AJAX
-      let root = window;
       let purl = prefijoUrl;
-      if (!prefijoUrl.startsWith(root.puntomontaje)) {
-        purl = root.puntomontaje + prefijoUrl;
+      if (!prefijoUrl.startsWith(window.puntoMontaje)) {
+        purl = window.puntoMontaje + prefijoUrl;
       }
 
       // Realizar la solicitud AJAX para eliminar
@@ -788,7 +788,7 @@ export default class Msip__Motor {
       param = { filtro: param };
     }
 
-    fetch(`${root.puntomontaje}${rutajson}?${new URLSearchParams(param)}`)
+    fetch(`${root.puntoMontaje}${rutajson}?${new URLSearchParams(param)}`)
       .then(response => response.json())
       .then(data => {
         this.remplazaOpcionesSelect(idsel, data, true, cid, cnombre);
@@ -836,7 +836,7 @@ export default class Msip__Motor {
       return;
     }
 
-    fetch(`${root.puntomontaje}${rutajson}?${new URLSearchParams(params)}`)
+    fetch(`${root.puntoMontaje}${rutajson}?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
         this.remplazaOpcionesSelect(idsel, data, true, cid, cnombre, opvacia);
@@ -868,7 +868,7 @@ export default class Msip__Motor {
     // Limitar a 1 solicitud cada 2 segundos
     if (elapsed > 0 && elapsed <= 2) return;
 
-    fetch(`${root.puntomontaje}${rutajson}.json?${new URLSearchParams(params)}`)
+    fetch(`${root.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
         callback(root, data);
@@ -900,7 +900,7 @@ export default class Msip__Motor {
     // Limitar a 1 solicitud cada 1 segundo
     if (elapsed > 0 && elapsed <= 1) return;
 
-    fetch(`${root.puntomontaje}${rutajson}.json?${new URLSearchParams(params)}`)
+    fetch(`${root.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
         callback(root, data, p1);
@@ -931,10 +931,10 @@ export default class Msip__Motor {
 
     // Ajusta `rutagenera` con el punto de montaje si es necesario
     if (
-      (root.puntomontaje !== '/' || rutagenera[0] !== '/') &&
-      !rutagenera.startsWith(root.puntomontaje)
+      (root.puntoMontaje !== '/' || rutagenera[0] !== '/') &&
+      !rutagenera.startsWith(root.puntoMontaje)
     ) {
-      rutagenera = root.puntomontaje + rutagenera;
+      rutagenera = root.puntoMontaje + rutagenera;
     }
 
     // Construye la URL con los datos del formulario
@@ -1000,18 +1000,23 @@ export default class Msip__Motor {
   } 
 
 
+  // conenv indica si debe preferir window.RailsConfig.relativeUrlRoot sobre
+  // window.RailsConfig.puntoMontaje
   static inicializaMotor(conenv = true) {
     const config = window.RailsConfig || {}; // Accede a la configuración global
-    window.puntomontaje = config.puntomontaje || '/';
+    window.puntoMontaje = config.puntoMontaje || '/';
     if (conenv && config.relativeUrlRoot) {
-            window.puntomontaje = config.relativeUrlRoot;
-          }
+      window.puntoMontaje = config.relativeUrlRoot;
+    }
     this.arreglarPuntomontaje(window);
     window.msip_sincoord = false;
     window.formato_fecha = config.formatoFecha || "yyyy-mm-dd";
     window.msip_idioma_predet = config.idiomaPredet || "en";
   }
-  static edadDeFechaNacFechaRef(anionac, mesnac, dianac, anioref, mesref, diaref) {
+
+  static edadDeFechaNacFechaRef(
+    anionac, mesnac, dianac, anioref, mesref, diaref
+  ) {
     if (typeof anionac === 'undefined' || anionac === '') {
       return -1;
     }

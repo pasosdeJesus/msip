@@ -1,13 +1,8 @@
 #!/bin/sh
 # Actualiza varios sistemas que usan msip. Dominio público. 2016
 # Podria ejecutar con
-# SALTAMSIP=1 SALTASIP=1 SALTAMSIPD=1 
-# SALTAJN316=1 SALTAMR519=1 SALTAHEB412=1 
-# SALTACOR1440=1 SALTASAL7711=1 
-# SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
-# SALTASIADDHH=1 SALTASIBDHN=1
-# SALTASIASOM=1 SALTAJOS19=1 SALTASIFASOL=1 
-# SALTASIVELSJR=1 SALTAMIND=1 
+# SALTAMSIP=1 SALTAMR519=1 SALTAHEB412=1 
+# SALTACOR1440=1 SALTASIVEL2GEN=1 SALTAAPO214=1 SALTASIVEL2=1 
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -102,9 +97,3 @@ if (test "$SALTASIVEL2" != "1") then {
   actuno sivel2; 
 } fi;
 
-# Usan 3 o más motores
-
-if (test "$SALTAJOS19" != "1") then {
-  echo "**** jos19"
-  actuno jos19
-} fi;

@@ -33,7 +33,7 @@ import {AutocompletaAjaxExpreg} from '@pasosdejesus/autocompleta_ajax'
 window.AutocompletaAjaxExpreg = AutocompletaAjaxExpreg
 
 let esperarRecursosSprocketsYDocumento = function (resolver) {
-  if (typeof window.puntomontaje == 'undefined') {
+  if (typeof window.puntoMontaje == 'undefined') {
     setTimeout(esperarRecursosSprocketsYDocumento, 5, resolver)
     return false
   }
@@ -55,7 +55,6 @@ promesaRecursosSprocketsYDocumento.then((mensaje) => {
   root = window;
 
   Msip__Motor.ejecutarAlCargarDocumentoYRecursos()
-  msip_prepara_eventos_comunes(root);
 })
 
 
@@ -67,7 +66,6 @@ document.addEventListener('turbo:load', (e) => {
   
   console.log('Escuchador turbo:load')
 
-  //msip_ejecutarAlCargarPagina(window) // Establece root.puntomontaje 
   Msip__Motor.ejecutarAlCargarPagina()
 })
 

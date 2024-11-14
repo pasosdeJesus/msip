@@ -38,7 +38,7 @@ export default class extends Controller {
         borrar = false
       }
     })
-    var purl = window.puntomontaje
+    var purl = window.puntoMontaje
     if (purl == '/') {
       purl = ''
     }

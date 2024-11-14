@@ -9,7 +9,7 @@ export default class MsipAutocompletaAjaxContactos {
   // Elije una persona en autocompletación
   static operarElegida (eorig, cadpersona, id, otrosop) {
     let root = window
-    msip_arregla_puntomontaje(root)
+    msip_arregla_puntoMontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
     if ([...document.querySelector('#orgsocial_persona').
@@ -20,7 +20,7 @@ export default class MsipAutocompletaAjaxContactos {
     }
     let d = '&persona_id=' + idPersona
     d += '&ac_orgsocial_persona=true'
-    const a = root.puntomontaje + 'personas/datos'
+    const a = root.puntoMontaje + 'personas/datos'
 
     window.Rails.ajax({
       type: 'GET',
@@ -89,7 +89,7 @@ export default class MsipAutocompletaAjaxContactos {
 
   static iniciar() {
     console.log("MsipAutocompletaAjaxContactos msip")
-    let url = window.puntomontaje + 'personas.json'
+    let url = window.puntoMontaje + 'personas.json'
     if (window.AutocompletaAjaxExpreg) {
       var contactos = new window.AutocompletaAjaxExpreg(
           [/^orgsocial_orgsocial_persona_attributes_[0-9]*_persona_attributes_nombres$/],

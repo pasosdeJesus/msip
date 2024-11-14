@@ -27,7 +27,7 @@ export default class extends Controller {
   }
 
   cambia_tdocumento(e) {
-    var purl = window.puntomontaje;
+    var purl = window.puntoMontaje;
     if (purl == "/") {
       purl = "";
     }

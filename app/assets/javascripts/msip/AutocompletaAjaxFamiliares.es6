@@ -9,7 +9,7 @@ export default class MsipAutocompletaAjaxFamiliares {
   // Elije una persona en autocompletación
   static operarElegida (eorig, cadpersona, id, otrosop) {
     let root = window
-    msip_arregla_puntomontaje(root)
+    msip_arregla_puntoMontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
     const divcpf = eorig.target.closest('.' + 
@@ -25,7 +25,7 @@ export default class MsipAutocompletaAjaxFamiliares {
 
   static iniciar() {
     console.log("MsipAutocompletaAjaxFamiliares")
-    let url = window.puntomontaje + 'personas.json'
+    let url = window.puntoMontaje + 'personas.json'
     if (window.AutocompletaAjaxExpreg) {
       var asistentes = new window.AutocompletaAjaxExpreg(
           [ /^persona_persona_trelacion1_attributes_[0-9]*_personados_attributes_nombres$/ ],

@@ -37,7 +37,7 @@ function msip_ubicacionpre_expandible_maneja_evento_busca_lugar(e) {
 
 function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
   root = window
-  msip_arregla_puntomontaje(root)
+  msip_arregla_puntoMontaje(root)
   cnom = s.attr('id')
   v = $("#" + cnom).data('autocompleta')
   if (v != 1 && v != "no"){
@@ -60,7 +60,7 @@ function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
     }
     var campo = document.querySelector("#" + cnom)
     // Cada vez que llegue quitar eventlistener si ya fue inicializado
-    var n = new AutocompletaAjaxCampotexto(campo, root.puntomontaje + 
+    var n = new AutocompletaAjaxCampotexto(campo, root.puntoMontaje + 
       "ubicacionespre_lugar.json" + '?pais=' + ubi[0] + 
       '&dep=' + ubi[1] + '&mun=' + ubi[2] + '&clas=' + ubi[3] + '&', 
       'fuente-lugar', function (event, nomop, idop, otrosop) { 
@@ -78,7 +78,7 @@ function msip_ubicacionpre_expandible_busca_lugar(s, ubi) {
 }
 
 function msip_ubicacionpre_expandible_autocompleta_lugar(centropoblado_id, tsit, lug, sit, lat, lon, ubipre, root){
-  msip_arregla_puntomontaje(root)
+  Msip__Motor.arreglarPuntoMontaje(root)
   ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id)
   ubipre.find('[id$=_lugar]').val(lug)
   ubipre.find('[id$=_sitio]').val(sit)
@@ -141,7 +141,7 @@ function msip_ubicacionpre_fija_coordenadas(e, campoubi, elemento, ubi_plural){
 
   id = Number.parseInt($(elemento).val(), 10) // evita eventual XSS
   root = window
-  $.getJSON(root.puntomontaje + "admin/" + ubi_plural +".json", function(o){
+  $.getJSON(root.puntoMontaje + "admin/" + ubi_plural +".json", function(o){
     ubi = o.filter(function(item){
       return item.id == id
     })
@@ -167,7 +167,7 @@ function msip_ubicacionpre_fija_coordenadas(e, campoubi, elemento, ubi_plural){
 // fcammun Función opcional por llamar cuando cambie el municipio
 function msip_ubicacionpre_expandible_registra(iniid, campoubi, root, 
   fcamdep = null, fcammun = null) {
-  msip_arregla_puntomontaje(root)
+  Msip__Motor.arreglarPuntoMontaje(root)
 
   // Buscador en campo lugar
   $(document).on('focusin', 
