@@ -1,5 +1,5 @@
 
-export default class MsipAutocompletaAjaxFamiliares {
+export default class Msip__AutocompletaAjaxFamiliares {
   /* No usamos constructor ni this porque en operaElegida sería
    * del objeto AutocompletaAjaxExpreg y no esta clase.
    * Más bien en esta todo static
@@ -13,7 +13,7 @@ export default class MsipAutocompletaAjaxFamiliares {
     const cs = id.split(';')
     const idPersona = cs[0]
     const divcpf = eorig.target.closest('.' + 
-      MsipAutocompletaAjaxFamiliares.claseEnvoltura)
+      Msip__AutocompletaAjaxFamiliares.claseEnvoltura)
     divcpf.querySelector(
       '.persona_persona_trelacion1_personados_id > input').value = idPersona
     divcpf.querySelector(
@@ -24,14 +24,14 @@ export default class MsipAutocompletaAjaxFamiliares {
   }
 
   static iniciar() {
-    console.log("MsipAutocompletaAjaxFamiliares")
+    console.log("Msip__AutocompletaAjaxFamiliares")
     let url = window.puntoMontaje + 'personas.json'
     if (window.AutocompletaAjaxExpreg) {
       var asistentes = new window.AutocompletaAjaxExpreg(
           [ /^persona_persona_trelacion1_attributes_[0-9]*_personados_attributes_nombres$/ ],
           url,
-          MsipAutocompletaAjaxFamiliares.idDatalist,
-          MsipAutocompletaAjaxFamiliares.operarElegida
+          Msip__AutocompletaAjaxFamiliares.idDatalist,
+          Msip__AutocompletaAjaxFamiliares.operarElegida
           )
         asistentes.iniciar()
     }
@@ -40,6 +40,6 @@ export default class MsipAutocompletaAjaxFamiliares {
 }
 
 // Sobrellevamos imposibilidad de hacer static claseEnvoltura y
-// static idDatalist dentro de la clase MsipAutocompletaAjaxFamiliares asi:
-MsipAutocompletaAjaxFamiliares.claseEnvoltura = 'nested-fields'
-MsipAutocompletaAjaxFamiliares.idDatalist = 'fuente-familiares'
+// static idDatalist dentro de la clase Msip__AutocompletaAjaxFamiliares asi:
+Msip__AutocompletaAjaxFamiliares.claseEnvoltura = 'nested-fields'
+Msip__AutocompletaAjaxFamiliares.idDatalist = 'fuente-familiares'

@@ -1,5 +1,5 @@
 
-export default class MsipAutocompletaAjaxContactos {
+export default class Msip__AutocompletaAjaxContactos {
   /* No usamos constructor ni this porque en operaElegida sería
    * del objeto AutocompletaAjaxExpreg y no esta clase.
    * Más bien en esta todo static
@@ -28,10 +28,10 @@ export default class MsipAutocompletaAjaxContactos {
       data: d,
       success: (resp, estado, xhr) => {
         const divcp = eorig.target.closest(
-        '.' + MsipAutocompletaAjaxContactos.claseEnvoltura)
+        '.' + Msip__AutocompletaAjaxContactos.claseEnvoltura)
         if (divcp == null) {
           alert('No se encontró elmento con clase ' + 
-            MsipAutocompletaAjaxContactos.claseEnvoltura)
+            Msip__AutocompletaAjaxContactos.claseEnvoltura)
         }
         divcp.querySelector('[id$=_attributes_id]').value = resp.id
         divcp.querySelector('[id$=_attributes_nombres]').value = resp.nombres
@@ -77,7 +77,7 @@ export default class MsipAutocompletaAjaxContactos {
         eorig.target.setAttribute('data-autocompleta', 'no')
         eorig.target.removeAttribute('list')
         const sel = document.getElementById(
-          MsipAutocompletaAjaxContactos.idDatalist)
+          Msip__AutocompletaAjaxContactos.idDatalist)
         sel.innerHTML = ''
         document.dispatchEvent(new Event('msip:autocompletado-contacto'))
       },
@@ -88,14 +88,14 @@ export default class MsipAutocompletaAjaxContactos {
   }
 
   static iniciar() {
-    console.log("MsipAutocompletaAjaxContactos msip")
+    console.log("Msip__AutocompletaAjaxContactos msip")
     let url = window.puntoMontaje + 'personas.json'
     if (window.AutocompletaAjaxExpreg) {
       var contactos = new window.AutocompletaAjaxExpreg(
           [/^orgsocial_orgsocial_persona_attributes_[0-9]*_persona_attributes_nombres$/],
           url,
-          MsipAutocompletaAjaxContactos.idDatalist,
-          MsipAutocompletaAjaxContactos.operarElegida
+          Msip__AutocompletaAjaxContactos.idDatalist,
+          Msip__AutocompletaAjaxContactos.operarElegida
           )
         contactos.iniciar()
     }
@@ -103,7 +103,7 @@ export default class MsipAutocompletaAjaxContactos {
 
 }
 
-// Queriamos hacer dentro de MsipAutocompletaAjaxConactos static
+// Queriamos hacer dentro de Msip__AutocompletaAjaxConactos static
 // claseEnvoltura = 'campos_persona' pero la versión de bable usada por babel-transpiler, usado por sprockets4 no lo soporta así que:
-MsipAutocompletaAjaxContactos.claseEnvoltura = 'campos_persona'
-MsipAutocompletaAjaxContactos.idDatalist = 'fuente-contactos-orgsocial'
+Msip__AutocompletaAjaxContactos.claseEnvoltura = 'campos_persona'
+Msip__AutocompletaAjaxContactos.idDatalist = 'fuente-contactos-orgsocial'

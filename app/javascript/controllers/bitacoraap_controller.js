@@ -19,9 +19,9 @@ export default class extends Controller {
   connect() {
     console.log('conectado controlador bitacoraap')
     let campo = document.querySelector('input.bitacora_cambio')
-    if (campo != null && typeof MsipSerializarFormularioEnArreglo == 'function') {
+    if (campo != null && typeof Msip__Motor.serializarFormularioEnArreglo == 'function') {
       window.bitacora_estado_inicial_formulario =
-        MsipSerializarFormularioEnArreglo( 
+        Msip__Motor.serializarFormularioEnArreglo( 
           campo.closest('form') 
         );
     }
@@ -33,7 +33,7 @@ export default class extends Controller {
     if (campo == null) {
       return;
     }
-    let cambio = MsipCalcularCambiosParaBitacora();
+    let cambio = Msip__Motor.calcularCambiosParaBitacora();
     campo.value = JSON.stringify(cambio)
   }
 

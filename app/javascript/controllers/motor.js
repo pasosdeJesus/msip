@@ -369,10 +369,14 @@ export default class Msip__Motor {
     if (typeof window.formato_fecha === "undefined" || window.formato_fecha === "{}") {
       this.inicializaMotor();
     }
-    MsipIniciar()
+    Msip__Motor.iniciar()
     this.ponerTemaUsuarioAjax()
 
     Msip__Motor.configurarElementosTomSelect()
+
+    Msip__AutocompletaAjaxContactos.iniciar()
+    Msip__AutocompletaAjaxFamiliares.iniciar()
+
   }
 
   // Llamada desde application.js tal vez antes de cargar el documento,
@@ -1051,4 +1055,514 @@ export default class Msip__Motor {
       };
     }
   }
+
+
+
+  // Cambia id de los campoubi relacionados con el control de ubicacionpre
+  // expandible en 2 filas, que tengan id 0.
+  static cambiarIdUbicacionpreExpandible(campoubi, cocoonid) {
+    control = $('#ubicacionpre-' + campoubi + '-0').parent()
+    control.find('#ubicacionpre-' + campoubi + '-0').attr('id', 
+      'ubicacionpre-' + campoubi + '-'+ cocoonid)
+    control.find('#resto-' + campoubi + '-0').attr('id', 
+      'resto-' + campoubi + '-'+ cocoonid)
+    control.find('#restocp-' + campoubi + '-0').attr('id', 
+      'restocp-' + campoubi + '-'+ cocoonid)
+    b = control.find('button[data-bs-target$=' + campoubi + '-0]')
+    console.log(b.attr('data-bs-target'))
+    b.attr('data-bs-target', 
+      '#resto-' + campoubi + '-' + cocoonid + ',#restocp-' + campoubi + '-' + 
+      cocoonid)
+  }
+
+
+  static manejarEventoBuscarLugarUbicacionpreExpandible(e) {
+    root = window
+    ubicacionpre = $(this).closest('.ubicacionpre')
+    if (ubicacionpre.length != 1) {
+      alert('No se encontró ubicacionpre para ' + 
+        $(this).attr('id'))
+    }
+
+    epais = ubicacionpre.find('[id$=pais_id]')
+    pais = +epais.val()
+    dep = +ubicacionpre.find('[id$=departamento_id]').val()
+    mun = +ubicacionpre.find('[id$=municipio_id]').val()
+    clas = +ubicacionpre.find('[id$=centropoblado_id]').val()
+    ubi = [pais, dep, mun, clas]
+    msip_ubicacionpre_expandible_busca_lugar($(this), ubi)
+  }
+
+
+  static buscarLugarUbicacionpreExpandible(s, ubi) {
+    root = window
+    msip_arregla_puntoMontaje(root)
+    cnom = s.attr('id')
+    v = $("#" + cnom).data('autocompleta')
+    if (v != 1 && v != "no"){
+      $("#" + cnom).data('autocompleta', 1)
+      // Buscamos un div con clase div_ubicacionpre dentro del cual
+      // están tanto el campo ubicacionpre_id como el campo
+      // ubicacionpre_texto 
+      ubipre = s.closest('.div_ubicacionpre')
+      if (typeof ubipre == 'undefined'){
+        alert('No se ubico .div_ubicacionpre')
+        return
+      }
+      if ($(ubipre).find("[id$='ubicacionpre_id']").length != 1) {
+        alert('Dentro de .div_ubicacionpre no se ubicó ubicacionpre_id')
+        return
+      }
+      if ($(ubipre).find("[id$='_lugar']").length != 1) {
+        alert('Dentro de .div_ubicacionpre no se ubicó _lugar')
+        return
+      }
+      var campo = document.querySelector("#" + cnom)
+      // Cada vez que llegue quitar eventlistener si ya fue inicializado
+      var n = new AutocompletaAjaxCampotexto(campo, root.puntoMontaje + 
+        "ubicacionespre_lugar.json" + '?pais=' + ubi[0] + 
+        '&dep=' + ubi[1] + '&mun=' + ubi[2] + '&clas=' + ubi[3] + '&', 
+        'fuente-lugar', function (event, nomop, idop, otrosop) { 
+          Msip__Motor.autocompletarLugarUbicacionpreExpandible(otrosop['centropoblado_id'],
+            otrosop['tsitio_id'], otrosop['lugar'], 
+            otrosop['sitio'], otrosop['latitud'], otrosop['longitud'], 
+            ubipre, window)
+          event.stopPropagation()
+          event.preventDefault()
+        }.bind(n)
+      )
+      n.iniciar()
+    }
+    return
+  }
+
+  static autocompletarLugarUbicacionpreExpandible(centropoblado_id, tsit, lug, sit, lat, lon, ubipre, root){
+    Msip__Motor.arreglarPuntoMontaje(root)
+    ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id)
+    ubipre.find('[id$=_lugar]').val(lug)
+    ubipre.find('[id$=_sitio]').val(sit)
+    if (lat != 0 && lat != null){
+      ubipre.find('[id$=_latitud]').val(lat)
+    }
+    if (lon != 0 && lon != null){
+      ubipre.find('[id$=_longitud]').val(lon)
+    }
+    if (tsit != null){
+      ubipre.find('[id$=_tsitio_id]').val(tsit)
+    }
+    $(document).trigger("msip:autocompletada-ubicacionpre")
+    return
+  }
+
+
+  static deshabilitarOtrosSinoHayMun(e, campoubi){
+    ubp = $(e.target).closest('.ubicacionpre')
+    lugar = ubp.find('[id$='+campoubi+'_lugar]')
+    sitio = ubp.find('[id$='+campoubi+'_sitio]')
+    tsitio = ubp.find('[id$='+campoubi+'_tsitio_id]')
+    latitud = ubp.find('[id$='+campoubi+'_latitud]')
+    longitud = ubp.find('[id$='+campoubi+'_longitud]')
+    lugar.val("")
+    lugar.attr('disabled', true)
+    sitio.val(null)
+    sitio.attr('disabled', true)
+    tsitio.val(3)
+    tsitio.attr('disabled', true)
+    latitud.val("")
+    latitud.attr('disabled', true)
+    longitud.val("")
+    longitud.attr('disabled', true)
+  }
+
+  static habilitarOtrosSiHayMun(e, tipo, campoubi){
+    ubp = $(e.target).closest('.ubicacionpre')
+    lugar = ubp.find('[id$='+campoubi+'_lugar]')
+    sitio = ubp.find('[id$='+campoubi+'_sitio]')
+    tsitio = ubp.find('[id$='+campoubi+'_tsitio_id]')
+    latitud = ubp.find('[id$='+campoubi+'_latitud]')
+    longitud = ubp.find('[id$='+campoubi+'_longitud]')
+    if(tipo == 1){
+      lugar.attr('disabled', false)
+      tsitio.attr('disabled', false)
+    }
+    if(tipo == 2){
+      sitio.attr('disabled', false)
+      latitud.attr('disabled', false)
+      longitud.attr('disabled', false)
+    }
+  }
+
+
+  static fijarCoordenadasUbicacionpreFija(e, campoubi, elemento, ubi_plural){
+    ubp = $(e.target).closest('.ubicacionpre')
+    latitud = ubp.find('[id$='+campoubi+'_latitud]')
+    longitud = ubp.find('[id$='+campoubi+'_longitud]')
+
+    id = Number.parseInt($(elemento).val(), 10) // evita eventual XSS
+    root = window
+    $.getJSON(root.puntoMontaje + "admin/" + ubi_plural +".json", function(o){
+      ubi = o.filter(function(item){
+        return item.id == id
+      })
+      if(ubi[0]){
+        if(ubi[0].latitud){
+          latitud.val(ubi[0].latitud)
+          longitud.val(ubi[0].longitud)
+        }
+      }else{
+        latitud.val(null)
+        longitud.val(null)
+      }
+    });
+  }
+
+
+  // iniid Inicio de identificacion por ejemplo 'caso_migracion_attributes'
+  // campoubi Identificación particular del que se registra por ejemplo 'salida'
+  //    (teniendo en cuenta que haya campos para el mismo, por ejemplo
+  //    uno terminado en salida_lugar).
+  // root Raiz
+  // fcamdep Función opcional por llamar cuando cambie el departamento
+  // fcammun Función opcional por llamar cuando cambie el municipio
+  static registrarUbicacionpreExpandible(iniid, campoubi, root, 
+    fcamdep = null, fcammun = null) {
+    Msip__Motor.arreglarPuntoMontaje(root)
+
+    // Buscador en campo lugar
+    $(document).on('focusin', 
+      'input[id^=' + iniid + '][id$=_' + campoubi + '_lugar]', 
+      Msip__Motor.manejarEventoBuscarLugarUbicacionpreExpandible
+    )
+
+    // Cambia coordenadas al cambiar pais
+    $(document).on('change', 
+      '[id^=' + iniid + '][id$=' + campoubi + '_pais_id]', function (evento) {
+        Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, $(this), "paises")
+        Msip__Motor.deshabilitarOtrosSinoHayMun(evento, campoubi)
+      }
+    )
+
+    // Cambia coordenadas y deshabilita otros campos al cambiar departamento
+    $(document).on('change', 
+      '[id^=' + iniid + '][id$=' + campoubi + '_departamento_id]', 
+      function (evento) {
+        if($(this).val() == "") {
+          ubp = $(evento.target).closest('.ubicacionpre')
+          let epais = ubp.find('[id$='+campoubi+'_pais_id]')
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, epais, "paises")
+        } else {
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, $(this), "departamentos")
+        }
+        Msip__Motor.deshabilitarOtrosSinoHayMun(evento, campoubi)
+        if (fcamdep) {
+          fcamdep()
+        }
+      })
+
+    // Cambia coordenadas y habilita otros campos al cambiar municipio
+    $(document).on('change', 
+      '[id^=' + iniid + '][id$=' + campoubi + '_municipio_id]', 
+      function (evento) {
+        if($(this).val() == '') {
+          ubp = $(evento.target).closest('.ubicacionpre')
+          dep = ubp.find('[id$='+campoubi+'_departamento_id]')
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, dep, "departamentos")
+          Msip__Motor.deshabilitarOtrosSinoHayMun(evento, campoubi)
+        }else{
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, $(this), "municipios")
+          Msip__Motor.habilitarOtrosSiHayMun(evento, 1, campoubi)
+        }
+        if (fcammun) {
+          fcammun()
+        }
+      })
+
+    // Cambia coordenadas y habilita otros campos al cambiar centro poblado
+    $(document).on('change', 
+      '[id^=' + iniid + '][id$=' + campoubi + '_centropoblado_id]', 
+      function (evento) {
+        if($(this).val()==""){
+          ubp = $(evento.target).closest('.ubicacionpre')
+          mun = ubp.find('[id$='+campoubi+'_municipio_id]')
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, mun, "municipios")
+        }else{
+          Msip__Motor.fijarCoordenadasUbicacionpreFija(evento, campoubi, $(this), "centrospoblados")
+        }
+        Msip__Motor.habilitarOtrosSiHayMun(evento, 1, campoubi)
+      })
+
+    // Habilita otros campos al cambiar lugar
+    $(document).on('change', 
+      '[id^=' + iniid + '][id$=' + campoubi + '_lugar]', 
+      function (evento) {
+        Msip__Motor.habilitarOtrosSiHayMun(evento, 2, campoubi)
+      }
+    )
+
+  }
+
+  /* Serializa valores de un formulario en un arreglo
+   * Idea de serializeArray de jQuery, implemantación basada en
+   * https://vanillajstoolkit.com/helpers/serializearray/
+   * FormData debería dejar esto obsoleto
+   **/
+  static serializarFormularioEnArreglo(formulario) {
+    var arr = [];
+    Array.prototype.slice.call(formulario.elements).forEach(function (campo) {
+      if (!campo.name || campo.disabled || 
+        ['file', 'reset', 'submit', 'button'].indexOf(campo.type) > -1) return;
+      if (campo.type === 'select-multiple') {
+        Array.prototype.slice.call(campo.options).forEach(function (opcion) {
+          if (!opcion.selected) return;
+          arr.push({
+            name: campo.name,
+            value: opcion.value
+          });
+        });
+        return;
+      }
+      if (['checkbox', 'radio'].indexOf(campo.type) >-1 && !campo.checked) return;
+      arr.push({
+        name: campo.name,
+        value: campo.value
+      });
+    });
+    return arr;
+  };
+
+
+
+  /* Convierte arreglo (como el producido por Msip__Motor.serializarFormularioEnArreglo)
+   * en una cadena apta para enviar consulta.
+   * Con base en jQuery.param
+   * https://github.com/jquery/jquery-dist/blob/main/src/serialize.js
+   */
+  static convertirArregloAParam(a) {
+    if ( a == null || !Array.isArray( a ) ) {
+      return "";
+    }
+
+    s = [];
+    for(var i = 0; i < a.length; i++) {
+      s[ s.length ] = encodeURIComponent( a[i].name ) + "=" +
+        encodeURIComponent( a[i].value == null ? "" : a[i].value );
+
+    }
+
+    // Retorna serialización resultante
+    return s.join( "&" );
+  };
+
+
+  /** Enviar AJAX
+   * @param url Url
+   * @param datos Cuerpo
+   */
+  static enviarAjax(url, datos, metodo='GET', tipo='script', 
+    alertaerror=true) {
+    var root =  window
+    var t = Date.now()
+    var d = -1
+    if (root.Msip__Motor.enviarAjaxTestigo) {
+      d = (t - root.Msip__Motor.enviarAjaxTestigo)/1000
+    }
+    root.Msip__Motor.enviarAjaxTestigo = t
+    if (d == -1 || d > 2) {
+      var enc = {}
+      if (document.querySelector('meta[name="csrf-token"]') != null) {
+        enc['X-CSRF-Token'] = document.
+          querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+      if (tipo == 'script') {
+        // https://stackoverflow.com/questions/44803944/can-i-run-a-js-script-from-another-using-fetch
+        const promesaScript = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          document.body.appendChild(script);
+          script.onload = resolve;
+          script.onerror = reject;
+          script.async = true;
+          script.src = url;
+        });
+
+        promesaScript
+          .then(resultado => {
+            console.log('Éxito:', resultado);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            if (alertaerror) {
+              alert('Error: el servicio respondió: ' + error)
+            }
+          });
+
+      } else {
+        if (tipo == 'json') {
+          enc['Content-Type'] = 'application/json'
+        } else if (tipo == 'texto') {
+          enc['Content-Type'] = 'text/plain'
+        } else if (tipo == 'html') {
+          enc['Content-Type'] = 'text/html'
+        } else {
+          alert('Tipo desconocido: ' + tipo)
+          return;
+        }
+
+        fetch(url, {
+          method: metodo,
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: enc,
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: datos
+        })
+          .then(respuesta => respuesta.json())
+          .then(resultado => {
+            console.log('Éxito:', resultado);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            if (alertaerror) {
+              alert('Error: el servicio respondió: ' + error)
+            }
+          });
+      }
+    }
+    return
+  }
+
+
+  /** Envia datos de un formulario empleando AJAX
+   * @param f Formulario
+   */
+  static enviarFormularioAjax(f, metodo='GET', tipo='script', 
+    alertaerror=true, vcommit='Enviar', agenviarautom = true) {
+
+    var a = f.getAttribute('action')
+    const datosFormulario = new FormData(f);
+    datosFormulario.append('commit', vcommit)
+    if (agenviarautom) {
+      datosFormulario.push('_msip_enviarautomatico', 1)
+    }
+    Msip__Motor.enviarAjax(a, datosFormulario, metodo, tipo, alertaerror)
+  }
+
+  static calcularCambiosParaBitacora() {
+    let bitacora = document.querySelector("input.bitacora_cambio");
+    if (bitacora == null) {
+      return { vacio: false };
+    }
+    window.bitacora_estado_final_formulario = Msip__Motor.serializarFormularioEnArreglo(
+      bitacora.closest("form")
+    );
+    if (typeof window.bitacora_estado_inicial_formulario != "object") {
+      return { vacio: false };
+    }
+    let cambio = {};
+    let di = {};
+    window.bitacora_estado_inicial_formulario.forEach(
+      (v) => di[v.name] = v.value
+    );
+    let df = {};
+    window.bitacora_estado_final_formulario.forEach((v) => {
+      df[v.name] = v.value;
+      if (typeof di[v.name] == "undefined") {
+        cambio[v.name] = [null, v.value];
+      }
+    });
+    for (const i in di) {
+      if (typeof df[i] == "undefined") {
+        cambio[i] = [di[i], null];
+      } else if (df[i] != di[i] && i.search(/\[bitacora_cambio\]/) < 0) {
+        cambio[i] = [di[i], df[i]];
+      }
+    }
+    return cambio;
+  }
+
+
+  /*
+   * Con AJAX actualiza formulario, espera recibir formulario guardado
+   * para repintar áreas identificadas con listaIdsRepintar y llamar
+   * la retrollamada.
+   *
+   * Se espera que en rails la función update, maneje PATCH y request.xhr?
+   * para no ir a hacer redirect_to con lo proveniente de un XHR 
+   * (ver ejemplo en lib/sip/concerns/controllers/modelos_controller.rb)
+   *
+   * @param listaIdsRepintar Lista de ids de elementos por repintar
+   *   Si hay uno llamado errores no vacio después de pintar detiene
+   *   con mensaje de error.
+   * @param retrollamada_exito Función por llamar en caso de éxito
+   * @parama argumentos_exito Por pasar a la función retrollamada_exito (se 
+   * sugiere que sea un registro).
+   * @param retrollamada_falla Función por llamar en caso de falla
+   * @parama argumentos_falla Por pasar a la función retrollamada_falla (se 
+   *  sugiere que sea un registro).
+   */
+  static guardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito, 
+    argumentos_exito, retrollamada_falla = null, argumentos_falla = null) {
+    if (document.body.style.cursor == 'wait') {
+      alert('Hay un procedimiento en curso, por favor espere a que termine')
+      return
+    }
+    document.body.style.cursor = 'wait'
+    let formulario = document.querySelector('form')
+    if (formulario == null) {
+      document.body.style.cursor = 'default'
+      alert('** Msip__Motor.guardarFormularioYRepintar: No se encontró formulario')
+      if (retrollamada_falla != null) {
+        retrollamada_falla(argumentos_falla)
+      }
+      return
+    }
+    let datos = new FormData(formulario);
+    datos.set('commit', 'Enviar')
+    datos.set('siguiente', 'editar')
+    datos.set('_msip_enviarautomatico_y_repinta', 'editar')
+    let paramUrl = new URLSearchParams(datos).toString()
+    document.getElementById('errores').innerText=''
+    window.Rails.ajax({
+      type: 'PATCH',
+      url: formulario.getAttribute('action'),
+      data: datos,
+      dataType: 'html',
+      success: (resp, estado, xhr) => {
+        document.body.style.cursor = 'default'
+        let hayErrores = false
+        listaIdsRepintar.forEach((idfrag) => {
+          let f = document.getElementById(idfrag)
+          let nf = resp.getElementById(idfrag)
+          if (nf) {
+            f.innerHTML = nf.innerHTML
+            if (idfrag === 'errores' && nf.innerHTML.trim() !== '') {
+              hayErrores = true
+            }
+          }
+        })
+        if (hayErrores) {
+          document.body.style.cursor = 'default'
+          alert('Revise los errores de validación, resuelvalos y vuelva a intentar')
+          if (retrollamada_falla != null) {
+            retrollamada_falla(argumentos_falla)
+          }
+          return
+        }
+        retrollamada_exito(argumentos_exito)
+      },
+      error: (req, estado, xhr) => {
+        document.body.style.cursor = 'default'
+        window.alert('No se pudo guardar formulario.')
+        if (retrollamada_falla != null) {
+          retrollamada_falla(argumentos_falla);
+        }
+        return
+      }
+    })
+  }
+
+
+
+
 }
