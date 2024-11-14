@@ -18,14 +18,6 @@ import Msip__Motor from "./controllers/msip/motor"
 window.Msip__Motor = Msip__Motor
 Msip__Motor.iniciar()
 
-import Msip__AutocompletaAjaxContactos from "./controllers/msip/AutocompletaAjaxContactos"
-window.Msip__AutocompletaAjaxContactos = Msip__AutocompletaAjaxContactos 
-//Msip__AutocompletaAjaxContactos.iniciar()
-
-import Msip__AutocompletaAjaxFamiliares from "./controllers/msip/AutocompletaAjaxFamiliares"
-window.Msip__AutocompletaAjaxFamiliares = Msip__AutocompletaAjaxFamiliares 
-//Msip__AutocompletaAjaxFamiliares.iniciar()
-
 import TomSelect from 'tom-select';
 window.TomSelect = TomSelect;
 window.configuracionTomSelect = {

@@ -12,7 +12,7 @@ export default class Msip__AutocompletaAjaxContactos {
     Msip__Motor.arreglarPuntoMontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
-    if ([...document.querySelector('#orgsocial_persona_2').
+    if ([...document.querySelector('.orgsocial_persona').
         querySelectorAll('[id$=_attributes_id]')].filter(
           e => e.value==idPersona).length > 0) {
       window.alert("La misma persona ya está en el listado de contactos");

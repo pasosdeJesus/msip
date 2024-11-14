@@ -1,3 +1,10 @@
+import Msip__AutocompletaAjaxContactos from "./AutocompletaAjaxContactos"
+window.Msip__AutocompletaAjaxContactos = Msip__AutocompletaAjaxContactos 
+
+import Msip__AutocompletaAjaxFamiliares from "./AutocompletaAjaxFamiliares"
+window.Msip__AutocompletaAjaxFamiliares = Msip__AutocompletaAjaxFamiliares 
+
+
 export default class Msip__Motor {
   /* 
    * Librería de funciones comunes.

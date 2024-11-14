@@ -30,6 +30,11 @@ for i in `git ls-tree -r main --name-only`; do
       msip_ubicacionpre_fija_coordenadas:Msip__Motor.fijarCoordenadasUbicacionpreFija \
       msip_ubicacionpre_expandible_registra:Msip__Motor.registrarUbicacionpreExpandible_registra \
       MsipAutocompleta:Msip__Autocompleta \
+      mr519ef_visual_a_texto:Mr519__EditaFormulario.visualATexto \
+      mr519ef_texto_a_visual:Mr519__EditaFormulario.textoAVisual \
+      mr519ef_prepara:Mr519__EditaFormulario.preparar \
+      mr519_gen_nombre_a_nombreinterno:Mr519__Motor.nombreANombreInterno \
+      mr519_gen_prepara_eventos_comunes:Mr519__Motor.prepararEventosComunes \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;
       despues=`echo $j | sed -e 's/.*://g'`;
