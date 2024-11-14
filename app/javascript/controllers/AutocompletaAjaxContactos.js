@@ -9,10 +9,10 @@ export default class Msip__AutocompletaAjaxContactos {
   // Elije una persona en autocompletación
   static operarElegida (eorig, cadpersona, id, otrosop) {
     let root = window
-    msip_arregla_puntoMontaje(root)
+    Msip__Motor.arreglarPuntoMontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
-    if ([...document.querySelector('#orgsocial_persona').
+    if ([...document.querySelector('#orgsocial_persona_2').
         querySelectorAll('[id$=_attributes_id]')].filter(
           e => e.value==idPersona).length > 0) {
       window.alert("La misma persona ya está en el listado de contactos");
@@ -105,5 +105,5 @@ export default class Msip__AutocompletaAjaxContactos {
 
 // Queriamos hacer dentro de Msip__AutocompletaAjaxConactos static
 // claseEnvoltura = 'campos_persona' pero la versión de bable usada por babel-transpiler, usado por sprockets4 no lo soporta así que:
-Msip__AutocompletaAjaxContactos.claseEnvoltura = 'campos_persona'
+Msip__AutocompletaAjaxContactos.claseEnvoltura = 'div-tabla-fila'
 Msip__AutocompletaAjaxContactos.idDatalist = 'fuente-contactos-orgsocial'

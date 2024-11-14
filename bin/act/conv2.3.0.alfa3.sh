@@ -13,6 +13,7 @@ for i in `git ls-tree -r main --name-only`; do
     n=$i
     antn="";
     for j in msip_arregla_puntomontaje:Msip__Motor.arreglarPuntoMontaje \
+      msip_arregla_puntoMontaje:Msip__Motor.arreglarPuntoMontaje \
       puntomontaje:puntoMontaje \
       MsipSerializarFormularioEnArreglo:Msip__Motor.serializarFormularioEnArreglo\
       MsipConvertirArregloAParam:Msip__Motor.convertirArregloAParam \

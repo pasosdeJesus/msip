@@ -9,11 +9,11 @@ export default class Msip__AutocompletaAjaxFamiliares {
   // Elije una persona en autocompletación
   static operarElegida (eorig, cadpersona, id, otrosop) {
     let root = window
-    msip_arregla_puntoMontaje(root)
+    Msip__Motor.arreglarPuntoMontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
     const divcpf = eorig.target.closest('.' + 
-      Msip__AutocompletaAjaxFamiliares.claseEnvoltura)
+      window.Msip__AutocompletaAjaxFamiliares.claseEnvoltura)
     divcpf.querySelector(
       '.persona_persona_trelacion1_personados_id > input').value = idPersona
     divcpf.querySelector(
@@ -30,8 +30,8 @@ export default class Msip__AutocompletaAjaxFamiliares {
       var asistentes = new window.AutocompletaAjaxExpreg(
           [ /^persona_persona_trelacion1_attributes_[0-9]*_personados_attributes_nombres$/ ],
           url,
-          Msip__AutocompletaAjaxFamiliares.idDatalist,
-          Msip__AutocompletaAjaxFamiliares.operarElegida
+          window.Msip__AutocompletaAjaxFamiliares.idDatalist,
+          window.Msip__AutocompletaAjaxFamiliares.operarElegida
           )
         asistentes.iniciar()
     }

@@ -30,7 +30,7 @@ export default class Msip__Motor {
 
   // Verifica que `puntoMontaje` esté definido y termine en /; 
   // si no está definido, lo establece como '/'
-  static arreglarPuntomontaje(root) {
+  static arreglarPuntoMontaje(root) {
     if (typeof root.puntoMontaje === 'undefined') {
       root.puntoMontaje = '/';
     }
@@ -69,7 +69,7 @@ export default class Msip__Motor {
   // @datos Datos por enviar
   // @funproc Funcion para procesar respuesta
   static ajaxRecibeJson(root, ruta, datos, funproc) {
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
 
     // Evitar cargar de la misma ruta 2 veces en menos de 2 segundos
     const t = Date.now();
@@ -127,7 +127,7 @@ export default class Msip__Motor {
     root.msipEnviaAjaxT = t;
 
     if (d === -1 || d > 2) {
-      this.arreglarPuntomontaje(root);
+      Msip__Motor.arreglarPuntoMontaje(root);
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       const rutac = `${root.puntoMontaje}${ruta}.js`;
 
@@ -244,7 +244,7 @@ export default class Msip__Motor {
     var datos = {}
     var t = Date.now();
     var d = -1;
-    this.arreglarPuntomontaje(root)
+    Msip__Motor.arreglarPuntoMontaje(root)
     if (root.msip_ajax_recibe_json_t) {
       if (root.msip_ajax_recibe_json_t[ruta]) {
         d = (t - root.msip_ajax_recibe_json_t[ruta]) / 1000;
@@ -321,7 +321,7 @@ export default class Msip__Motor {
     const mundep = document.getElementById('mundep');
     if (mundep) {
       mundep.addEventListener('focusin', () => {
-        this.arreglarPuntomontaje(window);
+        Msip__Motor.arreglarPuntoMontaje(window);
         this.buscaGen(mundep, null, `${window.puntoMontaje}mundep.json`);
       });
     }
@@ -770,7 +770,7 @@ export default class Msip__Motor {
   //          que el controlador responda con presenta_nombre de Msip::Modelo)
   // f        Función por llamar despues de cambiar el cuadro de seleccion
   static llenaSelectConAJAX(elem, idsel, rutajson, nomparam, descerr, root = window, paramfiltro = false, cid = 'id', cnombre = 'nombre', callback = null) {
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
     
     const currentTime = Date.now();
     let elapsed = -1;
@@ -819,7 +819,7 @@ export default class Msip__Motor {
   // f        Función por llamar despues de cambiar el cuadro de seleccion
   // opvacia  Si es verdadero agrega opción vacía al cuadro de selección
   static llenaSelectConAJAX2(rutajson, params, idsel, descerr, root = window, cid = 'id', cnombre = 'nombre', callback = null, opvacia = false) {
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
     
     const currentTime = Date.now();
     let elapsed = -1;
@@ -859,7 +859,7 @@ export default class Msip__Motor {
   // descerr  Descripcion por presentar en caso de que el JSON no responda
   // root     Donde se almacenan objetos globales
   static funcionTrasAjax(rutajson, params, callback, descerr, root = window) {
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
 
     const currentTime = Date.now();
     let elapsed = -1;
@@ -891,7 +891,7 @@ export default class Msip__Motor {
   //# descerr  Descripcion por presentar en caso de que el JSON no responda
   //# root     Donde se almacenan objetos globales
   static funcion1pTrasAjax(rutajson, params, callback, p1, descerr, root = window) {
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
 
     const currentTime = Date.now();
     let elapsed = -1;
@@ -931,7 +931,7 @@ export default class Msip__Motor {
     formData.append('commit', 'Enviar');
 
     const root = window;
-    this.arreglarPuntomontaje(root);
+    Msip__Motor.arreglarPuntoMontaje(root);
 
     // Ajusta `rutagenera` con el punto de montaje si es necesario
     if (
@@ -1012,7 +1012,7 @@ export default class Msip__Motor {
     if (conenv && config.relativeUrlRoot) {
       window.puntoMontaje = config.relativeUrlRoot;
     }
-    this.arreglarPuntomontaje(window);
+    Msip__Motor.arreglarPuntoMontaje(window);
     window.msip_sincoord = false;
     window.formato_fecha = config.formatoFecha || "yyyy-mm-dd";
     window.msip_idioma_predet = config.idiomaPredet || "en";
@@ -1096,7 +1096,7 @@ export default class Msip__Motor {
 
   static buscarLugarUbicacionpreExpandible(s, ubi) {
     root = window
-    msip_arregla_puntoMontaje(root)
+    Msip__Motor.arreglarPuntoMontaje(root)
     cnom = s.attr('id')
     v = $("#" + cnom).data('autocompleta')
     if (v != 1 && v != "no"){
