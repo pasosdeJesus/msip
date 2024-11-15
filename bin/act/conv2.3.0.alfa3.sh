@@ -39,6 +39,7 @@ for i in `git ls-tree -r main --name-only`; do
       heb412_gen_completa_generarp:Heb412_Motor.completarEnlacePlantilla \
       heb412_gen_eliminar_archivo:Heb412_Motor.eliminarArchivo \
       heb412_gen_eliminar_directorio:Heb412_Motor.eliminarDirectorio \
+      root:window \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;
       despues=`echo $j | sed -e 's/.*://g'`;
