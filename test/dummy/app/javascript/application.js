@@ -10,7 +10,6 @@ if (typeof window.Rails == 'undefined') {
 
 import "@hotwired/turbo-rails"
 
-import "./jquery"
 import 'popper.js'              // Dialogos emergentes usados por bootstrap
 import * as bootstrap from 'bootstrap'              // Maquetacion y elementos de diseño
 
