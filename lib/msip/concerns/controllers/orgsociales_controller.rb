@@ -112,7 +112,10 @@ module Msip
                 params[:orgsocial][:orgsocial_persona_attributes]
               op_params = params[:orgsocial][:orgsocial_persona_attributes]
               op_params.each do |_clave, valor|
-                next unless valor[:id] == ""
+                next unless (
+                  valor[:id] == "" && valor[:_destroy] != "true" && 
+                  valor[:persona_attributes][:id]
+                )
 
                 op = Msip::OrgsocialPersona.create(
                   correo: valor[:correo],

@@ -15,7 +15,9 @@ module Msip
           private
 
           def preparar_orgsocial_persona
-            @registro = @orgsocial = Msip::Orgsocial.new(orgsocial_persona: [Msip::OrgsocialPersona.new])
+            @registro = @orgsocial = Msip::Orgsocial.new(
+              orgsocial_persona: [Msip::OrgsocialPersona.new]
+            )
           end
         end # included
 

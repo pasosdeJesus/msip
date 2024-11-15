@@ -201,26 +201,34 @@ module Msip
         can(:read, Msip::Ability::lista_modelos_persona)
         case usuario.rol
         when Ability::ROLANALI
-          can([:new, :create, :read, :update], Msip::Grupoper)
-          can([:new, :create, :read, :update], Msip::Orgsocial)
+          can([:new, :create, :read, :update], [
+            Msip::Grupoper,
+            Msip::Orgsocial,
+            Msip::OrgsocialPersona,
+            Msip::Solicitud,
+          ])
           can([:new, :create, :read, :update], Msip::Ability::lista_modelos_persona)
-          can([:new, :create, :read, :update], Msip::Solicitud)
           can(:read, Msip::Ubicacion)
           can(:new, Msip::Ubicacion)
           can([:update, :create, :destroy], Msip::Ubicacion)
           can([:new, :index, :create, :show], ::Usuario, rol: 5)
           can([:show, :destroy], ::Usuario, nusuario: usuario.nusuario)
         when Ability::ROLADMIN
-          can(:manage, Msip::Bitacora)
-          can(:manage, Msip::Grupoper)
-          can(:manage, Msip::Orgsocial)
+          can(:manage, [
+            Msip::Bitacora,
+            Msip::Grupoper,
+            Msip::Orgsocial,
+            Msip::OrgsocialPersona,
+            Msip::Respaldo7z,
+            Msip::Solicitud,
+            Msip::Tema,
+            Msip::Ubicacion,
+            Msip::Ubicacionpre,
+            ::Usuario,
+          ])
+
           can(:manage, Msip::Ability::lista_modelos_persona)
-          can(:manage, Msip::Respaldo7z)
-          can(:manage, Msip::Solicitud)
-          can(:manage, Msip::Tema)
-          can(:manage, Msip::Ubicacion)
-          can(:manage, Msip::Ubicacionpre)
-          can(:manage, ::Usuario)
+
           can(:manage, :tablasbasicas)
           tablasbasicas.each do |t|
             c = Ability.tb_clase(t)

@@ -27,6 +27,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.plural(/^(.*n)$/i, '\1es')
   inflect.singular(/^(.*n)es$/i, '\1')
   inflect.irregular("orgsocial", "orgsociales")
+  inflect.irregular("orgsocial_persona", "orgsocial_personas")
   inflect.irregular("centropoblado", "centrospoblados")
   inflect.irregular("estadosol", "estadossol")
   inflect.irregular("etiqueta", "etiquetas")
