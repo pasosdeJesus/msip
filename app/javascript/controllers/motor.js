@@ -123,7 +123,10 @@ export default class Msip__Motor {
   // Envía con ajax a la ruta especificada junto con los datos, espera
   // respuesta html de la cual extrae una parte con selector selresp y
   // lo usa para volver a pintar el elemento con selector selelem
-  static enviaAjaxDatosRutaYPinta(ruta, datos, selresp, selelem, metodo = 'GET', tipo = 'html', concsrf = false) {
+  static enviarAjaxDatosRutaYPinta(
+    ruta, datos, selresp, selelem, metodo = 'GET', tipo = 'html', 
+    concsrf = false
+  ) {
     const root = window;
     const t = Date.now();
     let d = -1;

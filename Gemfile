@@ -6,19 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # No usamos gemspec porque la aplicacón de prueba de un motor rails
 # no lo soporta.
 
-ruby ">= 3.1.2"
-
-gem "babel-transpiler"
+ruby ">= 3.3.3"
 
 gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
-
-gem "cocoon",
-  git: "https://github.com/vtamara/cocoon.git",
-  branch: "new_id_with_ajax" # Formularios anidados (algunos con ajax)
-
-gem "coffee-rails", "~> 5.0"    # CoffeeScript para recursos .js.coffee
 
 gem "devise", "~> 4.8"          # Autenticación
 
@@ -43,8 +35,6 @@ gem "rails", ">= 7.2", "< 7.3"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
 gem "rails-i18n", "~> 7.0"      # Localización e Internacionalización
-
-gem "redis"
 
 gem "sassc-rails", "~> 2.1"     # Conversión a CSS
 
@@ -89,11 +79,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara"
-
   gem "connection_pool"
-
-  gem "cuprite"
 
   gem "minitest", "~> 5.16"
 

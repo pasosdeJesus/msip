@@ -22,6 +22,7 @@ for i in `git ls-tree -r main --name-only`; do
       MsipCalcularCambiosParaBitacora:Msip__Motor.calcularCambiosParaBitacora \
       MsipGuardarFormularioYRepintar:Msip__Motor.guardarFormularioYRepintar \
       MsipIniciar:Msip__Motor.iniciar \
+      msip_envia_ajax_datos_ruta_y_pinta:Msip__Motor:enviarAjaxDatosRutaYPinta \
       msip_ubicacionpre_expandible_cambia_ids:Msip__Motor.cambiarIdUbicacionpreExpandible \
       msip_ubicacionpre_expandible_maneja_evento_busca_lugar::Msip__Motor.manejarEventoBuscarLugarUbicacionpreExpandible \
       msip_ubicacionpre_expandible_autocompleta_lugar::Msip__Motor.autocompletarLugarUbicacionpreExpandible \
