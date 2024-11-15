@@ -37,14 +37,14 @@ export default class Msip__Motor {
 
   // Verifica que `puntoMontaje` esté definido y termine en /; 
   // si no está definido, lo establece como '/'
-  static arreglarPuntoMontaje(root) {
-    if (typeof root.puntoMontaje === 'undefined') {
-      root.puntoMontaje = '/';
+  static arreglarPuntoMontaje() {
+    if (typeof window.puntoMontaje === 'undefined') {
+      window.puntoMontaje = '/';
     }
-    if (root.puntoMontaje[root.puntoMontaje.length - 1] !== '/') {
-      root.puntoMontaje += '/';
+    if (window.puntoMontaje[window.puntoMontaje.length - 1] !== '/') {
+      window.puntoMontaje += '/';
     }
-    return root.puntoMontaje
+    return window.puntoMontaje
   }
 
   // Si el elemento el es campo de selección le configura tom-select
@@ -71,29 +71,28 @@ export default class Msip__Motor {
   // (recordar en rails responder con render json: objeto, status:ok, 
   //  donde objeto es un objeto --no una cadena o entero)
   //
-  // @root Donde almacenar objetos globales i.e window
   // @ruta ruta (sin punto de montaje)
   // @datos Datos por enviar
   // @funproc Funcion para procesar respuesta
-  static ajaxRecibeJson(root, ruta, datos, funproc) {
-    Msip__Motor.arreglarPuntoMontaje(root);
+  static ajaxRecibeJson(ruta, datos, funproc) {
+    Msip__Motor.arreglarPuntoMontaje();
 
     // Evitar cargar de la misma ruta 2 veces en menos de 2 segundos
     const t = Date.now();
     let d = -1;
 
-    if (root.msipAjaxRecibeJsonT) {
-      if (root.msipAjaxRecibeJsonT[ruta]) {
-        d = (t - root.msipAjaxRecibeJsonT[ruta]) / 1000;
+    if (window.msipAjaxRecibeJsonT) {
+      if (window.msipAjaxRecibeJsonT[ruta]) {
+        d = (t - window.msipAjaxRecibeJsonT[ruta]) / 1000;
       }
     } else {
-      root.msipAjaxRecibeJsonT = {};
+      window.msipAjaxRecibeJsonT = {};
     }
 
-    root.msipAjaxRecibeJsonT[ruta] = t;
+    window.msipAjaxRecibeJsonT[ruta] = t;
 
     if (d === -1 || d > 2) {
-      const rutac = `${root.puntoMontaje}${ruta}.json`;
+      const rutac = `${window.puntoMontaje}${ruta}.json`;
 
       fetch(rutac, {
         method: 'GET',
@@ -109,7 +108,7 @@ export default class Msip__Motor {
           return response.json();
         })
         .then(data => {
-          funproc(root, data);
+          funproc(data);
         })
         .catch(error => {
           alert(error.message);
@@ -127,19 +126,18 @@ export default class Msip__Motor {
     ruta, datos, selresp, selelem, metodo = 'GET', tipo = 'html', 
     concsrf = false
   ) {
-    const root = window;
     const t = Date.now();
     let d = -1;
 
-    if (root.msipEnviaAjaxT) {
-      d = (t - root.msipEnviaAjaxT) / 1000;
+    if (window.msipEnviaAjaxT) {
+      d = (t - window.msipEnviaAjaxT) / 1000;
     }
-    root.msipEnviaAjaxT = t;
+    window.msipEnviaAjaxT = t;
 
     if (d === -1 || d > 2) {
-      Msip__Motor.arreglarPuntoMontaje(root);
+      Msip__Motor.arreglarPuntoMontaje();
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      const rutac = `${root.puntoMontaje}${ruta}.js`;
+      const rutac = `${window.puntoMontaje}${ruta}.js`;
 
       const xhr = new XMLHttpRequest();
       xhr.open(metodo, rutac, true);
@@ -179,7 +177,7 @@ export default class Msip__Motor {
 
 
   // Pone colores del tema en elementos de la interfaz de manera dinámica
-  static ponerTema(root, tema) {
+  static ponerTema(tema) {
     console.log("entro a msip_ pone_tema")
     document.querySelectorAll('.table-striped>tbody>tr:nth-child(odd)').forEach((element) => {
       element.style.backgroundColor = tema.fondo_lista;
@@ -249,23 +247,22 @@ export default class Msip__Motor {
   }
 
   static async ponerTemaUsuarioAjax(){
-    var root = window
     var ruta = 'temausuario'
     var datos = {}
     var t = Date.now();
     var d = -1;
-    Msip__Motor.arreglarPuntoMontaje(root)
-    if (root.msip_ajax_recibe_json_t) {
-      if (root.msip_ajax_recibe_json_t[ruta]) {
-        d = (t - root.msip_ajax_recibe_json_t[ruta]) / 1000;
+    Msip__Motor.arreglarPuntoMontaje()
+    if (window.msip_ajax_recibe_json_t) {
+      if (window.msip_ajax_recibe_json_t[ruta]) {
+        d = (t - window.msip_ajax_recibe_json_t[ruta]) / 1000;
       }
     } else {
-      root.msip_ajax_recibe_json_t = {};
+      window.msip_ajax_recibe_json_t = {};
     }
-    root.msip_ajax_recibe_json_t[ruta] = t;
+    window.msip_ajax_recibe_json_t[ruta] = t;
 
     if (d === -1 || d > 2) {
-      var rutac = root.puntoMontaje + ruta + ".json";
+      var rutac = window.puntoMontaje + ruta + ".json";
       await fetch(rutac)
         .then(function(response) {
           if (!response.ok) {
@@ -274,7 +271,7 @@ export default class Msip__Motor {
           return response.json();
         })
         .then(function(data) {
-          return Msip__Motor.ponerTema(root, data);
+          return Msip__Motor.ponerTema(data);
         })
     }
     return true;
@@ -331,7 +328,7 @@ export default class Msip__Motor {
     const mundep = document.getElementById('mundep');
     if (mundep) {
       mundep.addEventListener('focusin', () => {
-        Msip__Motor.arreglarPuntoMontaje(window);
+        Msip__Motor.arreglarPuntoMontaje();
         this.buscaGen(mundep, null, `${window.puntoMontaje}mundep.json`);
       });
     }
@@ -770,7 +767,6 @@ export default class Msip__Motor {
   // rutajson Ruta del API que respondera JSON (sin punto de montaje)
   // nomparam Parametro para el API JSON que irá con el valor de $elem
   // descerr  Descripcion por presentar en caso de que el JSON no responda
-  // root     Donde se almacenan objetos globales
   // paramfiltro Enviar parámetro de la forma { filtro: { nomparam: val} } 
   // cid      Campo en el JSON resultantes de la consulta AJAX que corresponderá 
   //          al id de cada elemento del campo de seleccion
@@ -779,16 +775,16 @@ export default class Msip__Motor {
   //          además pasará parametro presenta_nombre al hacer la consulta para 
   //          que el controlador responda con presenta_nombre de Msip::Modelo)
   // f        Función por llamar despues de cambiar el cuadro de seleccion
-  static llenaSelectConAJAX(elem, idsel, rutajson, nomparam, descerr, root = window, paramfiltro = false, cid = 'id', cnombre = 'nombre', callback = null) {
-    Msip__Motor.arreglarPuntoMontaje(root);
+  static llenaSelectConAJAX(elem, idsel, rutajson, nomparam, descerr, paramfiltro = false, cid = 'id', cnombre = 'nombre', callback = null) {
+    Msip__Motor.arreglarPuntoMontaje();
     
     const currentTime = Date.now();
     let elapsed = -1;
     
-    if (root.LlenaSelectConAJAX_t) {
-      elapsed = (currentTime - root.llenaSelectConAJAX_t) / 1000;
+    if (window.LlenaSelectConAJAX_t) {
+      elapsed = (currentTime - window.llenaSelectConAJAX_t) / 1000;
     }
-    root.llenaSelectConAJAX_t = currentTime;
+    window.llenaSelectConAJAX_t = currentTime;
 
     if (elapsed > 0 && elapsed <= 2) return; // Limitar a 1 solicitud cada 2 segundos
     
@@ -802,11 +798,11 @@ export default class Msip__Motor {
       param = { filtro: param };
     }
 
-    fetch(`${root.puntoMontaje}${rutajson}?${new URLSearchParams(param)}`)
+    fetch(`${window.puntoMontaje}${rutajson}?${new URLSearchParams(param)}`)
       .then(response => response.json())
       .then(data => {
         this.remplazaOpcionesSelect(idsel, data, true, cid, cnombre);
-        if (callback) callback(root);
+        if (callback) callback();
       })
       .catch(error => {
         alert(`Problema ${descerr}. ${JSON.stringify(param)} ${error.message}`);
@@ -819,7 +815,6 @@ export default class Msip__Motor {
   // params   Parametros por pasar a consulta AJAX
   // idsel    Id. del select por modificar
   // descerr  Descripcion por presentar en caso de que el JSON no responda
-  // root     Donde se almacenan objetos globales
   // cid      Campo en el JSON resultantes de la consulta AJAX que corresponderá 
   //          al id de cada elemento del campo de seleccion
   // cnombre  Campo en el JSON resultante de la consula AJAX que corresponderá al 
@@ -828,33 +823,33 @@ export default class Msip__Motor {
   //          que el controlador responda con presenta_nombre de Msip::Modelo)
   // f        Función por llamar despues de cambiar el cuadro de seleccion
   // opvacia  Si es verdadero agrega opción vacía al cuadro de selección
-  static llenaSelectConAJAX2(rutajson, params, idsel, descerr, root = window, cid = 'id', cnombre = 'nombre', callback = null, opvacia = false) {
-    Msip__Motor.arreglarPuntoMontaje(root);
+  static llenaSelectConAJAX2(rutajson, params, idsel, descerr, cid = 'id', cnombre = 'nombre', callback = null, opvacia = false) {
+    Msip__Motor.arreglarPuntoMontaje();
     
     const currentTime = Date.now();
     let elapsed = -1;
     
-    if (root.llenaSelectConAJAX2_t) {
-      elapsed = (currentTime - root.llenaSelectConAJAX2_t) / 1000;
+    if (window.llenaSelectConAJAX2_t) {
+      elapsed = (currentTime - window.llenaSelectConAJAX2_t) / 1000;
     }
-    root.llenaSelectConAJAX2_t = currentTime;
+    window.llenaSelectConAJAX2_t = currentTime;
 
-    const previousRoute = root.llenaSelectConAJAX2_rv || '';
-    const previousParams = root.llenaSelectConAJAX2_pv || {};
+    const previousRoute = window.llenaSelectConAJAX2_rv || '';
+    const previousParams = window.llenaSelectConAJAX2_pv || {};
 
-    root.llenaSelectConAJAX2_rv = rutajson;
-    root.llenaSelectConAJAX2_pv = params;
+    window.llenaSelectConAJAX2_rv = rutajson;
+    window.llenaSelectConAJAX2_pv = params;
 
     // Limitar a 1 solicitud cada 2 segundos con los mismos parámetros
     if (elapsed > 0 && elapsed <= 2 && rutajson === previousRoute && JSON.stringify(params) === JSON.stringify(previousParams)) {
       return;
     }
 
-    fetch(`${root.puntoMontaje}${rutajson}?${new URLSearchParams(params)}`)
+    fetch(`${window.puntoMontaje}${rutajson}?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
         this.remplazaOpcionesSelect(idsel, data, true, cid, cnombre, opvacia);
-        if (callback) callback(root);
+        if (callback) callback();
       })
       .catch(error => {
         alert(`Problema ${descerr}. ${JSON.stringify(params)} ${error.message}`);
@@ -867,57 +862,55 @@ export default class Msip__Motor {
   // params   Parametros por pasar a consulta AJAX
   // f        Función por llamar
   // descerr  Descripcion por presentar en caso de que el JSON no responda
-  // root     Donde se almacenan objetos globales
-  static funcionTrasAjax(rutajson, params, callback, descerr, root = window) {
-    Msip__Motor.arreglarPuntoMontaje(root);
+  static funcionTrasAjax(rutajson, params, callback, descerr) {
+    Msip__Motor.arreglarPuntoMontaje();
 
     const currentTime = Date.now();
     let elapsed = -1;
 
-    if (root.msipFuncionTrasAjax_t) {
-      elapsed = (currentTime - root.msipFuncionTrasAjax_t) / 1000;
+    if (window.msipFuncionTrasAjax_t) {
+      elapsed = (currentTime - window.msipFuncionTrasAjax_t) / 1000;
     }
-    root.msipFuncionTrasAjax_t = currentTime;
+    window.msipFuncionTrasAjax_t = currentTime;
 
     // Limitar a 1 solicitud cada 2 segundos
     if (elapsed > 0 && elapsed <= 2) return;
 
-    fetch(`${root.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
+    fetch(`${window.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
-        callback(root, data);
+        callback( data);
       })
       .catch(error => {
         alert(`Problema ${descerr}. ${JSON.stringify(params)} ${error.message}`);
       });
   }
 
-  //# Ejecuta función que recibe un parametro además de root y la respuesta que
+  //# Ejecuta función que recibe un parametro además de window y la respuesta que
   //# recibe mendiante AJAX
   //# rutajson Ruta del API que respondera JSON (sin punto de montaje, ni .json)
   //# params   Parametros por pasar a consulta AJAX
   //# f        Función por llamar
   //# p1       Parametro por pasara a la funcion f
   //# descerr  Descripcion por presentar en caso de que el JSON no responda
-  //# root     Donde se almacenan objetos globales
-  static funcion1pTrasAjax(rutajson, params, callback, p1, descerr, root = window) {
-    Msip__Motor.arreglarPuntoMontaje(root);
+  static funcion1pTrasAjax(rutajson, params, callback, p1, descerr) {
+    Msip__Motor.arreglarPuntoMontaje();
 
     const currentTime = Date.now();
     let elapsed = -1;
 
-    if (root.msipFuncion1pTrasAjax_t) {
-      elapsed = (currentTime - root.msipFuncion1pTrasAjax_t) / 1000;
+    if (window.msipFuncion1pTrasAjax_t) {
+      elapsed = (currentTime - window.msipFuncion1pTrasAjax_t) / 1000;
     }
-    root.msipFuncion1pTrasAjax_t = currentTime;
+    window.msipFuncion1pTrasAjax_t = currentTime;
 
     // Limitar a 1 solicitud cada 1 segundo
     if (elapsed > 0 && elapsed <= 1) return;
 
-    fetch(`${root.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
+    fetch(`${window.puntoMontaje}${rutajson}.json?${new URLSearchParams(params)}`)
       .then(response => response.json())
       .then(data => {
-        callback(root, data, p1);
+        callback(data, p1);
       })
       .catch(error => {
         alert(`Problema ${descerr}. ${JSON.stringify(params)} ${error.message}`);
@@ -940,15 +933,13 @@ export default class Msip__Motor {
     const formData = new URLSearchParams(new FormData(form));
     formData.append('commit', 'Enviar');
 
-    const root = window;
-    Msip__Motor.arreglarPuntoMontaje(root);
+    Msip__Motor.arreglarPuntoMontaje();
 
     // Ajusta `rutagenera` con el punto de montaje si es necesario
-    if (
-      (root.puntoMontaje !== '/' || rutagenera[0] !== '/') &&
-      !rutagenera.startsWith(root.puntoMontaje)
+    if ((window.puntoMontaje !== '/' || rutagenera[0] !== '/') &&
+      !rutagenera.startsWith(window.puntoMontaje)
     ) {
-      rutagenera = root.puntoMontaje + rutagenera;
+      rutagenera = window.puntoMontaje + rutagenera;
     }
 
     // Construye la URL con los datos del formulario
@@ -956,12 +947,12 @@ export default class Msip__Motor {
     elema.setAttribute('href', url);
   }
 
-  static registraCambiosParaBitacora(root) {
+  static registraCambiosParaBitacora() {
     // Si existen entradas con la clase 'bitacora_cambio', guarda el estado inicial del formulario
     const bitacoraCampos = document.querySelectorAll("input.bitacora_cambio");
     if (bitacoraCampos.length > 0) {
       const form = bitacoraCampos[0].closest("form");
-      root.bitacoraEstadoInicialFormulario = Array.from(new FormData(form)).map(([name, value]) => ({ name, value }));
+      window.bitacoraEstadoInicialFormulario = Array.from(new FormData(form)).map(([name, value]) => ({ name, value }));
     }
 
     // Registra el evento 'submit' para formularios que contengan 'bitacora_cambio'
@@ -970,14 +961,14 @@ export default class Msip__Motor {
       if (!form.querySelector(".bitacora_cambio")) return;
 
       // Almacena el estado final del formulario
-      root.bitacoraEstadoFinalFormulario = Array.from(new FormData(form)).map(([name, value]) => ({ name, value }));
+      window.bitacoraEstadoFinalFormulario = Array.from(new FormData(form)).map(([name, value]) => ({ name, value }));
 
       // Compara el estado inicial y final para detectar cambios
       const cambio = {};
-      const di = Object.fromEntries(root.bitacoraEstadoInicialFormulario.map(v => [v.name, v.value]));
-      const df = Object.fromEntries(root.bitacoraEstadoFinalFormulario.map(v => [v.name, v.value]));
+      const di = Object.fromEntries(window.bitacoraEstadoInicialFormulario.map(v => [v.name, v.value]));
+      const df = Object.fromEntries(window.bitacoraEstadoFinalFormulario.map(v => [v.name, v.value]));
 
-      root.bitacoraEstadoFinalFormulario.forEach(v => {
+      window.bitacoraEstadoFinalFormulario.forEach(v => {
         if (!(v.name in di)) {
           cambio[v.name] = [null, v.value];
         }
@@ -1022,7 +1013,7 @@ export default class Msip__Motor {
     if (conenv && config.relativeUrlRoot) {
       window.puntoMontaje = config.relativeUrlRoot;
     }
-    Msip__Motor.arreglarPuntoMontaje(window);
+    Msip__Motor.arreglarPuntoMontaje();
     window.msip_sincoord = false;
     window.formato_fecha = config.formatoFecha || "yyyy-mm-dd";
     window.msip_idioma_predet = config.idiomaPredet || "en";
@@ -1087,7 +1078,6 @@ export default class Msip__Motor {
 
 
   static manejarEventoBuscarLugarUbicacionpreExpandible(e) {
-    root = window
     ubicacionpre = $(this).closest('.ubicacionpre')
     if (ubicacionpre.length != 1) {
       alert('No se encontró ubicacionpre para ' + 
@@ -1105,8 +1095,7 @@ export default class Msip__Motor {
 
 
   static buscarLugarUbicacionpreExpandible(s, ubi) {
-    root = window
-    Msip__Motor.arreglarPuntoMontaje(root)
+    Msip__Motor.arreglarPuntoMontaje()
     cnom = s.attr('id')
     v = $("#" + cnom).data('autocompleta')
     if (v != 1 && v != "no"){
@@ -1129,14 +1118,14 @@ export default class Msip__Motor {
       }
       var campo = document.querySelector("#" + cnom)
       // Cada vez que llegue quitar eventlistener si ya fue inicializado
-      var n = new AutocompletaAjaxCampotexto(campo, root.puntoMontaje + 
+      var n = new AutocompletaAjaxCampotexto(campo, window.puntoMontaje + 
         "ubicacionespre_lugar.json" + '?pais=' + ubi[0] + 
         '&dep=' + ubi[1] + '&mun=' + ubi[2] + '&clas=' + ubi[3] + '&', 
         'fuente-lugar', function (event, nomop, idop, otrosop) { 
           Msip__Motor.autocompletarLugarUbicacionpreExpandible(otrosop['centropoblado_id'],
             otrosop['tsitio_id'], otrosop['lugar'], 
             otrosop['sitio'], otrosop['latitud'], otrosop['longitud'], 
-            ubipre, window)
+            ubipre)
           event.stopPropagation()
           event.preventDefault()
         }.bind(n)
@@ -1146,8 +1135,8 @@ export default class Msip__Motor {
     return
   }
 
-  static autocompletarLugarUbicacionpreExpandible(centropoblado_id, tsit, lug, sit, lat, lon, ubipre, root){
-    Msip__Motor.arreglarPuntoMontaje(root)
+  static autocompletarLugarUbicacionpreExpandible(centropoblado_id, tsit, lug, sit, lat, lon, ubipre){
+    Msip__Motor.arreglarPuntoMontaje()
     ubipre.parent().find('[id$=_centropoblado_id]').val(centropoblado_id)
     ubipre.find('[id$=_lugar]').val(lug)
     ubipre.find('[id$=_sitio]').val(sit)
@@ -1209,8 +1198,7 @@ export default class Msip__Motor {
     longitud = ubp.find('[id$='+campoubi+'_longitud]')
 
     id = Number.parseInt($(elemento).val(), 10) // evita eventual XSS
-    root = window
-    $.getJSON(root.puntoMontaje + "admin/" + ubi_plural +".json", function(o){
+    $.getJSON(window.puntoMontaje + "admin/" + ubi_plural +".json", function(o){
       ubi = o.filter(function(item){
         return item.id == id
       })
@@ -1231,12 +1219,12 @@ export default class Msip__Motor {
   // campoubi Identificación particular del que se registra por ejemplo 'salida'
   //    (teniendo en cuenta que haya campos para el mismo, por ejemplo
   //    uno terminado en salida_lugar).
-  // root Raiz
   // fcamdep Función opcional por llamar cuando cambie el departamento
   // fcammun Función opcional por llamar cuando cambie el municipio
-  static registrarUbicacionpreExpandible(iniid, campoubi, root, 
-    fcamdep = null, fcammun = null) {
-    Msip__Motor.arreglarPuntoMontaje(root)
+  static registrarUbicacionpreExpandible(
+    iniid, campoubi, fcamdep = null, fcammun = null
+  ) {
+    Msip__Motor.arreglarPuntoMontaje()
 
     // Buscador en campo lugar
     $(document).on('focusin', 
@@ -1370,13 +1358,12 @@ export default class Msip__Motor {
    */
   static enviarAjax(url, datos, metodo='GET', tipo='script', 
     alertaerror=true) {
-    var root =  window
     var t = Date.now()
     var d = -1
-    if (root.Msip__Motor.enviarAjaxTestigo) {
-      d = (t - root.Msip__Motor.enviarAjaxTestigo)/1000
+    if (window.Msip__Motor.enviarAjaxTestigo) {
+      d = (t - window.Msip__Motor.enviarAjaxTestigo)/1000
     }
-    root.Msip__Motor.enviarAjaxTestigo = t
+    window.Msip__Motor.enviarAjaxTestigo = t
     if (d == -1 || d > 2) {
       var enc = {}
       if (document.querySelector('meta[name="csrf-token"]') != null) {
@@ -1463,9 +1450,10 @@ export default class Msip__Motor {
     if (bitacora == null) {
       return { vacio: false };
     }
-    window.bitacora_estado_final_formulario = Msip__Motor.serializarFormularioEnArreglo(
-      bitacora.closest("form")
-    );
+    window.bitacora_estado_final_formulario = 
+      Msip__Motor.serializarFormularioEnArreglo(
+        bitacora.closest("form")
+      );
     if (typeof window.bitacora_estado_inicial_formulario != "object") {
       return { vacio: false };
     }

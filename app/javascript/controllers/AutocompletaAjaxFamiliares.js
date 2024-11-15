@@ -8,8 +8,7 @@ export default class Msip__AutocompletaAjaxFamiliares {
 
   // Elije una persona en autocompletación
   static operarElegida (eorig, cadpersona, id, otrosop) {
-    let root = window
-    Msip__Motor.arreglarPuntoMontaje(root)
+    Msip__Motor.arreglarPuntoMontaje()
     const cs = id.split(';')
     const idPersona = cs[0]
     const divcpf = eorig.target.closest('.' + 
