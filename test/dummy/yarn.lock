@@ -677,14 +677,14 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@orchidjs/sifter@^1.0.3":
+"@orchidjs/sifter@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-1.1.0.tgz#b36154ad0cda4898305d1ac44f318b41048a0438"
   integrity sha512-mYwHCfr736cIWWdhhSZvDbf90AKt2xyrJspKFC3qyIJG1LtrJeJunYEqCGG4Aq2ijENbc4WkOjszcvNaIAS/pQ==
   dependencies:
     "@orchidjs/unicode-variants" "^1.1.2"
 
-"@orchidjs/unicode-variants@^1.0.4", "@orchidjs/unicode-variants@^1.1.2":
+"@orchidjs/unicode-variants@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.1.2.tgz#1fd71791a67fdd1591ebe0dcaadd3964537a824e"
   integrity sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==
@@ -1249,9 +1249,9 @@ dom-accessibility-api@^0.5.6:
   integrity sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==
 
 electron-to-chromium@^1.5.41:
-  version "1.5.60"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.60.tgz#29944afe568c58c40729e67af0f59f52d4d0ed32"
-  integrity sha512-HcraRUkTKJ+8yA3b10i9qvhUlPBRDlKjn1XGek1zDGVfAKcvi8TsUnImGqLiEm9j6ZulxXIWWIo9BmbkbCTGgA==
+  version "1.5.61"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.61.tgz#67e84c8943b635e56bdac19082ebbe4afc16528b"
+  integrity sha512-CcRGSBCBB6L9c3PBJWYYrBo6Bzeoi+GZTKvtuRtooJGWsINk+mOInZWcssU35zDTAwreVcrMimc9aMyPpehRNw==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -2744,12 +2744,12 @@ to-regex-range@^5.0.1:
     is-number "^7.0.0"
 
 tom-select@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.3.1.tgz#df338d9082874cd0bceb3bee87ed0184447c47f1"
-  integrity sha512-QS4vnOcB6StNGqX4sGboGXL2fkhBF2gIBB+8Hwv30FZXYPn0CyYO8kkdATRvwfCTThxiR4WcXwKJZ3cOmtI9eg==
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.4.0.tgz#ac3e8add3dea4feefb68122e2efa58da379c09b0"
+  integrity sha512-FZnWpU3jDFW5AslsSpZcCeyMWl9x5o0cdXdPibhIPDw4acbmYFtAeje70ADxXdFnPWPZrcAB4YJ+f8mtkKr94g==
   dependencies:
-    "@orchidjs/sifter" "^1.0.3"
-    "@orchidjs/unicode-variants" "^1.0.4"
+    "@orchidjs/sifter" "^1.1.0"
+    "@orchidjs/unicode-variants" "^1.1.2"
 
 tr46@~0.0.3:
   version "0.0.3"
