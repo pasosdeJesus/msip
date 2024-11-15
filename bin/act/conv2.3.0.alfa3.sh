@@ -35,6 +35,9 @@ for i in `git ls-tree -r main --name-only`; do
       mr519ef_prepara:Mr519__EditaFormulario.preparar \
       mr519_gen_nombre_a_nombreinterno:Mr519__Motor.nombreANombreInterno \
       mr519_gen_prepara_eventos_comunes:Mr519__Motor.prepararEventosComunes \
+      heb412_gen_completa_generarp:Heb412_Motor.completarEnlacePlantilla \
+      heb412_gen_eliminar_archivo:Heb412_Motor.eliminarArchivo \
+      heb412_gen_eliminar_directorio:Heb412_Motor.eliminarDirectorio \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;
       despues=`echo $j | sed -e 's/.*://g'`;
