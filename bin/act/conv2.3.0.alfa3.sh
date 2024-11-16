@@ -31,14 +31,14 @@ for i in `git ls-tree -r main --name-only`; do
       msip_ubicacionpre_fija_coordenadas:Msip__Motor.fijarCoordenadasUbicacionpreFija \
       msip_ubicacionpre_expandible_registra:Msip__Motor.registrarUbicacionpreExpandible_registra \
       MsipAutocompleta:Msip__Autocompleta \
-      mr519ef_visual_a_texto:Mr519__EditaFormulario.visualATexto \
-      mr519ef_texto_a_visual:Mr519__EditaFormulario.textoAVisual \
-      mr519ef_prepara:Mr519__EditaFormulario.preparar \
-      mr519_gen_nombre_a_nombreinterno:Mr519__Motor.nombreANombreInterno \
-      mr519_gen_prepara_eventos_comunes:Mr519__Motor.prepararEventosComunes \
-      heb412_gen_completa_generarp:Heb412_Motor.completarEnlacePlantilla \
-      heb412_gen_eliminar_archivo:Heb412_Motor.eliminarArchivo \
-      heb412_gen_eliminar_directorio:Heb412_Motor.eliminarDirectorio \
+      mr519ef_visual_a_texto:Mr519Gen__EditaFormulario.visualATexto \
+      mr519ef_texto_a_visual:Mr519Gen__EditaFormulario.textoAVisual \
+      mr519ef_prepara:Mr519Gen__EditaFormulario.preparar \
+      mr519_gen_nombre_a_nombreinterno:Mr519Gen__Motor.nombreANombreInterno \
+      mr519_gen_prepara_eventos_comunes:Mr519Gen__Motor.prepararEventosComunes \
+      heb412_gen_completa_generarp:Heb412Gen_Motor.completarEnlacePlantilla \
+      heb412_gen_eliminar_archivo:Heb412Gen_Motor.eliminarArchivo \
+      heb412_gen_eliminar_directorio:Heb412Gen_Motor.eliminarDirectorio \
       root:window \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;
