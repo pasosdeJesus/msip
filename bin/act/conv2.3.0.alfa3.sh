@@ -36,9 +36,12 @@ for i in `git ls-tree -r main --name-only`; do
       mr519ef_prepara:Mr519Gen__EditaFormulario.preparar \
       mr519_gen_nombre_a_nombreinterno:Mr519Gen__Motor.nombreANombreInterno \
       mr519_gen_prepara_eventos_comunes:Mr519Gen__Motor.prepararEventosComunes \
-      heb412_gen_completa_generarp:Heb412Gen_Motor.completarEnlacePlantilla \
-      heb412_gen_eliminar_archivo:Heb412Gen_Motor.eliminarArchivo \
-      heb412_gen_eliminar_directorio:Heb412Gen_Motor.eliminarDirectorio \
+      heb412_gen_completa_generarp:Heb412Gen__Motor.completarEnlacePlantilla \
+      heb412_gen_eliminar_archivo:Heb412Gen__Motor.eliminarArchivo \
+      heb412_gen_eliminar_directorio:Heb412Gen__Motor.eliminarDirectorio \
+      cor1440_gen_rangoedadac_uno:Cor1440Gen__Motor.calculaColumnaRangoedadac \
+      cor1440_gen_rangoedadac_tot:Cor1440Gen__Motor.calculaTotalRangoedadac \
+      cor1440_gen_rangoedadac:Cor1440Gen__Motor.calculaTotalRangoedadac \
       root:window \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;

@@ -5,6 +5,8 @@ import Msip__AutocompletaAjaxFamiliares from "./AutocompletaAjaxFamiliares"
 window.Msip__AutocompletaAjaxFamiliares = Msip__AutocompletaAjaxFamiliares 
 
 
+import * as bootstrap from 'bootstrap'
+
 export default class Msip__Motor {
   /* 
    * Librería de funciones comunes.
