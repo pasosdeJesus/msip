@@ -24,6 +24,11 @@ export default class extends Controller {
     "departamento", 
     "municipio", 
     "centropoblado", 
+    "lugar",
+    "sitio",
+    "tsitio",
+    "latitud",
+    "longitud",
   ]
 
   initialize() {
@@ -34,8 +39,26 @@ export default class extends Controller {
     console.log('conectado controlador geodep')
   }
 
+  habilitarCamposExtra() {
+    if (this.hasLugarTarget) {
+      this.lugarTarget.disabled = false
+    }
+    if (this.hasSitioTarget) {
+      this.sitioTarget.disabled = false
+    }
+    if (this.hasTsitioTarget) {
+      this.tsitioTarget.disabled = false
+    }
+    if (this.hasLatitudTarget) {
+      this.latitudTarget.disabled = false
+    }
+    if (this.hasLongitudTarget) {
+      this.longitudTarget.disabled = false
+    }
+  }
+
   cambiar_pais(e) {
-    var purl = Msip__Motor.arreglarPuntomontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("departamento ahora es", this.departamentoTarget.value)
     let url = purl + '/admin/departamentos.json?pais_id=' + e.target.value
@@ -54,6 +77,7 @@ export default class extends Controller {
               Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
                 [], true, 'id', 'nombre', true)
             }
+            this.habilitarCamposExtra()
           }
         }
       },
@@ -64,7 +88,7 @@ export default class extends Controller {
   }
 
   cambiar_departamento(e) {
-    var purl = Msip__Motor.arreglarPuntomontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("municipio ahora es", this.municipioTarget.value)
     let url = purl + '/admin/municipios.json?departamento_id=' + 
@@ -81,6 +105,7 @@ export default class extends Controller {
             Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
               [], true, 'id', 'nombre', true)
           }
+          this.habilitarCamposExtra()
         }
       },
       error: (req, estado, xhr) => {
@@ -90,7 +115,7 @@ export default class extends Controller {
   }
 
   cambiar_municipio(e) {
-    var purl = Msip__Motor.arreglarPuntomontaje()
+    var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("centro poblado ahora es", this.centropobladoTarget.value)
     let url = purl + '/admin/centrospoblados.json?municipio_id=' + 
@@ -104,6 +129,7 @@ export default class extends Controller {
           Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
             resp, true, 'id', 'nombre', true)
         }
+        this.habilitarCamposExtra()
       },
       error: (req, estado, xhr) => {
         window.alert('No pudo consultar centrospoblados')
