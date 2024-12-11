@@ -208,7 +208,7 @@ set autoindent
 Seguir sugerencias de 
 <https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript>
 
-
+* Recomendamos comenzar el nombre de funciones con un verbo en infinitivo y en CamelCase por ejemplo `arreglarPuntoMontaje` en lugar de `arregla_puntomontaje`
 * Para localizar elementos en el DOM preferir ids y clases (o atributos data) 
   en lugar de posiciones.  Así pueden moverse los elementos en la página sin 
   requrir cambios en el javascript.
@@ -218,11 +218,6 @@ Podrá verificar sintaxis de archivos del directorio `app/assets/javascript/`
 con:
 ```sh
   make
-```
-
-Mientras remplazamos Coffescript, en adJ para instalar coffeescript basta:
-```sh
-  sudo yarn global add coffeescript
 ```
 
 # HTML/CSS
