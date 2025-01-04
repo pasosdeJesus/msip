@@ -5,9 +5,6 @@ sintaxis-js:
 	for i in `find app/assets/javascripts/ -name "*js"`; do \
 		node -c $$i; \
 	done # Falta es6
-	for i in `find app/assets/javascripts/ -name "*coffee"`; do \
-	coffee -o /tmp/ $$i; \
-	done
 
 sintaxis-ruby:
 	find . -name "*\.rb" -exec ruby -w -W2 -c {} ';'

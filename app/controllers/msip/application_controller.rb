@@ -2,6 +2,8 @@
 
 module Msip
   class ApplicationController < ActionController::Base
+    protect_from_forgery
+
     # sin autorizacion porque es utilidad para otros controladores
 
     before_action do
