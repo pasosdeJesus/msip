@@ -12,7 +12,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
 
-gem "devise", "~> 4.8"          # Autenticación
+gem "devise"          # Autenticación
 
 gem "devise-i18n"               # Localización e Internacionalización
 
