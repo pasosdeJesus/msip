@@ -162,8 +162,11 @@ ofrece. Puedes consultar:
 * Versiones y resumen de cambios de cada una:
  <https://gitlab.com/pasosdeJesus/msip/-/releases>
 
-## Reportar fallas
+## Reportar fallas y contribuir en el desarrollo
 
 Si algo no opera como se espera puedes abrir un incidente en
 <https://gitlab.com/pasosdeJesus/msip/-/issues>
+
+Puede ayudar a resolver problemas o implementar nuevas características 
+siguiendo instrucciones del archivo [CONTRIBUTING.md]
 

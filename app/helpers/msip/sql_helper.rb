@@ -96,8 +96,8 @@ module Msip
     ##
     # Agrega una nueva tabla al listado $t
     #
-    # @param t [Array<String>] Listado de tablas separadas por ,
-    # @param nt [String] Nueva tabla por agregar si falta
+    # @param [String] t Listado de tablas separadas por ,
+    # @param [String] nt Nueva tabla por agregar si falta
     #
     # @return [String] cadena t completada para asegurar tabla
     # /
@@ -116,14 +116,13 @@ module Msip
     ##
     # Agrega condición a WHERE en un SELECT de SQL
     #
-    # @param [Object]  db   Conexión a base de datos
-    # @param [String]  w    cadena con WHERE que se completa
-    # @param [String]  n     nombre de campo
-    # @param [String]  v     valor esperado
-    # @param [String]  opcmp operador de comparación por usar.
-    # @param [String]  con   con
+    # @param [String] w    cadena con WHERE que se completa
+    # @param [String] n     nombre de campo
+    # @param [String] v     valor esperado
+    # @param [String] opcmp operador de comparación por usar.
+    # @param [String] con   con
     #
-    # @return string cadena w completada con nueva condición
+    # @return [String] cadena w completada con nueva condición
     def ampliar_where(w, n, v, opcmp = "=", con = "AND")
       if !v || v === "" || $v === " "
         return

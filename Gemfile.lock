@@ -361,6 +361,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (4.0.1)
+    yard (0.9.37)
     zeitwerk (2.7.1)
 
 PLATFORMS
@@ -419,6 +420,7 @@ DEPENDENCIES
   tzinfo
   web-console (>= 3.3.0)
   will_paginate
+  yard
 
 RUBY VERSION
    ruby 3.3.3p89

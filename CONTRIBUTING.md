@@ -1,206 +1,151 @@
-# Información dedicada a contribuidores #
 
-## 1. Términos de reproducción
+# Para contribuir en en el desarrollo de msip
 
-Al hacer una contribución estás aceptando los términos de reproducción
-que estamos usando para este motor, que encuentras en:
-<https://gitlab.com/pasosdeJesus/msip/blob/main/LICENCIA.md>
+# I. Documentación de las fuentes
 
-## 2. Tareas de integración continua
+La generas con:
 
-El archivo `README.md` incluye varias banderas que queremos dejar en
-buen estado:
-  1. Que pase pruebas en plataforma de integración continua. Agradecemos
-     servicio a _gitlab_.
-  2. Buen porcentaje de mantenibilidad y cobertura. Agradecemos servicio a
-     _Codeclimate_.
-  3. No deben haber fallas de seguridad y los falsos positivos deben marcarse
-     como tales en _Hakiri_ (al cual agradecemos por el servicio de auditoría).
+    bundle
+    bundle exec yard
 
+Quedan en el directorio `yard_doc`
 
-## 3. Desarrollo y aplicación de prueba
+Para ejecutar un servidor que le permita ver la documentación resultante
+a medida que modifica las fuentes ejecute:
 
-Puedes probar el motor msip y los cambios que hagas en la aplicación de prueba
-disponible en el directorio `test/dummy`
+    bundle exec yard server --reload
 
-Para hacer operar la aplicación sigue las instrucciones disponibles en
-
-<https://gitlab.com/pasosdeJesus/msip/blob/main/doc/aplicacion-de-prueba.md>
+Y revisarla desde un navegador en la IP del computador donde la ejecuto 
+en el puerto 8808, si es local en <http://127.0.0.1:8808>
 
 
+# II. Aplicación de prueba
 
-## 4. Uso recomendado de git
+Asegúrate de contar con los
+[Requisitos](doc/requisitos.md)
 
-### 4.1 Configuración inicial
+## 1. Base de datos
 
-Consideramos que tu contribución a `msip` (y a otros proyectos de código
-abiertas) será más ordenada si sigues los lineamientos de uso de FreeCodeCamp
-(ver <https://github.com/freeCodeCamp/freeCodeCamp/blob/main/docs/how-to-setup-freecodecamp-locally.md>),
-que procuramos resumir aquí:
+### 1.1 Como superusuario crea un usuario en la base de datos
 
-1. Desde tu cuenta en gitlab bifurca (del inglés fork) el 
-   repositorio (<https://gitlab.com/pasosdeJesus/msip>) a tu cuenta personal.
-2. En el computador de desarrollo clona tu bifurcación:
-  ```
-  git clone git@gitlab.com/miusuario/msip.git
-  ```
-3. En la nueva copia en el computador de desarrollo asegúrate de tener
-   2 repositorios remotos configurados: (1) `origin` que apunte a tu 
-   bifurcación y (2) por ejemplo `upstream` que apunte a las fuentes originales.
-   Puedes ver tus repositorios remotos con `git remote -v` y agrega las
-   fuentes de Pasos de Jesús de msip como `upstream` con:
-  ```
-  cd msip
-  git remote add upstream https://gitlab.com/pasosdeJesus/msip.git
-  ```
+Como administrador de PostgreSQL (en adJ suele ser la cuenta
+`_postgresql` crea un usuario para la base de datos (digamos `msipdes` 
+que es usado en los ejemplos y archivos de configuración de manera 
+predeterminada):
 
-Procura mantener la rama `main` de tu bifurcación "sincronizada" con la
-rama `main` del repositorio `upstream` (por lo mismo no debes hacer cambios
-a la rama `main` de tu bifurcación).  Lo puedes hacer ejecutando con
-regularidad:
-  ```
-  git checkout main
-  git pull --rebase upstream main
-  git push -f origin main
-  ```
-Y si en el proceso se presentan conflictos resolviéndolos como se explicará
-más adelante.
-
-### 4.2 Iniciar una contribución
-
-Cuando desees hacer una contribución, comienza por sincronizar tu rama
-`main` y desde esta crear una nueva rama donde propondrás el cambio.
-Ponle a la nueva rama un título que te ayude a recordar el cambio (si deseas
-hacer cambios diferentes es mejor que hagas ramas diferentes a partir
-de la rama `main` sincronizada), por ejemplo:
-  ```
-  git checkout main
-  git pull --rebase upstream main
-  git push -f origin main
-  git checkout -b mejora-documentacion
-  ```
-En la nueva rama agrega, edita y/o elimina archivos. Puedes averiguar
-modificaciones a archivos con:
-  ```
-  git status -s
-  ```
-agrega un archivo con:
-  ```
-  git add _archivo_
-  ```
-Cuando completes los cambios realiza un `commit` y escribe un comentario
-sobre la contribución, por ejemplo:
-  ```
-  git commit -m "Mejorando documentación para quienes contribuyen" -a
-  ```
-Puedes continuar trabajando y hacer otras contribuciones en la misma rama,
-pero nos parece más ordenado cuando tu solicitud de cambio (pull request)
-tiene una sola contribución (commit) y no muchas que sobreescriben otras.
-Si tienes varias contribuciones para un mismo pull-request más bien
-fusiónalas (del inglés squash) en una sola.
-Por ejemplo puedes fusionar los 2 últimos commits con:
-  ```
-  git rebase -i HEAD~2
-  ```
-Esto abrirá un archivo con los mensajes de las 2 últimas contribuciones
-y frente a cada uno la palabra `pick` que podrías cambiar por `squash`
-en la segunda contribución para fusionarla con la primera.  Después de guardar
-y salir volverás a un editor para modificar el mensaje que tendrá la
-contribución fusionada
-
-Tras esto si ves la historia de contribuciones notarás la fusión:
-  ```
-  git log
-  ```
-Una vez tengas bien tu contribución en orden, empuja el cambio a la rama
-que creaste en tu bifurcación:
-  ```
-  git push -f origin mejora-documentacion
-  ```
-Y desde la interfaz de gitlab examinando tu repositorio bifurcado o el
-original de Pasos de Jesús verás un botón para crear la solicitud de
-cambio (pull request).  Úsalo, revisa lo que enviarás, pon un comentario
-que justifique el cambio y envíalo.
-
-Cuando hagas un pull request se iniciarán sobre el mismo las tareas de
-integración continua que hemos configurado en gitlab y que en general
-tu cambio debe pasar. Si no habías sincronizado la rama `main` de tu 
-repositorio `origin` con la rama `main` del repositorio de Pasos de Jesús verás
-en la interfaz de gitlab un mensaje indicando que hay conflictos que deben
-resolverse antes.
-
-Una vez tu solicitud de cambio no tenga conflictos los desarrolladores de 
-msip la revisarán y si se requiere escribirán comentarios con sugerencias para 
-que lo mejores, que debes hacer o justificar por que no conviene antes de 
-que tu contribución sea aceptada.
-Es decir habrá un diálogo en la parte de comentarios de tu solicitud de
-cambio que debe continuar.
-
-
-### 4.3 Mejorar una contribución
-
-Con la retroalimentación de las tareas de integración continúa y de
-desarrolladores debes realizar los cambios en la misma rama donde
-hiciste la propuesta inicial, pero antes debes sincronizarla con la
-rama `main` del repositorio de Pasos de Jesús por si otros desarrolladores
-han hecho cambios recientes. Para eso primero sincroniza tu rama main:
+```sh
+$ doas su - _postgresql
+$ createuser -Upostgres -h /var/www/var/run/postgresql/ -s msipdes
+$ psql -Upostgres -h /var/www/var/run/postgresql/
+psql (16.2)
+Type "help" for help.
+postgres=# ALTER USER msipdes WITH PASSWORD 'nuevaclave';
+postgres=# \q
+$ exit
 ```
-git checkout main
-git pull --rebase upstream main
-git push -f origin main
-```
-Y de inmediato toma en tu rama donde hiciste la propuesta, los cambios que
-pudiera haber en la rama `main` ya sincronizada:
-```
-git checkout mejora-documentacion
-git pull --rebase origin main
-```
-Esta última operación podría revelar colisiones entre cambios ya aceptados
-en el repositorio principal y los que tú habías propuesto (por eso es bueno
-tratar de hacer rápido el diálogo con desarrolladores y las propuestas de
-cambio).  En caso de colisiones debes arreglarlas (en algunos casos editando
-archivos que tienen marcados los cambios con `<<<<` y `>>>>`, en otros
-añadiendo o eliminando archivos).
-Después aplica las sugerencias y/o fusiona contribuciones y/o arregla tu
-código para que pase tareas de integración continua.
-```
-$EDITOR README.md
-....
-git commit -m "Aplicando sugerencias de revisor" -a
-git rebase -i HEAD~2
-git push -f origin mejora-documentacion
-```
-Después de empujar tus cambios (push) en la misma rama, gitlab notará
-el cambio y actualizará la solicitud de cambio ya hecha, volviendo a
-lanzar las tareas de integración continua y los desarrolladores
-volverán a auditar tu contribución y continuarán el diálogo en la sección
-de comentarios.
 
-Este proceso debe iterarse hasta que tu cambio sea aceptado (o rechazado),
-por lo que debes visitar con frecuencia tu solicitud de cambio y ver
-nuevos comentarios que puedan haber (los comentarios más recientes
-quedan al final de la pestaña de comentarios).
+En el ejmplo anterior remplaza `nuevaclave` por la clave que le pondrás.
 
+### 1.2 Como desarrollador crea base de datos
 
-## 5. Otros aspectos a tener en cuenta
+Desde tu cuenta de desarrollador en el sistema operativo, puedes facilitar 
+la interacción con las bases de datos del usuario `msipdes` 
+(o el que tengas) y que no solicite clave para operar, agregando 
+el usuario y su clave al archivo `~/.pgpass`:
+```
+echo "*:*:*:msipdes:nuevaclave" >> ~/.pgpass
+chmod 0600 ~/.pgpass 
+```
 
-* Durante el desarrollo de tu contribución actualiza constantemente
-  las dependencias para usar siempre las versiones más recientes de librerías
-  y motores: `bundle update; bundle install`
+Crea la base de datos para el modo de desarrollo que se llama
+`msipdes_des` de manera predeterminada, o el nombre que prefieras (sugerimos 
+que lo hagas con las herramientas de PostgreSQL pues en ocasiones esta 
+operación no se logra completar solo con `rails`):
+```sh
+createdb -h /var/www/var/run/postgresql -U msipdes msipdes_des
+```
 
-* La plataforma principal de desarrollo y de producción es adJ
-  (Distribución de OpenBSD) ver descripción en:
-	<https://aprendiendo.pasosdeJesus.org>
-  Por eso después de hacer cambios sugerimos que en esa plataforma pruebes
-  las novedades que introduces y que ejecutes las pruebas de regresión para
-  asegurar que pasan. Suele bastar desde el directorio raíz de las fuentes
-  o desde `test/dummy` si es un motor:
-  ```sh
-  RAILS_ENV=test  bin/rails db:drop db:prepare msip:indices
-  ```
-  Y desde el directorio raíz de las fuentes:
-  ```
-	CONFIG_HOSTS=www.example.com bin/rails test
-  ```
-* Sigue las convenciones acordes al lenguaje de lo que estás aportando
-  descritas en [Convenciones](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/convenciones.md)
+## 2. Gemas
+
+Asegura que puedes instalar las gemas requeridas por la aplicación,
+no sólo configurando bundler para instalar gemas en un directorio
+de la forma `/var/www/bundler-miusuario`, tanto de forma general (como se 
+indica en el documento de
+[Requisitos](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md)
+como de manera particular en el directorio del motor
+(digamos que sea `$HOME/comp/rails/msip`) con:
+
+```
+cd $HOME/comp/rails/msip
+mkdir .bundle
+cat > .bundle/config <<EOF
+---
+BUNDLE_PATH: "/var/www/bundler-miusuario"
+BUNDLE_DISABLE_SHARED_GEMS: "true"
+EOF
+```
+
+Y ejecuta `bundle` desde el directorio de la aplicación de prueba (digamos
+`$HOME/comp/rails/msip/test/dumy`):
+```
+cd $HOME/comp/rails/msip/test/dummy
+bundle
+```
+
+# 3. Configuración con variables de ambiente
+
+En el directorio de la aplicación copia la plantilla de configuración 
+`.env.plantilla` en `.env` y modifícala la base de datos y su usuario:
+```
+$ cd test/dummy
+$ cp .env.plantilla .env
+$ vi .env
+```
+Con el editor remplaza:
+* La clave de ejemplo que está en una línea de la forma `BD_CLAVE=aquilaclave`
+* El usuario en la base de datos que está en una línea de la
+  forma `BD_USUARIO=msipdes`.
+* El nombre de la base en modo de desarrollo en una línea de la forma `BD_DES=msipdes_des`
+* El nombre de la base en modo de pruebas en una línea de la forma `BD_PRUEBA=msipdes_prueba`
+
+Y desde el mismo directorio `test/dummy` prepárala para operar (suponiendo
+que ya creaste la base según se indicó en la sección 1.2):
+```sh
+bin/rails db:drop db:create db:setup db:seed msip:indices
+```
+
+# 4. Iniciar la aplicación de prueba
+
+Para iniciar la aplicación te sugerimos usar el script `bin/corre` que
+emplea el archivo `.env`, que debes editar antes para poner el puerto
+en el que quieres correr la aplicación de prueba, lo encuentras en una 
+línea de la forma `PUERTODES=3000` (si tienes un cortafuegos recuerda
+abrir ese puerto) y en una línea de la forma `IPDES=127.0.0.1` pon
+la IP del servidor donde operas.  Después ejecuta:
+```
+bin/corre
+```
+Al iniciar de esta forma se actualizarán indices, se borraran caches y
+directorios con recursos HTML, CSS y Javascript (`public/msip/assets`) 
+y se volveran a generar con sprockets.    
+Si ya lo ejecutaste la primera vez, puedes obviar todas 
+estas preparación e  iniciar más rápido con:
+```
+R=1 bin/corre
+```
+
+Usa la aplicación con un navegador en una URL que tenga
+la IP y el puerto que configuraste (e.g. <http://192.168.10.1:3000/msip/>), 
+puedes ingresar con el usuario `msip` y la clave `msip`
+
+Si prefieres o necesitas SSL, empleando un certificado del cual dejas las 
+llaves pública y privada en `tmp/llave-publica.crt` y 
+`tmp/llave-privada.key`, configura `IPDES` y `PUERTODES` en `.env` con algo 
+como:
+```
+PUERTODES=
+```
+y
+```
+IPDES="ssl://192.168.10.1:3000?key=tmp/llave-privada.key&cert=tmp/llave-publica.crt"
+```

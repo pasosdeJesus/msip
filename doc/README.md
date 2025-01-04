@@ -50,7 +50,6 @@ fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo
     * [Localización de cantidades numéricas y fechas](localizacion-numeros-y-fechas.md)
     * [Personalizaciones que pueden hacer los desarrolladores](personalizaciones_desarrolladores.md)
 * Pruebas
-  * [Aplicación de prueba](aplicacion-de-prueba.md)
   * [Pruebas con minitest](pruebas-con-minitest.md)
   * [Pruebas del sistema con puppeteer](pruebas-al-sistema-con-puppeteer.md)
 * Mantenimiento 
@@ -59,4 +58,6 @@ fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo
 * Convenciones, modularidad
   * [Convenciones respecto al código fuente](convenciones.md)
   * [Iniciar un motor que use msip](iniciar-motor-con-msip.md)
+* Ayudar a desarrollar msip
+  * [CONTRIBUTING.md](../CONTRIBUTING.md)
 

@@ -234,13 +234,12 @@ module Msip
     # @param idit Id del item
     # @param titulo Titulo del item
     # @param expandido booleano para que inicie expandido
-    # @param opciones Por ejemplo 
-    # "clase_accordion-item" => "brilla", 
-    # "data_accordion-item" => {como: "x"}
-    #   clase_accordion-header, estilo_accordion-header,
-    #   clase_accordion-button, estilo_accordion-button,
-    #   clase_accordion-collapse
-    #
+    # @param opciones_ps [Hash] Por ejemplo 
+    #   "clase_accordion-item" => "brilla", 
+    #   "data_accordion-item" => {como: "x"}
+    #     clase_accordion-header, estilo_accordion-header,
+    #     clase_accordion-button, estilo_accordion-button,
+    #     clase_accordion-collapse
     # @param bloque Que se presenta al expandir
     def item_acordeon_bs(
       acid, idit, titulo, expandido = false, opciones_ps = {}, &bloque

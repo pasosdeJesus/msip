@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# @!macro msip
 module Msip
-  # Ideas de https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/
   # Vista: Municipios con departamento
+  # Ideas de https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/
   class Mundep < ActiveRecord::Base
     self.table_name = "msip_mundep"
 

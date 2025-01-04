@@ -72,6 +72,8 @@ group :development, :test do
   gem "rubocop-rails"
 
   gem "rubocop-shopify"
+
+  gem "yard"
 end
 
 group :development do
