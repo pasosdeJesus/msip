@@ -55,3 +55,5 @@ yard_doc/
 creaparchesip.sh
 test/dummy/app/javascript/controllers/msip
 ref
+cobertura-sistema
+config

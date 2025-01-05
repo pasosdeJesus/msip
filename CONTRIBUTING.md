@@ -8,15 +8,15 @@ La generas con:
     bundle
     bundle exec yard
 
-Quedan en el directorio `yard_doc`
+Y la ves en el directorio `yard_doc`
 
-Para ejecutar un servidor que le permita ver la documentación resultante
-a medida que modifica las fuentes ejecute:
+Para ejecutar un servidor que te permita verla a medida que modificas 
+las fuentes ejecuta:
 
     bundle exec yard server --reload
 
-Y revisarla desde un navegador en la IP del computador donde la ejecuto 
-en el puerto 8808, si es local en <http://127.0.0.1:8808>
+Y revisala desde un navegador en el puerto 8808 del computador donde
+ejecutaste, por ejemplo si fue localmente en <http://127.0.0.1:8808>
 
 
 # II. Aplicación de prueba
