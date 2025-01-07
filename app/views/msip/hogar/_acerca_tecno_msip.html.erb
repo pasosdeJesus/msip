@@ -28,18 +28,14 @@
     </span>
   </li>
 
-  <li>jQuery 
-    <span id='ver_jquery'></span>
-    <script type="module">$('#ver_jquery').html($.fn.jquery)</script>
-  </li>
-
   <li>
     <div class='btn'>Bootstrap</div>  
     <span id='ver_bootstrap'></span>
     <script type="module"> 
       setTimeout(() => {
         let vb = document.querySelector("#ver_bootstrap");
-        vb.innerHTML = $.fn.tooltip.Constructor.VERSION;
+        debugger
+        vb.innerHTML = bootstrap.Tooltip.VERSION;
       }, 2000);
     </script>
   </li>
