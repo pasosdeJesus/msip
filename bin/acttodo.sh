@@ -74,7 +74,6 @@ if (test "$SALTAMR519" != "1") then {
 if (test "$SALTAHEB412" != "1") then {
   echo "**** heb412_gen"
   actuno heb412_gen-2.2 test/dummy; 
-  actuno heb412-2.2
 } fi;
 
 if (test "$SALTASIVEL2GEN" != "1") then {
@@ -100,7 +99,6 @@ if (test "$SALTASIBDHN" != "1") then {
 if (test "$SALTACOR1440" != "1") then {
   echo "**** cor1440_gen"
   actuno cor1440_gen-2.2 test/dummy; 
-  actuno cor1440-2.2 test/dummy; 
 } fi;
 
 if (test "$SALTAJOS19" != "1") then {
