@@ -125,7 +125,7 @@ module Msip
     # @return [String] cadena w completada con nueva condición
     def ampliar_where(w, n, v, opcmp = "=", con = "AND")
       if !v || v === "" || $v === " "
-        return
+        return w
       end
 
       if w != ""
