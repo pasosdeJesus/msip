@@ -104,14 +104,26 @@
     <% nd = r.class_name.constantize.human_attribute_name(r.name.to_s) %>
     <div class="panel panel-default">
       <div class="panel-heading"><%= nd %></div>
-      <div class="panel-body">
-        <%= f.simple_fields_for r.name.to_sym do |cfo| %>
-          <%= render (r.name.to_s + '_campos'), :f => cfo %>
+      <div class="panel-body" id="<%= r.name %>_marco">
+        <%= f.simple_fields_for r.name.to_sym,
+          child_index: params[:index] do |cfo| %>
+          <%= render partial: (r.name.to_s + '_campos'), 
+            locals: {f: cfo} %>
         <% end %>
-        <div class="links">
-          <%= link_to_add_association "Añadir #{nd}", f, 
-            r.name.to_sym, partial: (r.name.to_s + '_campos'),
-            :class => 'btn btn-sm btn-primary' %>
+        <div class="enlace-agregar-<%= r.name %>">
+          <% debugger %>
+          <%= f.submit "Agregar #{r.name}",
+            class: 'btn btn-sm btn-primary',
+            data:  {
+              disable_with: false 
+            },
+            formaction: cor1440_gen.crear_anexo_proyectofinanciero_path(
+              index: @registro[r.name].size
+            ),
+            formmethod: :post,
+            formnovalidate: true,
+            id: "agregar-#{r.name}",
+            name: "agregar-#{r.name}" %>
         </div>
       </div> <!-- .panel-body -->
     </div> <!-- .panel -->
