@@ -440,131 +440,131 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       -- Centros poblados con nombres cambiados
 
 
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO".' WHERE id=14010; -- ANTIOQUIA/BARBOSA
-      UPDATE msip_centropoblado SET nombre='TRAVESÍAS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "TRAVESIAS".' WHERE id=14017; -- ANTIOQUIA/BRICEÑO
-      UPDATE msip_centropoblado SET nombre='FÁTIMA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "FATIMA".' WHERE id=14045; -- ANTIOQUIA/EBÉJICO
-      UPDATE msip_centropoblado SET nombre='EL CHINGUI 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL CHINGUI  2".' WHERE id=14051; -- ANTIOQUIA/ENVIGADO
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN ÁLAMOS DEL ESCOBERO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACIÓN ALAMOS DEL ESCOBERO".' WHERE id=14054; -- ANTIOQUIA/ENVIGADO
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO".' WHERE id=14071; -- ANTIOQUIA/GIRARDOTA
-      UPDATE msip_centropoblado SET nombre='JAMAICA PARCELACIÓN CAMPESTRE', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "JAMAICA PARCELACION CAMPESTRE".' WHERE id=14107; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN ANDALUCIA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION ANDALUCIA".' WHERE id=14109; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN CAMELOT', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION CAMELOT".' WHERE id=14110; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN SANTA MARÍA DEL LLANO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION SANTA MARIA DEL LLANO".' WHERE id=14118; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PITALITO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "PITAL DEL CARLÍN (PITALITO)".' WHERE id=12521; -- ATLÁNTICO/POLONUEVO
-      UPDATE msip_centropoblado SET nombre='CORCOVADO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "EL CORCOVADO".' WHERE id=653; -- BOLÍVAR/MORALES
-      UPDATE msip_centropoblado SET nombre='LA UNIÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LA UNION".' WHERE id=672; -- BOLÍVAR/PINILLOS
-      UPDATE msip_centropoblado SET nombre='LA UNIÓN CABECERA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "LA UNION CABECERA".' WHERE id=14205; -- BOLÍVAR/PINILLOS
-      UPDATE msip_centropoblado SET nombre='ÁNIMAS ALTAS', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "ANIMAS ALTAS".' WHERE id=799; -- BOLÍVAR/SIMITÍ
-      UPDATE msip_centropoblado SET nombre='PUERTO GAITÁN', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PUERTO GAITAN".' WHERE id=14219; -- BOLÍVAR/TIQUISIO
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN VILLA DE CALATRAVA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION VILLA DE CALATRAVA".' WHERE id=14221; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN CAMPESTRE', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION CAMPESTRE".' WHERE id=14222; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN CATALINA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION CATALINA".' WHERE id=14223; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN ZAPOTE', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION ZAPOTE".' WHERE id=14224; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='TURBANA', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "TURBANÁ".' WHERE id=839; -- BOLÍVAR/TURBANÁ
-      UPDATE msip_centropoblado SET nombre='CHÁMEZA MAYOR', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "CHAMEZA MAYOR".' WHERE id=1162; -- BOYACÁ/NOBSA
-      UPDATE msip_centropoblado SET nombre='GUÁQUIRA', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "GUAQUIRA".' WHERE id=1161; -- BOYACÁ/NOBSA
-      UPDATE msip_centropoblado SET nombre='LA FÁBRICA', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "LA FABRICA".' WHERE id=1263; -- BOYACÁ/SAMACÁ
-      UPDATE msip_centropoblado SET nombre='KILÓMETRO 41 - COLOMBIA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "KILOMETRO 41 - COLOMBIA".' WHERE id=1459; -- CALDAS/MANIZALES
-      UPDATE msip_centropoblado SET nombre='CONDOMINIO RESERVA DE LOS ÁLAMOS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "CONDOMINIO RESERVA DE LOS ALAMOS".' WHERE id=14240; -- CALDAS/MANIZALES
-      UPDATE msip_centropoblado SET nombre='JIMÉNEZ ALTO', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "JIMENEZ ALTO".' WHERE id=1581; -- CALDAS/MARMATO
-      UPDATE msip_centropoblado SET nombre='JIMÉNEZ BAJO', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "JIMENEZ BAJO".' WHERE id=1576; -- CALDAS/MARMATO
-      UPDATE msip_centropoblado SET nombre='SANTÁGUEDA', observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2023-07. Nombre cambiado en DIVIPOLA 2025-01 de "SANTAGUEDA".' WHERE id=1622; -- CALDAS/PALESTINA
-      UPDATE msip_centropoblado SET nombre='VEREDA LA UNIÓN', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "VEREDA LA UNION".' WHERE id=1677; -- CALDAS/SALAMINA
-      UPDATE msip_centropoblado SET nombre='LA ESPERANZA (JARDÍNES DE PAZ)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "LA ESPERANZA (JARDINES DE PAZ)".' WHERE id=1963; -- CAUCA/POPAYÁN
-      UPDATE msip_centropoblado SET nombre='ISLA DEL PONTÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "ISLA DEL PONTON".' WHERE id=14278; -- CAUCA/CAJIBÍO
-      UPDATE msip_centropoblado SET nombre='PUENTE DEL RÍO TIMBÍO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "PUENTE DEL RÍO TIMBIO".' WHERE id=14287; -- CAUCA/EL TAMBO
-      UPDATE msip_centropoblado SET nombre='CIÉNAGA HONDA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "CIENAGA HONDA".' WHERE id=14292; -- CAUCA/GUACHENÉ
-      UPDATE msip_centropoblado SET nombre='SAN JOSÉ DE GUARE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "SAN JOSE DE GUARE".' WHERE id=2295; -- CAUCA/GUAPI
-      UPDATE msip_centropoblado SET nombre='TULIPÁN', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "TULIPAN".' WHERE id=2433; -- CAUCA/MIRANDA
-      UPDATE msip_centropoblado SET nombre='LA MESA DE BELALCÁZAR', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "LA MESA DE BELALCAZAR".' WHERE id=14325; -- CAUCA/PÁEZ
-      UPDATE msip_centropoblado SET nombre='VALENCIA DE JESÚS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "VALENCIA DE JESUS".' WHERE id=2864; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='LOS HATICOS I', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LOS HATICOS  I".' WHERE id=2868; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='RAÍCES', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "RAICES".' WHERE id=2900; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='LA VEGA ARRIBA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LA VEGA  ARRIBA".' WHERE id=2857; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='ZAPATÍ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "ZAPATI".' WHERE id=2960; -- CESAR/CHIMICHAGUA
-      UPDATE msip_centropoblado SET nombre='LA UNIÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "LA UNION".' WHERE id=14357; -- CESAR/CHIMICHAGUA
-      UPDATE msip_centropoblado SET nombre='TERRAPLÉN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "TERRAPLEN".' WHERE id=3128; -- CESAR/SAN MARTÍN
-      UPDATE msip_centropoblado SET nombre='MEDELLÍN - SAPO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "MEDELLIN - SAPO".' WHERE id=14379; -- CÓRDOBA/MONTERÍA
-      UPDATE msip_centropoblado SET nombre='LOS ÁNGELES', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LOS ANGELES".' WHERE id=3513; -- CÓRDOBA/CHINÚ
-      UPDATE msip_centropoblado SET nombre='VILLA CONCEPCIÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "VILLA CONCEPCION".' WHERE id=3659; -- CÓRDOBA/LORICA
-      UPDATE msip_centropoblado SET nombre='LA UNIÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LA UNION".' WHERE id=3745; -- CÓRDOBA/MOÑITOS
-      UPDATE msip_centropoblado SET nombre='LA MÚSICA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "LA MUSICA".' WHERE id=14407; -- CÓRDOBA/SAHAGÚN
-      UPDATE msip_centropoblado SET nombre='PUNTA BOLÍVAR', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "PUNTA BOLIVAR".' WHERE id=3941; -- CÓRDOBA/SAN ANTERO
-      UPDATE msip_centropoblado SET nombre='EL DARIÉN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "EL DARIEN".' WHERE id=14418; -- CÓRDOBA/SAN BERNARDO DEL VIENTO
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN TIERRA DE ENSUEÑO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION TIERRA DE ENSUEÑO".' WHERE id=14455; -- CUNDINAMARCA/CACHIPAY
-      UPDATE msip_centropoblado SET nombre='RINCÓN DE FAGUA', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "RINCON DE FAGUA".' WHERE id=4313; -- CUNDINAMARCA/CHÍA
-      UPDATE msip_centropoblado SET nombre='SANTA BÁRBARA', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "SANTA BARBARA".' WHERE id=4307; -- CUNDINAMARCA/CHÍA
-      UPDATE msip_centropoblado SET nombre='SAN RAFAEL BAJO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "SAN RAFAEL  BAJO".' WHERE id=4385; -- CUNDINAMARCA/FACATATIVÁ
-      UPDATE msip_centropoblado SET nombre='EL TRIUNFO BOQUERÓN', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL TRIUNFO. Nombre cambiado en DIVIPOLA 2025-01 de "EL TRIUNFO BOQUERON".' WHERE id=4420; -- CUNDINAMARCA/FUSAGASUGÁ
-      UPDATE msip_centropoblado SET nombre='RÍO BLANCO - LOS PUENTES', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era RIO BLANCO -LOS PUENTES. Nombre cambiado en DIVIPOLA 2025-01 de "RIO BLANCO - LOS PUENTES".' WHERE id=4423; -- CUNDINAMARCA/FUSAGASUGÁ
-      UPDATE msip_centropoblado SET nombre='VILLA SHYN (CASAS MÓVILES)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era VILLA SHYN(CASA MOVILES). Nombre cambiado en DIVIPOLA 2025-01 de "VILLA SHYN (CASAS MOVILES)".' WHERE id=4679; -- CUNDINAMARCA/SAN ANTONIO DEL TEQUENDAMA
-      UPDATE msip_centropoblado SET nombre='SANTA INÉS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "SANTA INES".' WHERE id=4716; -- CUNDINAMARCA/SASAIMA
-      UPDATE msip_centropoblado SET nombre='EL PÉNCIL', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL PENCIL (SANTA BARBARA). Nombre cambiado en DIVIPOLA 2025-01 de "EL PENCIL".' WHERE id=4791; -- CUNDINAMARCA/TABIO
-      UPDATE msip_centropoblado SET nombre='CHICÓ NORTE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "CHICO NORTE".' WHERE id=14499; -- CUNDINAMARCA/TOCANCIPÁ
-      UPDATE msip_centropoblado SET nombre='MALAGÓN', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "MALAGON".' WHERE id=14512; -- CUNDINAMARCA/ZIPAQUIRÁ
-      UPDATE msip_centropoblado SET nombre='SAN FRANCISCO DE QUIBDÓ', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "SAN FRANCISCO DE QUIBDO".' WHERE id=4960; -- CHOCÓ/QUIBDÓ
-      UPDATE msip_centropoblado SET nombre='CAMPO BONITO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "CAMPOBONITO".' WHERE id=4971; -- CHOCÓ/QUIBDÓ
-      UPDATE msip_centropoblado SET nombre='SANTA CATALINA DE CATRÚ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "SANTA CATALINA DE CATRU".' WHERE id=5029; -- CHOCÓ/ALTO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='UNIÓN GUAIMIA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "UNION GUAIMIA".' WHERE id=14538; -- CHOCÓ/EL LITORAL DEL SAN JUAN
-      UPDATE msip_centropoblado SET nombre='CANCHIDÓ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "CANCHIDO".' WHERE id=14543; -- CHOCÓ/LLORÓ
-      UPDATE msip_centropoblado SET nombre='BAUDÓ GRANDE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "BAUDO GRANDE".' WHERE id=14549; -- CHOCÓ/MEDIO ATRATO
-      UPDATE msip_centropoblado SET nombre='BOCA DE CURUNDÓ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "BOCA DE CURUNDO".' WHERE id=14555; -- CHOCÓ/MEDIO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='CURUNDÓ LA LOMA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "CURUNDO LA LOMA".' WHERE id=14556; -- CHOCÓ/MEDIO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='JOVÍ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "JOVI".' WHERE id=5369; -- CHOCÓ/NUQUÍ
-      UPDATE msip_centropoblado SET nombre=' LA TERESITA - RÍO TRUANDÓ', observaciones='Agregado en DIVIPOLA 2025-01. Nombre cambiado en DIVIPOLA 2025-01 de "LA TERESITA - RÍO TRUANDÓ".' WHERE id=45815; -- CHOCÓ/RIOSUCIO
-      UPDATE msip_centropoblado SET nombre='BAJO JUNÍN', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "BAJO JUNIN".' WHERE id=14595; -- HUILA/ISNOS
-      UPDATE msip_centropoblado SET nombre='RÍO JEREZ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "RIO JEREZ".' WHERE id=14614; -- LA GUAJIRA/DIBULLA
-      UPDATE msip_centropoblado SET nombre='ARROYO LIMÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "ARROYO LIMON".' WHERE id=14626; -- LA GUAJIRA/MANAURE
-      UPDATE msip_centropoblado SET nombre='PARAÍSO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "PARAISO".' WHERE id=14634; -- LA GUAJIRA/URIBIA
-      UPDATE msip_centropoblado SET nombre='VILLA FÁTIMA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "VILLA FATIMA".' WHERE id=14639; -- LA GUAJIRA/URIBIA
-      UPDATE msip_centropoblado SET nombre='NUEVO MÉJICO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "NUEVO MEJICO".' WHERE id=14644; -- MAGDALENA/SANTA MARTA
-      UPDATE msip_centropoblado SET nombre='RÍO DE PIEDRA II', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "RIO DE PIEDRA II".' WHERE id=14655; -- MAGDALENA/ARACATACA
-      UPDATE msip_centropoblado SET nombre='MONTERÍA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "MONTERIA".' WHERE id=14677; -- MAGDALENA/ZONA BANANERA
-      UPDATE msip_centropoblado SET nombre='RINCÓN DE POMPEYA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "RINCON DE POMPEYA".' WHERE id=7691; -- META/VILLAVICENCIO
-      UPDATE msip_centropoblado SET nombre='RINCÓN DEL INDIO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "RINCON DEL INDIO".' WHERE id=14694; -- META/MAPIRIPÁN
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO MEJOR VIVIR', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO MEJOR VIVIR".' WHERE id=14711; -- META/SAN MARTÍN
-      UPDATE msip_centropoblado SET nombre='SANTA BÁRBARA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "SANTA BARBARA".' WHERE id=7882; -- NARIÑO/PASTO
-      UPDATE msip_centropoblado SET nombre='BOLÍVAR', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "BOLIVAR".' WHERE id=14733; -- NARIÑO/LA LLANADA
-      UPDATE msip_centropoblado SET nombre='URBANIZACIÓN VILLA CAFELINA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "URBANIZACION VILLA CAFELINA".' WHERE id=14764; -- NARIÑO/SANDONÁ
-      UPDATE msip_centropoblado SET nombre='SAN JOSÉ DEL GUAYABO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "SAN JOSE DEL GUAYABO".' WHERE id=8855; -- NARIÑO/SAN ANDRÉS DE TUMACO
-      UPDATE msip_centropoblado SET nombre='PIÑUELA RÍO MIRA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "PIÑUELA RIO MIRA".' WHERE id=8949; -- NARIÑO/SAN ANDRÉS DE TUMACO
-      UPDATE msip_centropoblado SET nombre='RECTA LOS ÁLAMOS', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "RECTA LOS ALAMOS".' WHERE id=14786; -- NORTE DE SANTANDER/CHINÁCOTA
-      UPDATE msip_centropoblado SET nombre='CONDOMINIO EL PARAÍSO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "CONDOMINIO EL PARAISO".' WHERE id=14849; -- RISARALDA/PEREIRA
-      UPDATE msip_centropoblado SET nombre='CIÉNAGA DE OPÓN', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "CIENAGA DE OPON".' WHERE id=14876; -- SANTANDER/BARRANCABERMEJA
-      UPDATE msip_centropoblado SET nombre='RÍO DE ORO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "RIO DE ORO".' WHERE id=14899; -- SANTANDER/GIRÓN
-      UPDATE msip_centropoblado SET nombre='EDÉN', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EDEN".' WHERE id=14909; -- SANTANDER/PIEDECUESTA
-      UPDATE msip_centropoblado SET nombre='PEÑA BLANCA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "PENA BLANCA".' WHERE id=14931; -- SANTANDER/VÉLEZ
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO".' WHERE id=14944; -- SUCRE/COLOSÓ
-      UPDATE msip_centropoblado SET nombre='MILÁN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "MILAN".' WHERE id=14949; -- SUCRE/COROZAL
-      UPDATE msip_centropoblado SET nombre='LA CONCEPCIÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "LA CONCEPCION".' WHERE id=14961; -- SUCRE/LA UNIÓN
-      UPDATE msip_centropoblado SET nombre='CHARCÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "CHARCON".' WHERE id=14963; -- SUCRE/LOS PALMITOS
-      UPDATE msip_centropoblado SET nombre='GUAMÍ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "GUAMI".' WHERE id=10842; -- SUCRE/PALMITO
-      UPDATE msip_centropoblado SET nombre='INVASIÓN BELLA ISLA DE LLANITOS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "INVASION BELLA ISLA DE LLANITOS".' WHERE id=15012; -- TOLIMA/IBAGUÉ
-      UPDATE msip_centropoblado SET nombre='CASCAJAL III', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "AMSTERCOL II".' WHERE id=11576; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN CANTACLARO 1', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION CANTACLARO 1".' WHERE id=15034; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN CANTACLARO 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION CANTACLARO 2".' WHERE id=15035; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN LA TRINIDAD', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "PARCELACION LA TRINIDAD".' WHERE id=15036; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='JOAQUINCITO RESGUARDO INDÍGENA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "JOAQUINCITO RESGUARDO INDIGENA".' WHERE id=11701; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='SAN ANTOÑITO (YURUMANGUÍ)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era SAN ANTOÑITO(YURUMANGUI). Nombre cambiado en DIVIPOLA 2025-01 de "SAN ANTOÑITO (YURUMANGUI)".' WHERE id=11704; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='ZARAGOZA PUENTE SAN MARTÍN 1', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "ZARAGOZA PUENTE SAN MARTIN 1".' WHERE id=15062; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='ZARAGOZA PUENTE SAN MARTÍN 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "ZARAGOZA PUENTE SAN MARTIN 2".' WHERE id=15063; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='EL VÍNCULO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "EL VINCULO".' WHERE id=11793; -- VALLE DEL CAUCA/GUADALAJARA DE BUGA
-      UPDATE msip_centropoblado SET nombre='LA UNIÓN', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "LA UNION".' WHERE id=12157; -- VALLE DEL CAUCA/PALMIRA
-      UPDATE msip_centropoblado SET nombre='DOSQUEBRADAS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS Nombre cambiado en DIVIPOLA 2025-01 de "DOS QUEBRADAS".' WHERE id=12351; -- VALLE DEL CAUCA/TRUJILLO
-      UPDATE msip_centropoblado SET nombre='TRIUNFO', observaciones='Agregado en DIVIPOLA 2023-07. Nombre cambiado en DIVIPOLA 2025-01 de "EL TRIUNFO".' WHERE id=45565; -- CASANARE/VILLANUEVA
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO".' WHERE id=15132; -- PUTUMAYO/ORITO
-      UPDATE msip_centropoblado SET nombre='EL BOMBÓN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "EL BOMBON".' WHERE id=15139; -- PUTUMAYO/PUERTO GUZMÁN
-      UPDATE msip_centropoblado SET nombre='SAGRADO CORAZÓN DE JESÚS', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "SAGRADO CORAZON DE JESUS".' WHERE id=15142; -- PUTUMAYO/SIBUNDOY
-      UPDATE msip_centropoblado SET nombre='JORDÁN ORTIZ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "JORDÁN ORTÍZ".' WHERE id=15150; -- PUTUMAYO/SAN MIGUEL
-      UPDATE msip_centropoblado SET nombre='EL PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "EL PARAISO".' WHERE id=15155; -- PUTUMAYO/SAN MIGUEL
-      UPDATE msip_centropoblado SET nombre='RÍO BLANCO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "RIO BLANCO".' WHERE id=15160; -- PUTUMAYO/VILLAGARZÓN
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA PATIO DE CIENCIA DULCE KM 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre cambiado en DIVIPOLA 2025-01 de "COMUNIDAD INDÍGENA PATIO DE CIENCIA DULCE  KM 11".' WHERE id=13016; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='ASENTAMIENTO HUMANO TAKANA KM 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era ASENTAMIENTO HUMANO TAKANA KM 11. Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre cambiado en DIVIPOLA 2025-01 de "ASENTAMIENTO HUMANO TAKANA  KM 11".' WHERE id=13019; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA NUEVO JARDÍN', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA NUEVO JARDIN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre cambiado en DIVIPOLA 2025-01 de "COMUNIDAD INDÍGENA NUEVO JARDIN".' WHERE id=13005; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA CANAÁN', observaciones='Aparece en DIVIPOLA 2018. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre cambiado en DIVIPOLA 2025-01 de "COMUNIDAD INDÍGENA CANAAN".' WHERE id=15164; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='NUEVO PARAÍSO', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "NUEVO PARAISO".' WHERE id=15169; -- AMAZONAS/PUERTO NARIÑO
-      UPDATE msip_centropoblado SET nombre='SAN JOSÉ DE VILLA ANDREA', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "SAN JOSE DE VILLA ANDREA".' WHERE id=15171; -- AMAZONAS/PUERTO NARIÑO
-
+      UPDATE msip_centropoblado SET nombre='El Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso".' WHERE id=14010; -- ANTIOQUIA/BARBOSA
+      UPDATE msip_centropoblado SET nombre='Travesías', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Travesias".' WHERE id=14017; -- ANTIOQUIA/BRICEÑO
+      UPDATE msip_centropoblado SET nombre='Fátima', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Fatima".' WHERE id=14045; -- ANTIOQUIA/EBÉJICO
+      UPDATE msip_centropoblado SET nombre='El Chingui 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Chingui  2".' WHERE id=14051; -- ANTIOQUIA/ENVIGADO
+      UPDATE msip_centropoblado SET nombre='Parcelación Álamos Del Escobero', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelación Alamos Del Escobero".' WHERE id=14054; -- ANTIOQUIA/ENVIGADO
+      UPDATE msip_centropoblado SET nombre='El Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso".' WHERE id=14071; -- ANTIOQUIA/GIRARDOTA
+      UPDATE msip_centropoblado SET nombre='Jamaica Parcelación Campestre', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Jamaica Parcelacion Campestre".' WHERE id=14107; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Parcelación Andalucia', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion Andalucia".' WHERE id=14109; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Parcelación Camelot', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion Camelot".' WHERE id=14110; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Parcelación Santa María Del Llano', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion Santa Maria Del Llano".' WHERE id=14118; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Pitalito', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Pital Del Carlín (Pitalito)".' WHERE id=12521; -- ATLÁNTICO/POLONUEVO
+      UPDATE msip_centropoblado SET nombre='Corcovado', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "El Corcovado".' WHERE id=653; -- BOLÍVAR/MORALES
+      UPDATE msip_centropoblado SET nombre='La Unión', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "La Union".' WHERE id=672; -- BOLÍVAR/PINILLOS
+      UPDATE msip_centropoblado SET nombre='La Unión Cabecera', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "La Union Cabecera".' WHERE id=14205; -- BOLÍVAR/PINILLOS
+      UPDATE msip_centropoblado SET nombre='Ánimas Altas', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Animas Altas".' WHERE id=799; -- BOLÍVAR/SIMITÍ
+      UPDATE msip_centropoblado SET nombre='Puerto Gaitán', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Puerto Gaitan".' WHERE id=14219; -- BOLÍVAR/TIQUISIO
+      UPDATE msip_centropoblado SET nombre='Urbanización Villa De Calatrava', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Villa De Calatrava".' WHERE id=14221; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanización Campestre', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Campestre".' WHERE id=14222; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanización Catalina', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Catalina".' WHERE id=14223; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanización Zapote', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Zapote".' WHERE id=14224; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Turbana', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Turbaná".' WHERE id=839; -- BOLÍVAR/TURBANÁ
+      UPDATE msip_centropoblado SET nombre='Chámeza Mayor', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Chameza Mayor".' WHERE id=1162; -- BOYACÁ/NOBSA
+      UPDATE msip_centropoblado SET nombre='Guáquira', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Guaquira".' WHERE id=1161; -- BOYACÁ/NOBSA
+      UPDATE msip_centropoblado SET nombre='La Fábrica', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "La Fabrica".' WHERE id=1263; -- BOYACÁ/SAMACÁ
+      UPDATE msip_centropoblado SET nombre='Kilómetro 41 - Colombia', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Kilometro 41 - Colombia".' WHERE id=1459; -- CALDAS/MANIZALES
+      UPDATE msip_centropoblado SET nombre='Condominio Reserva De Los Álamos', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Condominio Reserva De Los Alamos".' WHERE id=14240; -- CALDAS/MANIZALES
+      UPDATE msip_centropoblado SET nombre='Jiménez Alto', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Jimenez Alto".' WHERE id=1581; -- CALDAS/MARMATO
+      UPDATE msip_centropoblado SET nombre='Jiménez Bajo', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Jimenez Bajo".' WHERE id=1576; -- CALDAS/MARMATO
+      UPDATE msip_centropoblado SET nombre='Santágueda', observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2023-07. Nombre cambiado en DIVIPOLA 2025-01 de "Santagueda".' WHERE id=1622; -- CALDAS/PALESTINA
+      UPDATE msip_centropoblado SET nombre='Vereda La Unión', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Vereda La Union".' WHERE id=1677; -- CALDAS/SALAMINA
+      UPDATE msip_centropoblado SET nombre='La Esperanza (Jardínes De Paz)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "La Esperanza (Jardines De Paz)".' WHERE id=1963; -- CAUCA/POPAYÁN
+      UPDATE msip_centropoblado SET nombre='Isla Del Pontón', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Isla Del Ponton".' WHERE id=14278; -- CAUCA/CAJIBÍO
+      UPDATE msip_centropoblado SET nombre='Puente Del Río Timbío', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Puente Del Río Timbio".' WHERE id=14287; -- CAUCA/EL TAMBO
+      UPDATE msip_centropoblado SET nombre='Ciénaga Honda', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Cienaga Honda".' WHERE id=14292; -- CAUCA/GUACHENÉ
+      UPDATE msip_centropoblado SET nombre='San José De Guare', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "San Jose De Guare".' WHERE id=2295; -- CAUCA/GUAPI
+      UPDATE msip_centropoblado SET nombre='Tulipán', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Tulipan".' WHERE id=2433; -- CAUCA/MIRANDA
+      UPDATE msip_centropoblado SET nombre='La Mesa De Belalcázar', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "La Mesa De Belalcazar".' WHERE id=14325; -- CAUCA/PÁEZ
+      UPDATE msip_centropoblado SET nombre='Valencia De Jesús', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Valencia De Jesus".' WHERE id=2864; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Los Haticos I', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Los Haticos  I".' WHERE id=2868; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Raíces', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Raices".' WHERE id=2900; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='La Vega Arriba', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "La Vega  Arriba".' WHERE id=2857; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Zapatí', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Zapati".' WHERE id=2960; -- CESAR/CHIMICHAGUA
+      UPDATE msip_centropoblado SET nombre='La Unión', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "La Union".' WHERE id=14357; -- CESAR/CHIMICHAGUA
+      UPDATE msip_centropoblado SET nombre='Terraplén', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Terraplen".' WHERE id=3128; -- CESAR/SAN MARTÍN
+      UPDATE msip_centropoblado SET nombre='Medellín - Sapo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Medellin - Sapo".' WHERE id=14379; -- CÓRDOBA/MONTERÍA
+      UPDATE msip_centropoblado SET nombre='Los Ángeles', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Los Angeles".' WHERE id=3513; -- CÓRDOBA/CHINÚ
+      UPDATE msip_centropoblado SET nombre='Villa Concepción', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Villa Concepcion".' WHERE id=3659; -- CÓRDOBA/LORICA
+      UPDATE msip_centropoblado SET nombre='La Unión', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "La Union".' WHERE id=3745; -- CÓRDOBA/MOÑITOS
+      UPDATE msip_centropoblado SET nombre='La Música', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "La Musica".' WHERE id=14407; -- CÓRDOBA/SAHAGÚN
+      UPDATE msip_centropoblado SET nombre='Punta Bolívar', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Punta Bolivar".' WHERE id=3941; -- CÓRDOBA/SAN ANTERO
+      UPDATE msip_centropoblado SET nombre='El Darién', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "El Darien".' WHERE id=14418; -- CÓRDOBA/SAN BERNARDO DEL VIENTO
+      UPDATE msip_centropoblado SET nombre='Urbanización Tierra De Ensueño', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Tierra De Ensueño".' WHERE id=14455; -- CUNDINAMARCA/CACHIPAY
+      UPDATE msip_centropoblado SET nombre='Rincón De Fagua', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Rincon De Fagua".' WHERE id=4313; -- CUNDINAMARCA/CHÍA
+      UPDATE msip_centropoblado SET nombre='Santa Bárbara', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Santa Barbara".' WHERE id=4307; -- CUNDINAMARCA/CHÍA
+      UPDATE msip_centropoblado SET nombre='San Rafael Bajo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "San Rafael  Bajo".' WHERE id=4385; -- CUNDINAMARCA/FACATATIVÁ
+      UPDATE msip_centropoblado SET nombre='El Triunfo Boquerón', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL TRIUNFO. Nombre cambiado en DIVIPOLA 2025-01 de "El Triunfo Boqueron".' WHERE id=4420; -- CUNDINAMARCA/FUSAGASUGÁ
+      UPDATE msip_centropoblado SET nombre='Río Blanco - Los Puentes', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era RIO BLANCO -LOS PUENTES. Nombre cambiado en DIVIPOLA 2025-01 de "Rio Blanco - Los Puentes".' WHERE id=4423; -- CUNDINAMARCA/FUSAGASUGÁ
+      UPDATE msip_centropoblado SET nombre='Villa Shyn (Casas Móviles)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era VILLA SHYN(CASA MOVILES). Nombre cambiado en DIVIPOLA 2025-01 de "Villa Shyn (Casas Moviles)".' WHERE id=4679; -- CUNDINAMARCA/SAN ANTONIO DEL TEQUENDAMA
+      UPDATE msip_centropoblado SET nombre='Santa Inés', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "Santa Ines".' WHERE id=4716; -- CUNDINAMARCA/SASAIMA
+      UPDATE msip_centropoblado SET nombre='El Péncil', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL PENCIL (SANTA BARBARA). Nombre cambiado en DIVIPOLA 2025-01 de "El Pencil".' WHERE id=4791; -- CUNDINAMARCA/TABIO
+      UPDATE msip_centropoblado SET nombre='Chicó Norte', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Chico Norte".' WHERE id=14499; -- CUNDINAMARCA/TOCANCIPÁ
+      UPDATE msip_centropoblado SET nombre='Malagón', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Malagon".' WHERE id=14512; -- CUNDINAMARCA/ZIPAQUIRÁ
+      UPDATE msip_centropoblado SET nombre='San Francisco De Quibdó', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "San Francisco De Quibdo".' WHERE id=4960; -- CHOCÓ/QUIBDÓ
+      UPDATE msip_centropoblado SET nombre='Campo Bonito', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Campobonito".' WHERE id=4971; -- CHOCÓ/QUIBDÓ
+      UPDATE msip_centropoblado SET nombre='Santa Catalina De Catrú', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Santa Catalina De Catru".' WHERE id=5029; -- CHOCÓ/ALTO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Unión Guaimia', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Union Guaimia".' WHERE id=14538; -- CHOCÓ/EL LITORAL DEL SAN JUAN
+      UPDATE msip_centropoblado SET nombre='Canchidó', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Canchido".' WHERE id=14543; -- CHOCÓ/LLORÓ
+      UPDATE msip_centropoblado SET nombre='Baudó Grande', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Baudo Grande".' WHERE id=14549; -- CHOCÓ/MEDIO ATRATO
+      UPDATE msip_centropoblado SET nombre='Boca De Curundó', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Boca De Curundo".' WHERE id=14555; -- CHOCÓ/MEDIO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Curundó La Loma', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Curundo La Loma".' WHERE id=14556; -- CHOCÓ/MEDIO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Joví', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Jovi".' WHERE id=5369; -- CHOCÓ/NUQUÍ
+      UPDATE msip_centropoblado SET nombre=' La Teresita - Río Truandó', observaciones='Agregado en DIVIPOLA 2025-01. Nombre cambiado en DIVIPOLA 2025-01 de "La Teresita - Río Truandó".' WHERE id=45815; -- CHOCÓ/RIOSUCIO
+      UPDATE msip_centropoblado SET nombre='Bajo Junín', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Bajo Junin".' WHERE id=14595; -- HUILA/ISNOS
+      UPDATE msip_centropoblado SET nombre='Río Jerez', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Rio Jerez".' WHERE id=14614; -- LA GUAJIRA/DIBULLA
+      UPDATE msip_centropoblado SET nombre='Arroyo Limón', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Arroyo Limon".' WHERE id=14626; -- LA GUAJIRA/MANAURE
+      UPDATE msip_centropoblado SET nombre='Paraíso', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Paraiso".' WHERE id=14634; -- LA GUAJIRA/URIBIA
+      UPDATE msip_centropoblado SET nombre='Villa Fátima', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Villa Fatima".' WHERE id=14639; -- LA GUAJIRA/URIBIA
+      UPDATE msip_centropoblado SET nombre='Nuevo Méjico', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Nuevo Mejico".' WHERE id=14644; -- MAGDALENA/SANTA MARTA
+      UPDATE msip_centropoblado SET nombre='Río De Piedra Ii', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Rio De Piedra Ii".' WHERE id=14655; -- MAGDALENA/ARACATACA
+      UPDATE msip_centropoblado SET nombre='Montería', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Monteria".' WHERE id=14677; -- MAGDALENA/ZONA BANANERA
+      UPDATE msip_centropoblado SET nombre='Rincón De Pompeya', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Rincon De Pompeya".' WHERE id=7691; -- META/VILLAVICENCIO
+      UPDATE msip_centropoblado SET nombre='Rincón Del Indio', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "Rincon Del Indio".' WHERE id=14694; -- META/MAPIRIPÁN
+      UPDATE msip_centropoblado SET nombre='El Paraíso Mejor Vivir', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso Mejor Vivir".' WHERE id=14711; -- META/SAN MARTÍN
+      UPDATE msip_centropoblado SET nombre='Santa Bárbara', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Santa Barbara".' WHERE id=7882; -- NARIÑO/PASTO
+      UPDATE msip_centropoblado SET nombre='Bolívar', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Bolivar".' WHERE id=14733; -- NARIÑO/LA LLANADA
+      UPDATE msip_centropoblado SET nombre='Urbanización Villa Cafelina', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Urbanizacion Villa Cafelina".' WHERE id=14764; -- NARIÑO/SANDONÁ
+      UPDATE msip_centropoblado SET nombre='San José Del Guayabo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "San Jose Del Guayabo".' WHERE id=8855; -- NARIÑO/SAN ANDRÉS DE TUMACO
+      UPDATE msip_centropoblado SET nombre='Piñuela Río Mira', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Piñuela Rio Mira".' WHERE id=8949; -- NARIÑO/SAN ANDRÉS DE TUMACO
+      UPDATE msip_centropoblado SET nombre='Recta Los Álamos', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Recta Los Alamos".' WHERE id=14786; -- NORTE DE SANTANDER/CHINÁCOTA
+      UPDATE msip_centropoblado SET nombre='Condominio El Paraíso', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Condominio El Paraiso".' WHERE id=14849; -- RISARALDA/PEREIRA
+      UPDATE msip_centropoblado SET nombre='Ciénaga De Opón', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Cienaga De Opon".' WHERE id=14876; -- SANTANDER/BARRANCABERMEJA
+      UPDATE msip_centropoblado SET nombre='Río De Oro', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Rio De Oro".' WHERE id=14899; -- SANTANDER/GIRÓN
+      UPDATE msip_centropoblado SET nombre='Edén', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Eden".' WHERE id=14909; -- SANTANDER/PIEDECUESTA
+      UPDATE msip_centropoblado SET nombre='Peña Blanca', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Pena Blanca".' WHERE id=14931; -- SANTANDER/VÉLEZ
+      UPDATE msip_centropoblado SET nombre='El Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso".' WHERE id=14944; -- SUCRE/COLOSÓ
+      UPDATE msip_centropoblado SET nombre='Milán', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Milan".' WHERE id=14949; -- SUCRE/COROZAL
+      UPDATE msip_centropoblado SET nombre='La Concepción', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "La Concepcion".' WHERE id=14961; -- SUCRE/LA UNIÓN
+      UPDATE msip_centropoblado SET nombre='Charcón', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Charcon".' WHERE id=14963; -- SUCRE/LOS PALMITOS
+      UPDATE msip_centropoblado SET nombre='Guamí', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "Guami".' WHERE id=10842; -- SUCRE/PALMITO
+      UPDATE msip_centropoblado SET nombre='Invasión Bella Isla De Llanitos', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Invasion Bella Isla De Llanitos".' WHERE id=15012; -- TOLIMA/IBAGUÉ
+      UPDATE msip_centropoblado SET nombre='Cascajal Iii', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "Amstercol Ii".' WHERE id=11576; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Parcelación Cantaclaro 1', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion Cantaclaro 1".' WHERE id=15034; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Parcelación Cantaclaro 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion Cantaclaro 2".' WHERE id=15035; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Parcelación La Trinidad', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Parcelacion La Trinidad".' WHERE id=15036; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Joaquincito Resguardo Indígena', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM. Nombre cambiado en DIVIPOLA 2025-01 de "Joaquincito Resguardo Indigena".' WHERE id=11701; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='San Antoñito (Yurumanguí)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era SAN ANTOÑITO(YURUMANGUI). Nombre cambiado en DIVIPOLA 2025-01 de "San Antoñito (Yurumangui)".' WHERE id=11704; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='Zaragoza Puente San Martín 1', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Zaragoza Puente San Martin 1".' WHERE id=15062; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='Zaragoza Puente San Martín 2', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Zaragoza Puente San Martin 2".' WHERE id=15063; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='El Vínculo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Nombre cambiado en DIVIPOLA 2025-01 de "El Vinculo".' WHERE id=11793; -- VALLE DEL CAUCA/GUADALAJARA DE BUGA
+      UPDATE msip_centropoblado SET nombre='El Eden', observaciones='Agregado en DIVIPOLA 2022. Nombre cambiado en DIVIPOLA 2025-01 de "El Edén".' WHERE id=15440; -- VALLE DEL CAUCA/DAGUA
+      UPDATE msip_centropoblado SET nombre='La Unión', observaciones='Nombre cambiado en DIVIPOLA 2025-01 de "La Union".' WHERE id=12157; -- VALLE DEL CAUCA/PALMIRA
+      UPDATE msip_centropoblado SET nombre='Dosquebradas', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS Nombre cambiado en DIVIPOLA 2025-01 de "Dos Quebradas".' WHERE id=12351; -- VALLE DEL CAUCA/TRUJILLO
+      UPDATE msip_centropoblado SET nombre='Triunfo', observaciones='Agregado en DIVIPOLA 2023-07. Nombre cambiado en DIVIPOLA 2025-01 de "El Triunfo".' WHERE id=45565; -- CASANARE/VILLANUEVA
+      UPDATE msip_centropoblado SET nombre='El Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso".' WHERE id=15132; -- PUTUMAYO/ORITO
+      UPDATE msip_centropoblado SET nombre='El Bombón', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "El Bombon".' WHERE id=15139; -- PUTUMAYO/PUERTO GUZMÁN
+      UPDATE msip_centropoblado SET nombre='Sagrado Corazón De Jesús', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Sagrado Corazon De Jesus".' WHERE id=15142; -- PUTUMAYO/SIBUNDOY
+      UPDATE msip_centropoblado SET nombre='Jordán Ortiz', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. Nombre cambiado en DIVIPOLA 2025-01 de "Jordán Ortíz".' WHERE id=15150; -- PUTUMAYO/SAN MIGUEL
+      UPDATE msip_centropoblado SET nombre='El Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "El Paraiso".' WHERE id=15155; -- PUTUMAYO/SAN MIGUEL
+      UPDATE msip_centropoblado SET nombre='Río Blanco', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Rio Blanco".' WHERE id=15160; -- PUTUMAYO/VILLAGARZÓN
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Patio De Ciencia Dulce Km 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre cambiado en DIVIPOLA 2025-01 de "Comunidad Indígena Patio De Ciencia Dulce  Km 11".' WHERE id=13016; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Asentamiento Humano Takana Km 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era ASENTAMIENTO HUMANO TAKANA KM 11. Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre cambiado en DIVIPOLA 2025-01 de "Asentamiento Humano Takana  Km 11".' WHERE id=13019; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Nuevo Jardín', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA NUEVO JARDIN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre cambiado en DIVIPOLA 2025-01 de "Comunidad Indígena Nuevo Jardin".' WHERE id=13005; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Canaán', observaciones='Aparece en DIVIPOLA 2018. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre cambiado en DIVIPOLA 2025-01 de "Comunidad Indígena Canaan".' WHERE id=15164; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Nuevo Paraíso', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "Nuevo Paraiso".' WHERE id=15169; -- AMAZONAS/PUERTO NARIÑO
+      UPDATE msip_centropoblado SET nombre='San José De Villa Andrea', observaciones='Aparece en DIVIPOLA 2018. Nombre cambiado en DIVIPOLA 2025-01 de "San Jose De Villa Andrea".' WHERE id=15171; -- AMAZONAS/PUERTO NARIÑO
       -- Agrega latitud, longitud a centros poblados que no tenían
 
       UPDATE msip_centropoblado SET latitud='3.104551', longitud='-73.843961' WHERE id=14712; -- Tres Esquinas / Vistahermosa / Meta
@@ -1024,132 +1024,133 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
     execute <<-SQL
       -- Centros poblados con nombres cambiados
 
-      UPDATE msip_centropoblado SET nombre='SAN JOSE DE VILLA ANDREA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15171; -- AMAZONAS/PUERTO NARIÑO
-      UPDATE msip_centropoblado SET nombre='NUEVO PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15169; -- AMAZONAS/PUERTO NARIÑO
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA CANAAN', observaciones='Aparece en DIVIPOLA 2018. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN.' WHERE id=15164; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA NUEVO JARDIN', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA NUEVO JARDIN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025.' WHERE id=13005; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='ASENTAMIENTO HUMANO TAKANA  KM 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era ASENTAMIENTO HUMANO TAKANA KM 11. Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA).' WHERE id=13019; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='COMUNIDAD INDÍGENA PATIO DE CIENCIA DULCE  KM 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11.' WHERE id=13016; -- AMAZONAS/LETICIA
-      UPDATE msip_centropoblado SET nombre='RIO BLANCO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15160; -- PUTUMAYO/VILLAGARZÓN
-      UPDATE msip_centropoblado SET nombre='EL PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15155; -- PUTUMAYO/SAN MIGUEL
-      UPDATE msip_centropoblado SET nombre='JORDÁN ORTÍZ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15150; -- PUTUMAYO/SAN MIGUEL
-      UPDATE msip_centropoblado SET nombre='SAGRADO CORAZON DE JESUS', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15142; -- PUTUMAYO/SIBUNDOY
-      UPDATE msip_centropoblado SET nombre='EL BOMBON', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15139; -- PUTUMAYO/PUERTO GUZMÁN
-      UPDATE msip_centropoblado SET nombre='EL PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15132; -- PUTUMAYO/ORITO
-      UPDATE msip_centropoblado SET nombre='EL TRIUNFO', observaciones='Agregado en DIVIPOLA 2023-07.' WHERE id=45565; -- CASANARE/VILLANUEVA
-      UPDATE msip_centropoblado SET nombre='DOS QUEBRADAS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS' WHERE id=12351; -- VALLE DEL CAUCA/TRUJILLO
-      UPDATE msip_centropoblado SET nombre='LA UNION', observaciones='' WHERE id=12157; -- VALLE DEL CAUCA/PALMIRA
-      UPDATE msip_centropoblado SET nombre='EL VINCULO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=11793; -- VALLE DEL CAUCA/GUADALAJARA DE BUGA
-      UPDATE msip_centropoblado SET nombre='ZARAGOZA PUENTE SAN MARTIN 2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15063; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='ZARAGOZA PUENTE SAN MARTIN 1', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15062; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='SAN ANTOÑITO (YURUMANGUI)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era SAN ANTOÑITO(YURUMANGUI).' WHERE id=11704; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='JOAQUINCITO RESGUARDO INDIGENA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=11701; -- VALLE DEL CAUCA/BUENAVENTURA
-      UPDATE msip_centropoblado SET nombre='PARCELACION LA TRINIDAD', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15036; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='PARCELACION CANTACLARO 2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15035; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='PARCELACION CANTACLARO 1', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15034; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='AMSTERCOL II', observaciones='' WHERE id=11576; -- VALLE DEL CAUCA/SANTIAGO DE CALI
-      UPDATE msip_centropoblado SET nombre='INVASION BELLA ISLA DE LLANITOS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15012; -- TOLIMA/IBAGUÉ
-      UPDATE msip_centropoblado SET nombre='GUAMI', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=10842; -- SUCRE/PALMITO
-      UPDATE msip_centropoblado SET nombre='CHARCON', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14963; -- SUCRE/LOS PALMITOS
-      UPDATE msip_centropoblado SET nombre='LA CONCEPCION', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14961; -- SUCRE/LA UNIÓN
-      UPDATE msip_centropoblado SET nombre='MILAN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14949; -- SUCRE/COROZAL
-      UPDATE msip_centropoblado SET nombre='EL PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14944; -- SUCRE/COLOSÓ
-      UPDATE msip_centropoblado SET nombre='PENA BLANCA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14931; -- SANTANDER/VÉLEZ
-      UPDATE msip_centropoblado SET nombre='EDEN', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14909; -- SANTANDER/PIEDECUESTA
-      UPDATE msip_centropoblado SET nombre='RIO DE ORO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14899; -- SANTANDER/GIRÓN
-      UPDATE msip_centropoblado SET nombre='CIENAGA DE OPON', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14876; -- SANTANDER/BARRANCABERMEJA
-      UPDATE msip_centropoblado SET nombre='CONDOMINIO EL PARAISO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14849; -- RISARALDA/PEREIRA
-      UPDATE msip_centropoblado SET nombre='RECTA LOS ALAMOS', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14786; -- NORTE DE SANTANDER/CHINÁCOTA
-      UPDATE msip_centropoblado SET nombre='PIÑUELA RIO MIRA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=8949; -- NARIÑO/SAN ANDRÉS DE TUMACO
-      UPDATE msip_centropoblado SET nombre='SAN JOSE DEL GUAYABO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=8855; -- NARIÑO/SAN ANDRÉS DE TUMACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACION VILLA CAFELINA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14764; -- NARIÑO/SANDONÁ
-      UPDATE msip_centropoblado SET nombre='BOLIVAR', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14733; -- NARIÑO/LA LLANADA
-      UPDATE msip_centropoblado SET nombre='SANTA BARBARA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=7882; -- NARIÑO/PASTO
-      UPDATE msip_centropoblado SET nombre='EL PARAISO MEJOR VIVIR', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14711; -- META/SAN MARTÍN
-      UPDATE msip_centropoblado SET nombre='RINCON DEL INDIO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=14694; -- META/MAPIRIPÁN
-      UPDATE msip_centropoblado SET nombre='RINCON DE POMPEYA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=7691; -- META/VILLAVICENCIO
-      UPDATE msip_centropoblado SET nombre='MONTERIA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14677; -- MAGDALENA/ZONA BANANERA
-      UPDATE msip_centropoblado SET nombre='RIO DE PIEDRA II', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14655; -- MAGDALENA/ARACATACA
-      UPDATE msip_centropoblado SET nombre='NUEVO MEJICO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14644; -- MAGDALENA/SANTA MARTA
-      UPDATE msip_centropoblado SET nombre='VILLA FATIMA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14639; -- LA GUAJIRA/URIBIA
-      UPDATE msip_centropoblado SET nombre='PARAISO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14634; -- LA GUAJIRA/URIBIA
-      UPDATE msip_centropoblado SET nombre='ARROYO LIMON', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14626; -- LA GUAJIRA/MANAURE
-      UPDATE msip_centropoblado SET nombre='RIO JEREZ', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14614; -- LA GUAJIRA/DIBULLA
-      UPDATE msip_centropoblado SET nombre='BAJO JUNIN', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14595; -- HUILA/ISNOS
-      UPDATE msip_centropoblado SET nombre='LA TERESITA - RÍO TRUANDÓ', observaciones='Agregado en DIVIPOLA 2025-01.' WHERE id=45815; -- CHOCÓ/RIOSUCIO
-      UPDATE msip_centropoblado SET nombre='JOVI', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=5369; -- CHOCÓ/NUQUÍ
-      UPDATE msip_centropoblado SET nombre='CURUNDO LA LOMA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14556; -- CHOCÓ/MEDIO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='BOCA DE CURUNDO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14555; -- CHOCÓ/MEDIO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='BAUDO GRANDE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14549; -- CHOCÓ/MEDIO ATRATO
-      UPDATE msip_centropoblado SET nombre='CANCHIDO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14543; -- CHOCÓ/LLORÓ
-      UPDATE msip_centropoblado SET nombre='UNION GUAIMIA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14538; -- CHOCÓ/EL LITORAL DEL SAN JUAN
-      UPDATE msip_centropoblado SET nombre='SANTA CATALINA DE CATRU', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=5029; -- CHOCÓ/ALTO BAUDÓ
-      UPDATE msip_centropoblado SET nombre='CAMPOBONITO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=4971; -- CHOCÓ/QUIBDÓ
-      UPDATE msip_centropoblado SET nombre='SAN FRANCISCO DE QUIBDO', observaciones='' WHERE id=4960; -- CHOCÓ/QUIBDÓ
-      UPDATE msip_centropoblado SET nombre='MALAGON', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14512; -- CUNDINAMARCA/ZIPAQUIRÁ
-      UPDATE msip_centropoblado SET nombre='CHICO NORTE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14499; -- CUNDINAMARCA/TOCANCIPÁ
-      UPDATE msip_centropoblado SET nombre='EL PENCIL', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL PENCIL (SANTA BARBARA).' WHERE id=4791; -- CUNDINAMARCA/TABIO
-      UPDATE msip_centropoblado SET nombre='SANTA INES', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=4716; -- CUNDINAMARCA/SASAIMA
-      UPDATE msip_centropoblado SET nombre='VILLA SHYN (CASAS MOVILES)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era VILLA SHYN(CASA MOVILES).' WHERE id=4679; -- CUNDINAMARCA/SAN ANTONIO DEL TEQUENDAMA
-      UPDATE msip_centropoblado SET nombre='RIO BLANCO - LOS PUENTES', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era RIO BLANCO -LOS PUENTES.' WHERE id=4423; -- CUNDINAMARCA/FUSAGASUGÁ
-      UPDATE msip_centropoblado SET nombre='EL TRIUNFO BOQUERON', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL TRIUNFO.' WHERE id=4420; -- CUNDINAMARCA/FUSAGASUGÁ
-      UPDATE msip_centropoblado SET nombre='SAN RAFAEL  BAJO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=4385; -- CUNDINAMARCA/FACATATIVÁ
-      UPDATE msip_centropoblado SET nombre='SANTA BARBARA', observaciones='' WHERE id=4307; -- CUNDINAMARCA/CHÍA
-      UPDATE msip_centropoblado SET nombre='RINCON DE FAGUA', observaciones='' WHERE id=4313; -- CUNDINAMARCA/CHÍA
-      UPDATE msip_centropoblado SET nombre='URBANIZACION TIERRA DE ENSUEÑO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14455; -- CUNDINAMARCA/CACHIPAY
-      UPDATE msip_centropoblado SET nombre='EL DARIEN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14418; -- CÓRDOBA/SAN BERNARDO DEL VIENTO
-      UPDATE msip_centropoblado SET nombre='PUNTA BOLIVAR', observaciones='' WHERE id=3941; -- CÓRDOBA/SAN ANTERO
-      UPDATE msip_centropoblado SET nombre='LA MUSICA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14407; -- CÓRDOBA/SAHAGÚN
-      UPDATE msip_centropoblado SET nombre='LA UNION', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3745; -- CÓRDOBA/MOÑITOS
-      UPDATE msip_centropoblado SET nombre='VILLA CONCEPCION', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3659; -- CÓRDOBA/LORICA
-      UPDATE msip_centropoblado SET nombre='LOS ANGELES', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3513; -- CÓRDOBA/CHINÚ
-      UPDATE msip_centropoblado SET nombre='MEDELLIN - SAPO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14379; -- CÓRDOBA/MONTERÍA
-      UPDATE msip_centropoblado SET nombre='TERRAPLEN', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3128; -- CESAR/SAN MARTÍN
-      UPDATE msip_centropoblado SET nombre='LA UNION', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14357; -- CESAR/CHIMICHAGUA
-      UPDATE msip_centropoblado SET nombre='ZAPATI', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2960; -- CESAR/CHIMICHAGUA
-      UPDATE msip_centropoblado SET nombre='LA VEGA  ARRIBA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2857; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='RAICES', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2900; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='LOS HATICOS  I', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2868; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='VALENCIA DE JESUS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2864; -- CESAR/VALLEDUPAR
-      UPDATE msip_centropoblado SET nombre='LA MESA DE BELALCAZAR', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14325; -- CAUCA/PÁEZ
-      UPDATE msip_centropoblado SET nombre='TULIPAN', observaciones='' WHERE id=2433; -- CAUCA/MIRANDA
-      UPDATE msip_centropoblado SET nombre='SAN JOSE DE GUARE', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2295; -- CAUCA/GUAPI
-      UPDATE msip_centropoblado SET nombre='CIENAGA HONDA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14292; -- CAUCA/GUACHENÉ
-      UPDATE msip_centropoblado SET nombre='PUENTE DEL RÍO TIMBIO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14287; -- CAUCA/EL TAMBO
-      UPDATE msip_centropoblado SET nombre='ISLA DEL PONTON', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14278; -- CAUCA/CAJIBÍO
-      UPDATE msip_centropoblado SET nombre='LA ESPERANZA (JARDINES DE PAZ)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=1963; -- CAUCA/POPAYÁN
-      UPDATE msip_centropoblado SET nombre='VEREDA LA UNION', observaciones='' WHERE id=1677; -- CALDAS/SALAMINA
-      UPDATE msip_centropoblado SET nombre='SANTAGUEDA', observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2023-07.' WHERE id=1622; -- CALDAS/PALESTINA
-      UPDATE msip_centropoblado SET nombre='JIMENEZ BAJO', observaciones='' WHERE id=1576; -- CALDAS/MARMATO
-      UPDATE msip_centropoblado SET nombre='JIMENEZ ALTO', observaciones='' WHERE id=1581; -- CALDAS/MARMATO
-      UPDATE msip_centropoblado SET nombre='CONDOMINIO RESERVA DE LOS ALAMOS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14240; -- CALDAS/MANIZALES
-      UPDATE msip_centropoblado SET nombre='KILOMETRO 41 - COLOMBIA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=1459; -- CALDAS/MANIZALES
-      UPDATE msip_centropoblado SET nombre='LA FABRICA', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS.' WHERE id=1263; -- BOYACÁ/SAMACÁ
-      UPDATE msip_centropoblado SET nombre='GUAQUIRA', observaciones='' WHERE id=1161; -- BOYACÁ/NOBSA
-      UPDATE msip_centropoblado SET nombre='CHAMEZA MAYOR', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS.' WHERE id=1162; -- BOYACÁ/NOBSA
-      UPDATE msip_centropoblado SET nombre='TURBANÁ', observaciones='' WHERE id=839; -- BOLÍVAR/TURBANÁ
-      UPDATE msip_centropoblado SET nombre='URBANIZACION ZAPOTE', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14224; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACION CATALINA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14223; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACION CAMPESTRE', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14222; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='URBANIZACION VILLA DE CALATRAVA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14221; -- BOLÍVAR/TURBACO
-      UPDATE msip_centropoblado SET nombre='PUERTO GAITAN', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14219; -- BOLÍVAR/TIQUISIO
-      UPDATE msip_centropoblado SET nombre='ANIMAS ALTAS', observaciones='' WHERE id=799; -- BOLÍVAR/SIMITÍ
-      UPDATE msip_centropoblado SET nombre='LA UNION CABECERA', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14205; -- BOLÍVAR/PINILLOS
-      UPDATE msip_centropoblado SET nombre='LA UNION', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=672; -- BOLÍVAR/PINILLOS
-      UPDATE msip_centropoblado SET nombre='EL CORCOVADO', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=653; -- BOLÍVAR/MORALES
-      UPDATE msip_centropoblado SET nombre='PITAL DEL CARLÍN (PITALITO)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=12521; -- ATLÁNTICO/POLONUEVO
-      UPDATE msip_centropoblado SET nombre='PARCELACION SANTA MARIA DEL LLANO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14118; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PARCELACION CAMELOT', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14110; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='PARCELACION ANDALUCIA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14109; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='JAMAICA PARCELACION CAMPESTRE', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14107; -- ANTIOQUIA/RIONEGRO
-      UPDATE msip_centropoblado SET nombre='EL PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14071; -- ANTIOQUIA/GIRARDOTA
-      UPDATE msip_centropoblado SET nombre='PARCELACIÓN ALAMOS DEL ESCOBERO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14054; -- ANTIOQUIA/ENVIGADO
-      UPDATE msip_centropoblado SET nombre='EL CHINGUI  2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14051; -- ANTIOQUIA/ENVIGADO
-      UPDATE msip_centropoblado SET nombre='FATIMA', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14045; -- ANTIOQUIA/EBÉJICO
-      UPDATE msip_centropoblado SET nombre='TRAVESIAS', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14017; -- ANTIOQUIA/BRICEÑO
-      UPDATE msip_centropoblado SET nombre='EL PARAISO', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14010; -- ANTIOQUIA/BARBOSA
+      UPDATE msip_centropoblado SET nombre='San Jose De Villa Andrea', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15171; -- AMAZONAS/PUERTO NARIÑO
+      UPDATE msip_centropoblado SET nombre='Nuevo Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15169; -- AMAZONAS/PUERTO NARIÑO
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Canaan', observaciones='Aparece en DIVIPOLA 2018. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA CANAAN.' WHERE id=15164; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Nuevo Jardin', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA NUEVO JARDIN. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDÍGENA NUEVO JARDIN 91001025.' WHERE id=13005; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Asentamiento Humano Takana  Km 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era ASENTAMIENTO HUMANO TAKANA KM 11. Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA). Nombre de DIVIPOLA 2019, el anterior era ASENTAMIENTO HUMANO TAKANA KM 11 (MULTIÉTNICA).' WHERE id=13019; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Comunidad Indígena Patio De Ciencia Dulce  Km 11', observaciones='Cambio basado en DIVIPOLA 2018. Antes era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11. Nombre de DIVIPOLA 2019, el anterior era COMUNIDAD INDIGENA PATIO DE CIENCIA DULCE KM 11.' WHERE id=13016; -- AMAZONAS/LETICIA
+      UPDATE msip_centropoblado SET nombre='Rio Blanco', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15160; -- PUTUMAYO/VILLAGARZÓN
+      UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15155; -- PUTUMAYO/SAN MIGUEL
+      UPDATE msip_centropoblado SET nombre='Jordán Ortíz', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15150; -- PUTUMAYO/SAN MIGUEL
+      UPDATE msip_centropoblado SET nombre='Sagrado Corazon De Jesus', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15142; -- PUTUMAYO/SIBUNDOY
+      UPDATE msip_centropoblado SET nombre='El Bombon', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15139; -- PUTUMAYO/PUERTO GUZMÁN
+      UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15132; -- PUTUMAYO/ORITO
+      UPDATE msip_centropoblado SET nombre='El Triunfo', observaciones='Agregado en DIVIPOLA 2023-07.' WHERE id=45565; -- CASANARE/VILLANUEVA
+      UPDATE msip_centropoblado SET nombre='Dos Quebradas', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Rehabilitado por DIVIPOLA 2019 el 2020-07-23, nombre anterior: DOS QUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS. Nombre cambiando en DIVIPOLA 2021, antes era DOSQUEBRADAS' WHERE id=12351; -- VALLE DEL CAUCA/TRUJILLO
+      UPDATE msip_centropoblado SET nombre='La Union', observaciones='' WHERE id=12157; -- VALLE DEL CAUCA/PALMIRA
+      UPDATE msip_centropoblado SET nombre='El Edén', observaciones='Agregado en DIVIPOLA 2022.' WHERE id=15440; -- VALLE DEL CAUCA/DAGUA
+      UPDATE msip_centropoblado SET nombre='El Vinculo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=11793; -- VALLE DEL CAUCA/GUADALAJARA DE BUGA
+      UPDATE msip_centropoblado SET nombre='Zaragoza Puente San Martin 2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15063; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='Zaragoza Puente San Martin 1', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15062; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='San Antoñito (Yurumangui)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era SAN ANTOÑITO(YURUMANGUI).' WHERE id=11704; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='Joaquincito Resguardo Indigena', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=11701; -- VALLE DEL CAUCA/BUENAVENTURA
+      UPDATE msip_centropoblado SET nombre='Parcelacion La Trinidad', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15036; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Parcelacion Cantaclaro 2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15035; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Parcelacion Cantaclaro 1', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15034; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Amstercol Ii', observaciones='' WHERE id=11576; -- VALLE DEL CAUCA/SANTIAGO DE CALI
+      UPDATE msip_centropoblado SET nombre='Invasion Bella Isla De Llanitos', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=15012; -- TOLIMA/IBAGUÉ
+      UPDATE msip_centropoblado SET nombre='Guami', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=10842; -- SUCRE/PALMITO
+      UPDATE msip_centropoblado SET nombre='Charcon', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14963; -- SUCRE/LOS PALMITOS
+      UPDATE msip_centropoblado SET nombre='La Concepcion', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14961; -- SUCRE/LA UNIÓN
+      UPDATE msip_centropoblado SET nombre='Milan', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14949; -- SUCRE/COROZAL
+      UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14944; -- SUCRE/COLOSÓ
+      UPDATE msip_centropoblado SET nombre='Pena Blanca', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14931; -- SANTANDER/VÉLEZ
+      UPDATE msip_centropoblado SET nombre='Eden', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14909; -- SANTANDER/PIEDECUESTA
+      UPDATE msip_centropoblado SET nombre='Rio De Oro', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14899; -- SANTANDER/GIRÓN
+      UPDATE msip_centropoblado SET nombre='Cienaga De Opon', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14876; -- SANTANDER/BARRANCABERMEJA
+      UPDATE msip_centropoblado SET nombre='Condominio El Paraiso', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14849; -- RISARALDA/PEREIRA
+      UPDATE msip_centropoblado SET nombre='Recta Los Alamos', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14786; -- NORTE DE SANTANDER/CHINÁCOTA
+      UPDATE msip_centropoblado SET nombre='Piñuela Rio Mira', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=8949; -- NARIÑO/SAN ANDRÉS DE TUMACO
+      UPDATE msip_centropoblado SET nombre='San Jose Del Guayabo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=8855; -- NARIÑO/SAN ANDRÉS DE TUMACO
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Villa Cafelina', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14764; -- NARIÑO/SANDONÁ
+      UPDATE msip_centropoblado SET nombre='Bolivar', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14733; -- NARIÑO/LA LLANADA
+      UPDATE msip_centropoblado SET nombre='Santa Barbara', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=7882; -- NARIÑO/PASTO
+      UPDATE msip_centropoblado SET nombre='El Paraiso Mejor Vivir', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14711; -- META/SAN MARTÍN
+      UPDATE msip_centropoblado SET nombre='Rincon Del Indio', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=14694; -- META/MAPIRIPÁN
+      UPDATE msip_centropoblado SET nombre='Rincon De Pompeya', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=7691; -- META/VILLAVICENCIO
+      UPDATE msip_centropoblado SET nombre='Monteria', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14677; -- MAGDALENA/ZONA BANANERA
+      UPDATE msip_centropoblado SET nombre='Rio De Piedra Ii', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14655; -- MAGDALENA/ARACATACA
+      UPDATE msip_centropoblado SET nombre='Nuevo Mejico', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14644; -- MAGDALENA/SANTA MARTA
+      UPDATE msip_centropoblado SET nombre='Villa Fatima', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14639; -- LA GUAJIRA/URIBIA
+      UPDATE msip_centropoblado SET nombre='Paraiso', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14634; -- LA GUAJIRA/URIBIA
+      UPDATE msip_centropoblado SET nombre='Arroyo Limon', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14626; -- LA GUAJIRA/MANAURE
+      UPDATE msip_centropoblado SET nombre='Rio Jerez', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14614; -- LA GUAJIRA/DIBULLA
+      UPDATE msip_centropoblado SET nombre='Bajo Junin', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14595; -- HUILA/ISNOS
+      UPDATE msip_centropoblado SET nombre='La Teresita - Río Truandó', observaciones='Agregado en DIVIPOLA 2025-01.' WHERE id=45815; -- CHOCÓ/RIOSUCIO
+      UPDATE msip_centropoblado SET nombre='Jovi', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=5369; -- CHOCÓ/NUQUÍ
+      UPDATE msip_centropoblado SET nombre='Curundo La Loma', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14556; -- CHOCÓ/MEDIO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Boca De Curundo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14555; -- CHOCÓ/MEDIO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Baudo Grande', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14549; -- CHOCÓ/MEDIO ATRATO
+      UPDATE msip_centropoblado SET nombre='Canchido', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14543; -- CHOCÓ/LLORÓ
+      UPDATE msip_centropoblado SET nombre='Union Guaimia', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14538; -- CHOCÓ/EL LITORAL DEL SAN JUAN
+      UPDATE msip_centropoblado SET nombre='Santa Catalina De Catru', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=5029; -- CHOCÓ/ALTO BAUDÓ
+      UPDATE msip_centropoblado SET nombre='Campobonito', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=4971; -- CHOCÓ/QUIBDÓ
+      UPDATE msip_centropoblado SET nombre='San Francisco De Quibdo', observaciones='' WHERE id=4960; -- CHOCÓ/QUIBDÓ
+      UPDATE msip_centropoblado SET nombre='Malagon', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14512; -- CUNDINAMARCA/ZIPAQUIRÁ
+      UPDATE msip_centropoblado SET nombre='Chico Norte', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14499; -- CUNDINAMARCA/TOCANCIPÁ
+      UPDATE msip_centropoblado SET nombre='El Pencil', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL PENCIL (SANTA BARBARA).' WHERE id=4791; -- CUNDINAMARCA/TABIO
+      UPDATE msip_centropoblado SET nombre='Santa Ines', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPM.' WHERE id=4716; -- CUNDINAMARCA/SASAIMA
+      UPDATE msip_centropoblado SET nombre='Villa Shyn (Casas Moviles)', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era VILLA SHYN(CASA MOVILES).' WHERE id=4679; -- CUNDINAMARCA/SAN ANTONIO DEL TEQUENDAMA
+      UPDATE msip_centropoblado SET nombre='Rio Blanco - Los Puentes', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era RIO BLANCO -LOS PUENTES.' WHERE id=4423; -- CUNDINAMARCA/FUSAGASUGÁ
+      UPDATE msip_centropoblado SET nombre='El Triunfo Boqueron', observaciones='Nombre cambiado por DIVIPOLA 2018. Antes era EL TRIUNFO.' WHERE id=4420; -- CUNDINAMARCA/FUSAGASUGÁ
+      UPDATE msip_centropoblado SET nombre='San Rafael  Bajo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=4385; -- CUNDINAMARCA/FACATATIVÁ
+      UPDATE msip_centropoblado SET nombre='Santa Barbara', observaciones='' WHERE id=4307; -- CUNDINAMARCA/CHÍA
+      UPDATE msip_centropoblado SET nombre='Rincon De Fagua', observaciones='' WHERE id=4313; -- CUNDINAMARCA/CHÍA
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Tierra De Ensueño', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14455; -- CUNDINAMARCA/CACHIPAY
+      UPDATE msip_centropoblado SET nombre='El Darien', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14418; -- CÓRDOBA/SAN BERNARDO DEL VIENTO
+      UPDATE msip_centropoblado SET nombre='Punta Bolivar', observaciones='' WHERE id=3941; -- CÓRDOBA/SAN ANTERO
+      UPDATE msip_centropoblado SET nombre='La Musica', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14407; -- CÓRDOBA/SAHAGÚN
+      UPDATE msip_centropoblado SET nombre='La Union', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3745; -- CÓRDOBA/MOÑITOS
+      UPDATE msip_centropoblado SET nombre='Villa Concepcion', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3659; -- CÓRDOBA/LORICA
+      UPDATE msip_centropoblado SET nombre='Los Angeles', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3513; -- CÓRDOBA/CHINÚ
+      UPDATE msip_centropoblado SET nombre='Medellin - Sapo', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14379; -- CÓRDOBA/MONTERÍA
+      UPDATE msip_centropoblado SET nombre='Terraplen', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=3128; -- CESAR/SAN MARTÍN
+      UPDATE msip_centropoblado SET nombre='La Union', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14357; -- CESAR/CHIMICHAGUA
+      UPDATE msip_centropoblado SET nombre='Zapati', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2960; -- CESAR/CHIMICHAGUA
+      UPDATE msip_centropoblado SET nombre='La Vega  Arriba', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2857; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Raices', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2900; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Los Haticos  I', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2868; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='Valencia De Jesus', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2864; -- CESAR/VALLEDUPAR
+      UPDATE msip_centropoblado SET nombre='La Mesa De Belalcazar', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14325; -- CAUCA/PÁEZ
+      UPDATE msip_centropoblado SET nombre='Tulipan', observaciones='' WHERE id=2433; -- CAUCA/MIRANDA
+      UPDATE msip_centropoblado SET nombre='San Jose De Guare', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=2295; -- CAUCA/GUAPI
+      UPDATE msip_centropoblado SET nombre='Cienaga Honda', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14292; -- CAUCA/GUACHENÉ
+      UPDATE msip_centropoblado SET nombre='Puente Del Río Timbio', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14287; -- CAUCA/EL TAMBO
+      UPDATE msip_centropoblado SET nombre='Isla Del Ponton', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=14278; -- CAUCA/CAJIBÍO
+      UPDATE msip_centropoblado SET nombre='La Esperanza (Jardines De Paz)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=1963; -- CAUCA/POPAYÁN
+      UPDATE msip_centropoblado SET nombre='Vereda La Union', observaciones='' WHERE id=1677; -- CALDAS/SALAMINA
+      UPDATE msip_centropoblado SET nombre='Santagueda', observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2023-07.' WHERE id=1622; -- CALDAS/PALESTINA
+      UPDATE msip_centropoblado SET nombre='Jimenez Bajo', observaciones='' WHERE id=1576; -- CALDAS/MARMATO
+      UPDATE msip_centropoblado SET nombre='Jimenez Alto', observaciones='' WHERE id=1581; -- CALDAS/MARMATO
+      UPDATE msip_centropoblado SET nombre='Condominio Reserva De Los Alamos', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14240; -- CALDAS/MANIZALES
+      UPDATE msip_centropoblado SET nombre='Kilometro 41 - Colombia', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=1459; -- CALDAS/MANIZALES
+      UPDATE msip_centropoblado SET nombre='La Fabrica', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS.' WHERE id=1263; -- BOYACÁ/SAMACÁ
+      UPDATE msip_centropoblado SET nombre='Guaquira', observaciones='' WHERE id=1161; -- BOYACÁ/NOBSA
+      UPDATE msip_centropoblado SET nombre='Chameza Mayor', observaciones='Tipo de centro cambiado por DIVIPOLA 2018. Antes era CAS.' WHERE id=1162; -- BOYACÁ/NOBSA
+      UPDATE msip_centropoblado SET nombre='Turbaná', observaciones='' WHERE id=839; -- BOLÍVAR/TURBANÁ
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Zapote', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14224; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Catalina', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14223; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Campestre', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14222; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Urbanizacion Villa De Calatrava', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14221; -- BOLÍVAR/TURBACO
+      UPDATE msip_centropoblado SET nombre='Puerto Gaitan', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14219; -- BOLÍVAR/TIQUISIO
+      UPDATE msip_centropoblado SET nombre='Animas Altas', observaciones='' WHERE id=799; -- BOLÍVAR/SIMITÍ
+      UPDATE msip_centropoblado SET nombre='La Union Cabecera', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14205; -- BOLÍVAR/PINILLOS
+      UPDATE msip_centropoblado SET nombre='La Union', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=672; -- BOLÍVAR/PINILLOS
+      UPDATE msip_centropoblado SET nombre='El Corcovado', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=653; -- BOLÍVAR/MORALES
+      UPDATE msip_centropoblado SET nombre='Pital Del Carlín (Pitalito)', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.' WHERE id=12521; -- ATLÁNTICO/POLONUEVO
+      UPDATE msip_centropoblado SET nombre='Parcelacion Santa Maria Del Llano', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14118; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Parcelacion Camelot', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14110; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Parcelacion Andalucia', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14109; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='Jamaica Parcelacion Campestre', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14107; -- ANTIOQUIA/RIONEGRO
+      UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14071; -- ANTIOQUIA/GIRARDOTA
+      UPDATE msip_centropoblado SET nombre='Parcelación Alamos Del Escobero', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14054; -- ANTIOQUIA/ENVIGADO
+      UPDATE msip_centropoblado SET nombre='El Chingui  2', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14051; -- ANTIOQUIA/ENVIGADO
+      UPDATE msip_centropoblado SET nombre='Fatima', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14045; -- ANTIOQUIA/EBÉJICO
+      UPDATE msip_centropoblado SET nombre='Travesias', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14017; -- ANTIOQUIA/BRICEÑO
+      UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14010; -- ANTIOQUIA/BARBOSA
       
-      -- Nuevos codigos de cenros poblados
+        -- Nuevos codigos de centros poblados
       DELETE FROM msip_centropoblado WHERE id>=45574 AND id<=45913;
 
       -- Vuelve a habilitar con nombres diferentes
