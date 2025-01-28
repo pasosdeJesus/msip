@@ -1,19 +1,23 @@
 class Divipola202501 < ActiveRecord::Migration[7.2]
   def up
     execute <<-SQL
+      -- Municipios nuevos: 1
       INSERT INTO public.msip_municipio (id, nombre, departamento_id,
         munlocal_cod, latitud, longitud, fechacreacion, fechadeshabilitacion,
         created_at, updated_at, observaciones) VALUES 
           (1799, 'Nuevo Belén de Bajirá', 29,
           493, 7.3719, -76.71727,  '2025-01-26', NULL,
           '2025-01-26', '2025-01-26', '');
+
+      -- Municipios con nombre cambiado: 2
       UPDATE public.msip_municipio SET nombre='Turbaná' WHERE id=1350;
       UPDATE public.msip_municipio SET nombre='Sotará - Paispamba' WHERE id=1230;
+      -- Muncipios con latitud, longitud cambiada: 3
       UPDATE public.msip_municipio SET latitud=5.879827, longitud=-71.890348 WHERE id=443; --CASANARE/PAZ DE ARIPORO
       UPDATE public.msip_municipio SET latitud=3.701899, longitud=-73.695812 WHERE id=1139; --META / SAN MARTÍN
       UPDATE public.msip_municipio SET latitud=0.699077, longitud=-75.253702 WHERE id=1220; -- CAQUETÁ / SOLANO
 
-      -- Se deshabilitan
+      -- Centros poblados que se deshabilitan: 17
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPD. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='6732'; -- 5134001 LA CHIQUITA
       UPDATE msip_centropoblado SET observaciones='Aparece en DIVIPOLA 2018. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='14092'; -- 5585010 EL PRODIGIO
       UPDATE msip_centropoblado SET observaciones=' No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='1346'; -- 15790002 LA CHAPA
@@ -32,7 +36,7 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='8904'; -- 52835101 LA BARCA
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='14938'; -- 70124019 PUEBLO NUEVO
 
-      -- Se vuelven a habilitar con mismo nombre
+      -- Centros poblados que se vuelven a habilitar con mismo nombre: 
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. No está en DIVIPOLA 2021. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=7310; --El Prodigio / San Luis / Antioquia
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=2144; --Andalucía / Caldono / Cauca
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=2181; --El Credo / Caloto / Cauca
