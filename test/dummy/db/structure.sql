@@ -17,6 +17,20 @@ CREATE COLLATION public.es_co_utf_8 (provider = libc, locale = 'es_CO.UTF-8');
 
 
 --
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry and geography spatial types and functions';
+
+
+--
 -- Name: unaccent; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -383,6 +397,18 @@ CREATE TABLE public.ar_internal_metadata (
     value character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: divipola202501_dep; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.divipola202501_dep (
+    coddep integer,
+    departamento character varying(512) COLLATE public.es_co_utf_8,
+    latitud double precision,
+    longitud double precision
 );
 
 

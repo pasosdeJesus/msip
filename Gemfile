@@ -10,6 +10,8 @@ ruby ">= 3.1.2"
 
 gem "babel-transpiler"
 
+gem "benchmark"
+
 gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
