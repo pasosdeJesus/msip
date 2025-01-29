@@ -2720,9 +2720,9 @@ to-regex-range@^5.0.1:
     is-number "^7.0.0"
 
 tom-select@^2.3.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.4.1.tgz#6a0b6df8af3df7b09b22dd965eb75ce4d1c547bc"
-  integrity sha512-adI8H8+wk8RRzHYLQ3bXSk2Q+FAq/kzAATrcWlJ2fbIrEzb0VkwaXzKHTAlBwSJrhqbPJvhV/0eypFkED/nAug==
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.4.2.tgz#9764faf6cba51f6571d03a79bb7c1cac1cac7a5a"
+  integrity sha512-2RWjkL3gMDz9E+u8w+tQy9JWsYq8gaSytEVeugKYDeMus6ZtxT1HttLPnXsfHCnBPlsNubVyj5gtUeN+S+bcpA==
   dependencies:
     "@orchidjs/sifter" "^1.1.0"
     "@orchidjs/unicode-variants" "^1.1.2"

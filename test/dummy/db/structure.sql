@@ -31,23 +31,6 @@ COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
 
 
 --
--- Name: centropoblado_deshabilitado_o_municipio_habilitado(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.centropoblado_deshabilitado_o_municipio_habilitado() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-if new.fechadeshabilitacion is null and (select fechadeshabilitacion from msip_municipio as m where m.id=new.municipio_id limit 1) is not null then 
-raise exception 'centro poblado habilitado en municipio deshabilitado';
-end if;
-return new;
-end;
-
-$$;
-
-
---
 -- Name: completa_obs(character varying, character varying); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3243,13 +3226,6 @@ CREATE INDEX msip_ubicacionpre_vereda_id_idx ON public.msip_ubicacionpre USING b
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
--- Name: msip_centropoblado chequear_centropoblado_deshabilitado_o_municipio_habilitado; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER chequear_centropoblado_deshabilitado_o_municipio_habilitado BEFORE INSERT OR UPDATE ON public.msip_centropoblado FOR EACH ROW EXECUTE FUNCTION public.centropoblado_deshabilitado_o_municipio_habilitado();
 
 
 --
