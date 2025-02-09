@@ -249,7 +249,9 @@ module Msip
             end
             c2 = clase.demodulize.underscore
             eval("@#{c2} = @registro")
-            presentar_intermedio(@registro, current_usuario.id)
+            presentar_intermedio(
+              @registro, current_usuario ? current_usuario.id : nil
+            )
             show_plantillas
             if registrar_en_bitacora
               Msip::Bitacora.a(
