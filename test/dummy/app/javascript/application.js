@@ -17,6 +17,9 @@ import Msip__Motor from "./controllers/msip/motor"
 window.Msip__Motor = Msip__Motor
 Msip__Motor.iniciar()
 
+import Msip__Ubicacionpre from "./controllers/msip/ubicacionpre"
+window.Msip__Ubicacionpre = Msip__Ubicacionpre
+
 import TomSelect from 'tom-select';
 window.TomSelect = TomSelect;
 window.configuracionTomSelect = {
