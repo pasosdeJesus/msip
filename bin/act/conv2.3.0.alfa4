@@ -4,15 +4,20 @@
 
 for i in `git ls-tree -r main --name-only`; do
   excluye=1
-  echo $i | grep -e ".js$" > /dev/null
+  echo $i | grep -e ".js$" -e "html" > /dev/null
   if (test "$?" = "0") then {
     excluye=0
   } fi;
   if (test "$excluye" == "0") then {
-    echo "Revisando $i";
     n=$i
     antn="";
     for j in ajaxRecibeJson:recibirJsonAjax \
+      completaEnlace:completarEnlace \
+      escapaHtml:escaparHtml \
+      intentaEliminarFila:intentarEliminarFila \
+      llenaSelectConAJAX:llenarSelectConAjax \
+      llenarSelectConAjax2:llenarSelectConAjax \
+      registraCambiosParaBitacora:registrarCambiosParaBitacora \
       ; do
       antes=`echo $j | sed -e 's/:.*//g'`;
       despues=`echo $j | sed -e 's/.*://g'`;

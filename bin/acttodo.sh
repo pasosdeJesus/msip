@@ -61,7 +61,7 @@ function actuno {
 if (test "$SALTAMSIP" != "1") then {
   echo "**** msip"
   actuno msip test/dummy
-  #actuno msip_carto test/dummy
+  actuno msip_carto test/dummy
 } fi;
 
 if (test "$SALTAMR519" != "1") then {
