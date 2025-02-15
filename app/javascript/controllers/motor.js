@@ -144,6 +144,44 @@ export default class Msip__Motor {
   }
 
 
+  /* Calcula cambios en formulario para agregar a bitácora
+   */
+  static calcularCambiosParaBitacora() {
+    let bitacora = document.querySelector("input.bitacora_cambio");
+    if (bitacora == null) {
+      return { vacio: false };
+    }
+    window.bitacora_estado_final_formulario =
+      Msip__Motor.serializarFormularioEnArreglo(
+        bitacora.closest("form")
+      );
+    if (typeof window.bitacora_estado_inicial_formulario != "object") {
+      return { vacio: false };
+    }
+    let cambio = {};
+    let di = {};
+    window.bitacora_estado_inicial_formulario.forEach(
+      (v) => di[v.name] = v.value
+    );
+    let df = {};
+    window.bitacora_estado_final_formulario.forEach((v) => {
+      df[v.name] = v.value;
+      if (typeof di[v.name] == "undefined") {
+        cambio[v.name] = [null, v.value];
+      }
+    });
+    for (const i in di) {
+      if (typeof df[i] == "undefined") {
+        cambio[i] = [di[i], null];
+      } else if (df[i] != di[i] && i.search(/\[bitacora_cambio\]/) < 0) {
+        cambio[i] = [di[i], df[i]];
+      }
+    }
+    return cambio;
+  }
+
+
+
   // Modifica el enlace de un elemento a `elema` para que 
   // sea `rutagenera` agregandole datos del formulario `idruta` o 
   // el más cercano si idruta es null 
@@ -327,6 +365,84 @@ export default class Msip__Motor {
   }
 
 
+  /** Enviar AJAX
+   * @param url Url
+   * @param datos Cuerpo
+   */
+  static enviarAjax(url, datos, metodo='GET', tipo='script',
+    alertaerror=true) {
+    var t = Date.now()
+    var d = -1
+    if (window.Msip__Motor.enviarAjaxTestigo) {
+      d = (t - window.Msip__Motor.enviarAjaxTestigo)/1000
+    }
+    window.Msip__Motor.enviarAjaxTestigo = t
+    if (d == -1 || d > 2) {
+      var enc = {}
+      if (document.querySelector('meta[name="csrf-token"]') != null) {
+        enc['X-CSRF-Token'] = document.
+          querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+      if (tipo == 'script') {
+        // https://stackoverflow.com/questions/44803944/can-i-run-a-js-script-from-another-using-fetch
+        const promesaScript = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          document.body.appendChild(script);
+          script.onload = resolve;
+          script.onerror = reject;
+          script.async = true;
+          script.src = url;
+        });
+
+        promesaScript
+          .then(resultado => {
+            console.log('Éxito:', resultado);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            if (alertaerror) {
+              alert('Error: el servicio respondió: ' + error)
+            }
+          });
+
+      } else {
+        if (tipo == 'json') {
+          enc['Content-Type'] = 'application/json'
+        } else if (tipo == 'texto') {
+          enc['Content-Type'] = 'text/plain'
+        } else if (tipo == 'html') {
+          enc['Content-Type'] = 'text/html'
+        } else {
+          alert('Tipo desconocido: ' + tipo)
+          return;
+        }
+
+        fetch(url, {
+          method: metodo,
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: enc,
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: datos
+        })
+          .then(respuesta => respuesta.json())
+          .then(resultado => {
+            console.log('Éxito:', resultado);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            if (alertaerror) {
+              alert('Error: el servicio respondió: ' + error)
+            }
+          });
+      }
+    }
+    return
+  }
+
+
   // Envía con ajax a la ruta especificada junto con los datos, espera
   // respuesta html de la cual extrae una parte con selector selresp y
   // lo usa para volver a pintar el elemento con selector selelem
@@ -380,6 +496,22 @@ export default class Msip__Motor {
 
       xhr.send(datos);
     }
+  }
+
+
+  /** Envia datos de un formulario empleando AJAX
+   * @param f Formulario
+   */
+  static enviarFormularioAjax(f, metodo='GET', tipo='script',
+    alertaerror=true, vcommit='Enviar', agenviarautom = true) {
+
+    var a = f.getAttribute('action')
+    const datosFormulario = new FormData(f);
+    datosFormulario.append('commit', vcommit)
+    if (agenviarautom) {
+      datosFormulario.push('_msip_enviarautomatico', 1)
+    }
+    Msip__Motor.enviarAjax(a, datosFormulario, metodo, tipo, alertaerror)
   }
 
 
@@ -449,6 +581,87 @@ export default class Msip__Motor {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+  }
+
+
+  /*
+   * Con AJAX actualiza formulario, espera recibir formulario guardado
+   * para repintar áreas identificadas con listaIdsRepintar y llamar
+   * la retrollamada.
+   *
+   * Se espera que en rails la función update, maneje PATCH y request.xhr?
+   * para no ir a hacer redirect_to con lo proveniente de un XHR
+   * (ver ejemplo en lib/sip/concerns/controllers/modelos_controller.rb)
+   *
+   * @param listaIdsRepintar Lista de ids de elementos por repintar
+   *   Si hay uno llamado errores no vacio después de pintar detiene
+   *   con mensaje de error.
+   * @param retrollamada_exito Función por llamar en caso de éxito
+   * @parama argumentos_exito Por pasar a la función retrollamada_exito (se
+   * sugiere que sea un registro).
+   * @param retrollamada_falla Función por llamar en caso de falla
+   * @parama argumentos_falla Por pasar a la función retrollamada_falla (se
+   *  sugiere que sea un registro).
+   */
+  static guardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
+    argumentos_exito, retrollamada_falla = null, argumentos_falla = null) {
+    if (document.body.style.cursor == 'wait') {
+      alert('Hay un procedimiento en curso, por favor espere a que termine')
+      return
+    }
+    document.body.style.cursor = 'wait'
+    let formulario = document.querySelector('form')
+    if (formulario == null) {
+      document.body.style.cursor = 'default'
+      alert('** Msip__Motor.guardarFormularioYRepintar: No se encontró formulario')
+      if (retrollamada_falla != null) {
+        retrollamada_falla(argumentos_falla)
+      }
+      return
+    }
+    let datos = new FormData(formulario);
+    datos.set('commit', 'Enviar')
+    datos.set('siguiente', 'editar')
+    datos.set('_msip_enviarautomatico_y_repinta', 'editar')
+    let paramUrl = new URLSearchParams(datos).toString()
+    document.getElementById('errores').innerText=''
+    window.Rails.ajax({
+      type: 'PATCH',
+      url: formulario.getAttribute('action'),
+      data: datos,
+      dataType: 'html',
+      success: (resp, estado, xhr) => {
+        document.body.style.cursor = 'default'
+        let hayErrores = false
+        listaIdsRepintar.forEach((idfrag) => {
+          let f = document.getElementById(idfrag)
+          let nf = resp.getElementById(idfrag)
+          if (nf) {
+            f.innerHTML = nf.innerHTML
+            if (idfrag === 'errores' && nf.innerHTML.trim() !== '') {
+              hayErrores = true
+            }
+          }
+        })
+        if (hayErrores) {
+          document.body.style.cursor = 'default'
+          alert('Revise los errores de validación, resuelvalos y vuelva a intentar')
+          if (retrollamada_falla != null) {
+            retrollamada_falla(argumentos_falla)
+          }
+          return
+        }
+        retrollamada_exito(argumentos_exito)
+      },
+      error: (req, estado, xhr) => {
+        document.body.style.cursor = 'default'
+        window.alert('No se pudo guardar formulario.')
+        if (retrollamada_falla != null) {
+          retrollamada_falla(argumentos_falla);
+        }
+        return
+      }
+    })
   }
 
 
@@ -963,239 +1176,6 @@ export default class Msip__Motor {
     });
     return arr;
   };
-
-
-
-  /* Convierte arreglo (como el producido por Msip__Motor.serializarFormularioEnArreglo)
-   * en una cadena apta para enviar consulta.
-   * Con base en jQuery.param
-   * https://github.com/jquery/jquery-dist/blob/main/src/serialize.js
-   */
-  static convertirArregloAParam(a) {
-    if ( a == null || !Array.isArray( a ) ) {
-      return "";
-    }
-
-    s = [];
-    for(var i = 0; i < a.length; i++) {
-      s[ s.length ] = encodeURIComponent( a[i].name ) + "=" +
-        encodeURIComponent( a[i].value == null ? "" : a[i].value );
-
-    }
-
-    // Retorna serialización resultante
-    return s.join( "&" );
-  };
-
-
-  /** Enviar AJAX
-   * @param url Url
-   * @param datos Cuerpo
-   */
-  static enviarAjax(url, datos, metodo='GET', tipo='script',
-    alertaerror=true) {
-    var t = Date.now()
-    var d = -1
-    if (window.Msip__Motor.enviarAjaxTestigo) {
-      d = (t - window.Msip__Motor.enviarAjaxTestigo)/1000
-    }
-    window.Msip__Motor.enviarAjaxTestigo = t
-    if (d == -1 || d > 2) {
-      var enc = {}
-      if (document.querySelector('meta[name="csrf-token"]') != null) {
-        enc['X-CSRF-Token'] = document.
-          querySelector('meta[name="csrf-token"]').getAttribute('content')
-      }
-      if (tipo == 'script') {
-        // https://stackoverflow.com/questions/44803944/can-i-run-a-js-script-from-another-using-fetch
-        const promesaScript = new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          document.body.appendChild(script);
-          script.onload = resolve;
-          script.onerror = reject;
-          script.async = true;
-          script.src = url;
-        });
-
-        promesaScript
-          .then(resultado => {
-            console.log('Éxito:', resultado);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            if (alertaerror) {
-              alert('Error: el servicio respondió: ' + error)
-            }
-          });
-
-      } else {
-        if (tipo == 'json') {
-          enc['Content-Type'] = 'application/json'
-        } else if (tipo == 'texto') {
-          enc['Content-Type'] = 'text/plain'
-        } else if (tipo == 'html') {
-          enc['Content-Type'] = 'text/html'
-        } else {
-          alert('Tipo desconocido: ' + tipo)
-          return;
-        }
-
-        fetch(url, {
-          method: metodo,
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: enc,
-          redirect: 'follow', // manual, *follow, error
-          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: datos
-        })
-          .then(respuesta => respuesta.json())
-          .then(resultado => {
-            console.log('Éxito:', resultado);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            if (alertaerror) {
-              alert('Error: el servicio respondió: ' + error)
-            }
-          });
-      }
-    }
-    return
-  }
-
-
-  /** Envia datos de un formulario empleando AJAX
-   * @param f Formulario
-   */
-  static enviarFormularioAjax(f, metodo='GET', tipo='script',
-    alertaerror=true, vcommit='Enviar', agenviarautom = true) {
-
-    var a = f.getAttribute('action')
-    const datosFormulario = new FormData(f);
-    datosFormulario.append('commit', vcommit)
-    if (agenviarautom) {
-      datosFormulario.push('_msip_enviarautomatico', 1)
-    }
-    Msip__Motor.enviarAjax(a, datosFormulario, metodo, tipo, alertaerror)
-  }
-
-  static calcularCambiosParaBitacora() {
-    let bitacora = document.querySelector("input.bitacora_cambio");
-    if (bitacora == null) {
-      return { vacio: false };
-    }
-    window.bitacora_estado_final_formulario =
-      Msip__Motor.serializarFormularioEnArreglo(
-        bitacora.closest("form")
-      );
-    if (typeof window.bitacora_estado_inicial_formulario != "object") {
-      return { vacio: false };
-    }
-    let cambio = {};
-    let di = {};
-    window.bitacora_estado_inicial_formulario.forEach(
-      (v) => di[v.name] = v.value
-    );
-    let df = {};
-    window.bitacora_estado_final_formulario.forEach((v) => {
-      df[v.name] = v.value;
-      if (typeof di[v.name] == "undefined") {
-        cambio[v.name] = [null, v.value];
-      }
-    });
-    for (const i in di) {
-      if (typeof df[i] == "undefined") {
-        cambio[i] = [di[i], null];
-      } else if (df[i] != di[i] && i.search(/\[bitacora_cambio\]/) < 0) {
-        cambio[i] = [di[i], df[i]];
-      }
-    }
-    return cambio;
-  }
-
-
-  /*
-   * Con AJAX actualiza formulario, espera recibir formulario guardado
-   * para repintar áreas identificadas con listaIdsRepintar y llamar
-   * la retrollamada.
-   *
-   * Se espera que en rails la función update, maneje PATCH y request.xhr?
-   * para no ir a hacer redirect_to con lo proveniente de un XHR
-   * (ver ejemplo en lib/sip/concerns/controllers/modelos_controller.rb)
-   *
-   * @param listaIdsRepintar Lista de ids de elementos por repintar
-   *   Si hay uno llamado errores no vacio después de pintar detiene
-   *   con mensaje de error.
-   * @param retrollamada_exito Función por llamar en caso de éxito
-   * @parama argumentos_exito Por pasar a la función retrollamada_exito (se
-   * sugiere que sea un registro).
-   * @param retrollamada_falla Función por llamar en caso de falla
-   * @parama argumentos_falla Por pasar a la función retrollamada_falla (se
-   *  sugiere que sea un registro).
-   */
-  static guardarFormularioYRepintar(listaIdsRepintar, retrollamada_exito,
-    argumentos_exito, retrollamada_falla = null, argumentos_falla = null) {
-    if (document.body.style.cursor == 'wait') {
-      alert('Hay un procedimiento en curso, por favor espere a que termine')
-      return
-    }
-    document.body.style.cursor = 'wait'
-    let formulario = document.querySelector('form')
-    if (formulario == null) {
-      document.body.style.cursor = 'default'
-      alert('** Msip__Motor.guardarFormularioYRepintar: No se encontró formulario')
-      if (retrollamada_falla != null) {
-        retrollamada_falla(argumentos_falla)
-      }
-      return
-    }
-    let datos = new FormData(formulario);
-    datos.set('commit', 'Enviar')
-    datos.set('siguiente', 'editar')
-    datos.set('_msip_enviarautomatico_y_repinta', 'editar')
-    let paramUrl = new URLSearchParams(datos).toString()
-    document.getElementById('errores').innerText=''
-    window.Rails.ajax({
-      type: 'PATCH',
-      url: formulario.getAttribute('action'),
-      data: datos,
-      dataType: 'html',
-      success: (resp, estado, xhr) => {
-        document.body.style.cursor = 'default'
-        let hayErrores = false
-        listaIdsRepintar.forEach((idfrag) => {
-          let f = document.getElementById(idfrag)
-          let nf = resp.getElementById(idfrag)
-          if (nf) {
-            f.innerHTML = nf.innerHTML
-            if (idfrag === 'errores' && nf.innerHTML.trim() !== '') {
-              hayErrores = true
-            }
-          }
-        })
-        if (hayErrores) {
-          document.body.style.cursor = 'default'
-          alert('Revise los errores de validación, resuelvalos y vuelva a intentar')
-          if (retrollamada_falla != null) {
-            retrollamada_falla(argumentos_falla)
-          }
-          return
-        }
-        retrollamada_exito(argumentos_exito)
-      },
-      error: (req, estado, xhr) => {
-        document.body.style.cursor = 'default'
-        window.alert('No se pudo guardar formulario.')
-        if (retrollamada_falla != null) {
-          retrollamada_falla(argumentos_falla);
-        }
-        return
-      }
-    })
-  }
-
 
 
 
