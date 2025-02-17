@@ -92,7 +92,6 @@
     @registro.send(n).id %>
     <% opassoc[:selected] = @registro.send(n).id %>
   <% else %>
-    <!-% valorp = Msip::ModeloHelper.poromision_sf(params, atr) %-->
     <% opassoc[:selected] = valorp %>
   <% end %>
   <%= f.association n, opassoc %>
