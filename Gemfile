@@ -12,7 +12,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
 
-gem "devise"          # Autenticación
+gem "devise" # Autenticación
 
 gem "devise-i18n"               # Localización e Internacionalización
 
@@ -27,9 +27,9 @@ gem "kt-paperclip",             # Anexos
 
 gem "nokogiri", ">=1.11.1"
 
-gem "pg"    # PostgreSQL
+gem "pg" # PostgreSQL
 
-gem "puma"                      # Lanza en modo desarrollo
+gem "puma" # Lanza en modo desarrollo
 
 gem "rails", ">= 7.2", "< 7.3"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'

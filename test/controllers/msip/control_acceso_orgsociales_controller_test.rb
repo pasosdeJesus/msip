@@ -73,7 +73,7 @@ module Msip
     ###########################
 
     test "autenticado como operador debe presentar listado" do
-      current_usuario = ::Usuario.where(nusuario: "operador").take
+      current_usuario = ::Usuario.find_by(nusuario: "operador")
       sign_in current_usuario
       get msip.orgsociales_path
 
@@ -81,7 +81,7 @@ module Msip
     end
 
     test "autenticado como operador debe presentar resumen" do
-      current_usuario = ::Usuario.where(nusuario: "operador").take
+      current_usuario = ::Usuario.find_by(nusuario: "operador")
       sign_in current_usuario
       get msip.orgsocial_path(@orgsocial.id)
 
@@ -89,7 +89,7 @@ module Msip
     end
 
     test "autenticado como operador debería poder editar" do
-      current_usuario = ::Usuario.where(nusuario: "operador").take
+      current_usuario = ::Usuario.find_by(nusuario: "operador")
       sign_in current_usuario
       get msip.edit_orgsocial_path(@orgsocial.id)
     end

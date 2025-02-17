@@ -1,7 +1,8 @@
-class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
+# frozen_string_literal: true
 
+class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
   def up
-    execute <<-EOF
+    execute(<<-EOF)
 
       CREATE FUNCTION public.msip_ubicacionpre_tras_crear_departamento () RETURNS trigger
       LANGUAGE plpgsql
@@ -51,7 +52,7 @@ class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
       CREATE FUNCTION public.msip_ubicacionpre_tras_actualizar_departamento() RETURNS trigger
       LANGUAGE plpgsql
       AS $$
-      DECLARE 
+      DECLARE#{" "}
         dpa TEXT[];
         nompais TEXT;
       BEGIN
@@ -82,14 +83,14 @@ class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
             AND lugar IS NULL
             AND sitio IS NULL;
 
-        -- Actualizamos lo que está dentro del departamento en cascada (esperamos 
-        -- llamada al trigger de nomenclatura para arreglar nombre_sin_pais por 
+        -- Actualizamos lo que está dentro del departamento en cascada (esperamos#{" "}
+        -- llamada al trigger de nomenclatura para arreglar nombre_sin_pais por#{" "}
         -- ejemplo)
         UPDATE public.msip_ubicacionpre SET
           nombre=REPLACE(nombre, OLD.nombre, NEW.nombre),
           updated_at=NOW()
-        WHERE pais_id=OLD.pais_id 
-          AND departamento_id=OLD.id 
+        WHERE pais_id=OLD.pais_id#{" "}
+          AND departamento_id=OLD.id#{" "}
           AND NOT (municipio_id IS NULL
             AND centropoblado_id IS NULL
             AND vereda_id IS NULL
@@ -117,7 +118,7 @@ class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
         RAISE NOTICE 'OLD.id = %', OLD.id;
         RAISE NOTICE 'OLD.nombre = %', OLD.nombre;
 
-        DELETE FROM public.msip_ubicacionpre WHERE pais_id=OLD.pais_id 
+        DELETE FROM public.msip_ubicacionpre WHERE pais_id=OLD.pais_id#{" "}
           AND departamento_id=OLD.id
           AND municipio_id IS NULL
           AND centropoblado_id IS NULL
@@ -134,8 +135,9 @@ class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
 
     EOF
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER msip_antes_de_eliminar_departamento ON msip_departamento;
       DROP FUNCTION public.msip_ubicacionpre_antes_de_eliminar_departamento;
 
@@ -146,5 +148,4 @@ class TriggersUbicacionpreDepartamento < ActiveRecord::Migration[7.1]
       DROP FUNCTION public.msip_ubicacionpre_tras_crear_departamento;
     SQL
   end
-
 end

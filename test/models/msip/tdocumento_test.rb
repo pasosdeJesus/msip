@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      tdocumento = Msip::Tdocumento.where(id: 7).take
+      tdocumento = Msip::Tdocumento.find_by(id: 7)
 
       assert_equal("OTRO", tdocumento.nombre)
     end

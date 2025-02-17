@@ -48,27 +48,27 @@ module Msip
           :fechadeshabilitacion,
           "fechadeshabilitacion",
           :fechadeshabilitacion_localizada,
-          "fechadeshabilitacion_localizada"
+          "fechadeshabilitacion_localizada",
         ] + [
           :fechacreacion_localizada,
-          :fechadeshabilitacion_localizada
+          :fechadeshabilitacion_localizada,
         ]
       end
 
       # Campos que se presentar en formulario
       def atributos_form
         l = atributos_transf_habilitado - [
-          "id", 
+          "id",
           :id,
           "fechacreacion",
           :fechacreacion_localizada,
           "fechacreacion_localizada",
           "fechadeshabilitacion",
           :fechadeshabilitacion_localizada,
-          "fechadeshabilitacion_localizada"
+          "fechadeshabilitacion_localizada",
         ] | [
           :fechacreacion,
-          :fechadeshabilitacion
+          :fechadeshabilitacion,
         ]
         l
       end

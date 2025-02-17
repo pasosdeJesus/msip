@@ -108,7 +108,7 @@ module Msip
         assigns(:tema),
       )
       ids2 = Msip::Tema.pluck(:id)
-      idof = (ids2-ids1).first
+      idof = (ids2 - ids1).first
 
       assert_difference("Tema.count", -1) do
         delete msip.admin_tema_path(Tema.find(idof))

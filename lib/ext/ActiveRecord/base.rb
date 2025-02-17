@@ -30,7 +30,7 @@ module ActiveRecord
           define_method("#{f}_ddMyyyy") do
             val = read_attribute(f)
             unless val
-              return nil
+              return
             end
 
             val = val.to_s

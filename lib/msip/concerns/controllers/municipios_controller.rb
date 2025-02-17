@@ -16,8 +16,9 @@ module Msip
           def index
             c = nil
             if params[:departamento_id]
-              iddep = params[:departamento_id].to_i > 0 ? 
-                params[:departamento_id].to_i : nil
+              iddep = if params[:departamento_id].to_i > 0
+                params[:departamento_id].to_i
+              end
               c = Msip::Municipio.where(
                 fechadeshabilitacion: nil,
                 departamento_id: iddep,
@@ -52,17 +53,17 @@ module Msip
           def atributos_show
             l = atributos_transf_habilitado - [
               :fechadeshabilitacion,
-              "fechadeshabilitacion"
+              "fechadeshabilitacion",
             ]
-           l += [
+            l += [
               :fechadeshabilitacion_localizada,
               :svgcdx,
               :svgcdy,
               :svgcdancho,
               :svgcdalto,
-              :svgruta
+              :svgruta,
             ]
-           l
+            l
           end
 
           def atributos_form
@@ -74,7 +75,7 @@ module Msip
                 :fechacreacion_localizada,
                 :pais,
                 "pais",
-                :etiqueta_ids
+                :etiqueta_ids,
               ] +
               [
                 :fechacreacion,

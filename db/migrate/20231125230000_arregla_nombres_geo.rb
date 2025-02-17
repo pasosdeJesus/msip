@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ArreglaNombresGeo < ActiveRecord::Migration[7.0]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       UPDATE msip_municipio SET nombre='Antonio Pinto Salinas'
         WHERE id=510;
 
@@ -130,6 +132,7 @@ class ArreglaNombresGeo < ActiveRecord::Migration[7.0]
 
     SQL
   end
+
   def down
   end
 end

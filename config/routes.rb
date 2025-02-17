@@ -17,8 +17,8 @@ Msip::Engine.routes.draw do
 
   resources :etiqueta_persona, only: [], param: :index do
     member do
-      delete '(:id)', to: "etiquetas_persona#destroy", as: "eliminar"
-      post '/' => "etiquetas_persona#create", as: "crear"
+      delete "(:id)", to: "etiquetas_persona#destroy", as: "eliminar"
+      post "/" => "etiquetas_persona#create", as: "crear"
     end
   end
 
@@ -32,8 +32,8 @@ Msip::Engine.routes.draw do
 
   resources :persona_trelacion, only: [], param: :index do
     member do
-      delete '(:id)', to: "persona_trelaciones#destroy", as: "eliminar"
-      post '/' => "persona_trelaciones#create", as: "crear"
+      delete "(:id)", to: "persona_trelaciones#destroy", as: "eliminar"
+      post "/" => "persona_trelaciones#create", as: "crear"
     end
   end
 
@@ -43,23 +43,21 @@ Msip::Engine.routes.draw do
   get "/personas/remplazarfamiliar" => "personas#remplazarfamiliar",
     as: :personas_remplazarfamiliar
 
-  post '/persona_trelaciones/actualizar' => 'persona_trelaciones#update',
+  post "/persona_trelaciones/actualizar" => "persona_trelaciones#update",
     as: :actualizar_familiar
 
   get "/personas/validar_conjunto" => "personas#validar_conjunto",
     as: :personas_validar_conjunto
 
-  post '/personas/unificar' => 'personas#unificar',
+  post "/personas/unificar" => "personas#unificar",
     as: :personas_unificar
-  get '/personas/unificar' => 'personas#unificar',
+  get "/personas/unificar" => "personas#unificar",
     as: :personas_unificar_get
-
 
   get "/respaldo7z" => "respaldo7z#new", as: "respaldo7z"
   post "/respaldo7z" => "respaldo7z#create"
   get "/tablasbasicas" => "hogar#tablasbasicas"
   get "/temausuario" => "admin/temas#temausuario"
-
 
   get "/tipocentropoblado" => "admin/centrospoblados#tipo_centropoblado"
   get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
@@ -69,8 +67,8 @@ Msip::Engine.routes.draw do
 
   resources :orgsocial_persona, only: [], param: :index do
     member do
-      delete '(:id)', to: "orgsocial_personas#destroy", as: "eliminar"
-      post '/' => "orgsocial_personas#create", as: "crear"
+      delete "(:id)", to: "orgsocial_personas#destroy", as: "eliminar"
+      post "/" => "orgsocial_personas#create", as: "crear"
     end
   end
 
@@ -80,8 +78,7 @@ Msip::Engine.routes.draw do
 
   resources :solicitudes, path_names: { new: "nueva", edit: "edita" }
 
-
-  #resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
+  # resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
 
   # En su aplicación al emplear ayudadores de rutas utilice prefijo
   # "msip." si viene de msip o "main_app." si es de las rutas de la aplicación.
@@ -125,7 +122,6 @@ Msip::Engine.routes.draw do
       get "#{t[1]}/copiar/:id" => "#{c}#copiar",
         as: "copiar_#{t[1]}".to_sym
     end
-
   end
 
   root "hogar#index"

@@ -65,11 +65,11 @@ module Msip
             # La convención se almacena en base de datos en la constraint
             # persona_sexo_check de tabla msip_persona
             r = Msip::Persona.connection.execute(
-              "SELECT "\
-                "substring(pg_get_constraintdef(oid, TRUE) FROM '''([^'']*)''') "\
-                "  FROM pg_constraint "\
-                "  WHERE conrelid='msip_persona'::regclass "\
-                "    AND conname='persona_sexo_check'; ",
+              "SELECT " \
+                "substring(pg_get_constraintdef(oid, TRUE) FROM '''([^'']*)''')   " \
+                "FROM pg_constraint   " \
+                "WHERE conrelid='msip_persona'::regclass     " \
+                "AND conname='persona_sexo_check'; ",
             )[0]["substring"]
             puts "r=", r
 
@@ -178,7 +178,7 @@ module Msip
             class_name: "Msip::OrgsocialPersona",
             validate: true
           # inverse_of: :persona
-          
+
           belongs_to :centropoblado,
             class_name: "Msip::Centropoblado",
             validate: true,
@@ -198,7 +198,7 @@ module Msip
           belongs_to :etnia,
             validate: true,
             class_name: "Msip::Etnia",
-            optional: false 
+            optional: false
 
           belongs_to :municipio,
             validate: true,
@@ -215,16 +215,16 @@ module Msip
             validate: true,
             optional: true
 
-          has_many :etiqueta_persona,  
-            class_name: 'Msip::EtiquetaPersona',
+          has_many :etiqueta_persona,
+            class_name: "Msip::EtiquetaPersona",
             dependent: :destroy,
-            foreign_key: 'persona_id',
+            foreign_key: "persona_id",
             validate: true
-          accepts_nested_attributes_for :etiqueta_persona, 
-            allow_destroy: true, 
+          accepts_nested_attributes_for :etiqueta_persona,
+            allow_destroy: true,
             reject_if: :all_blank
-          has_many :etiqueta, 
-            class_name: 'Msip::Etiqueta',
+          has_many :etiqueta,
+            class_name: "Msip::Etiqueta",
             through: :etiqueta_persona
 
           has_many :persona_trelacion1,
@@ -243,7 +243,7 @@ module Msip
           has_many :personados,
             through: :persona_trelacion1,
             class_name: "Msip::Persona"
-          accepts_nested_attributes_for :personados, 
+          accepts_nested_attributes_for :personados,
             allow_destroy: true,
             reject_if: :all_blank
 
@@ -264,7 +264,6 @@ module Msip
           validates :dianac, numericality: { allow_blank: true }
           validate :vfechanac
           validate :vformatonumdoc
-
 
           def vfechanac
             anioactual = Time.now.strftime("%Y").to_i
@@ -307,7 +306,6 @@ module Msip
             end
           end
 
-
           def fechanac
             r = ""
             r += anionac.to_s if anionac
@@ -327,7 +325,7 @@ module Msip
               mesnac >= 1 && mesnac <= 12
             r += "/"
             r += anionac.to_s if anionac
-            if r == "//" 
+            if r == "//"
               r = ""
             end
             r
@@ -409,7 +407,7 @@ module Msip
             if datosent[:departamento]
               if datosent[:departamento] != ""
                 if pais_id.nil?
-                  self.pais_id = Msip::Pais.where(nombre: "COLOMBIA").take.id
+                  self.pais_id = Msip::Pais.find_by(nombre: "COLOMBIA").id
                 end
                 d = Msip::Departamento.where(pais_id: pais_id).where(
                   "upper(unaccent(nombre)) = upper(unaccent(?))",
@@ -480,7 +478,6 @@ module Msip
             importa_msip(datosent, datossal, menserror, opciones)
           end
 
-
           scope :filtro_anionac, lambda { |anionac|
             where("anionac = ?", anionac.to_i)
           }
@@ -499,18 +496,18 @@ module Msip
           scope :filtro_centropoblado, lambda { |cid|
             where(centropoblado_id: cid.to_i)
           }
- 
+
           scope :filtro_departamento, lambda { |did|
             where(departamento_id: did.to_i)
           }
- 
+
           scope :filtro_dianac, lambda { |dianac|
             where("dianac = ?", dianac.to_i)
           }
 
-          scope :filtro_etiqueta_ids, lambda {|e|
-            joins(:etiqueta_persona).
-              where("msip_etiqueta_persona.etiqueta_id": e.to_i)
+          scope :filtro_etiqueta_ids, lambda { |e|
+            joins(:etiqueta_persona)
+              .where("msip_etiqueta_persona.etiqueta_id": e.to_i)
           }
 
           scope :filtro_etnia, lambda { |ide|
@@ -561,7 +558,6 @@ module Msip
           scope :filtro_tdocumento_id, lambda { |tid|
             where(tdocumento_id: tid.to_i)
           }
-
         end # include
 
         class_methods do

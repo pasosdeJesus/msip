@@ -108,7 +108,7 @@ module Msip
         assigns(:tsitio),
       )
       ids2 = Msip::Tsitio.pluck(:id)
-      idof = (ids2-ids1).first
+      idof = (ids2 - ids1).first
 
       assert_difference("Tsitio.count", -1) do
         delete msip.admin_tsitio_path(Tsitio.find(idof))

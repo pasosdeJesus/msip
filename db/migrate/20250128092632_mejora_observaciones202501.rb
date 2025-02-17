@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class MejoraObservaciones202501 < ActiveRecord::Migration[7.2]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
 
       -- Mejora observaciones de municipios
       UPDATE msip_municipio SET observaciones=trim(observaciones || '.')
@@ -47,14 +49,14 @@ class MejoraObservaciones202501 < ActiveRecord::Migration[7.2]
         'No está en DIVIPOLA 2020.*No está en DIVIPOLA 2020',
         'No está en DIVIPOLA 2020'))
         WHERE observaciones ~ 'No está en DIVIPOLA 2020.*No está en DIVIPOLA 2020';
-      
+
       UPDATE msip_centropoblado SET observaciones = trim(regexp_replace(observaciones,
         'el anterior era', 'el anterior era '))
         WHERE observaciones ~ 'el anterior era[^ ]';
     SQL
   end
+
   def down
-    execute <<-SQL
-    SQL
+    execute("")
   end
 end

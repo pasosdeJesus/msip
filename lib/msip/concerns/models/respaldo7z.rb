@@ -22,7 +22,6 @@ module Msip
               errors.add(:base, "No se encontró el programa 7z en el servidor")
             end
           end
-
         end
       end
     end

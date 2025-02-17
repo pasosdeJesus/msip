@@ -13,7 +13,7 @@ module Msip
     def obtener(uri, prob, limite = 10)
       if limite == 0
         prob = "demasidas redirecciones HTTP"
-        return nil
+        return
       end
       resp = Net::HTTP.get(URI(uri))
       case resp

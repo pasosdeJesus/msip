@@ -19,7 +19,7 @@ module Msip
       )
 
       assert_predicate persona2, :valid?
-      trelacion = Msip::Trelacion.where(id: "AB").take
+      trelacion = Msip::Trelacion.find_by(id: "AB")
 
       assert_predicate trelacion, :valid?
       pt = Msip::PersonaTrelacion.create(
@@ -40,7 +40,7 @@ module Msip
       )
 
       assert_predicate persona2, :valid?
-      trelacion = Msip::Trelacion.where(id: "AB").take
+      trelacion = Msip::Trelacion.find_by(id: "AB")
 
       assert_predicate trelacion, :valid?
       pt = Msip::PersonaTrelacion.create(
@@ -58,7 +58,7 @@ module Msip
       )
 
       assert_predicate persona1, :valid?
-      trelacion = Msip::Trelacion.where(id: "AB").take
+      trelacion = Msip::Trelacion.find_by(id: "AB")
 
       assert_predicate trelacion, :valid?
       pt = Msip::PersonaTrelacion.create(
@@ -104,7 +104,7 @@ module Msip
       )
 
       assert_predicate persona2, :valid?
-      trelacion = Msip::Trelacion.where(id: "AB").take
+      trelacion = Msip::Trelacion.find_by(id: "AB")
 
       assert_predicate trelacion, :valid?
 

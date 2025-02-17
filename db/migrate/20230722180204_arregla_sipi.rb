@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ArreglaSipi < ActiveRecord::Migration[7.0]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       UPDATE msip_municipio SET
       nombre='Sipí' WHERE id=1207;
 
@@ -10,6 +12,7 @@ class ArreglaSipi < ActiveRecord::Migration[7.0]
       nombre='Sipí' WHERE id=5448;
     SQL
   end
+
   def down
   end
 end

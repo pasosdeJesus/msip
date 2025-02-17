@@ -3,7 +3,7 @@
 module Msip
   module Concerns
     module Controllers
-      module TcentrospobladosController 
+      module TcentrospobladosController
         extend ActiveSupport::Concern
 
         included do
@@ -28,14 +28,14 @@ module Msip
           end
 
           def atributos_form
-            l= atributos_show - [
+            l = atributos_show - [
               "fechacreacion_localizada",
               :fechacreacion_localizada,
               "fechadeshabilitacion_localizada",
               :fechadeshabilitacion_localizada,
             ] + [
               :fechacreacion,
-              :fechadeshabilitacion
+              :fechadeshabilitacion,
             ]
             l
           end
@@ -47,11 +47,8 @@ module Msip
           def tcentropoblado_params
             params.require(:tcentropoblado).permit(*atributos_form)
           end
-
         end
       end
     end
   end
 end
-
-

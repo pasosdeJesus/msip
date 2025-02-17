@@ -96,7 +96,7 @@ module Msip
       )
 
       ids2 = Msip::Sectororgsocial.pluck(:id)
-      idr = (ids2-ids1).first
+      idr = (ids2 - ids1).first
 
       sectororgsocial = Msip::Sectororgsocial.all.take
       get admin_sectororgsocial_url(sectororgsocial)

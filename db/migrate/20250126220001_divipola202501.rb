@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Divipola202501 < ActiveRecord::Migration[7.2]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       -- Municipios nuevos: 1
       INSERT INTO public.msip_municipio (id, nombre, departamento_id,
         munlocal_cod, latitud, longitud, fechacreacion, fechadeshabilitacion,
-        created_at, updated_at, observaciones) VALUES 
+        created_at, updated_at, observaciones) VALUES#{" "}
           (1799, 'Nuevo Belén de Bajirá', 29,
           493, 7.3719, -76.71727,  '2025-01-26', NULL,
           '2025-01-26', '2025-01-26', '');
@@ -36,7 +38,7 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='8904'; -- 52835101 LA BARCA
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. No está en DIVIPOLA 2025-01.',  fechadeshabilitacion='2025-01-26'   WHERE id='14938'; -- 70124019 PUEBLO NUEVO
 
-      -- Centros poblados que se vuelven a habilitar con mismo nombre: 
+      -- Centros poblados que se vuelven a habilitar con mismo nombre:#{" "}
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. No está en DIVIPOLA 2021. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=7310; --El Prodigio / San Luis / Antioquia
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=2144; --Andalucía / Caldono / Cauca
       UPDATE msip_centropoblado SET fechadeshabilitacion=NULL, observaciones='No está en DIVIPOLA 2018. Vuelve a aparecer en DIVIPOLA 2025-01.' WHERE id=2181; --El Credo / Caloto / Cauca
@@ -1024,8 +1026,9 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET latitud='2.36234', longitud='-76.647195' WHERE id=2680; -- Asentamiento Indigena Sachacoco / Sotará - Paispamba / Cauca
     SQL
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       -- Centros poblados con nombres cambiados
 
       UPDATE msip_centropoblado SET nombre='San Jose De Villa Andrea', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=15171; -- AMAZONAS/PUERTO NARIÑO
@@ -1153,7 +1156,7 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET nombre='Fatima', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14045; -- ANTIOQUIA/EBÉJICO
       UPDATE msip_centropoblado SET nombre='Travesias', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.' WHERE id=14017; -- ANTIOQUIA/BRICEÑO
       UPDATE msip_centropoblado SET nombre='El Paraiso', observaciones='Aparece en DIVIPOLA 2018.' WHERE id=14010; -- ANTIOQUIA/BARBOSA
-      
+
         -- Nuevos codigos de centros poblados
       DELETE FROM msip_centropoblado WHERE id>=45574 AND id<=45913;
 
@@ -1174,7 +1177,7 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET fechadeshabilitacion='2013-01-04', observaciones='', nombre='Cimarrones' WHERE id=2068; --Cimarrones / Bolívar / Cauca
       UPDATE msip_centropoblado SET fechadeshabilitacion='2013-01-04', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.', nombre='Humos' WHERE id=2002; --Humos / Almaguer / Cauca
       UPDATE msip_centropoblado SET fechadeshabilitacion='2019-03-31', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.', nombre='Barro Blanco' WHERE id=6749; --Barro Blanco / Caramanta / Antioquia
-      
+
       -- Deshabilitados con mismo nombre
 
       UPDATE msip_centropoblado SET fechadeshabilitacion='2022-07-21', observaciones='Aparece en DIVIPOLA 2018. Nombre de DIVIPOLA 2019, el anterior era MINITAS. No está en DIVIPOLA 2022.'  WHERE id=15176; --Minitas / Barrancominas / Guainía
@@ -1221,7 +1224,7 @@ class Divipola202501 < ActiveRecord::Migration[7.2]
       UPDATE msip_centropoblado SET fechadeshabilitacion='2022-02-13', observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C. No está en DIVIPOLA 2021.'  WHERE id=7310; --El Prodigio / San Luis / Antioquia
 
       -- Deshabilitados
-     
+
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era C.',  fechadeshabilitacion=NULL   WHERE id='14938'; -- 70124019 PUEBLO NUEVO
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era CAS.',  fechadeshabilitacion=NULL   WHERE id='8904'; -- 52835101 LA BARCA
       UPDATE msip_centropoblado SET observaciones='Tipo de centro cambiado por DIVIPOLA 2019. Antes era IPD.',  fechadeshabilitacion=NULL   WHERE id='14709'; -- 50683010 CAMPO ALEGRE

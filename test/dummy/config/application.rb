@@ -28,7 +28,7 @@ require "msip"
 
 module Dummy
   class Application < Rails::Application
-    config.load_defaults Rails::VERSION::STRING.to_f
+    config.load_defaults(Rails::VERSION::STRING.to_f)
 
     config.action_view.automatically_disable_submit_tag = false
 
@@ -39,7 +39,7 @@ module Dummy
     # -- todos los archivos .rb en ese directorio se cargan automáticamente
     # tras cargar el entorno y cualquier gema en su aplicación.
 
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: ["assets", "tasks"])
 
     # Establece Time.zone por defecto en la zona especificada y hace que
     # Active Record auto-convierta a esta zona.
@@ -53,9 +53,9 @@ module Dummy
     config.i18n.default_locale = :es
 
     config.railties_order = [
-      :main_app, 
-      Msip::Engine, 
-      :all
+      :main_app,
+      Msip::Engine,
+      :all,
     ]
 
     config.colorize_logging = true
@@ -67,7 +67,7 @@ module Dummy
       ENV.fetch("CONFIG_HOSTS", "defensor.info").downcase.split(";"),
     )
 
-    config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/msip')
+    config.relative_url_root = ENV.fetch("RUTA_RELATIVA", "/msip")
 
     # msip
     config.x.formato_fecha = ENV.fetch("MSIP_FORMATO_FECHA", "dd/M/yyyy")

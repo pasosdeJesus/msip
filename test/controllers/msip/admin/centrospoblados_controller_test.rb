@@ -72,6 +72,7 @@ module Msip
 
     test "post: redirige al centropoblado creado" do
       post admin_centrospoblados_url, params: { centropoblado: PRUEBA_CENTROPOBLADO }
+
       assert_response :found
     end
 

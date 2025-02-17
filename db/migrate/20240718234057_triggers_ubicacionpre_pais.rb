@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class TriggersUbicacionprePais < ActiveRecord::Migration[7.1]
   def up
-    execute <<-EOF
+    execute(<<-EOF)
 
       CREATE FUNCTION public.msip_ubicacionpre_tras_crear_pais() RETURNS trigger
       LANGUAGE plpgsql
@@ -46,7 +48,7 @@ class TriggersUbicacionprePais < ActiveRecord::Migration[7.1]
       CREATE FUNCTION public.msip_ubicacionpre_tras_actualizar_pais() RETURNS trigger
       LANGUAGE plpgsql
       AS $$
-      DECLARE 
+      DECLARE#{" "}
         dpa TEXT[];
       BEGIN
         ASSERT(TG_OP = 'UPDATE');
@@ -68,21 +70,21 @@ class TriggersUbicacionprePais < ActiveRecord::Migration[7.1]
           longitud=NEW.longitud,
           updated_at=NOW()
         WHERE pais_id=OLD.id
-            AND departamento_id IS NULL 
+            AND departamento_id IS NULL#{" "}
             AND municipio_id IS NULL
             AND centropoblado_id IS NULL
             AND vereda_id IS NULL
             AND lugar IS NULL
             AND sitio IS NULL;
-        
-        -- Actualizamos lo que está dentro del país en cascada (esperamos 
-        -- llamada al trigger de nomenclatura para arreglar nombre_sin_pais por 
+    #{"    "}
+        -- Actualizamos lo que está dentro del país en cascada (esperamos#{" "}
+        -- llamada al trigger de nomenclatura para arreglar nombre_sin_pais por#{" "}
         -- ejemplo)
         UPDATE public.msip_ubicacionpre SET
           nombre=REPLACE(nombre, OLD.nombre, NEW.nombre),
           updated_at=NOW()
         WHERE pais_id=OLD.id
-            AND NOT (departamento_id IS NULL 
+            AND NOT (departamento_id IS NULL#{" "}
             AND municipio_id IS NULL
             AND centropoblado_id IS NULL
             AND vereda_id IS NULL
@@ -111,7 +113,7 @@ class TriggersUbicacionprePais < ActiveRecord::Migration[7.1]
 
         -- Pero no elimina en cascada
         DELETE FROM public.msip_ubicacionpre WHERE pais_id=OLD.id
-          AND departamento_id IS NULL 
+          AND departamento_id IS NULL#{" "}
           AND municipio_id IS NULL
           AND centropoblado_id IS NULL
           AND vereda_id IS NULL
@@ -129,8 +131,9 @@ class TriggersUbicacionprePais < ActiveRecord::Migration[7.1]
 
     EOF
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER msip_antes_de_eliminar_pais ON msip_pais;
       DROP FUNCTION public.msip_ubicacionpre_antes_de_eliminar_pais;
 

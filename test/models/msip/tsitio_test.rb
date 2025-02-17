@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      tsitio = Msip::Tsitio.where(id: 2).take
+      tsitio = Msip::Tsitio.find_by(id: 2)
 
       assert_equal("URBANO", tsitio.nombre)
     end

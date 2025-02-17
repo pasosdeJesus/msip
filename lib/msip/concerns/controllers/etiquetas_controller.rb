@@ -3,7 +3,7 @@
 module Msip
   module Concerns
     module Controllers
-      module EtiquetasController 
+      module EtiquetasController
         extend ActiveSupport::Concern
 
         included do
@@ -20,7 +20,6 @@ module Msip
           def etiqueta_params
             params.require(:etiqueta).permit(*atributos_form)
           end
-
         end # included
       end
     end

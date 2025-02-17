@@ -1,7 +1,8 @@
-class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
+# frozen_string_literal: true
 
+class TriggersUbicacionpreCp < ActiveRecord::Migration[7.1]
   def up
-    execute <<-EOF
+    execute(<<-EOF)
 
       CREATE FUNCTION public.msip_ubicacionpre_tras_crear_centropoblado () RETURNS trigger
       LANGUAGE plpgsql
@@ -26,12 +27,12 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
           RAISE NOTICE 'NEW.longitud = %', NEW.longitud;
           RAISE NOTICE 'NEW.observaciones = %', NEW.observaciones;
 
-          mi_departamento_id := (SELECT departamento_id 
+          mi_departamento_id := (SELECT departamento_id#{" "}
             FROM public.msip_municipio
             WHERE id=NEW.municipio_id LIMIT 1);
           mi_pais_id := (SELECT pais_id FROM public.msip_departamento
             WHERE id=mi_departamento_id LIMIT 1);
-          nompais := (SELECT nombre FROM public.msip_pais 
+          nompais := (SELECT nombre FROM public.msip_pais#{" "}
             WHERE id=mi_pais_id LIMIT 1);
           nomdepartamento := (SELECT nombre FROM public.msip_departamento
             WHERE id=mi_departamento_id LIMIT 1);
@@ -45,7 +46,7 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
             lugar, sitio, tsitio_id, latitud, longitud,
             nombre_sin_pais, observaciones,
             fechacreacion, fechadeshabilitacion, created_at, updated_at)
-          VALUES (dpa[1], mi_pais_id, 
+          VALUES (dpa[1], mi_pais_id,#{" "}
             mi_departamento_id, NEW.municipio_id, NEW.id, NULL,
             NULL, NULL, NULL, NEW.latitud, NEW.longitud,
             dpa[2], NULL,
@@ -82,12 +83,12 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
         RAISE NOTICE 'NEW.longitud = %', NEW.longitud;
         RAISE NOTICE 'NEW.observaciones = %', NEW.observaciones;
 
-        mi_departamento_id := (SELECT departamento_id 
+        mi_departamento_id := (SELECT departamento_id#{" "}
           FROM public.msip_municipio
           WHERE id=NEW.municipio_id LIMIT 1);
         mi_pais_id := (SELECT pais_id FROM public.msip_departamento
           WHERE id=mi_departamento_id LIMIT 1);
-        nompais := (SELECT nombre FROM public.msip_pais 
+        nompais := (SELECT nombre FROM public.msip_pais#{" "}
           WHERE id=mi_pais_id LIMIT 1);
         nomdepartamento := (SELECT nombre FROM public.msip_departamento
           WHERE id=mi_departamento_id LIMIT 1);
@@ -136,9 +137,9 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
         FOR EACH ROW
         EXECUTE FUNCTION public.msip_ubicacionpre_tras_actualizar_centropoblado();
 
-    -- Pero no eliminamos en cascada --tendrá que hacerse desde la aplicación 
+    -- Pero no eliminamos en cascada --tendrá que hacerse desde la aplicación#{" "}
     -- uno a uno o con una migración
-    CREATE FUNCTION public.msip_ubicacionpre_antes_de_eliminar_centropoblado() 
+    CREATE FUNCTION public.msip_ubicacionpre_antes_de_eliminar_centropoblado()#{" "}
     RETURNS trigger
     LANGUAGE plpgsql
     AS $$
@@ -149,7 +150,7 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
         RAISE NOTICE 'OLD.id = %', OLD.id;
         RAISE NOTICE 'OLD.nombre = %', OLD.nombre;
 
-        DELETE FROM public.msip_ubicacionpre WHERE 
+        DELETE FROM public.msip_ubicacionpre WHERE#{" "}
           municipio_id=OLD.municipio_id
           AND centropoblado_id=OLD.id
           AND vereda_id IS NULL
@@ -165,8 +166,9 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
 
     EOF
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER msip_antes_de_eliminar_centropoblado ON msip_centropoblado;
       DROP FUNCTION public.msip_ubicacionpre_antes_de_eliminar_centropoblado;
 
@@ -177,5 +179,4 @@ class TriggersUbicacionpreCp< ActiveRecord::Migration[7.1]
       DROP FUNCTION public.msip_ubicacionpre_tras_crear_centropoblado;
     SQL
   end
-
 end

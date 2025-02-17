@@ -33,7 +33,7 @@ module Msip
       def campofecha_localizado(*fields)
         fields.each do |f|
           define_method("#{f}_localizada") do
-            val = self.send(f)
+            val = send(f)
             fecha_estandar_local(val.to_s)
           end # define_method
 

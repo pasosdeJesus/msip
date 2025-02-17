@@ -11,6 +11,5 @@ module Msip
     def registrar_en_bitacora
       true
     end
-
   end
 end

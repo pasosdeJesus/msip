@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class FamiliarInverso < ActiveRecord::Migration[7.0]
   def up
-    val = execute <<-SQL
+    val = execute(<<-SQL)
       select * from (select persona1, persona2, count(*) from msip_persona_trelacion group by 1,2) as sub where count>1;
     SQL
-    if val.count > 0 
+    if val.count > 0
       puts "Hay pares de personas con mas de una relacion, resolver antes"
       val.each do |p|
         puts p
       end
-      exit 1
+      exit(1)
     end
-    execute <<-SQL
+    execute(<<-SQL)
       CREATE OR REPLACE FUNCTION msip_agregar_o_remplazar_familiar_inverso()
         RETURNS trigger AS $ac$
       DECLARE
@@ -31,13 +33,13 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
           WHERE persona1 = NEW.persona2 AND persona2=NEW.persona1;
         RAISE NOTICE 'num2 = %', num2;
         ASSERT(num2 < 2);
-        SELECT inverso INTO rinv FROM msip_trelacion 
+        SELECT inverso INTO rinv FROM msip_trelacion#{" "}
           WHERE id = NEW.trelacion_id;
         RAISE NOTICE 'rinv = %', rinv;
         ASSERT(rinv IS NOT NULL);
         CASE num2
           WHEN 0 THEN
-            INSERT INTO msip_persona_trelacion 
+            INSERT INTO msip_persona_trelacion#{" "}
             (persona1, persona2, trelacion_id, observaciones, created_at, updated_at)
             VALUES (NEW.persona2, NEW.persona1, rinv, 'Inverso agregado automaticamente', NOW(), NOW());
           ELSE -- num2 = 1
@@ -45,7 +47,7 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
               WHERE persona1=NEW.persona2 AND persona2=NEW.persona1;
             RAISE NOTICE 'rexistente = %', rexistente;
             IF rinv <> rexistente THEN
-              UPDATE msip_persona_trelacion 
+              UPDATE msip_persona_trelacion#{" "}
                 SET trelacion_id = rinv,
                  observaciones = 'Inverso cambiado automaticamente (era ' ||
                    rexistente || '). ' || COALESCE(observaciones, ''),
@@ -69,7 +71,7 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
         RAISE NOTICE 'num2 = %', num2;
         ASSERT(num2 < 2);
         IF num2 = 1 THEN
-            DELETE FROM msip_persona_trelacion 
+            DELETE FROM msip_persona_trelacion#{" "}
             WHERE persona1 = OLD.persona2 AND persona2 = OLD.persona1;
         END IF;
         RETURN NULL;
@@ -81,7 +83,7 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
         AFTER INSERT OR UPDATE ON msip_persona_trelacion
         FOR EACH ROW EXECUTE FUNCTION msip_agregar_o_remplazar_familiar_inverso()
       ;
-      
+
       CREATE OR REPLACE TRIGGER msip_eliminar_familiar
         AFTER DELETE ON msip_persona_trelacion
         FOR EACH ROW EXECUTE FUNCTION msip_eliminar_familiar_inverso()
@@ -89,7 +91,7 @@ class FamiliarInverso < ActiveRecord::Migration[7.0]
   end
 
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER msip_eliminar_familiar ON msip_persona_trelacion;
       DROP TRIGGER msip_insertar_familiar ON msip_persona_trelacion;
       DROP FUNCTION msip_agregar_o_remplazar_familiar_inverso;

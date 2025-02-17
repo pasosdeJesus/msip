@@ -9,7 +9,6 @@ module Msip
       load_and_authorize_resource class: Msip::Tcentropoblado
 
       include Msip::Concerns::Controllers::TcentrospobladosController
-
     end
   end
 end

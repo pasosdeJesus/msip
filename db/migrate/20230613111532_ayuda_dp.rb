@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AyudaDp < ActiveRecord::Migration[7.0]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       UPDATE msip_tdocumento SET ayuda='Solo dígitos. Por ejemplo 323948' WHERE id='1'; -- CÉDULA DE CIUDADANÍA
       UPDATE msip_tdocumento SET ayuda='Solo dígitos. Por ejemplo 323948' WHERE id='2'; -- CÉDULA DE IDENTIDAD
       UPDATE msip_tdocumento SET ayuda='Solo dígitos. Por ejemplo 323948' WHERE id='5'; -- CONTRASEÑA
@@ -22,7 +24,7 @@ class AyudaDp < ActiveRecord::Migration[7.0]
   end
 
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       UPDATE msip_tdocumento SET ayuda='Debe constar solo de digitos. Por ejemplo 323948' WHERE id='1'; -- CÉDULA DE CIUDADANÍA
       UPDATE msip_tdocumento SET ayuda='Debe constar solo de digitos. Por ejemplo 323948' WHERE id='2'; -- CÉDULA DE IDENTIDAD
       UPDATE msip_tdocumento SET ayuda='Debe constar solo de digitos. Por ejemplo 323948' WHERE id='3'; -- CÉDULA DE RESIDENTE
@@ -41,6 +43,5 @@ class AyudaDp < ActiveRecord::Migration[7.0]
       UPDATE msip_tdocumento SET ayuda='Debe constar de dígitos un guion y digitos. Por ejemplo 1344-4232' WHERE id='100'; -- CÉDULA DE CIUDADANIA DE ECUADOR
       UPDATE msip_tdocumento SET ayuda='Debe constar solo de digitos. Por ejemplo 323948' WHERE id='101'; -- PRECÉDULA
     SQL
-
   end
 end

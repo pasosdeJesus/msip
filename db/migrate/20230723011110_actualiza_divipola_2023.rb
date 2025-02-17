@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 class ActualizaDivipola2023 < ActiveRecord::Migration[7.0]
   def up
-    res=execute 'SELECT count(*) from msip_tclase'
+    res = execute("SELECT count(*) from msip_tclase")
     if res && res[0] && res[0]["count"] && res[0]["count"] == 0
       puts "Suponemos aplicando migraciones a base desactualiza"
       return
     end
-    execute <<-SQL
+    execute(<<-SQL)
       -- Municipios con nombre cambiado
-      UPDATE msip_municipio SET nombre='TURBANA' WHERE id=1350; 
+      UPDATE msip_municipio SET nombre='TURBANA' WHERE id=1350;#{" "}
       UPDATE msip_municipio SET nombre='SANTIAGO DE CALI' WHERE id=28;
 
       -- 1 centro poblado cambia de nombre
-      UPDATE msip_clase SET 
+      UPDATE msip_clase SET#{" "}
         nombre='Medellín, Distrito Especial de Ciencia, Tecnología e Innovación',
         observaciones='Se cambió el nombre en DIVIPOLA 2023-07, antes era Medellín'
         WHERE id=6479;
@@ -246,7 +248,7 @@ class ActualizaDivipola2023 < ActiveRecord::Migration[7.0]
       UPDATE msip_clase SET latitud='1.901432', longitud='-78.571308' WHERE id=15413; -- Olivo Curay / Francisco Pizarro / Nariño
       UPDATE msip_clase SET latitud='1.900386', longitud='-78.55429' WHERE id=8518; -- Bocas de Curay / Francisco Pizarro / Nariño
       UPDATE msip_clase SET latitud='3.412223', longitud='-75.784688' WHERE id=11468; -- Maracaibo / Rioblanco / Tolima
-    
+
      -- Latitud y longitud a nuevos
 
       UPDATE msip_clase SET latitud='8.588888', longitud='-76.393931' WHERE id=6607; -- San José del Carmelo / Arboletes / Antioquia
@@ -322,13 +324,13 @@ class ActualizaDivipola2023 < ActiveRecord::Migration[7.0]
   end
 
   def down
-    execute <<-SQL
+    execute(<<-SQL)
      -- 2 municipios cambian de nombre
       UPDATE msip_municipio SET nombre='TURBANÁ' WHERE id=1350;
       UPDATE msip_municipio SET nombre='CALI' WHERE id=28;
 
       -- 1 centro poblado cambia de nombre
-      UPDATE msip_clase SET 
+      UPDATE msip_clase SET#{" "}
         nombre='Medellín',
         observaciones=''
         WHERE id=6479;

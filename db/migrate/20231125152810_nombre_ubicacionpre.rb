@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class NombreUbicacionpre < ActiveRecord::Migration[7.0]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       CREATE OR REPLACE FUNCTION msip_nombre_vereda ()
       RETURNS varchar AS $$
         SELECT 'Vereda '
@@ -50,35 +52,36 @@ class NombreUbicacionpre < ActiveRecord::Migration[7.0]
           msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
           municipio, vereda, centropoblado)
         WHEN (sitio IS NULL OR sitio= '') THEN
-          array[lugar || ' / ' || 
+          array[lugar || ' / ' ||#{" "}
             (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
               municipio, vereda, centropoblado))[0],
-          lugar || ' / ' || 
+          lugar || ' / ' ||#{" "}
             (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
               municipio, vereda, centropoblado))[1] ]
         ELSE
-          array[sitio || ' / ' || lugar || ' / ' || 
+          array[sitio || ' / ' || lugar || ' / ' ||#{" "}
             (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
               municipio, vereda, centropoblado))[0],
-          sitio || ' / ' || lugar || ' / ' || 
+          sitio || ' / ' || lugar || ' / ' ||#{" "}
             (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
               municipio, vereda, centropoblado))[1] ]
         END
       $$
       LANGUAGE SQL;
- 
+
       CREATE OR REPLACE FUNCTION
         msip_ubicacionpre_id_rtablabasica()
       RETURNS INT AS $$
-        SELECT max(id+1) FROM msip_ubicacionpre WHERE 
-          (id+1) NOT IN (SELECT id FROM msip_ubicacionpre) AND 
+        SELECT max(id+1) FROM msip_ubicacionpre WHERE#{" "}
+          (id+1) NOT IN (SELECT id FROM msip_ubicacionpre) AND#{" "}
           id<10000000
       $$
       LANGUAGE SQL;
     SQL
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP FUNCTION msip_ubicacionpre_nomenclatura;
       DROP FUNCTION msip_nombre_vereda;
     SQL

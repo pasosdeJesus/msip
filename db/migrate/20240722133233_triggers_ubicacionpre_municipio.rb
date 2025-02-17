@@ -1,7 +1,8 @@
-class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
+# frozen_string_literal: true
 
+class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
   def up
-    execute <<-EOF
+    execute(<<-EOF)
 
       CREATE FUNCTION public.msip_ubicacionpre_tras_crear_municipio () RETURNS trigger
       LANGUAGE plpgsql
@@ -26,7 +27,7 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
 
           mi_pais_id := (SELECT pais_id FROM public.msip_departamento
             WHERE id=new.departamento_id LIMIT 1);
-          nompais := (SELECT nombre FROM public.msip_pais 
+          nompais := (SELECT nombre FROM public.msip_pais#{" "}
             WHERE id=mi_pais_id LIMIT 1);
           nomdepartamento := (SELECT nombre FROM public.msip_departamento
             WHERE id=new.departamento_id LIMIT 1);
@@ -38,7 +39,7 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
             lugar, sitio, tsitio_id, latitud, longitud,
             nombre_sin_pais, observaciones,
             fechacreacion, fechadeshabilitacion, created_at, updated_at)
-          VALUES (dpa[1], mi_pais_id, 
+          VALUES (dpa[1], mi_pais_id,#{" "}
             NEW.departamento_id, NEW.id, NULL, NULL,
             NULL, NULL, NULL, NEW.latitud, NEW.longitud,
             dpa[2], NULL,
@@ -75,7 +76,7 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
 
         mi_pais_id := (SELECT pais_id FROM public.msip_departamento
           WHERE id=new.departamento_id LIMIT 1);
-        nompais := (SELECT nombre FROM public.msip_pais 
+        nompais := (SELECT nombre FROM public.msip_pais#{" "}
           WHERE id=mi_pais_id LIMIT 1);
         nomdepartamento := (SELECT nombre FROM public.msip_departamento
           WHERE id=new.departamento_id LIMIT 1);
@@ -132,7 +133,7 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
         RAISE NOTICE 'OLD.id = %', OLD.id;
         RAISE NOTICE 'OLD.nombre = %', OLD.nombre;
 
-        DELETE FROM public.msip_ubicacionpre WHERE 
+        DELETE FROM public.msip_ubicacionpre WHERE#{" "}
           departamento_id=OLD.departamento_id
           AND municipio_id=OLD.id
           AND centropoblado_id IS NULL
@@ -149,8 +150,9 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
 
     EOF
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER msip_antes_de_eliminar_municipio ON msip_municipio;
       DROP FUNCTION public.msip_ubicacionpre_antes_de_eliminar_municipio;
 
@@ -161,5 +163,4 @@ class TriggersUbicacionpreMunicipio < ActiveRecord::Migration[7.1]
       DROP FUNCTION public.msip_ubicacionpre_tras_crear_municipio;
     SQL
   end
-
 end

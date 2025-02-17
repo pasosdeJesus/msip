@@ -102,7 +102,7 @@ module Msip
         created_at: "2014-11-11",
       }
       post usuarios_url, params: { usuario: au }
-      usuario = Usuario.where(nusuario: "nusuario").take
+      usuario = Usuario.find_by(nusuario: "nusuario")
 
       assert usuario
     end
@@ -152,7 +152,7 @@ module Msip
 
     test "elimina el usuario requerido" do
       usuario = if Usuario.where(nusuario: "nusuario").count > 0
-        Usuario.where(nusuario: "nusuario").take
+        Usuario.find_by(nusuario: "nusuario")
       else
         Usuario.create!(ATRIBUTOS_VALIDOS)
       end

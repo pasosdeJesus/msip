@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 class AjustaUbicacionpre202501 < ActiveRecord::Migration[7.2]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       -- Municipios nuevos
       INSERT INTO msip_ubicacionpre (id, nombre, pais_id, departamento_id, municipio_id, latitud, longitud, nombre_sin_pais, created_at, updated_at, fechacreacion) VALUES (79847, 'Nuevo Belén de Bajirá / Chocó / Colombia', 170, 29, 1799, 7.3719,-76.71727, 'Nuevo Belén de Bajirá / Chocó', '2025-01-27', '2025-01-27', '2025-01-27');
 
       -- Cambios en municpio por nombre, latitud, longitud hechos por triggers automáticamnte
 
       -- Deshabilitar/habilita ubicacionespre acorde a centro poblados
-      UPDATE msip_ubicacionpre AS u 
-        SET fechadeshabilitacion=c.fechadeshabilitacion 
-        FROM msip_centropoblado AS c 
+      UPDATE msip_ubicacionpre AS u#{" "}
+        SET fechadeshabilitacion=c.fechadeshabilitacion#{" "}
+        FROM msip_centropoblado AS c#{" "}
         WHERE u.centropoblado_id=c.id ;
 
         -- Deshabilitar/habilita ubicacionespre acorde a veredas
-      UPDATE msip_ubicacionpre AS u 
-        SET fechadeshabilitacion=v.fechadeshabilitacion 
+      UPDATE msip_ubicacionpre AS u#{" "}
+        SET fechadeshabilitacion=v.fechadeshabilitacion#{" "}
         FROM msip_vereda AS v
         WHERE u.vereda_id=v.id ;
 
@@ -362,8 +364,9 @@ class AjustaUbicacionpre202501 < ActiveRecord::Migration[7.2]
       INSERT INTO msip_ubicacionpre (id, nombre, pais_id, departamento_id, municipio_id, centropoblado_id, latitud, longitud, nombre_sin_pais, created_at, updated_at, fechacreacion, fechadeshabilitacion) VALUES (80187, 'Guerima / Cumaribo / Vichada / Colombia', 170, 59, 1246, 45913, 4.262454746,-69.52140484, 'Guerima / Cumaribo / Vichada', '2025-01-28', '2025-01-28', '2025-01-28', NULL);
     SQL
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
 
       -- Municipios
       DELETE FROM msip_ubicacionpre WHERE id>=79847 AND id<=79847;

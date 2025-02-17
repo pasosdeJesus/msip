@@ -24,7 +24,7 @@ module Msip
     end
 
     test "existente" do
-      trivalente = Trivalente.where(id: 1).take
+      trivalente = Trivalente.find_by(id: 1)
 
       assert_equal("SIN RESPUESTA", trivalente.nombre)
     end

@@ -47,11 +47,11 @@ module Msip
 
           def atributos_form
             a = atributos_show - [
-              :id, 
-              :created_at_localizada, 
-              :fechadeshabilitacion_localizada
+              :id,
+              :created_at_localizada,
+              :fechadeshabilitacion_localizada,
             ] + [
-              :fechadeshabilitacion
+              :fechadeshabilitacion,
             ]
             a[a.index(:grupoper_id)] = :grupoper
             a
@@ -69,8 +69,8 @@ module Msip
               unless consNoment.empty?
                 consNoment += ":*"
               end
-              where = " to_tsvector('spanish', unaccent(grupoper.nombre) " \
-                " || ' ' || COALESCE(orgsocial.id::TEXT, '')) @@ " \
+              where = " to_tsvector('spanish', unaccent(grupoper.nombre)  " \
+                "|| ' ' || COALESCE(orgsocial.id::TEXT, '')) @@ " \
                 "to_tsquery('spanish', '#{consNoment}')"
 
               partes = [
@@ -88,7 +88,7 @@ module Msip
               end
               qstring = "SELECT TRIM(#{s}) AS value, #{l} AS id
               FROM public.msip_orgsocial AS orgsocial
-              JOIN public.msip_grupoper AS grupoper 
+              JOIN public.msip_grupoper AS grupoper
                 ON grupoper.id=orgsocial.grupoper_id
               WHERE #{where} ORDER BY 1 LIMIT 10"
 
@@ -98,7 +98,7 @@ module Msip
                 format.html { render(inline: "No responde con parametro term") }
               end
             else
-              super(c)
+              super
             end
           end
 
@@ -112,10 +112,9 @@ module Msip
                 params[:orgsocial][:orgsocial_persona_attributes]
               op_params = params[:orgsocial][:orgsocial_persona_attributes]
               op_params.each do |_clave, valor|
-                next unless (
-                  valor[:id] == "" && valor[:_destroy] != "true" && 
-                  valor[:persona_attributes][:id]
-                )
+                next unless
+                  valor[:id] == "" && valor[:_destroy] != "true" &&
+                    valor[:persona_attributes][:id]
 
                 op = Msip::OrgsocialPersona.create(
                   correo: valor[:correo],

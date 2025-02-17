@@ -87,7 +87,7 @@ module Msip
             if value == ""
               value = nil
             end
-            super(value)
+            super
           end
 
           def presenta_nombre

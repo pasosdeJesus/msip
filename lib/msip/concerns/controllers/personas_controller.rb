@@ -9,7 +9,7 @@ module Msip
         included do
           include ActionView::Helpers::AssetUrlHelper
 
-          before_action :prepara_persona, 
+          before_action :prepara_persona,
             only: [:show, :edit, :update, :destroy]
 
           def clase
@@ -38,7 +38,7 @@ module Msip
               :tdocumento_id,
               :numerodocumento,
               :etiqueta_ids,
-              :familiares
+              :familiares,
             ]
           end
 
@@ -55,9 +55,9 @@ module Msip
           end
 
           def atributos_form_msip
-            a = atributos_show_msip - [:etiqueta_ids, :familiares] + 
+            a = atributos_show_msip - [:etiqueta_ids, :familiares] +
               [:persona_trelacion1] + [
-                etiqueta_ids: []
+                etiqueta_ids: [],
               ]
             a
           end
@@ -76,11 +76,11 @@ module Msip
             end
             if params[:term]
               consNomvic = Msip::SqlHelper.cadena_a_palabras_tsquery(
-                params[:term]
+                params[:term],
               )
-              where = " to_tsvector('spanish', unaccent(persona.nombres) " \
-                " || ' ' || unaccent(persona.apellidos) " \
-                " || ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " \
+              where = " to_tsvector('spanish', unaccent(persona.nombres)  " \
+                "|| ' ' || unaccent(persona.apellidos)  " \
+                "|| ' ' || COALESCE(persona.numerodocumento::TEXT, '')) @@ " \
                 "to_tsquery('spanish', '#{consNomvic}')"
 
               partes = [
@@ -107,7 +107,7 @@ module Msip
                 format.html { render(inline: "No responde con parametro term") }
               end
             else
-              super(c)
+              super
             end
           end
 
@@ -119,7 +119,7 @@ module Msip
           end
 
           def datos_complementarios(oj)
-            return oj
+            oj
           end
 
           # API
@@ -186,14 +186,14 @@ module Msip
           end
 
           def validar_conjunto_familiar_diferente(validaciones)
-            cp = Msip::PersonaTrelacion.joins(:personauno).
-              where('persona1=persona2')
-            if cp.count > 0 
+            cp = Msip::PersonaTrelacion.joins(:personauno)
+              .where("persona1=persona2")
+            if cp.count > 0
               validaciones << {
                 titulo: "Personas familiares de si mismas",
                 encabezado: ["Código", "Nombres", "Apellidos", "Relación"],
                 cuerpo: cp.pluck(:id, :nombres, :apellidos, :trelacion_id),
-                enlaces: cp.map {|p| msip.edit_persona_path(p.id)}
+                enlaces: cp.map { |p| msip.edit_persona_path(p.id) },
               }
             end
           end
@@ -203,11 +203,11 @@ module Msip
           end
 
           def prepara_persona
-            if params && params[:id] &&
+            @persona = if params && params[:id] &&
                 Msip::Persona.where(id: params[:id]).count > 0
-              @persona = Msip::Persona.find(params[:id])
+              Msip::Persona.find(params[:id])
             else
-              @persona = Msip::Persona.new
+              Msip::Persona.new
             end
             @registro = @persona
           end
@@ -221,28 +221,28 @@ module Msip
               :centropoblado_id,
               :tdocumento_id,
               :etnia_id,
-            ] + [ 
-              etiqueta_persona_attributes:  [
-                :etiqueta_id, 
+            ] + [
+              etiqueta_persona_attributes: [
+                :etiqueta_id,
                 :fecha,
                 :id,
                 :observaciones,
                 :usuario_id,
-                :_destroy
+                :_destroy,
               ],
-              persona_trelacion1_attributes:  [
+              persona_trelacion1_attributes: [
                 :id,
                 :trelacion_id,
                 :_destroy,
-                :personados_attributes => [
+                personados_attributes: [
                   :id,
-                  :nombres, 
+                  :nombres,
                   :apellidos,
                   :sexo,
                   :tdocumento_id,
                   :numerodocumento,
-                ]
-              ]
+                ],
+              ],
             ]
           end
 
@@ -256,14 +256,13 @@ module Msip
         end # include
 
         class_methods do
-
           # Retorna una propuesta para número de documento con base
           # en la id de la persona (no nil)
           def mejora_nuevo_numerodocumento_sindoc(
             numdoc, persona_id
           )
             numerodocumento = numdoc.to_s + rand(100).to_s
-            #% 2147483647 # Max. INTEGER de PostgreSQL
+            # % 2147483647 # Max. INTEGER de PostgreSQL
             while Msip::Persona.where(
               tdocumento_id: 11, numerodocumento: numerodocumento,
             ).where("id<>?", persona_id).count > 0
@@ -279,9 +278,8 @@ module Msip
             numerodocumento
           end
 
-
           def nueva_persona_sd_posible_numerodocumento(
-            persona_id, indice=nil
+            persona_id, indice = nil
           )
             if persona_id.nil?
               ruid = Msip::Persona.connection.execute(<<-SQL.squish)
@@ -290,7 +288,7 @@ module Msip
               persona_id = ruid[0]["last_value"] + 1
             end
             numerodocumento = mejora_nuevo_numerodocumento_sindoc(
-              persona_id.to_s+indice.to_s, persona_id
+              persona_id.to_s + indice.to_s, persona_id
             )
             numerodocumento
           end
@@ -306,14 +304,12 @@ module Msip
               tdocumento_id: 11, # SIN DOCUMENTO
               numerodocumento: numerodocumento,
             )
-            if !persona.save(validate: false)
-              menserror << 'No pudo crear persona'
-              return nil
+            unless persona.save(validate: false)
+              menserror << "No pudo crear persona"
+              return
             end
             persona
           end
-
-
         end
       end
     end

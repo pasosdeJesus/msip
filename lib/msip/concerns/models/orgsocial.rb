@@ -32,7 +32,7 @@ module Msip
           has_many :persona,
             through: :orgsocial_persona,
             class_name: "Msip::Persona"
-          accepts_nested_attributes_for :persona, 
+          accepts_nested_attributes_for :persona,
             reject_if: :all_blank
 
           has_and_belongs_to_many :sectororgsocial,
@@ -105,13 +105,14 @@ module Msip
           end
 
           def presenta_nombre
-            self["grupoper_id"] ?  grupoper.nombre : ""
+            self["grupoper_id"] ? grupoper.nombre : ""
           end
 
           scope :filtro_grupoper_id, lambda { |n|
             joins(:grupoper).where(
-              "unaccent(msip_grupoper.nombre) ILIKE "\
-              "'%' || unaccent(?) || '%'", n.to_s
+              "unaccent(msip_grupoper.nombre) ILIKE " \
+                "'%' || unaccent(?) || '%'",
+              n.to_s,
             )
           }
 

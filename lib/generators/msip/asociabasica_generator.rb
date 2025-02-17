@@ -25,7 +25,7 @@ module Msip
     class_option :belongs_to,
       type: :boolean,
       default: true,
-      desc: "Crea un belongs_to en un tabla2 --selección simple-- "\
+      desc: "Crea un belongs_to en un tabla2 --selección simple-- " \
         "de lo contrario tabla combinada y has_many --selección múltiple"
 
     def genera_asociabasica
@@ -148,20 +148,20 @@ end
         )
       end
       Rails.logger.debug do
-        "Aregue manualmente null:false en :nombre, "\
-          ":fechacreacion, :created_at y :update_at "\
+        "Aregue manualmente null:false en :nombre, " \
+          ":fechacreacion, :created_at y :update_at " \
           "en migración"
       end
       Rails.logger.debug do
-        "Aregue manualmente infleccion no regular en "\
+        "Aregue manualmente infleccion no regular en " \
           "config/initializers/inflections.rb al estilo:"
       end
       Rails.logger.debug do
-        "  inflect.irregular '#{tablabasica}', "\
+        "  inflect.irregular '#{tablabasica}', " \
           "'#{tablabasicaplural}' "
       end
       Rails.logger.debug do
-        "Aregue nombre en español en config/locales/es.yml "\
+        "Aregue nombre en español en config/locales/es.yml " \
           "al estilo:"
       end
       Rails.logger.debug { "    \"#{tablabasica}\":" }

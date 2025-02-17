@@ -98,7 +98,6 @@ module Msip
     end
 
     test "crear y eliminar" do
-
       ids1 = Msip::Oficina.pluck(:id)
       assert_difference("Msip::Oficina.count") do
         post admin_oficinas_url, params: { oficina: PRUEBA_OFICINA }
@@ -109,7 +108,7 @@ module Msip
         assigns(:oficina),
       )
       ids2 = Msip::Oficina.pluck(:id)
-      idof = (ids2-ids1).first
+      idof = (ids2 - ids1).first
 
       assert_difference("Oficina.count", -1) do
         delete msip.admin_oficina_path(Oficina.find(idof))

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       CREATE OR REPLACE FUNCTION public.msip_ubicacionpre_dpa_nomenclatura(
       pais character varying, departamento character varying, municipio character varying, vereda character varying, centropoblado character varying) RETURNS text[]
       LANGUAGE sql
@@ -15,20 +17,20 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
         WHEN (vereda IS NULL OR TRIM(vereda) = '') AND
         (centropoblado IS NULL OR TRIM(centropoblado) = '') THEN
           array[
-            TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+            TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' ||#{" "}
               TRIM(pais),
             TRIM(municipio) || ' / ' || TRIM(departamento) ]
         WHEN (vereda IS NOT NULL AND TRIM(vereda)<>'') THEN
           array[
             public.msip_nombre_vereda() || TRIM(vereda) || ' / ' ||
-              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' ||#{" "}
               TRIM(pais),
             public.msip_nombre_vereda() || TRIM(vereda) || ' / ' ||
               TRIM(municipio) || ' / ' || TRIM(departamento) ]
         ELSE
           array[
             TRIM(centropoblado) || ' / ' ||
-              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' || 
+              TRIM(municipio) || ' / ' || TRIM(departamento) || ' / ' ||#{" "}
               TRIM(pais),
             TRIM(centropoblado) || ' / ' ||
             TRIM(municipio) || ' / ' || TRIM(departamento) ]
@@ -36,9 +38,9 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
       $$;
 
       CREATE OR REPLACE FUNCTION public.msip_ubicacionpre_nomenclatura(
-        pais character varying, departamento character varying, 
-        municipio character varying, vereda character varying, 
-        centropoblado character varying, lugar character varying, 
+        pais character varying, departamento character varying,#{" "}
+        municipio character varying, vereda character varying,#{" "}
+        centropoblado character varying, lugar character varying,#{" "}
         sitio character varying) RETURNS text[]
       LANGUAGE plpgsql
       AS $$
@@ -59,7 +61,7 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
         ELSE
           return array[
               sitio || ' / ' || lugar || ' / ' || dpa[1],
-              sitio || ' / ' || lugar || ' / ' || dpa[2] 
+              sitio || ' / ' || lugar || ' / ' || dpa[2]#{" "}
           ];
         END IF;
       END
@@ -98,16 +100,17 @@ class TriggersCreaActUbicacionpre < ActiveRecord::Migration[7.1]
         RETURN new;
       END
       $$;
-      CREATE TRIGGER tras_crear_o_actualizar_ubicacionpre 
-        BEFORE INSERT OR UPDATE OF pais_id, departamento_id, municipio_id, 
+      CREATE TRIGGER tras_crear_o_actualizar_ubicacionpre#{" "}
+        BEFORE INSERT OR UPDATE OF pais_id, departamento_id, municipio_id,#{" "}
           centropoblado_id, vereda_id, lugar, sitio
         ON msip_ubicacionpre
         FOR EACH ROW
         EXECUTE FUNCTION public.msip_ubicacionpre_actualiza_nombre();
     SQL
   end
+
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DROP TRIGGER tras_crear_o_actualizar_ubicacionpre ON msip_ubicacionpre;
       DROP FUNCTION public.msip_ubicacionpre_actualiza_nombre;
     SQL

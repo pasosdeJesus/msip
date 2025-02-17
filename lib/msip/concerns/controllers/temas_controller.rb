@@ -87,7 +87,7 @@ module Msip
           end
 
           def con_boton_copiar?
-              true
+            true
           end
 
           def tema_params

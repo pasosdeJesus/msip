@@ -54,7 +54,7 @@ module Msip
             end
             if opciones[:sin_centropoblado].nil? && centropoblado
               r += sep + centropoblado.nombre
-              sep = " / "
+              " / "
             end
             r
           end

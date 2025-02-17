@@ -151,11 +151,10 @@ module Msip
     def self.lista_modelos_persona
       [
         Msip::EtiquetaPersona,
-        Msip::Persona, 
-        Msip::PersonaTrelacion
+        Msip::Persona,
+        Msip::PersonaTrelacion,
       ]
     end
-    
 
     # Se definen habilidades con cancancan
     # Util en motores y aplicaciones de prueba
@@ -198,7 +197,7 @@ module Msip
 
       if usuario&.rol
 
-        can(:read, Msip::Ability::lista_modelos_persona)
+        can(:read, Msip::Ability.lista_modelos_persona)
         case usuario.rol
         when Ability::ROLANALI
           can([:new, :create, :read, :update], [
@@ -207,7 +206,7 @@ module Msip
             Msip::OrgsocialPersona,
             Msip::Solicitud,
           ])
-          can([:new, :create, :read, :update], Msip::Ability::lista_modelos_persona)
+          can([:new, :create, :read, :update], Msip::Ability.lista_modelos_persona)
           can(:read, Msip::Ubicacion)
           can(:new, Msip::Ubicacion)
           can([:update, :create, :destroy], Msip::Ubicacion)
@@ -227,7 +226,7 @@ module Msip
             ::Usuario,
           ])
 
-          can(:manage, Msip::Ability::lista_modelos_persona)
+          can(:manage, Msip::Ability.lista_modelos_persona)
 
           can(:manage, :tablasbasicas)
           tablasbasicas.each do |t|

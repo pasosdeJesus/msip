@@ -108,7 +108,7 @@ module Msip
         assigns(:tcentropoblado),
       )
       ids2 = Msip::Tcentropoblado.pluck(:id)
-      idr = (ids2-ids1).first
+      idr = (ids2 - ids1).first
 
       assert_difference("Tcentropoblado.count", -1) do
         delete msip.admin_tcentropoblado_path(Tcentropoblado.find(idr)) # Tcentropoblado sin centrospoblados

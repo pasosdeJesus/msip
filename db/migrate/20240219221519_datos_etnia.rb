@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class DatosEtnia < ActiveRecord::Migration[7.1]
   def up
-    execute <<-SQL
+    execute(<<-SQL)
       INSERT INTO public.msip_etnia (id, nombre, descripcion, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones) VALUES (1, 'SIN INFORMACIÓN', ' ', '2011-04-26', NULL, '2011-04-26', '2011-04-26', NULL);
       INSERT INTO public.msip_etnia (id, nombre, descripcion, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones) VALUES (10, 'AWA', '5 en http://www.mineducacion.gov.co/1621/articles-255690_archivo_xls_listado_etnias.xls ', '2011-04-29', NULL, '2011-04-29', '2011-04-29', NULL);
       INSERT INTO public.msip_etnia (id, nombre, descripcion, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones) VALUES (100, 'YAUNA', '78 en http://www.mineducacion.gov.co/1621/articles-255690_archivo_xls_listado_etnias.xls', '2014-05-30', NULL, '2014-05-30', '2014-05-30', NULL);
@@ -116,7 +118,7 @@ class DatosEtnia < ActiveRecord::Migration[7.1]
   end
 
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       DELETE FROM public.msip_etnia WHERE id>=1 AND id<=110;
     SQL
   end
