@@ -9,6 +9,7 @@ Para ruby adoptamos las convenciones de thoughtbot <https://github.com/thoughtbo
 
 Y para javascript usamos: 
 <https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript>
+con comentarios para [jsdoc](https://jsdoc.app/)
 
 En las siguientes secciones enfatizamos o cambiamos algunas convenciones.
 

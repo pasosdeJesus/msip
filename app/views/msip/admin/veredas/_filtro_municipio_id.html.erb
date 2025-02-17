@@ -1,7 +1,7 @@
 <%= f.input :busmunicipio_id,
-  label: false,
   input_html: {
-    'data-enviarautomatico' => '',
+    'data-action': 'change->msip--enviarautomatico#enviar'
     value: Msip::ModeloHelper.poromision(params, 'busmunicipio_id')
-  }
+  },
+  label: false
 %>

@@ -8,22 +8,22 @@
       <% atrf = Msip::ModeloHelper.nom_filtro(atr) %>
       <% atrsl= atrf.chomp('_localizada').chomp('_localizado') %>
       <% n = "bus#{atrf}" %>
-      <% respfiltro = cregistro.respond_to?("filtro_#{atrf}") || 
-        cregistro.respond_to?("filtro_#{atrf}ini") || 
+      <% respfiltro = cregistro.respond_to?("filtro_#{atrf}") ||
+        cregistro.respond_to?("filtro_#{atrf}ini") ||
         cregistro.respond_to?("filtro_#{atrf}fin") ||
-        cregistro.respond_to?("filtro_#{atrsl}") || 
-        cregistro.respond_to?("filtro_#{atrsl}ini") || 
+        cregistro.respond_to?("filtro_#{atrsl}") ||
+        cregistro.respond_to?("filtro_#{atrsl}ini") ||
         cregistro.respond_to?("filtro_#{atrsl}fin")
       %>
       <% (ri, rm, rd)=cregistro.name.pluralize.underscore.rpartition("/") %>
       <% pr = ri + "/admin/" + rd %>
-      <% if lookup_context.find_all("filtro_#{atrf}", 
+      <% if lookup_context.find_all("filtro_#{atrf}",
                                     [cregistro.name.pluralize.underscore], true).any? %>
-        <% # Hay un parcial para presentar el campo, 
+        <% # Hay un parcial para presentar el campo,
            #e.g cor1440_gen/proyectosfinancieros/_filtro_estado.html.erb %>
         <%= render partial: "filtro_#{atrf}", locals: {f: f} %>
       <% elsif lookup_context.find_all(
-        "filtro_#{atrf}", ['admin/' + 
+        "filtro_#{atrf}", ['admin/' +
                            cregistro.name.pluralize.underscore], true).any? %>
         <%  #e.g msip/admin/orgsocial/_filtro_lineabase20182020.html.erb %>
         <%= render partial: "admin/#{cregistro.name.pluralize.underscore}/" +
@@ -33,7 +33,7 @@
         <%= render partial: "#{pr}/filtro_#{atrf}", locals: {f: f} %>
       <% elsif lookup_context.find_all(
         "#{atrf}", [cregistro.name.pluralize.underscore], true).any? %>
-        <% # Hay un parcial para presentar el campo, 
+        <% # Hay un parcial para presentar el campo,
          # e.g cor1440_gen/proyectosfinancieros/_estado.html.erb %>
         <%= render partial: "#{atrf}", locals: {f: f} %>
       <% elsif lookup_context.find_all(
@@ -42,11 +42,11 @@
         <%= render partial: "msip/modelos/filtro_#{atrf}", locals: {f: f} %>
       <% elsif alf && respfiltro %>
         <% # Es llave Foranea %>
-          <% 
+          <%
           col = alf.class_name.constantize.all
           if col.respond_to?(:habilitados)
             col = col.habilitados
-          end 
+          end
         %>
         <%= f.input n,
         collection: col,
@@ -56,33 +56,37 @@
         label_method: :presenta_nombre,
         value_method: :id,
         selected: Msip::ModeloHelper.poromision(params, n),
-        input_html: { 
+        input_html: {
           class: 'tom-select',
-          "data-enviarautomatico" => "" } 
+          "data-action": "change->msip--enviarautomatico#enviar" }
         %>
-    <% elsif defined?(cregistro.asociacion_combinada) && 
+    <% elsif defined?(cregistro.asociacion_combinada) &&
       cregistro.asociacion_combinada(atr) && respfiltro %>
-      <% # Tabla Combinada 
+      <% # Tabla Combinada
         r = cregistro.asociacion_combinada(atr)
       %>
-      <% if r.class.to_s == 
+      <% if r.class.to_s ==
           'ActiveRecord::Reflection::ThroughReflection' ||
-          r.class.to_s == 
+          r.class.to_s ==
           'ActiveRecord::Reflection::HasAndBelongsToManyReflection' %>
         <% # Tabla combinada %>
-        <% col = r.class_name.constantize.respond_to?(:habilitados) ?
-              r.class_name.constantize.habilitados :
-              r.class_name.constantize.all %>
+        <%
+          col = r.class_name.constantize.respond_to?(:habilitados) ?
+          r.class_name.constantize.habilitados :
+          r.class_name.constantize.all %>
         <%= f.input n,
           collection: col,
-          required: false,
-          label: false,
           include_blank: true,
+          input_html: {
+            class: 'tom-select',
+            "data-action": "change->msip--enviarautomatico#enviar"
+          },
+          label: false,
           label_method: :presenta_nombre,
-          value_method: :id ,
+          required: false,
           selected: Msip::ModeloHelper.poromision(params, n),
-          input_html: { class: 'tom-select',
-                        "data-enviarautomatico" => "" } %>
+          value_method: :id
+        %>
       <% end %>
     <% elsif defined?(cregistro.columns_hash[atrsl]) && respfiltro %>
       <% # Escogemos el control %>
@@ -99,120 +103,131 @@
         <% if cregistro.respond_to?("filtro_#{atrf}ini") &&
              cregistro.respond_to?("filtro_#{atrf}fin") %>
            <%= f.input "#{n}ini",
-             label: false,
-             required: false,
-             :input_html => { 
-               type: "date",
-               "data-enviarautomatico" => "",
+             as: :string,
+             input_html: {
+               "data-action": "change->msip--enviarautomatico#enviar",
                placeholder: 'Inicial',
-               value: Msip::ModeloHelper.poromision(params, "#{n}ini"),
-             }, 
-             :as => :string %> - 
-           <%= f.input "#{n}fin",
+               type: "date",
+               value: Msip::ModeloHelper.poromision(params, "#{n}ini")
+             },
              label: false,
-             required: false,
-             :input_html => { 
-               "type" => "date",
-               "data-enviarautomatico" => "",
+             required: false
+             %> -
+           <%= f.input "#{n}fin",
+             as: :string,
+             input_html: {
+               "type":  "date",
+               "data-action": "change->msip--enviarautomatico#enviar",
                placeholder: 'Final',
                value: Msip::ModeloHelper.poromision(params, "#{n}fin")
-             }, 
-             :as => :string %> 
+             },
+             label: false,
+             required: false
+           %>
          <% else %>
            <%= f.input "#{n}",
-             label: false,
-             required: false,
-             :input_html => { 
-               "type" => "date",
-               "data-enviarautomatico" => "",
+             as: :string,
+             input_html: {
+               "type": "date",
+               "data-action": "change->msip--enviarautomatico#enviar",
                value: Msip::ModeloHelper.poromision(params, "#{n}")
-             }, 
-             :as => :string %> 
+             },
+             label: false,
+             required: false
+           %>
          <% end %>
       <% elsif col && col.type == :integer %>
         <% if cregistro.respond_to?("filtro_#{atrf}ini") &&
              cregistro.respond_to?("filtro_#{atrf}fin") %>
            <%= f.input "#{n}ini",
-             label: false,
-             required: false,
-             :input_html => { 
+             as: :integer,
+             input_html: {
                value: Msip::ModeloHelper.poromision(params, "#{n}ini"),
-               "data-enviarautomatico" => "",
+               "data-action": "change->msip--enviarautomatico#enviar",
                size: 5
-             }, 
-             as: :integer %>  -
-           <%= f.input "#{n}fin",
+             },
              label: false,
-             required: false,
-             :input_html => { 
+             required: false
+             %> -
+           <%= f.input "#{n}fin",
+             as: :integer,
+             input_html: {
                value: Msip::ModeloHelper.poromision(params, "#{n}fin"),
-               "data-enviarautomatico" => "",
+               "data-action": "change->msip--enviarautomatico#enviar",
                size: 5
-               },
-               as: :integer %>
+             },
+             label: false,
+             required: false
+           %>
          <% else %>
            <%= f.input n,
-             label: false,
-             required: false,
-             :input_html => { 
+             as: :integer,
+             input_html: {
                value: Msip::ModeloHelper.poromision(params, "#{n}"),
-               "data-enviarautomatico" => "",
+               "data-action": "change->msip--enviarautomatico#enviar",
                type: :text,
                style: 'width: 4em'
-             }, 
-             as: :integer %>
+             },
+             label: false,
+             required: false
+           %>
          <% end %>
       <% elsif col && col.type == :decimal%>
         <% if cregistro.respond_to?("filtro_#{atrf}ini") &&
              cregistro.respond_to?("filtro_#{atrf}fin") %>
            <%= f.input "#{n}ini",
-             label: false,
-             required: false,
-             :input_html => { 
-               "data-enviarautomatico" => "",
+             as: :string,
+             input_html: {
+               "data-action": "change->msip--enviarautomatico#enviar",
                value: Msip::ModeloHelper.poromision(params, "#{n}ini"),
-             }, 
-             :as => :string %> - 
-           <%= f.input "#{n}fin",
+             },
              label: false,
-             required: false,
-             :input_html => { 
-               "data-enviarautomatico" => "",
+             required: false
+           %> -
+           <%= f.input "#{n}fin",
+             as: :string,
+             input_html: {
+               "data-action": "change->msip--enviarautomatico#enviar",
                value: Msip::ModeloHelper.poromision(params, "#{n}fin")
-             }, 
-             :as => :string %> 
+             },
+             label: false,
+             required: false
+           %>
          <% else %>
          <% end %>
       <% elsif col && !col.limit.nil? && col.limit.to_i > 1000 %>
         <%= f.input n,
-          label: false,
-          required: false,
-          as: :text, 
-          :input_html => { 
-            "data-enviarautomatico" => "",
+          as: :text,
+          input_html: {
+            "data-action": "change->msip--enviarautomatico#enviar",
             value: Msip::ModeloHelper.poromision(params, "#{n}")
-          } %>
+          },
+          label: false,
+          required: false
+        %>
       <% else %>
-        <%= f.input n, 
-          label: false,
-          required: false,
-          :input_html => { 
-            "data-enviarautomatico" => "",
+        <%= f.input n,
+          input_html: {
+            "data-action": "change->msip--enviarautomatico#enviar",
             value: Msip::ModeloHelper.poromision(params, "#{n}")
-          } %>
+          },
+          label: false,
+          required: false
+        %>
       <% end %>
     <% elsif respfiltro %>
-      <%= f.input n, 
-        label: false,
-        required: false,
-        :input_html => { 
-          "data-enviarautomatico" => "",
+      <%= f.input n,
+        input_html: {
+          "data-action": "change->msip--enviarautomatico#enviar",
           value: Msip::ModeloHelper.poromision(params, "#{n}")
-        } %>
+        },
+        label: false,
+        required: false
+      %>
     <% end %>
     </td>
   <% end %>
-  
+
   <td>
     <%= render partial: 'index_filtro_controles', locals: {f: f} %>
   </td>

@@ -1,12 +1,12 @@
 <%= f.input :bushabilitado,
   collection: ['Todos', 'Si', 'No'],
-  label: false,
-  selected: Msip::ModeloHelper.poromision(params, :bushabilitado),
+  include_blank: false,
   input_html: {
     class: 'tom-select',
-    'data-enviarautomatico' => '',
+    'data-action': 'change->msip--enviarautomatico#enviar',
     value: params && params[:filtro] && params[:filtro][:habilitado] ? 
       params[:filtro][:habilitado] : 'Todos'
   },
-  include_blank: false
+  label: false,
+  selected: Msip::ModeloHelper.poromision(params, :bushabilitado)
 %>

@@ -308,21 +308,6 @@ export default class Msip__Motor {
       });
     }
 
-    document.addEventListener('click', event => {
-      if (event.target.matches('a.enviarautomatico[href^="#"]')) {
-        Msip__Motor.enviarAutomaticoFormulario(document.querySelector('form'), 'POST', 'json', false);
-      }
-    });
-
-    document.addEventListener('change', event => {
-      debugger
-      if (event.target.matches('select[data-enviarautomatico], input[data-enviarautomatico]')) {
-        debugger
-        Msip__Motor.enviarAutomaticoFormulario(event.target.form);
-      }
-    });
-
-
     function iniciaRotador() {
       document.documentElement.style.cursor = "progress";
     }

@@ -2,11 +2,11 @@
   v.last != 0 } %>
 <%= f.input :busrol,
   collection: cnus,
-  label: false,
-  selected: Msip::ModeloHelper.poromision(params, :busrol),
+  include_blank: true,
   input_html: {
     class: 'tom-select',
-    'data-enviarautomatico' => ''
+    'data-action': 'change->msip--enviarautomatico#enviar'
   },
-  include_blank: true
+  label: false,
+  selected: Msip::ModeloHelper.poromision(params, :busrol)
 %>

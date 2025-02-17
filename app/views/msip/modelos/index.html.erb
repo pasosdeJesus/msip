@@ -7,146 +7,150 @@
   </h1>
 </div>
 
+<div>
+  <% if !@url_formulario_msipmodelo.nil? %>
+    <% url_formulario = @url_formulario_msipmodelo %>
+  <% else %>
+    <% url_formulario = modelos_path(@registros) %>
+  <% end %>
+  <%= simple_form_for :filtro,
+    { url: url_formulario,
+      method: "get",
+      html: {
+        "data-controller": "msip--enviarautomatico",
+        "data-msip--enviarautomatico-target": "formulario repintar",
+      }
+    } do |f| %>
+    <%= render partial: 'index_encabezado', locals: {titulo: titulo, f: f} %>
 
-<% if !@url_formulario_msipmodelo.nil? %>
-  <% url_formulario = @url_formulario_msipmodelo %>
-<% else %>
-  <% url_formulario = modelos_path(@registros) %>
-<% end %>
-<%= simple_form_for :filtro,
-  { url: url_formulario,
-    method: "get"} do |f| %>
+    <%= render partial: 'index_filtro_antestabla', locals: {f: f} %>
 
-  <%= render partial: 'index_encabezado', locals: {titulo: titulo, f: f} %>
+    <table class="table table-striped" data-controller="<%= @filtro_controladores || '' %>">
+      <thead>
+        <tr>
+          <!-- http://blog.crowdint.com/2013/08/22/rails-template-inheritance.html -->
+          <% #byebug %>
+          <% rutaf = clase.pluralize.underscore + '/index_titulos_tabla' %>
+          <% if lookup_context.find_all(rutaf, [], true).any? %>
+            <%= render partial: rutaf, locals: {f: f} %>
+          <% else %>
+            <% atributos_index.each do |atr| %>
+              <% rutaat = clase.pluralize.underscore +
+                '/index_titulo_tabla_' + atr.to_s %>
+              <% if lookup_context.find_all(rutaat, [], true).any? %>
+                <% m = render partial: rutaat, locals: {f: f} %>
+              <% elsif atr.class == Hash && atr.keys.count == 1 &&
+                  atr[atr.keys[0]] == [] %>
+                <% # Si en config/locale/es.yml dice "{:proyecto_ids=>[]}": Áreas
+                # Al usar model_class.human_attribute_name("{:proyecto_ids=>[]}")
+                # estrañamente da Proyectos.  Aunque si opera bien para otros
+                # casos como más complejos como "{:objetivopf_attributes=>[:id, :numero, :objetivo, :_destroy]}": Objetivo.
+                # Soportamos entonces que config/locale/es.ym diga proyeto_ids: Áreas
+                # %>
+                <% m = model_class.human_attribute_name(atr.keys[0]) %>
+              <% else %>
+                <% m = model_class.human_attribute_name(atr) %>
+              <% end %>
+              <th><%= m %></th>
+            <% end %>
+            <th><%=t '.actions', :default => t("helpers.actions") %></th>
+          <% end %>
+        </tr>
 
-  <%= render partial: 'index_filtro_antestabla', locals: {f: f} %>
-
-  <table class="table table-striped" data-controller="<%= @filtro_controladores || '' %>">
-    <thead>
-      <tr>
-        <!-- http://blog.crowdint.com/2013/08/22/rails-template-inheritance.html -->
-        <% #byebug %>
-        <% rutaf = clase.pluralize.underscore + '/index_titulos_tabla' %>
+        <% rutaf = clase.pluralize.underscore + '/index_filtro' %>
         <% if lookup_context.find_all(rutaf, [], true).any? %>
+          <% # Hay un parcial %>
           <%= render partial: rutaf, locals: {f: f} %>
         <% else %>
-          <% atributos_index.each do |atr| %>
-            <% rutaat = clase.pluralize.underscore + 
-              '/index_titulo_tabla_' + atr.to_s %>
-            <% if lookup_context.find_all(rutaat, [], true).any? %>
-              <% m = render partial: rutaat, locals: {f: f} %>
-            <% elsif atr.class == Hash && atr.keys.count == 1 && 
-                atr[atr.keys[0]] == [] %>
-              <% # Si en config/locale/es.yml dice "{:proyecto_ids=>[]}": Áreas
-              # Al usar model_class.human_attribute_name("{:proyecto_ids=>[]}")
-              # estrañamente da Proyectos.  Aunque si opera bien para otros
-              # casos como más complejos como "{:objetivopf_attributes=>[:id, :numero, :objetivo, :_destroy]}": Objetivo.
-              # Soportamos entonces que config/locale/es.ym diga proyeto_ids: Áreas
-              # %>
-              <% m = model_class.human_attribute_name(atr.keys[0]) %>
-            <% else %>
-              <% m = model_class.human_attribute_name(atr) %>
-            <% end %>
-            <th><%= m %></th>
-          <% end %>
-          <th><%=t '.actions', :default => t("helpers.actions") %></th>
+          <%= render partial: 'index_filtro', locals: {f: f} %>
         <% end %>
-      </tr>
 
-      <% rutaf = clase.pluralize.underscore + '/index_filtro' %>
-      <% if lookup_context.find_all(rutaf, [], true).any? %>
-        <% # Hay un parcial %>
-        <%= render partial: rutaf, locals: {f: f} %>
-      <% else %>
-        <%= render partial: 'index_filtro', locals: {f: f} %>
-      <% end %>
+      </thead>
 
-    </thead>
-
-    <tbody>
-      <% @registros.try(:each) do |registro| %>
-        <tr>
-          <% atributos_index.each do |atr| %>
-            <% #byebug %>
+      <tbody>
+        <% @registros.try(:each) do |registro| %>
+          <tr>
+            <% atributos_index.each do |atr| %>
+              <% #byebug %>
+              <td>
+                <% vatr = atr.to_s.gsub(/[^a-z_A-Z0-9]/, '') %>
+                <% rutavatr = clase.pluralize.underscore +
+                  "/index_campo_#{vatr}" %>
+                <% (ri, rm, rd)=clase.pluralize.underscore.rpartition("/") %>
+                <% radmin = "#{ri}/admin/#{rd}/index_campo_#{vatr}" %>
+                <% rutashow = clase.pluralize.underscore +
+                  "/show_campo_#{vatr}" %>
+                <% radmin2 = "#{ri}/admin/#{rd}/show_campo_#{vatr}" %>
+                <% if lookup_context.find_all(rutavatr, [], true).any? %>
+                  <%= render partial: rutavatr, locals: {registro: registro} %>
+                <% elsif lookup_context.find_all(radmin, [], true).any? %>
+                  <%= render partial: radmin, locals: {registro: registro} %>
+                <% elsif lookup_context.find_all(rutashow, [], true).any? %>
+                  <% @registro = registro %>
+                  <%= render partial: rutashow, locals: {registro: registro} %>
+                <% elsif lookup_context.find_all(radmin2, [], true).any? %>
+                  <% @registro = registro %>
+                  <%= render partial: radmin2, locals: {registro: registro} %>
+                <% elsif atr.to_s == "id" then %>
+                  <% if can?( :show, registro) %>
+                    <%= link_to registro[atr], modelo_path(registro) %>
+                  <% else %>
+                    <%= registro[atr].to_i %>
+                  <% end %>
+                <% else %>
+                  <% #byebug %>
+                  <% s = registro.presenta(atr) %>
+                  <% if s.to_s.include?("\n") %>
+                    <pre><%= s %></pre>
+                  <% else %>
+                    <%= s %>
+                  <% end %>
+                <% end %>
+              </td>
+            <% end %>
             <td>
-              <% vatr = atr.to_s.gsub(/[^a-z_A-Z0-9]/, '') %>
-              <% rutavatr = clase.pluralize.underscore + 
-                "/index_campo_#{vatr}" %>
-              <% (ri, rm, rd)=clase.pluralize.underscore.rpartition("/") %>
-              <% radmin = "#{ri}/admin/#{rd}/index_campo_#{vatr}" %>
-              <% rutashow = clase.pluralize.underscore + 
-                "/show_campo_#{vatr}" %>
-              <% radmin2 = "#{ri}/admin/#{rd}/show_campo_#{vatr}" %>
-              <% if lookup_context.find_all(rutavatr, [], true).any? %>
-                <%= render partial: rutavatr, locals: {registro: registro} %>
-              <% elsif lookup_context.find_all(radmin, [], true).any? %>
-                <%= render partial: radmin, locals: {registro: registro} %>
-              <% elsif lookup_context.find_all(rutashow, [], true).any? %>
-                <% @registro = registro %>
-                <%= render partial: rutashow, locals: {registro: registro} %>
-              <% elsif lookup_context.find_all(radmin2, [], true).any? %>
-                <% @registro = registro %>
-                <%= render partial: radmin2, locals: {registro: registro} %>
-              <% elsif atr.to_s == "id" then %>
-                <% if can?( :show, registro) %>
-                  <%= link_to registro[atr], modelo_path(registro) %>
-                <% else %>
-                  <%= registro[atr].to_i %>
-                <% end %>
-              <% else %>
-                <% #byebug %>
-                <% s = registro.presenta(atr) %>
-                <% if s.to_s.include?("\n") %>
-                  <pre><%= s %></pre>
-                <% else %>
-                  <%= s %>
-                <% end %>
-              <% end %>
-            </td>
-          <% end %>
-          <td>
-            <% rutama = clase.pluralize.underscore + '/index_acciones' %>
-            <% if lookup_context.
-                 find_all( rutama, [], true).any? %>
-              <% # Hay un parcial %>
-              <%= render partial: rutama, locals: {f: f, registro: registro} %>
-            <% else %>
-              <% if can?(:edit, registro) %>
-                <%= render partial: 'boton_editar',
-                  locals: {registro: registro, mas_clases: 'btn-sm'} %>
-                <% if defined?(controller.con_boton_copiar?) && 
-                    controller.con_boton_copiar? %>
-                  <%= render partial: 'boton_copiar', 
-                    locals: {mas_clases: "btn-sm", registro: registro} %>
-                <% end %>
-              <% end %>
-              <% rutama = clase.pluralize.underscore + '/index_mas_acciones' %>
+              <% rutama = clase.pluralize.underscore + '/index_acciones' %>
               <% if lookup_context.
-                  find_all( rutama, [], true).any? %>
+                   find_all( rutama, [], true).any? %>
                 <% # Hay un parcial %>
                 <%= render partial: rutama, locals: {f: f, registro: registro} %>
               <% else %>
-                <%= render partial: 'index_mas_acciones', 
-                  locals: {f: f, registro: registro} %>
+                <% if can?(:edit, registro) %>
+                  <%= render partial: 'boton_editar',
+                    locals: {registro: registro, mas_clases: 'btn-sm'} %>
+                  <% if defined?(controller.con_boton_copiar?) &&
+                      controller.con_boton_copiar? %>
+                    <%= render partial: 'boton_copiar',
+                      locals: {mas_clases: "btn-sm", registro: registro} %>
+                  <% end %>
+                <% end %>
+                <% rutama = clase.pluralize.underscore + '/index_mas_acciones' %>
+                <% if lookup_context.
+                    find_all( rutama, [], true).any? %>
+                  <% # Hay un parcial %>
+                  <%= render partial: rutama, locals: {f: f, registro: registro} %>
+                <% else %>
+                  <%= render partial: 'index_mas_acciones',
+                    locals: {f: f, registro: registro} %>
+                <% end %>
+                <% if can?(:destroy, registro) %>
+                  <%= render partial: 'boton_eliminar',
+                    locals: {registro: registro, mas_clases: 'btn-sm'} %>
+                <% end %>
               <% end %>
-              <% if can?(:destroy, registro) %>
-                <%= render partial: 'boton_eliminar',
-                  locals: {registro: registro, mas_clases: 'btn-sm'} %>
-              <% end %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <% rutaipt = clase.pluralize.underscore + '/index_post_tabla' %>
-  <% if lookup_context.find_all(rutaipt, [], true).any? %>
-    <% # Hay un parcial para final tabla %>
-    <%= render partial: rutaipt, locals: {f: f} %>
-  <% else %>
-    <%= render partial: 'index_post_tabla', locals: {f: f} %>
-  <% end %>
+    <% rutaipt = clase.pluralize.underscore + '/index_post_tabla' %>
+    <% if lookup_context.find_all(rutaipt, [], true).any? %>
+      <% # Hay un parcial para final tabla %>
+      <%= render partial: rutaipt, locals: {f: f} %>
+    <% else %>
+      <%= render partial: 'index_post_tabla', locals: {f: f} %>
+    <% end %>
 
-<% end #simple_form_for %> 
-
+  <% end #simple_form_for %>
+</div>
