@@ -44,5 +44,5 @@ c_rubocop:
 yard:
 	yard
 
-sintaxis_erb:
-	rake app:syntax:erb
+sintaxis-erb:
+	rake app:sintaxis:erb
