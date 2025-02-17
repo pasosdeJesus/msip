@@ -1,9 +1,9 @@
-<%= f.input :bussexo, 
+<%= f.input :bussexo,
   collection: ::Msip::Persona::sexo_opciones,
   include_blank: true,
-  input_html: { 
+  input_html: {
     class: 'tom-select',
-    "data-action': 'change->msip--enviarautomatico#enviar'
+    'data-action': 'change->msip--enviarautomatico#enviar'
   },
   label: false,
   selected: Msip::ModeloHelper.poromision(params, :bussexo)

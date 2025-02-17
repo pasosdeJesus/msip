@@ -87,6 +87,7 @@ export default class extends Controller {
       }
       elemRepintar[0].replaceWith(cont[0])
     }).catch( error => {
+      document.body.style.cursor = 'default'
       alert(`Error al enviar: ${error.message}`);
     });
   }
