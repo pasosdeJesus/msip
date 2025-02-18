@@ -13,15 +13,15 @@ module Msip
           self.table_name = "msip_etiqueta_persona"
 
           belongs_to :persona,
-            class_name: "Msip::Persona",,
+            class_name: "Msip::Persona",
             inverse_of: :etiqueta_persona,
             optional: false,
             validate: false
           belongs_to :etiqueta,
-            class_name: "Msip::Etiqueta",,
+            class_name: "Msip::Etiqueta",
             optional: false,
             validate: false
-          belongs_to :usuario,,
+          belongs_to :usuario,
             optional: false,
             validate: false
 

@@ -15,11 +15,11 @@ module Msip
           self.primary_key = [:etiqueta_id, :municipio_id]
 
           belongs_to :municipio,
-            class_name: "Msip::Municipio",,
+            class_name: "Msip::Municipio",
             optional: false,
             validate: false
           belongs_to :etiqueta,
-            class_name: "Msip::Etiqueta",,
+            class_name: "Msip::Etiqueta",
             optional: false,
             validate: false
         end # included
