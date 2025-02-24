@@ -417,7 +417,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   rails-i18n (~> 7.0)
-  rake
   rubocop-minitest
   rubocop-rails
   rubocop-shopify
@@ -438,4 +437,4 @@ RUBY VERSION
    ruby 3.3.3p89
 
 BUNDLED WITH
-   2.6.4
+   2.6.5
