@@ -10,7 +10,7 @@ module Msip
           self.table_name = "msip_pais_histvigencia"
 
           belongs_to :pais,
-            class_name: "Msip::Pais",,
+            class_name: "Msip::Pais",
             optional: false,
             validate: false
         end # included
