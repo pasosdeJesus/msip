@@ -12,6 +12,8 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
 
+gem "cssbundling-rails"
+
 gem "devise" # Autenticación
 
 gem "devise-i18n"               # Localización e Internacionalización
@@ -29,18 +31,16 @@ gem "nokogiri", ">=1.11.1"
 
 gem "pg" # PostgreSQL
 
+gem "propshaft"
+
 gem "puma" # Lanza en modo desarrollo
 
-gem "rails", ">= 7.2", "< 7.3"
+gem "rails", "~> 8.0"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
-gem "rails-i18n", "~> 7.0"      # Localización e Internacionalización
-
-gem "sassc-rails", "~> 2.1"     # Conversión a CSS
+gem "rails-i18n"      # Localización e Internacionalización
 
 gem "simple_form", "~> 5.1"     # Formularios
-
-gem "sprockets-rails"
 
 gem "stimulus-rails"            # Controladores en javascript
 
