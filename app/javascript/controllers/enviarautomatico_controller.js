@@ -68,7 +68,7 @@ export default class extends Controller {
       let parsedHtml = parser.parseFromString(html, 'text/html');
       let selector = `${this.repintarTarget.localName}[data-msip--enviarautomatico-target]` // e.g form[data-msip--enviarautomatico-target]
       const cont = parsedHtml.querySelectorAll(selector)
-      if (cont == null) {
+      if (cont == null || cont.length == 0) {
         alert(`En el HTML recibido no se encontro el selector ${selector}`)
         return
       } else if (cont.length > 1) {
