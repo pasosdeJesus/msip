@@ -25,15 +25,12 @@ Gem::Specification.new do |s|
   s.add_dependency("devise-i18n", "~> 1")
   s.add_dependency("kt-paperclip", "~> 7")
   s.add_dependency("pg", "~> 1")
-  s.add_dependency("rails", "~> 7.0")
-  s.add_dependency("rails-i18n", "~> 7")
-  s.add_dependency("sassc-rails", "~> 2")
+  s.add_dependency("rails", "~> 8.0")
+  s.add_dependency("rails-i18n", "~> 8")
   s.add_dependency("simple_form", "~> 5")
-  s.add_dependency("sprockets-rails", "~> 3")
   s.add_dependency("stimulus-rails", "~> 1")
   s.add_dependency("twitter_cldr", "~> 6")
-  s.add_dependency("will_paginate", "~> 3")
+  s.add_dependency("will_paginate", "~> 4")
 
-  s.add_development_dependency("cuprite", "~> 0")
   s.add_development_dependency("minitest", "~> 5")
 end
