@@ -558,7 +558,7 @@ minmsip_des=# \q
   ```
   y preparar directorio `public/minmsip`:
   ```
-  mkdir public/minmsip
+  mkdir public/{assets,minmsip}
   cd public/minsip
   ln -s ../assets .
   cd ../..
@@ -578,7 +578,7 @@ minmsip_des=# \q
   de ejemplo de msip:
 
   ```
-  $ (cd app/javascript && ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/javascript/{application.js,jquery.js})
+  $ (cd app/javascript && ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/javascript/application.js)
   ```
   Asegura que se podrán usar funciones auxiliares relacionadas con Bootstrap,
   dejando `app/helpers/application_helper.rb` con el siguiente contenido:
@@ -593,10 +593,13 @@ minmsip_des=# \q
   ```
     "scripts": {
       "build": "esbuild app/javascript/*.* --preserve-symlinks --bundle --sourcemap --outdir=app/assets/builds",
-      "start": "node esbuild-des.config.js"
+      "start": "node esbuild-des.config.mjs"
     },
   ```
-
+  y descarga el archivo `esbuild-des.config.mjs` de msip:
+  ```
+  ftp https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/esbuild-des.config.mjs
+  ``` 
 - Emplea los controladores stimulus de msip con:
   ```
     mkdir app/javascript/controllers
