@@ -253,6 +253,8 @@ minmsip_des=# \q
   end
 
   group :development do
+    gem "colorize"
+    
     gem "web-console"             # Depura en navegador
   end
 
