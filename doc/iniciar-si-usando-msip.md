@@ -160,7 +160,7 @@ minmsip_des=# \q
   ```sh
   $ bin/rails s
   => Booting Puma
-  => Rails 7.1.2 application starting in development
+  => Rails 7.2.2 application starting in development
   => Run `rails server --help` for more startup options
   Puma starting in single mode...
   * Version 5.6.5 (ruby 3.2.0-p0) ("Birdie's Version")
@@ -360,7 +360,9 @@ minmsip_des=# \q
 
   module Minmsip
     class Application < Rails::Application
-      config.load_defaults 7.1
+      config.load_defaults 7.2
+
+      config.autoload_lib(ignore: %w[assets tasks])
 
       config.active_record.schema_format = :sql
       config.railties_order = [:main_app, Msip::Engine, :all]
@@ -374,6 +376,8 @@ minmsip_des=# \q
       config.hosts.concat(
         ENV.fetch('CONFIG_HOSTS', '127.0.0.1').downcase.split(',')
       )
+
+      config.generators.system_tests = nil
     end
   end
   ```
