@@ -8,6 +8,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby ">= 3.3.3"
 
+gem "bcrypt"
+
 gem "bootsnap", ">= 1.4.4", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso

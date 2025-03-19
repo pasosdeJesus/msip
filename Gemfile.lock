@@ -376,6 +376,7 @@ PLATFORMS
   x86_64-openbsd
 
 DEPENDENCIES
+  bcrypt
   bootsnap (>= 1.4.4)
   brakeman
   bundler-audit
