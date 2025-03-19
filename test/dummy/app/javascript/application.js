@@ -6,12 +6,13 @@ import Rails from "@rails/ujs";
 if (typeof window.Rails == 'undefined') {
   Rails.start();
   window.Rails = Rails;
-  }
+}
 
 import "@hotwired/turbo-rails"
 
 import 'popper.js'              // Dialogos emergentes usados por bootstrap
 import * as bootstrap from 'bootstrap'              // Maquetacion y elementos de diseño
+window.bootstrap = bootstrap
 
 import Msip__Motor from "./controllers/msip/motor"
 window.Msip__Motor = Msip__Motor
