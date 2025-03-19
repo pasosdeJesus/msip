@@ -86,20 +86,13 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
 
   git_source(:gitlab) { |repo| "https://gitlab.com/#{repo}.git" }
 
-  ruby ">=3.2.0"
-
-  gem "babel-transpiler"           # Permite tener módulos ES6
+  ruby ">=3.4.0"
 
   gem "bcrypt"                     # Condensando de claves con bcrypt
 
   gem "bootsnap", require: false   # Arranque rápido
 
   gem "cancancan"                  # Control de acceso
-
-  gem "cocoon", git: "https://github.com/vtamara/cocoon.git",
-  branch: "new_id_with_ajax"       # Formularios anidados por reemplazar con turbo
-
-  gem "coffee-rails"               # Parte de msip aún usa Coffescript
 
   gem "devise"                     # Autenticación
 
@@ -119,7 +112,7 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
 
   gem "puma"                       # Lanza en modo desarrollo
 
-  gem "rails"
+  gem "rails", "~>7.2"
 
   gem "rails-i18n"                 # Localización e Internacionalización
 
@@ -144,13 +137,25 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
 
 
   group :development, :test do
+    gem "brakeman"
+    
+    gem "bundler-audit"
+
     gem "code-scanning-rubocop"   # Busca fallas de seguridad
 
     gem "colorize"
 
     gem "debug"                   # Depura
 
+    gem "dotenv-rails"
+
     gem "rails-erd"               # Genera diagrama entidad asociación
+
+    gem "rubocop-minitest"
+
+    gem "rubocop-rails"
+
+    gem "yard"
   end
 
   group :development do
