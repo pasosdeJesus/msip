@@ -378,6 +378,7 @@ minmsip_des=# \q
       config.hosts.concat(
         ENV.fetch('CONFIG_HOSTS', '127.0.0.1').downcase.split(',')
       )
+      config.relative_url_root = ENV.fetch("RUTA_RELATIVA", "/minmsip")
 
       config.generators.system_tests = nil
     end
@@ -533,31 +534,42 @@ minmsip_des=# \q
     resources :usuarios, path_names: { new: 'nuevo', edit: 'edita' }
 
     root 'msip/hogar#index'
-    mount Msip::Engine, at: rutarel, as: 'msip'
+    mount Msip::Engine, at: "/", as: 'msip'
   end
   ```
-  Verifica su sintaxis con `ruby -c config/routes.rb`
+  Verifica las rutas con `bin/rails routes`
 
-  En `config/initializers/punto_montaje.rb`:
+  Modifica el archivo `config.ru` debe ser:
   ```
-  # relative_url_root configurada en config/application.rb
-  Minmsip::Application.config.assets.prefix = ENV.fetch(
-    'RUTA_RELATIVA', '/minmsip') == '/' ?
-   '/assets' : (ENV.fetch('RUTA_RELATIVA', '/minmsip') + '/assets')
+  # frozen_string_literal: true
+
+  # Este archivo es usado por servidores basados en Rack para iniciar la
+  # aplicación
+
+  require_relative "config/environment"
+  rutarel = Rails.application.config.relative_url_root || "/"
+  if rutarel[0] != "/"
+    rutarel = "/" + rutarel
+  end
+  map rutarel do
+    run Rails.application
+    Rails.application.load_server
+  end
   ```
   y preparar directorio `public/minmsip`:
   ```
   mkdir public/minmsip
+  cd public/minsip
+  ln -s ../assets .
+  cd ../..
   ```
 - Para preparar experiencia de usuario con Bootstrap 5, Javascript con
-  módulos, Turbo, Stimulus, autocompletación y partes legadas con Jquery y cocoon debes instalar paquetes `npm` mínimos:
+  módulos, Turbo, Stimulus y autocompletación debes instalar paquetes `npm` mínimos:
   ```sh
   yarn add @hotwired/stimulus @hotwired/turbo-rails @rails/ujs \
     @popperjs/core @fortawesome/fontawesome-free bootstrap \
     https://gitlab.com/pasosdeJesus/autocompleta_ajax.git \
-    tom-select esbuild popper.js@2.0.0-next.4 jquery
-  yarn add -D  babel-plugin-macros
-  yarn add https://gitlab.com/pasosdeJesus/autocompleta_ajax.git
+    tom-select esbuild popper.js@2.0.0-next.4
   yarn install
   ```
   En `app/javascript/application.js` debes configurar como cargar los módulos
