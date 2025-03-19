@@ -34,23 +34,9 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```sh
   doas npm install --global yarn
   ```
-- Con esto ya deberías poder lanzar la aplicación en modo desarrollo (aunque
-  no correrá mucho sin base de datos, así que detenla con Control-C después de
-  lanzarla):
-  ```sh
-  $ bin/rails s
-  => Booting Puma
-  => Rails 7.1.2 application starting in development
-  => Run `rails server --help` for more startup options
-  Puma starting in single mode...
-  * Version 5.6.5 (ruby 3.2.0-p0) ("Birdie's Version")
-  * Min threads: 5
-  * Max threads: 5
-  * Environment: development
-  *         PID: 66138
-  * Listening on tcp://[::1]:3000
-  * Listening on tcp://127.0.0.1:3000
-  Use Ctrl-C to stop
+- Agrega la gema `dotenv-rails` con 
+  ```
+  bundle add dotenv-rails
   ```
 - Crea el usuario de PostgreSQL y la base de datos de desarrollo que emplearás.
   Por ejemplo en adJ para crear el usuario 'isa5417' con clave 'aquilaclave'
@@ -77,7 +63,115 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```
   *:*:*:isa5417:aquilaclave
   ```
+- Como empleas `dotenv-rails` crea el archivo `.env` con
+  algunas configuraciones a nivel de servidor como el usuario para
+  PostgreSQL, su clave, así como los nombres que usarás para las bases
+  de datos de pruebas, desarrollo y producción (la de desarrollo debe
+  coincidir con la creada anteriormente):
+  ```
+  #!/bin/sh
 
+  export BD_SERVIDOR=/var/www/var/run/postgresql    # Ruta al socket de PostgreSQL
+  export BD_USUARIO=isa5417                         # Usuario PostgreSQL
+  export BD_CLAVE=aquilaclave                       # Clave PostgreSQL
+  export BD_DES=minmsip_des                          # Base de datos de desarrollo
+  export BD_PRUEBA=minmsip_pru                       # Base de datos de pruebas
+  export BD_PRO=minmsip_pro                          # Base de datos de producción (no requerida en desarrollo)
+
+  export CONFIG_HOSTS=127.0.0.1          # Nombre del servidor donde se correrá
+  export RUTA_RELATIVA=/minmsip/                     # Ruta en la que correra, puede ser /
+  export DIRAP=${HOME}/comp/rails/minmsip            # Directorio donde están las fuentes de la aplicación
+  export RAILS_ENV=development                      # Modo en el que correrá (podría ser también production)
+
+  export IPDES=127.0.0.1                            # En modo desarrollo IP en la que escuchará conexiones
+  export PUERTODES=3300                             # En modo desarrollo puerto en el que escuchará conexiones
+  export MAQRECVIVA=$CONFIG_HOSTS                   # Servidor para recarga viva
+  export PUERTORECVIVA=4600                         # Puerto para recarga viva
+
+
+  export MSIP_FORMATO_FECHA="dd/M/yyyy"              # Formato para presentar y recibir fechas, también podría ser yyyy-mm-dd
+  export MSIP_RUTA_ANEXOS=${DIRAP}/archivos/anexos
+  export MSIP_RUTA_VOLCADOS=${DIRAP}/archivos/bd
+  ```
+  Puedes verificar la sintaxis cargando ese archivo desde la línea de ordenes
+  y revisando alguna variable con:
+  ```
+  $ (. .env; echo $BD_USUARIO)
+  isa5417
+  ```
+  Para dar posibilidad de sobrecargar esas variables de configuración del
+  servidor desde la línea de órdenes, cada una debe ponerse dentro de un
+  `if` como en el ejemplo siguiente con la primera:
+  ```
+  if (test "$BD_SERVIDOR" = "") then {
+    export BD_SERVIDOR=/var/www/var/run/postgresql # Ruta socket de PostgreSQL
+  }
+  ```
+  No agregues este archivo al repositorio git (si emplearás uno) porque tiene
+  claves y datos sensibles que podrían usarse para atacar tu servidor.
+  Puedes ayudarte a evitarlo agreando `.env` a tu archivo `.gitignore`
+  ```
+  echo .env >> .gitignore
+  ```
+  Pero si quieres distribuir en tu repositorio una plantilla del archivo .env
+  puedes copiarlo en `.env.plantilla` y agregar `.env.plantilla` a
+  tu repositorio:
+  ```
+  cp .env .env.plantilla
+  vi .env.plantilla  # Edita para quitar informacion sensible y poner ejemplos
+  git add .env.plantilla
+  ```
+- Modifica el archivo `config/database.yml` empleando las variables de
+  configuración que usaste en `.env`:
+```yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("BD_USUARIO") %>
+  password: <%= ENV.fetch("BD_CLAVE") %>
+  host: <%= ENV.fetch("BD_SERVIDOR") %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("BD_DES") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("BD_PRUEBA") %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("BD_PRO") %>
+```
+A continuación prueba que puedes ingresar a la interfaz `psql` de la base de
+desarrollo pero mediante rails:
+```sh
+$ bin/rails dbconsole
+psql (15.4)
+Type "help" for help.
+
+minmsip_des=# \q
+```
+
+- Con esto ya deberías poder lanzar la aplicación en modo desarrollo (aunque
+  inicialmente sólo presentar el logo de Rails, así que detenla con Control-C después de
+  lanzarla y verla en el navegador):
+  ```sh
+  $ bin/rails s
+  => Booting Puma
+  => Rails 7.1.2 application starting in development
+  => Run `rails server --help` for more startup options
+  Puma starting in single mode...
+  * Version 5.6.5 (ruby 3.2.0-p0) ("Birdie's Version")
+  * Min threads: 5
+  * Max threads: 5
+  * Environment: development
+  *         PID: 66138
+  * Listening on tcp://[::1]:3000
+  * Listening on tcp://127.0.0.1:3000
+  Use Ctrl-C to stop
+  ```
 - Si hace falta instala globalmente las gemas `dotenv` y `foreman` con
   `doas gem install dotenv foreman` e incluye otras gemas necesarias, así como
   `msip` en el archivo `Gemfile` que debe quedar al menos con:
@@ -175,64 +269,6 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   $ bundle install
   ```
 
-- Como msip emplea `dotenv` y `dotenv-rails` crea el archivo `.env` con
-  algunas configuraciones a nivel de servidor como el usuario para
-  PostgreSQL, su clave, así como los nombres que usarás para las bases
-  de datos de pruebas, desarrollo y producción (la de desarrollo debe
-  coincidir con la creada anteriormente):
-  ```
-  #!/bin/sh
-
-  export BD_SERVIDOR=/var/www/var/run/postgresql    # Ruta al socket de PostgreSQL
-  export BD_USUARIO=isa5417                         # Usuario PostgreSQL
-  export BD_CLAVE=aquilaclave                       # Clave PostgreSQL
-  export BD_DES=minmsip_des                          # Base de datos de desarrollo
-  export BD_PRUEBA=minmsip_pru                       # Base de datos de pruebas
-  export BD_PRO=minmsip_pro                          # Base de datos de producción (no requerida en desarrollo)
-
-  export CONFIG_HOSTS=127.0.0.1          # Nombre del servidor donde se correrá
-  export RUTA_RELATIVA=/minmsip/                     # Ruta en la que correra, puede ser /
-  export DIRAP=${HOME}/comp/rails/minmsip            # Directorio donde están las fuentes de la aplicación
-  export RAILS_ENV=development                      # Modo en el que correrá (podría ser también production)
-
-  export IPDES=127.0.0.1                            # En modo desarrollo IP en la que escuchará conexiones
-  export PUERTODES=3300                             # En modo desarrollo puerto en el que escuchará conexiones
-  export MAQRECVIVA=$CONFIG_HOSTS                   # Servidor para recarga viva
-  export PUERTORECVIVA=4600                         # Puerto para recarga viva
-
-
-  export MSIP_FORMATO_FECHA="dd/M/yyyy"              # Formato para presentar y recibir fechas, también podría ser yyyy-mm-dd
-  export MSIP_RUTA_ANEXOS=${DIRAP}/archivos/anexos
-  export MSIP_RUTA_VOLCADOS=${DIRAP}/archivos/bd
-  ```
-  Puedes verificar la sintaxis cargando ese archivo desde la línea de ordenes
-  y revisando alguna variable con:
-  ```
-  $ (. .env; echo $BD_USUARIO)
-  isa5417
-  ```
-  Para dar posibilidad de sobrecargar esas variables de configuración del
-  servidor desde la línea de órdenes, cada una debe ponerse dentro de un
-  `if` como en el ejemplo siguiente con la primera:
-  ```
-  if (test "$BD_SERVIDOR" = "") then {
-    export BD_SERVIDOR=/var/www/var/run/postgresql # Ruta socket de PostgreSQL
-  }
-  ```
-  No agregues este archivo al repositorio git (si emplearás uno) porque tiene
-  claves y datos sensibles que podrían usarse para atacar tu servidor.
-  Puedes ayudarte a evitarlo agreando `.env` a tu archivo `.gitignore`
-  ```
-  echo .env >> .gitignore
-  ```
-  Pero si quieres distribuir en tu repositorio una plantilla del archivo .env
-  puedes copiarlo en `.env.plantilla` y agregar `.env.plantilla` a
-  tu repositorio:
-  ```
-  cp .env .env.plantilla
-  vi .env.plantilla  # Edita para quitar informacion sensible y poner ejemplos
-  git add .env.plantilla
-  ```
 
 - Como incluiste la gema `msip` en tu `Gemfile`, debes crear el control de
   acceso en el archivo ```app/models/ability.rb``` inicialmente con:
@@ -300,38 +336,6 @@ Para iniciar una aplicación de nombre `minsip`que use **msip** en adJ sugerimos
   ```
 
 
-- Modifica el archivo `config/database.yml` empleando las variables de
-  configuración que usaste en `.env`:
-```yml
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("BD_USUARIO") %>
-  password: <%= ENV.fetch("BD_CLAVE") %>
-  host: <%= ENV.fetch("BD_SERVIDOR") %>
-
-development:
-  <<: *default
-  database: <%= ENV.fetch("BD_DES") %>
-
-test:
-  <<: *default
-  database: <%= ENV.fetch("BD_PRUEBA") %>
-
-production:
-  <<: *default
-  database: <%= ENV.fetch("BD_PRO") %>
-```
-A continuación prueba que puedes ingresar a la interfaz `psql` de la base de
-desarrollo pero mediante rails:
-```sh
-$ bin/rails dbconsole
-psql (15.4)
-Type "help" for help.
-
-minmsip_des=# \q
-```
 
 - Modifica la configuración de `config/application.rb` asegurando
   emplear volcados SQL, estableciendo zona horaria, localización,
