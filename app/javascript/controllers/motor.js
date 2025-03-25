@@ -92,6 +92,7 @@ export default class Msip__Motor {
   }
 
 
+<<<<<<< Updated upstream
   // Actualiza opciones de cuadros de selección que dependen de datos de un
   // formulario anidado. Etiquetas de opciones se calculan con función.
   //
@@ -801,6 +802,67 @@ export default class Msip__Motor {
 
 
   // Divide una fecha localizada en día, mes y año
+=======
+  static ejecutarAlCargarPagina(root) {
+    console.log('Msip: Ejecutando al cargar pagina')
+    if (typeof window.formato_fecha == 'undefined' || 
+      window.formato_fecha == '{}') {
+      //OJO msip_inicializaMotor()
+    }
+
+    $('[data-behaviour~=datepicker]').datepicker({
+      format: root.formato_fecha,
+      autoclose: true,
+      todayHighlight: true,
+      language: 'es'
+    })
+
+    $('[data-toggle="tooltip"]').tooltip()
+    $(document).on('cocoon:after-insert', (e) => {
+      $('[data-behaviour~=datepicker]').datepicker({
+        format: root.formato_fecha,
+        autoclose: true,
+        todayHighlight: true,
+        language: 'es'
+      })
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    $('.chosen-select').chosen({
+      allow_single_deselect: true,
+      no_results_text: 'No hay resultados',
+      placeholder_text_single: 'Seleccione una opción',
+      placeholder_text_multiple: 'Seleccione algunas opciones',
+      width: '100%'
+    })
+
+    // Caso especial de tooltips para campos con chosen  
+    $('select[data-toggle="tooltip"]').each( (v, e) => {
+      let ej = $(e)
+      let t = ej.attr('data-original-title')
+      let id = ej.attr('id')  
+      let ns = '#' + id+'_chosen .chosen-choices'
+      $(ns).attr('title', t)
+      $(ns).attr('data-toggle', 'tooltip')
+    })
+
+    debugger
+    MsipAutocompletaAjaxContactos.iniciar()
+    MsipAutocompletaAjaxFamiliares.iniciar()
+
+    // Pone colores de acuerdo al tema
+    msip_ajax_recibe_json(root, 'temausuario', {}, msip_pone_tema)
+
+    jQuery(() => {
+      $("a[rel~=popover], .has-popover").popover()
+      $("a[rel~=tooltip], .has-tooltip").tooltip()
+    })
+
+    let evento = new Event('msip:cargado');
+    document.dispatchEvent(evento);  
+  }
+
+>>>>>>> Stashed changes
   static partirFechaLocalizada(fechaLocalizada, formato) {
     let anio = 1900
     let dia = 15
