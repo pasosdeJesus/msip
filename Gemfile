@@ -6,21 +6,21 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # No usamos gemspec porque la aplicacón de prueba de un motor rails
 # no lo soporta.
 
-ruby ">= 3.3.3"
+ruby ">= 3.4"
 
 gem "bcrypt"
 
-gem "bootsnap", ">= 1.4.4", require: false
+gem "bootsnap"
 
-gem "cancancan", "~> 3.4" # Control de acceso
+gem "cancancan"
 
 gem "cssbundling-rails"
 
-gem "devise" # Autenticación
+gem "devise"
 
-gem "devise-i18n"               # Localización e Internacionalización
+gem "devise-i18n"
 
-gem "jbuilder", ">= 2.7"        # Json
+gem "jbuilder"
 
 gem "jsbundling-rails"
 
@@ -29,7 +29,7 @@ gem "kt-paperclip",             # Anexos
 # git: 'https://github.com/vtamara/paperclip.git', branch: 'fix-ruby3'
 # path: '../tmp/paperclip'
 
-gem "nokogiri", ">=1.11.1"
+gem "nokogiri"
 
 gem "pg" # PostgreSQL
 

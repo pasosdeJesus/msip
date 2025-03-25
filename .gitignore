@@ -57,3 +57,4 @@ test/dummy/app/javascript/controllers/msip
 ref
 cobertura-sistema
 config
+test/dummy/app/assets/stylesheets/msip
