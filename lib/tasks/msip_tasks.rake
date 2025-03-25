@@ -185,7 +185,7 @@ EOF
   end # restaura
 
   desc "Enlaza controladores de motores en app/javascript/controllers y actualiza index.js"
-  task stimulus_motores: :environment do
+  task enlaces_motores: :environment do
     # No funciona desde la aplicación hacer `import` de controladores que
     # están en motores especificando la ruta del motor
     # porque intenta cargar dependencias desde la ruta del motor.
@@ -198,18 +198,21 @@ EOF
     # `app/javascript/controllers/mi_motor`
 
     # @param motor identificación del motor e.g msip
-    # @param rutac ruta con controlador stimulus por enlazar  e.g
-    # ../../app/javascript/controllers
+    # @param rutaf ruta fuente e.g
+    #   ../../app/javascript/controllers o ../../app/assets/stylsheets/msip
+    # @param rutad ruta destino e.g
+    #   app/javascript/controllers/ o app/assets/styleshets a la que se 
+    #   agrega motor app/javascript/controllers/msip
     # @param cgitignore  líneas de .gitignore
     # @param pora lista de rutas por agregar a .gitignore
-    def enlaza(motor, rutac, cgitignore, pora)
-      puts "Enlazando controladores de #{motor}"
-      rr = "app/javascript/controllers/#{motor}"
+    def enlaza(motor, rutaf, rutad, cgitignore, pora)
+      puts "Enlazando de #{motor} en #{rutaf} a #{rutad}/#{motor}"
+      rr = "#{rutad}/#{motor}"
       nr = File.join(FileUtils.pwd, rr)
       if File.exist?(nr)
         FileUtils.rm_rf(nr)
       end
-      FileUtils.ln_sf(rutac, nr)
+      FileUtils.ln_sf(rutaf, nr)
       if cgitignore != [] && cgitignore.exclude?(rr)
         pora << rr
       end
@@ -221,21 +224,40 @@ EOF
     end
     pora = []
     # Si es aplicacíon de prueba de un motor enlazar los del motor
-    rutac = "../../app/javascript/controllers"
-    if Dir.exist?(rutac)
-      if Dir["../../*gemspec"].count == 1
-        enlaza(
-          Dir["../../*gemspec"][0][6..-9],
-          "../../../#{rutac}",
-          cgitignore,
-          pora,
-        )
-      end
+    motor = nil
+    if Dir["../../*gemspec"].count == 1
+      motor = Dir["../../*gemspec"][0][6..-9]
     end
+    rutac = File.join(FileUtils.pwd, "../../app/javascript/controllers")
+    if motor && Dir.exist?(rutac)
+      enlaza(
+        motor,
+        rutac,
+        "app/javascript/controllers",
+        cgitignore,
+        pora,
+      )
+    end
+    rutac = File.join(FileUtils.pwd, "../../app/assets/stylesheets")
+    if motor && Dir.exist?(rutac)
+      enlaza(
+        motor,
+        rutac,
+        "app/assets/stylesheets",
+        cgitignore,
+        pora,
+        )
+    end
+
     Gem::Specification.find_all.each do |s|
+      puts "OJO s.name=#{s.name}, s.gem_dir=#{s.gem_dir}"
       rutac = File.join(s.gem_dir, "/app/javascript/controllers")
       if Dir.exist?(rutac)
-        enlaza(s.name, rutac, cgitignore, pora)
+        enlaza(s.name, rutac, "app/javascript/controllers", cgitignore, pora)
+      end
+      rutac = File.join(s.gem_dir, "/app/assets/stylesheets")
+      if Dir.exist?(rutac)
+        enlaza(s.name, rutac, "app/assets/stylesheets", cgitignore, pora)
       end
     end
     puts "Ejecutando stimulus:manifest:update"
