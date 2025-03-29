@@ -1160,8 +1160,18 @@ export default class Msip__Motor {
       });
     });
     return arr;
-  };
+  }
 
+  /* Serializa valores de un formulario remplazando serializeForm de jquery
+   **/
+  static serializarFormulario(formulario) {
+    const datosFormulario = new FormData(formulario);
+    const entradas = [];
+    for (const [name, value] of datosFormulario.entries()) {
+      entradas.push(`${name}=${value}`);
+    }
+    return entradas.join('&');
+  }
 
 
 }
