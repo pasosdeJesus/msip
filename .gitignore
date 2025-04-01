@@ -58,3 +58,4 @@ ref
 cobertura-sistema
 config
 test/dummy/app/assets/stylesheets/msip
+test/dummy/app/assets/stylesheets/actiontext

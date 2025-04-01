@@ -26,6 +26,7 @@ module Msip
       end
 
       setup do
+        Rails.application.try(:reload_routes_unless_loaded)
         @current_usuario = ::Usuario.find(1)
         sign_in @current_usuario
       end
