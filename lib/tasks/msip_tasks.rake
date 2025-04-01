@@ -250,7 +250,6 @@ EOF
     end
 
     Gem::Specification.find_all.each do |s|
-      puts "OJO s.name=#{s.name}, s.gem_dir=#{s.gem_dir}"
       rutac = File.join(s.gem_dir, "/app/javascript/controllers")
       if Dir.exist?(rutac)
         enlaza(s.name, rutac, "app/javascript/controllers", cgitignore, pora)

@@ -42,13 +42,13 @@ gem "rails", "~> 8.0"
 
 gem "rails-i18n"      # Localización e Internacionalización
 
-gem "simple_form", "~> 5.1"     # Formularios
+gem "simple_form"     # Formularios
 
 gem "stimulus-rails"            # Controladores en javascript
 
-gem "turbo-rails", "~> 1.0"
+gem "turbo-rails"
 
-gem "twitter_cldr", "~> 6.11"   # Localiación e internacionalización
+gem "twitter_cldr"   # Localiación e internacionalización
 
 gem "tzinfo"                    # Zonas horarias
 
@@ -79,19 +79,15 @@ group :development, :test do
 end
 
 group :development do
-  gem "web-console", ">= 3.3.0"
+  gem "web-console"
 end
 
 group :test do
-  gem "connection_pool"
-
-  gem "minitest", "~> 5.16"
+  gem "minitest"
 
   gem "minitest-reporters"
 
   gem "rails-controller-testing"
 
   gem "simplecov"
-
-  gem "spork" # Un proceso para cada prueba -- acelera
 end
