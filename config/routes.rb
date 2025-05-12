@@ -53,7 +53,6 @@ Msip::Engine.routes.draw do
   post "/persona_trelaciones/actualizar", to: "persona_trelaciones#update",
     as: :actualizar_familiar
 
-  resources :personas, path_names: { new: "nueva", edit: "edita" }
 
   get "/personas", to: "personas#index"
   get "/personas/datos", to: "personas#datos"
@@ -68,6 +67,8 @@ Msip::Engine.routes.draw do
     as: :personas_unificar
   get "/personas/unificar", to: "personas#unificar",
     as: :personas_unificar_get
+
+  resources :personas, path_names: { new: "nueva", edit: "edita" }
 
   get "/respaldo7z", to: "respaldo7z#new", as: "respaldo7z"
   post "/respaldo7z", to: "respaldo7z#create"
