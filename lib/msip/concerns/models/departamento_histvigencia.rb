@@ -10,7 +10,7 @@ module Msip
           self.table_name = "msip_departamento_histvigencia"
 
           belongs_to :departamento,
-            class_name: "Msip::Departamento",,
+            class_name: "Msip::Departamento",
             optional: false,
             validate: false
         end # included
