@@ -57,7 +57,6 @@ module Msip
           def espacioenplan
             1000000000
           end
-
         end
       end
     end

@@ -34,9 +34,10 @@ module Msip
         pais_id: 170,
         nombre: "x - por generar",
         lugar: "x",
-        fechacreacion: "2023-12-07"
+        fechacreacion: "2023-12-07",
       )
       u.save
+
       assert u.valid?
 
       assert u.poner_nombre_estandar
@@ -44,7 +45,7 @@ module Msip
         170, nil, nil, nil, nil, nil, nil, nil, nil
       )
 
-      assert idu > 0
+      assert_operator idu, :>, 0
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Colombia", u.nombre
@@ -55,9 +56,10 @@ module Msip
         departamento_id: 11,
         nombre: "x - por completar",
         lugar: "x",
-        fechacreacion: "2023-12-07"
+        fechacreacion: "2023-12-07",
       )
       u.save
+
       assert u.valid?
 
       assert u.poner_nombre_estandar
@@ -66,7 +68,7 @@ module Msip
         170, 11, nil, nil, nil, nil, nil, nil, nil
       )
 
-      assert idu > 0
+      assert_operator idu, :>, 0
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Boyacá / Colombia", u.nombre
@@ -87,7 +89,7 @@ module Msip
         170, 11, 1013, nil, nil, nil, nil, nil, nil
       )
 
-      assert idu > 0
+      assert_operator idu, :>, 0
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Ráquira / Boyacá / Colombia", u.nombre
@@ -112,7 +114,7 @@ module Msip
         170, 11, 1013, 1248, nil, nil, nil, nil, nil
       )
 
-      assert idc > 0
+      assert_operator idc, :>, 0
       u = Msip::Ubicacionpre.find(idc)
 
       assert_equal "Ráquira / Ráquira / Boyacá / Colombia", u.nombre
@@ -123,7 +125,7 @@ module Msip
         170, 11, 1013, nil, "Vereda l", nil, nil, nil, nil
       )
 
-      assert idv > 0
+      assert_operator idv, :>, 0
       u = Msip::Ubicacionpre.find(idv)
 
       assert_equal "Vereda l / Ráquira / Boyacá / Colombia", u.nombre
@@ -134,7 +136,7 @@ module Msip
         170, 11, 1013, nil, "Vereda l", "Finca r", nil, nil, nil
       )
 
-      assert idf > 0
+      assert_operator idf, :>, 0
       u = Msip::Ubicacionpre.find(idf)
 
       assert_equal "Finca r / Vereda l / Ráquira / Boyacá / Colombia", u.nombre
@@ -174,7 +176,7 @@ module Msip
         170, 11, 1013, nil, nil, "Finca x", 3, nil, nil
       )
 
-      assert idu > 0
+      assert_operator idu, :>, 0
     end
 
     test "no valido con nombre muy laaaaargo" do
@@ -237,7 +239,9 @@ module Msip
 
     test "existe" do
       ubicacionpre = Ubicacionpre.where(
-        pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil)
+        pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil,
+      )
+
       assert_equal 1, ubicacionpre.count
     end
   end

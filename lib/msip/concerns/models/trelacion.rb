@@ -33,7 +33,7 @@ module Msip
 
           def inverso_existe
             if inverso.present? && inverso != id &&
-                Msip::Trelacion.where(id: inverso).take.nil?
+                Msip::Trelacion.find_by(id: inverso).nil?
               errors.add(:inverso, "no existe relacion con ese código")
             end
           end
@@ -48,16 +48,15 @@ module Msip
 
           def validaciones_extra(errors)
             cp = Msip::Trelacion.joins(
-              "JOIN msip_trelacion AS t2 ON t2.id=msip_trelacion.inverso"
+              "JOIN msip_trelacion AS t2 ON t2.id=msip_trelacion.inverso",
             ).where("t2.inverso<>msip_trelacion.id")
-            if cp.count > 0 
+            if cp.count > 0
               errors.add(
-                :inverso, 
-                "Las siguientes relaciones tienen inverso errado #{cp.pluck(:id).join(',')}"
+                :inverso,
+                "Las siguientes relaciones tienen inverso errado #{cp.pluck(:id).join(",")}",
               )
             end
           end
-
         end
       end
     end

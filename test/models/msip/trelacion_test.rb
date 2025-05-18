@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      trelacion = Msip::Trelacion.where(id: "SI").take
+      trelacion = Msip::Trelacion.find_by(id: "SI")
 
       assert_equal("SIN INFORMACIÓN", trelacion.nombre)
     end

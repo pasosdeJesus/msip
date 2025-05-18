@@ -11,7 +11,7 @@ module Msip
       if so == "OpenBSD"
         ps = procesos_OpenBSD
 
-        assert(ps.count > 0)
+        assert_operator(ps.count, :>, 0)
         p1 = ps.select { |p| p[:pid] == 1 }.first
 
         assert_equal "root", p1[:user]

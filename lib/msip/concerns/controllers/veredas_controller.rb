@@ -18,8 +18,9 @@ module Msip
           def index
             c = nil
             if params[:municipio_id]
-              idmun = params[:municipio_id].to_i > 0 ? 
-                params[:municipio_id].to_i : nil
+              idmun = if params[:municipio_id].to_i > 0
+                params[:municipio_id].to_i
+              end
               c = Msip::Vereda.where(
                 fechadeshabilitacion: nil,
                 municipio_id: idmun,
@@ -52,16 +53,16 @@ module Msip
           def atributos_form
             Msip::Municipio.conf_presenta_nombre_con_origen = true
             atributos_transf_habilitado - [
-              :id, 
-              "id", 
-              :pais, 
-              "pais,", 
-              :departamento, 
+              :id,
+              "id",
+              :pais,
+              "pais,",
+              :departamento,
               "departamento",
               "fechacreacion_localizada",
               :fechacreacion_localizada,
-            ]  + [
-              :fechacreacion
+            ] + [
+              :fechacreacion,
             ]
           end
 

@@ -7,19 +7,14 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
+          self.table_name = "msip_pais_histvigencia"
 
-          self.table_name = 'msip_pais_histvigencia'
-
-          belongs_to :pais, 
-            class_name: 'Msip::Pais', 
-            foreign_key: "pais_id", 
+          belongs_to :pais,
+            class_name: "Msip::Pais",,
             optional: false,
             validate: false
-
         end # included
-
       end
     end
   end
 end
-

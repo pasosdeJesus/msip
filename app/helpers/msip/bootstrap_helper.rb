@@ -206,7 +206,7 @@ module Msip
         end
         r << content_tag(
           :div,
-          class: "alert alert-#{tal} "\
+          class: "alert alert-#{tal} " \
             "alert-dismissible fade show",
           role: :alert,
         ) do
@@ -234,8 +234,8 @@ module Msip
     # @param idit Id del item
     # @param titulo Titulo del item
     # @param expandido booleano para que inicie expandido
-    # @param opciones Por ejemplo 
-    # "clase_accordion-item" => "brilla", 
+    # @param opciones Por ejemplo
+    # "clase_accordion-item" => "brilla",
     # "data_accordion-item" => {como: "x"}
     #   clase_accordion-header, estilo_accordion-header,
     #   clase_accordion-button, estilo_accordion-button,
@@ -411,9 +411,9 @@ module Msip
 
       titulo = opciones[:titulo] ? opciones[:titulo] : Msip.titulo
       spantitulo = content_tag(
-        :span, style: "text-transform: uppercase;"\
-                 " font-size: 15px;"\
-                 "letter-spacing: 3px; "\
+        :span, style: "text-transform: uppercase; " \
+                 "font-size: 15px;" \
+                 "letter-spacing: 3px; " \
                  "font-weight: bold;"
       ) do
         if opciones[:enlace_marca]

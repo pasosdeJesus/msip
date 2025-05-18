@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Concerns
     module Controllers
@@ -5,10 +7,9 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-
           def create
           end
-          
+
           def destroy
           end
 
@@ -16,12 +17,10 @@ module Msip
 
           def preparar_etiqueta_persona
             @registro = @persona = Msip::Persona.new(
-              etiqueta_persona: [Msip::EtiquetaPersona.new]
+              etiqueta_persona: [Msip::EtiquetaPersona.new],
             )
           end
-
         end # included
-
       end
     end
   end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class MejoraUbicacionpre < ActiveRecord::Migration[7.0]
   def up
-    change_column :msip_ubicacionpre, :pais_id, :integer, null: false
-    execute <<-SQL
+    change_column(:msip_ubicacionpre, :pais_id, :integer, null: false)
+    execute(<<-SQL)
       CREATE UNIQUE INDEX msip_departamento_pais_id_id_unico
         ON msip_departamento (pais_id, id);
       ALTER TABLE msip_departamento
@@ -38,24 +40,30 @@ class MejoraUbicacionpre < ActiveRecord::Migration[7.0]
           ADD CONSTRAINT fk_ubicacionpre_municipio_vereda FOREIGN KEY (municipio_id, vereda_id)
           REFERENCES msip_vereda (municipio_id, id);
     SQL
-    add_column :msip_ubicacionpre, :observaciones, :string, limit: 5000
-    add_column :msip_ubicacionpre, :fechacreacion, :date
-    add_column :msip_ubicacionpre, :fechadeshabilitacion, :date
-    execute <<-SQL
+    add_column(:msip_ubicacionpre, :observaciones, :string, limit: 5000)
+    add_column(:msip_ubicacionpre, :fechacreacion, :date)
+    add_column(:msip_ubicacionpre, :fechadeshabilitacion, :date)
+    execute(<<-SQL)
       UPDATE msip_ubicacionpre SET fechacreacion='2023-12-06';
     SQL
-    change_column :msip_ubicacionpre, :fechacreacion, :date, 
-      default: 'NOW()', null: false  # No operó el default
-    execute <<-SQL
-      ALTER TABLE msip_ubicacionpre ALTER COLUMN fechacreacion 
+    change_column(
+      :msip_ubicacionpre,
+      :fechacreacion,
+      :date,
+      default: "NOW()",
+      null: false,
+    ) # No operó el default
+    execute(<<-SQL)
+      ALTER TABLE msip_ubicacionpre ALTER COLUMN fechacreacion#{" "}
         SET DEFAULT NOW();
     SQL
   end
+
   def down
-    remove_column :msip_ubicacionpre, :fechadeshabilitacion, :date
-    remove_column :msip_ubicacionpre, :fechacreacion, :date, default: 'NOW()', null: false
-    remove_column :msip_ubicacionpre, :observaciones, :string, limit: 5000
-    execute <<-SQL
+    remove_column(:msip_ubicacionpre, :fechadeshabilitacion, :date)
+    remove_column(:msip_ubicacionpre, :fechacreacion, :date, default: "NOW()", null: false)
+    remove_column(:msip_ubicacionpre, :observaciones, :string, limit: 5000)
+    execute(<<-SQL)
       ALTER TABLE msip_ubicacionpre
           DROP CONSTRAINT fk_ubicacionpre_municipio_vereda;
       ALTER TABLE msip_vereda
@@ -73,6 +81,5 @@ class MejoraUbicacionpre < ActiveRecord::Migration[7.0]
       ALTER TABLE msip_departamento
         DROP CONSTRAINT msip_departamento_pais_id_id_unico;
     SQL
-
   end
 end

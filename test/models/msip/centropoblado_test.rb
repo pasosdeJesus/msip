@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      centropoblado = Msip::Centropoblado.where(id: 217).take
+      centropoblado = Msip::Centropoblado.find_by(id: 217)
 
       assert_equal("Caracas", centropoblado.nombre)
     end

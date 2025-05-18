@@ -39,7 +39,7 @@ module Msip
             else
               begin
                 JSON.parse(detalle_json)
-              rescue JSON::ParserError => e
+              rescue JSON::ParserError
                 detalle_json = detalle_json.to_json
               end
             end

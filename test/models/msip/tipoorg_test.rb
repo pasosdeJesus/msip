@@ -24,7 +24,7 @@ module Msip
     end
 
     test "existente" do
-      tipoorg = Msip::Tipoorg.where(id: 1).take
+      tipoorg = Msip::Tipoorg.find_by(id: 1)
 
       assert tipoorg.valid?
 

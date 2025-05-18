@@ -249,7 +249,7 @@ PRUEBA_UBICACIONPRE = {
   created_at: "2021-12-08",
   updated_at: "2021-12-08",
   nombre_sin_pais: "BARRANCOMINAS / BARRANCOMINAS / GUAINÍA",
-  fechacreacion: "2023-12-07"
+  fechacreacion: "2023-12-07",
 }
 
 PRUEBA_UBICACIONPRE2 = {
@@ -262,7 +262,7 @@ PRUEBA_UBICACIONPRE2 = {
   latitud: 0.1,
   longitud: 0.2,
   nombre_sin_pais: "IMAGINA",
-  fechacreacion: "2023-12-07"
+  fechacreacion: "2023-12-07",
 }
 
 # Usuario administrador para ingresar y hacer pruebas

@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      tcentropoblado = Msip::Tcentropoblado.where(id: "C").take
+      tcentropoblado = Msip::Tcentropoblado.find_by(id: "C")
 
       assert_equal("CORREGIMIENTO", tcentropoblado.nombre)
     end

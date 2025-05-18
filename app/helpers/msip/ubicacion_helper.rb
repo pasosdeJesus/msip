@@ -23,7 +23,7 @@ module Msip
       if con_pais
         r += " / "
       end
-      r += Msip::Departamento.where(id: departamento_id).take.nombre
+      r += Msip::Departamento.find_by(id: departamento_id).nombre
       if municipio_id.nil? ||
           Msip::Municipio.where(
             departamento_id: departamento_id,
@@ -32,7 +32,7 @@ module Msip
         return r
       end
 
-      r += " / " + Msip::Municipio.where(id: municipio_id).take.nombre
+      r += " / " + Msip::Municipio.find_by(id: municipio_id).nombre
       if !con_centropoblado || centropoblado_id.nil? ||
           Msip::Centropoblado.where(
             municipio_id: municipio_id,
@@ -41,7 +41,7 @@ module Msip
         return r
       end
 
-      r += " / " + Msip::Centropoblado.where(id: centropoblado_id).take.nombre
+      r += " / " + Msip::Centropoblado.find_by(id: centropoblado_id).nombre
       r
     end
     module_function :formato_ubicacion_partes

@@ -20,7 +20,6 @@ module Msip
           def fuenteprensa_params
             params.require(:fuenteprensa).permit(*atributos_form)
           end
-
         end # included
       end
     end

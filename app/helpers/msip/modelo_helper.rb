@@ -214,7 +214,7 @@ module Msip
       raise "No se encontro ruta para editar #{n}"
     end
 
-    # Ruta para copiar un registro 
+    # Ruta para copiar un registro
     def copiar_modelo_path(o)
       n = "copiar_#{nombreobj(o)}_path"
       arr = ruta_responde_1p(n, o)
@@ -234,20 +234,16 @@ module Msip
         return arr[1]
       end
 
-
       raise "No se encontro ruta para copiar #{n}"
     end
-
 
     def self.poromision(params, s, valorsp = "")
       if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
         valorsp
+      elsif params[:filtro][s].is_a?(Array)
+        params[:filtro][s].map { |c| Msip::Usuario.connection.quote_string(c) }
       else
-        if params[:filtro][s].kind_of?(Array)
-          params[:filtro][s].map {|c| Msip::Usuario.connection.quote_string(c)}
-        else
-          Msip::Usuario.connection.quote_string(params[:filtro][s])
-        end
+        Msip::Usuario.connection.quote_string(params[:filtro][s])
       end
     end
 
@@ -259,8 +255,8 @@ module Msip
       end
     end
 
-    def poromision_con2p(params, p1,  p2, s, 
-                              valorsp = "")
+    def poromision_con2p(params, p1, p2, s,
+      valorsp = "")
       if !params || !params[p1] || !params[p1][p2] ||
           !params[p1][p2][s]
         valorsp
@@ -269,7 +265,6 @@ module Msip
       end
     end
     module_function :poromision_con2p
-
 
     # Convierte un atributo a nombre de filtro (dejando solo letras numeros y _)
     def self.nom_filtro(atr)
@@ -379,8 +374,7 @@ module Msip
     end
     module_function :opciones_tabla_basica
 
-
-    # Si atr es llave foranea en modelo m retorna asociación a 
+    # Si atr es llave foranea en modelo m retorna asociación a
     # ese modelo en otro caso retorna nil
     def llave_foranea_en_modelo(atr, m)
       aso = m.reflect_on_all_associations
@@ -392,7 +386,7 @@ module Msip
         r = aso.select do |a|
           (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
            a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
-          a.foreign_key.to_s == atr.to_s
+            a.foreign_key.to_s == atr.to_s
         end[0]
         return r
       end
@@ -403,7 +397,7 @@ module Msip
         r = aso.select do |a|
           (a.is_a?(ActiveRecord::Reflection::HasManyReflection) ||
            a.is_a?(ActiveRecord::Reflection::BelongsToReflection)) &&
-          a.name.to_s == atr.to_s
+            a.name.to_s == atr.to_s
         end[0]
         return r
       end
@@ -411,6 +405,5 @@ module Msip
       nil
     end
     module_function :llave_foranea_en_modelo
-
   end
 end

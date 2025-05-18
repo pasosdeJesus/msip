@@ -3,7 +3,7 @@
 module Msip
   module Concerns
     module Controllers
-      module CentrospobladosController 
+      module CentrospobladosController
         extend ActiveSupport::Concern
 
         included do
@@ -15,9 +15,10 @@ module Msip
 
           def index
             c = nil
-            if params[:municipio_id] 
-              idmun = params[:municipio_id].to_i > 0 ?
-                params[:municipio_id].to_i : nil
+            if params[:municipio_id]
+              idmun = if params[:municipio_id].to_i > 0
+                params[:municipio_id].to_i
+              end
               c = Msip::Centropoblado.where(
                 fechadeshabilitacion: nil,
                 municipio_id: idmun,
@@ -62,13 +63,13 @@ module Msip
           def atributos_form
             Msip::Municipio.conf_presenta_nombre_con_origen = true
             atributos_transf_habilitado - [
-              :id, 
-              "id", 
+              :id,
+              "id",
               :fechacreacion_localizada,
-              :pais, 
-              "pais"
+              :pais,
+              "pais",
             ] + [
-              :fechacreacion
+              :fechacreacion,
             ]
           end
 
@@ -79,7 +80,6 @@ module Msip
           def centropoblado_params
             params.require(:centropoblado).permit(*atributos_form)
           end
-
         end # included
       end
     end

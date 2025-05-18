@@ -46,7 +46,7 @@ module Msip
       # %b debe ser en ingles
       # rails-i18n I18n.localize con %b produce mes en minuscula
       unless f
-        return nil
+        return
       end
       if f == ""
         return ""
@@ -63,10 +63,10 @@ module Msip
         else
           Rails.logger.debug { "Formato de fecha en locale de colombia desconocido: #{f}" }
         end
-        return nil
+        return
         # nf = Date.strptime(f, "%d-%M-%Y").strftime("%Y-%m-%d")
       else
-        return nil unless pf[1]
+        return unless pf[1]
 
         m = case pf[1].downcase
         when "ene", "ene.", "jan", "jan.", "1", "01"
@@ -120,7 +120,7 @@ module Msip
     # Convierte una fecha de formato local a formato estándar
     def fecha_local_estandar(f)
       unless f
-        return nil
+        return
       end
       if f == ""
         return ""
@@ -145,7 +145,7 @@ module Msip
       if !f || (f.class != String && f.class != Date &&
           f.class != ActiveSupport::TimeWithZone) ||
           (f.class == String && f == "")
-        return nil
+        return
       end
 
       if f.class == String
@@ -175,7 +175,7 @@ module Msip
     def reconoce_adivinando_locale(f, menserror = nil)
       if !f || (f.class != String && f.class != Date) ||
           (f.class == String && f == "")
-        return nil
+        return
       end
       if f.class == Date
         return f
@@ -187,7 +187,7 @@ module Msip
         nf = fecha_local_colombia_estandar(f, menserror)
       elsif f.include?("-")
         p = f.split("-")
-        if p[0].to_i >= 1 && p[0].to_i <= 31 && p[2].to_i >= 0
+        if p[0].to_i.between?(1, 31) && p[2].to_i >= 0
           nf = fecha_local_colombia_estandar(f, menserror)
         end
       end

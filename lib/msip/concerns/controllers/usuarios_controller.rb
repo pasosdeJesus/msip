@@ -49,7 +49,7 @@ module Msip
             if can?(:manage, Msip::Grupo)
               r += [:msip_grupo]
             end
-            r += [
+            r + [
               :idioma,
               :encrypted_password,
               :fechacreacion,
@@ -153,7 +153,7 @@ module Msip
             p = params.require(:usuario).permit(lista_params)
             p
           end
-        end  # included
+        end # included
       end
     end
   end

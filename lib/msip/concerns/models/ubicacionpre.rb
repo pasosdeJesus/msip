@@ -12,29 +12,29 @@ module Msip
 
           self.table_name = "msip_ubicacionpre"
 
-          belongs_to :pais, 
-            class_name: "Msip::Pais", 
-            validate: true, 
+          belongs_to :pais,
+            class_name: "Msip::Pais",
+            validate: true,
             optional: true
-          belongs_to :departamento, 
-            class_name: "Msip::Departamento", 
-            validate: true, 
+          belongs_to :departamento,
+            class_name: "Msip::Departamento",
+            validate: true,
             optional: true
-          belongs_to :municipio, 
-            class_name: "Msip::Municipio", 
-            validate: true, 
+          belongs_to :municipio,
+            class_name: "Msip::Municipio",
+            validate: true,
             optional: true
-          belongs_to :centropoblado, 
-            class_name: "Msip::Centropoblado", 
-            validate: true, 
+          belongs_to :centropoblado,
+            class_name: "Msip::Centropoblado",
+            validate: true,
             optional: true
-          belongs_to :vereda, 
-            class_name: "Msip::Vereda", 
-            validate: true, 
+          belongs_to :vereda,
+            class_name: "Msip::Vereda",
+            validate: true,
             optional: true
-          belongs_to :tsitio, 
-            class_name: "Msip::Tsitio", 
-            validate: true, 
+          belongs_to :tsitio,
+            class_name: "Msip::Tsitio",
+            validate: true,
             optional: true
 
           flotante_localizado :latitud
@@ -69,9 +69,9 @@ module Msip
           # DETAIL: Key (tsitio_id)=(14) is not present in table "msip_tsitio".
           def llave_tsitio
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id).count != 1
-                errors.add(
-                  :tsitio_id, "Elegir un tipo de sitio válido"
-                )
+              errors.add(
+                :tsitio_id, "Elegir un tipo de sitio válido"
+              )
             end
           end
 
@@ -84,8 +84,10 @@ module Msip
           validate :par_pais_departamento
           def par_pais_departamento
             if pais_id && departamento_id
-              if Msip::Departamento.where(pais_id: pais_id, 
-                  id: departamento_id).count != 1
+              if Msip::Departamento.where(
+                pais_id: pais_id,
+                id: departamento_id,
+              ).count != 1
                 errors.add(
                   :departamento_id, "El departamento debe pertenecer al país"
                 )
@@ -95,15 +97,17 @@ module Msip
 
           validate :par_departamento_municipio
           def par_departamento_municipio
-            if (centropoblado_id || vereda_id || municipio_id) && 
+            if (centropoblado_id || vereda_id || municipio_id) &&
                 !departamento_id
-                errors.add(
-                  :departamento_id, "Falta departamento"
-                )
+              errors.add(
+                :departamento_id, "Falta departamento"
+              )
             end
             if departamento_id && municipio_id
-              if Msip::Municipio.where(departamento_id: departamento_id, 
-                  id: municipio_id).count != 1
+              if Msip::Municipio.where(
+                departamento_id: departamento_id,
+                id: municipio_id,
+              ).count != 1
                 errors.add(
                   :municipio_id, "El municipio debe pertenecer al departamento"
                 )
@@ -113,17 +117,19 @@ module Msip
 
           validate :par_municipio_centropoblado
           def par_municipio_centropoblado
-            if (centropoblado_id || vereda_id ) && !municipio_id
-                errors.add(
-                  :municipio_id, "Falta municipio"
-                )
+            if (centropoblado_id || vereda_id) && !municipio_id
+              errors.add(
+                :municipio_id, "Falta municipio"
+              )
             end
             if municipio_id && centropoblado_id
-              if Msip::Centropoblado.where(municipio_id: municipio_id, 
-                  id: centropoblado_id).count != 1
+              if Msip::Centropoblado.where(
+                municipio_id: municipio_id,
+                id: centropoblado_id,
+              ).count != 1
                 errors.add(
-                  :centropoblado_id, 
-                  "El centropoblado debe pertenecer al municipio"
+                  :centropoblado_id,
+                  "El centropoblado debe pertenecer al municipio",
                 )
               end
             end
@@ -132,8 +138,10 @@ module Msip
           validate :par_municipio_vereda
           def par_municipio_vereda
             if municipio_id && vereda_id
-              if Msip::Vereda.where(municipio_id: municipio_id, 
-                  id: vereda_id).count != 1
+              if Msip::Vereda.where(
+                municipio_id: municipio_id,
+                id: vereda_id,
+              ).count != 1
                 errors.add(
                   :vereda_id, "El vereda debe pertenecer al municipio"
                 )
@@ -162,39 +170,40 @@ module Msip
             if pais.to_s.strip == ""
               return [nil, nil]
             end
+
             if departamento.to_s.strip == ""
               nombre = pais.to_s.strip
               nombre_sinp = nil
             elsif municipio.to_s.strip == ""
-              nombre = departamento.to_s.strip + " / "  + pais.to_s.strip
+              nombre = departamento.to_s.strip + " / " + pais.to_s.strip
               nombre_sinp = departamento.to_s.strip
             elsif vereda.to_s.strip == "" && centropoblado.to_s.strip == ""
-              nombre = municipio.to_s.strip + " / "  +
+              nombre = municipio.to_s.strip + " / " +
                 departamento.to_s.strip + " / "  + pais.to_s.strip
-              nombre_sinp = municipio.to_s.strip + " / "  + 
+              nombre_sinp = municipio.to_s.strip + " / " +
                 departamento.to_s.strip
             elsif vereda.to_s.strip != ""
               nombre = "Vereda " + vereda.to_s.strip + " / " +
-                municipio.to_s.strip + " / "  +
-                departamento.to_s.strip + " / "  + pais.to_s.strip
+                municipio.to_s.strip + " / " +
+                departamento.to_s.strip + " / " + pais.to_s.strip
               nombre_sinp = "Vereda " + vereda.to_s.strip + " / " +
-                municipio.to_s.strip + " / "  + 
+                municipio.to_s.strip + " / " +
                 departamento.to_s.strip
             else # centropoblado != ""
-              nombre = centropoblado.to_s.strip + " / "  + 
-                municipio.to_s.strip + " / "  +
-                departamento.to_s.strip + " / "  + pais.to_s.strip
-              nombre_sinp = centropoblado.to_s.strip + " / "  + 
-                municipio.to_s.strip + " / "  + 
+              nombre = centropoblado.to_s.strip + " / " +
+                municipio.to_s.strip + " / " +
+                departamento.to_s.strip + " / " + pais.to_s.strip
+              nombre_sinp = centropoblado.to_s.strip + " / " +
+                municipio.to_s.strip + " / " +
                 departamento.to_s.strip
             end
             if lugar.to_s.strip != ""
-              nombre = lugar.to_s.strip + " / "  + nombre
-              nombre_sinp = lugar.to_s.strip + 
-                (nombre_sinp  ? " / "  + nombre_sinp.to_s : "")
+              nombre = lugar.to_s.strip + " / " + nombre
+              nombre_sinp = lugar.to_s.strip +
+                (nombre_sinp ? " / " + nombre_sinp.to_s : "")
               if sitio.to_s.strip != ""
-                nombre = sitio.to_s.strip + " / "  + nombre
-                nombre_sinp = sitio.to_s.strip + " / "  + nombre_sinp
+                nombre = sitio.to_s.strip + " / " + nombre
+                nombre_sinp = sitio.to_s.strip + " / " + nombre_sinp
               end
             end
             [nombre, nombre_sinp]
@@ -223,11 +232,10 @@ module Msip
             centropoblado_id, lugar, sitio, tsitio_id,
             latitud, longitud,
             usa_latlon = true)
-
             longitud = usa_latlon ? longitud.to_f : 0.0
 
             if !pais_id || Msip::Pais.where(id: pais_id.to_i).count == 0
-              return nil
+              return
             end
 
             opais = Msip::Pais.find(pais_id.to_i)
@@ -256,9 +264,9 @@ module Msip
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return nil
+                return
               end
-              return Msip::Ubicacionpre.where(w).take.id # SIN INFORMACIÓN
+              return Msip::Ubicacionpre.find_by(w).id # SIN INFORMACIÓN
             end
             odepartamento = Msip::Departamento.find(departamento_id.to_i)
             if (latitud.to_f == opais.latitud &&
@@ -276,9 +284,9 @@ module Msip
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return nil
+                return
               end
-              return Msip::Ubicacionpre.where(w).take.id
+              return Msip::Ubicacionpre.find_by(w).id
             end
             omunicipio = Msip::Municipio.find(municipio_id.to_i)
             if (latitud == odepartamento.latitud &&
@@ -296,9 +304,9 @@ module Msip
                 ).count == 0
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return nil
+                return
               end
-              return Msip::Ubicacionpre.where(w).take.id
+              return Msip::Ubicacionpre.find_by(w).id
             end
 
             w[:centropoblado_id] = nil # Posiblemente Rural
@@ -316,9 +324,9 @@ module Msip
             if lugar.to_s.strip == ""
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return nil
+                return
               end
-              return Msip::Ubicacionpre.where(w).take.id
+              return Msip::Ubicacionpre.find_by(w).id
             end
 
             # Latitud, longitud, tipo de sitio no modificables por usuario
@@ -342,15 +350,15 @@ module Msip
                 nombre: lugar.to_s.strip,
                 municipio_id: omunicipio.id,
               ).first
-              centropoblado_id = w[:centropoblado_id] = ocentropoblado.id
+              w[:centropoblado_id] = ocentropoblado.id
               if Msip::Ubicacionpre.where(w).count == 0
                 Rails.logger.debug("Problema, no se encontró ubicación esperada " + w)
-                return nil
+                return
               end
               if sitio.to_s.strip == ""
                 Rails.logger.debug do
-                  "Ajustando ubicacion sin centro poblado, ni sitio pero con "\
-                    "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', "\
+                  "Ajustando ubicacion sin centro poblado, ni sitio pero con " \
+                    "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', " \
                     "para que coincida con centro poblado del mismo nombre. "
                 end
                 if tsitio_id != 2
@@ -358,17 +366,17 @@ module Msip
                 end
                 if latitud.to_f != ocentropoblado.latitud || longitud.to_f != ocentropoblado.longitud
                   Rails.logger.debug do
-                    "** Ignorando (latitud, longitud) erradas "\
+                    "** Ignorando (latitud, longitud) erradas " \
                       "(#{latitud.to_f}, #{longitud.to_f})"
                   end
                 end
-                return Msip::Ubicacionpre.where(w).take.id
+                return Msip::Ubicacionpre.find_by(w).id
               else
                 Rails.logger.debug do
-                  "** Ajustando ubicacion sin centro poblado, pero con sitio y "\
-                    "con lugar igual a centro poblado "\
-                    "'#{sitio.to_s.strip} / #{lugar.to_s.strip} / #{omunicipio.nombre}', "\
-                    "para que el sitio sea lugar y lugar sea centro poblado "\
+                  "** Ajustando ubicacion sin centro poblado, pero con sitio y " \
+                    "con lugar igual a centro poblado " \
+                    "'#{sitio.to_s.strip} / #{lugar.to_s.strip} / #{omunicipio.nombre}', " \
+                    "para que el sitio sea lugar y lugar sea centro poblado " \
                     "necesitamos nombres únicos para ubicaciones/polígonos diferentes."
                 end
                 lugar = sitio.to_s.strip
@@ -378,10 +386,10 @@ module Msip
             # Preparamos tsitio_id
             if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
               Rails.logger.debug do
-                "Problema, no se encontró "\
+                "Problema, no se encontró " \
                   "tsitio_id esperado #{tsitio_id}"
               end
-              return nil
+              return
             end
             tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
 
@@ -400,7 +408,7 @@ module Msip
                   return ubi[0].id
                 else
                   Rails.logger.debug { "Problema salvando ubi #{ubi[0]}" }
-                  return nil
+                  return
                 end
               end
               # Preparamos para añadir nuevo
@@ -419,7 +427,7 @@ module Msip
                   return ubi[0].id
                 else
                   Rails.logger.debug { "Problema salvando ubi #{ubi[0]}" }
-                  return nil
+                  return
                 end
               end
               w[:lugar] = lugar.strip.gsub(/  */, " ")
@@ -441,8 +449,8 @@ module Msip
             )
             if Msip::Ubicacionpre.where(nombre: w[:nombre]).count == 1
               Rails.logger.debug do
-                "Problema, ya hay una ubicación con el nombre #{w[:nombre]}. "\
-                  "Proveniente de #{w.inspect}. Se usará esa ignorando la "\
+                "Problema, ya hay una ubicación con el nombre #{w[:nombre]}. " \
+                  "Proveniente de #{w.inspect}. Se usará esa ignorando la " \
                   "informacińo recibida"
               end
               return Msip::Ubicacionpre.where(nombre: w[:nombre]).first.id
@@ -450,7 +458,7 @@ module Msip
             nubi = Msip::Ubicacionpre.create!(w)
             unless nubi
               Rails.logger.debug { "Problema creando ubi #{nubi}" }
-              return nil
+              return
             end
 
             nubi.id

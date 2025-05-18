@@ -32,9 +32,7 @@ module Msip
           def prefiltrar
           end
 
-          def nom_filtro(ai)
-            Msip::ModeloHelper.nom_filtro(ai)
-          end
+          delegate :nom_filtro, to: :"Msip::ModeloHelper"
 
           # Filtra por control de acceso
           def filtrar_ca(reg)
@@ -512,7 +510,7 @@ module Msip
                 end
               else
                 format.html do
-                  if @validaciones_error =! ""
+                  if @validaciones_error = !""
                     flash[:error] = @validaciones_error
                   end
                   render(action: "edit", layout: "application")
@@ -620,30 +618,32 @@ module Msip
 
           # Validaciones al conjunto de registros
           def validar_conjunto
-            authorize! :validar, clase.constantize
-            # No manejamos filtro 
+            authorize!(:validar, clase.constantize)
+            # No manejamos filtro
 
             @validaciones = []
-            #debugger
+            # debugger
 
-            lista_validaciones_conjunto.each do  |v|
-              send(v,  @validaciones)
+            lista_validaciones_conjunto.each do |v|
+              send(v, @validaciones)
             end
 
             respond_to do |format|
-                format.html { 
-                  render 'msip/modelos/validar_conjunto', 
-                layout: 'application' 
-              }
-              format.json { head :no_content }
-              format.js   { head :no_content }
+              format.html do
+                render(
+                  "msip/modelos/validar_conjunto",
+                  layout: "application",
+                )
+              end
+              format.json { head(:no_content) }
+              format.js   { head(:no_content) }
             end
           end
 
           def con_boton_copiar?
             false
           end
-      
+
           def copiar
             if !params || !params[:id]
               render(inline: "Falta parámetro id")
@@ -659,9 +659,8 @@ module Msip
 
             @registro = a.copiar_y_guardar
             @registro_orig_id = a.id
-            render :copiar, layout: "application"
+            render(:copiar, layout: "application")
           end
-
 
           # Nombre del modelo
           def clase

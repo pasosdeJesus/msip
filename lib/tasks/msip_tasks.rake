@@ -103,7 +103,7 @@ namespace :msip do
             if ab.inisec_tb.keys.include?(nomt.to_sym)
               maxv = ab.inisec_tb[nomt.to_sym]
             end
-            q = "SELECT pg_catalog.setval('public.#{nomt}_id_seq', "\
+            q = "SELECT pg_catalog.setval('public.#{nomt}_id_seq', " \
               "#{maxv}, true);\n"
             f << q
           end
@@ -134,8 +134,8 @@ EOF
     unless Dir.exist?(File.dirname(archcopia))
       FileUtils.mkdir_p(File.dirname(archcopia))
     end
-    ls = %x(ls -l #{File.dirname(archcopia)})
-    ls = %x(ls -l #{File.dirname(archcopia, 2)})
+    %x(ls -l #{File.dirname(archcopia)})
+    %x(ls -l #{File.dirname(archcopia, 2)})
     File.open(archcopia, "w") { |f| f << "-- Volcado del #{fecha}\n\n" }
     if ENV.fetch("DATABASE_URL", "").to_s != ""
       maq = "-d #{ENV.fetch("DATABASE_URL")} "
@@ -149,8 +149,8 @@ EOF
       maq += " #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} "
     end
     command = "pg_dump --encoding=UTF8 -cO --column-inserts " \
-      "#{maq} " \
-      " > #{Shellwords.escape(archcopia)}"
+      "#{maq}  " \
+      "> #{Shellwords.escape(archcopia)}"
     puts command
     raise "Error al volcar" unless Kernel.system(command)
   end # vuelca
@@ -165,8 +165,8 @@ EOF
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
     command = "pg_dump --encoding=UTF8 " \
       "#{maq} " \
-      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
-      " > #{Shellwords.escape(archcopia)}"
+      "#{Shellwords.escape(ENV.fetch("BD_NOMBRE"))}  " \
+      "> #{Shellwords.escape(archcopia)}"
     puts command
     raise "Error al volcar" unless Kernel.system(command)
   end # vuelcarapido
@@ -178,8 +178,8 @@ EOF
     Msip::TareasrakeHelper.asegura_varambiente_bd
     maq = "-h " + ENV.fetch("BD_SERVIDOR") + " -U " + ENV.fetch("BD_USUARIO")
     command = "psql " \
-      "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
-      " -f #{Shellwords.escape(arch)}"
+      "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))}  " \
+      "-f #{Shellwords.escape(arch)}"
     puts command
     raise "Error al restaurar #{arch}" unless Kernel.system(command)
   end # restaura

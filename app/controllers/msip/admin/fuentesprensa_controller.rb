@@ -10,7 +10,6 @@ module Msip
       load_and_authorize_resource class: Msip::Fuenteprensa
 
       include Msip::Concerns::Controllers::FuentesprensaController
-
     end
   end
 end

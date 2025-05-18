@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Msip
   # Virtual para facilitar unificar datos de dos personas (que en realidad

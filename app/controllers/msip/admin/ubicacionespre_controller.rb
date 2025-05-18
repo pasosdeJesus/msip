@@ -5,7 +5,8 @@ require "msip/concerns/controllers/ubicacionespre_controller"
 module Msip
   module Admin
     class UbicacionespreController < Msip::Admin::BasicasController
-      before_action :set_ubicacionpre, only: [:show, :edit, :update, :destroy],
+      before_action :set_ubicacionpre,
+        only: [:show, :edit, :update, :destroy],
         except: [:validar_conjunto]
       load_and_authorize_resource class: Msip::Ubicacionpre
 

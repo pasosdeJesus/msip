@@ -50,15 +50,15 @@ module Msip
       pais = Msip::Pais.find(862) # Venezuela
 
       assert_equal 862, pais.busca_valor
-      assert Msip::Pais.filtro_habilitado("si").count > 0
+      assert_operator Msip::Pais.filtro_habilitado("si").count, :>, 0
       assert_equal(0, Msip::Pais.filtro_habilitado("no").count)
       assert_equal(1, Msip::Pais.filtro_nombre("COLOMBIA").count)
       assert_equal(0, Msip::Pais.filtro_nombre("LOCOMBIA").count)
       assert_equal(0, Msip::Pais.filtro_observaciones("VIDIPOLA").count)
-      assert Msip::Pais.filtro_fechacreacionini("2000-01-01").count > 0
+      assert_operator Msip::Pais.filtro_fechacreacionini("2000-01-01").count, :>, 0
       assert_equal(0, Msip::Pais.filtro_fechacreacionini("2030-01-01").count)
       assert_equal(0, Msip::Pais.filtro_fechacreacionfin("2000-01-01").count)
-      assert Msip::Pais.filtro_fechacreacionfin("2030-01-01").count > 0
+      assert_operator Msip::Pais.filtro_fechacreacionfin("2030-01-01").count, :>, 0
     end
   end
 end

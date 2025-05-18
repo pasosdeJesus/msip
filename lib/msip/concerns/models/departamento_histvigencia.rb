@@ -7,19 +7,14 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
+          self.table_name = "msip_departamento_histvigencia"
 
-          self.table_name = 'msip_departamento_histvigencia'
-
-          belongs_to :departamento, 
-            class_name: 'Msip::Departamento', 
-            foreign_key: "departamento_id", 
+          belongs_to :departamento,
+            class_name: "Msip::Departamento",,
             optional: false,
             validate: false
-
         end # included
-
       end
     end
   end
 end
-

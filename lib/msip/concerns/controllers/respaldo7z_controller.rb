@@ -33,7 +33,7 @@ module Msip
                 FileUtils.rm_f(dest)
                 tamanexos = %x(du -s #{Msip.ruta_anexos}).to_i
                 Rails.logger.debug do
-                  "Tamaño de #{archcopia} es "\
+                  "Tamaño de #{archcopia} es " \
                     "#{File.size(Pathname.new(archcopia))}"
                 end
                 Rails.logger.debug { "Tamaño de anexos #{Msip.ruta_anexos} es #{tamanexos}" }
@@ -98,6 +98,3 @@ module Msip
     end # included
   end
 end
-
-
-

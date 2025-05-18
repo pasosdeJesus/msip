@@ -3,7 +3,7 @@
 module Msip
   module Concerns
     module Controllers
-      module TrelacionesController 
+      module TrelacionesController
         extend ActiveSupport::Concern
 
         included do
@@ -37,20 +37,20 @@ module Msip
               :fechacreacion_localizada,
               "fechacreacion_localizada",
             ] + [
-              :fechacreacion
+              :fechacreacion,
             ]
           end
 
           def validar_conjunto_inv_inv_identidad(validaciones)
             cp = Msip::Trelacion.joins(
-              "JOIN msip_trelacion AS t2 ON t2.id=msip_trelacion.inverso"
+              "JOIN msip_trelacion AS t2 ON t2.id=msip_trelacion.inverso",
             ).where("t2.inverso<>msip_trelacion.id")
-            if cp.count > 0 
+            if cp.count > 0
               validaciones << {
                 titulo: "Inversa de inversa no es relación original",
                 encabezado: ["Relación", "Inversa", "Inversa de la inversa"],
-                cuerpo: cp.pluck(:id, :inverso, :'t2.inverso'),
-                enlaces: cp.map {|tr| msip.edit_admin_trelacion_path(tr.id)}
+                cuerpo: cp.pluck(:id, :inverso, :"t2.inverso"),
+                enlaces: cp.map { |tr| msip.edit_admin_trelacion_path(tr.id) },
               }
             end
           end
@@ -62,7 +62,6 @@ module Msip
           def trelacion_params
             params.require(:trelacion).permit(*atributos_form)
           end
-
         end # included
       end
     end

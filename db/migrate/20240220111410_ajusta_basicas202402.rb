@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AjustaBasicas202402 < ActiveRecord::Migration[7.1]
   def up
     # Quitamos COMUNAS
-    execute <<-SQL
+    execute(<<-SQL)
       DELETE FROM public.msip_ubicacionpre WHERE centropoblado_id IN (
         9031, 9046, 9051, 9069, 9070, 9076, 9082, 9083, 9084, 9088
       );
@@ -21,7 +23,7 @@ class AjustaBasicas202402 < ActiveRecord::Migration[7.1]
   end
 
   def down
-    execute <<-SQL
+    execute(<<-SQL)
       INSERT INTO public.msip_centropoblado (id, nombre, municipio_id, cplocal_cod, tcentropoblado_id, latitud, longitud, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones, ultvigenciaini, ultvigenciafin, svgruta, svgcdx, svgcdy, svgcdancho, svgcdalto, svgrotx, svgroty) VALUES (9031, 'Comuna 6', 32, 236, 'COMUNA', NULL, NULL, '2013-06-11', '2019-03-31', NULL, NULL, '  No está en DIVIPOLA 2018.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
       INSERT INTO public.msip_centropoblado (id, nombre, municipio_id, cplocal_cod, tcentropoblado_id, latitud, longitud, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones, ultvigenciaini, ultvigenciafin, svgruta, svgcdx, svgcdy, svgcdancho, svgcdalto, svgrotx, svgroty) VALUES (9046, 'Comuna 3', 32, 233, 'COMUNA', NULL, NULL, '2013-06-11', '2019-03-31', NULL, NULL, '  No está en DIVIPOLA 2018.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
       INSERT INTO public.msip_centropoblado (id, nombre, municipio_id, cplocal_cod, tcentropoblado_id, latitud, longitud, fechacreacion, fechadeshabilitacion, created_at, updated_at, observaciones, ultvigenciaini, ultvigenciafin, svgruta, svgcdx, svgcdy, svgcdancho, svgcdalto, svgrotx, svgroty) VALUES (9051, 'Comuna 4', 32, 234, 'COMUNA', NULL, NULL, '2013-06-11', '2019-03-31', NULL, NULL, '  No está en DIVIPOLA 2018.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

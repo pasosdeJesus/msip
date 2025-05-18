@@ -92,7 +92,7 @@ module Msip
         assigns(:perfilorgsocial),
       )
       ids2 = Msip::Perfilorgsocial.pluck(:id)
-      idr = (ids2-ids1).first
+      idr = (ids2 - ids1).first
 
       perfilorgsocial = Msip::Perfilorgsocial.all.take
       get admin_perfilorgsocial_url(perfilorgsocial)

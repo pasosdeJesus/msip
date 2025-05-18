@@ -108,7 +108,7 @@ module Msip
         assigns(:trelacion),
       )
       ids2 = Msip::Trelacion.pluck(:id)
-      idr = (ids2-ids1).first
+      idr = (ids2 - ids1).first
 
       assert_difference("Trelacion.count", -1) do
         delete msip.admin_trelacion_path(Trelacion.find(idr))

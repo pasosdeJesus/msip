@@ -73,7 +73,6 @@ module Msip
                 @anexo.id.to_i,
                 File.basename(ruta),
               )
-              ruta_im = ""
               if ruta.length > 5 && ruta[-4..-1] == ".pdf"
                 orden = "pdftoppm -png -f 1 -l 1 \"#{pdfp}\" \"#{pdfp[..-5]}\""
                 r = %x(#{orden})
@@ -97,29 +96,26 @@ module Msip
         end # included
 
         class_methods do
-
           def validar_existencia_archivo(validaciones)
             inexistentes = []
             Msip::Anexo.all.each do |a|
               n = format(
                 Msip.ruta_anexos.to_s + "/%d_%s",
                 a.id.to_i,
-                a.adjunto_file_name
+                a.adjunto_file_name,
               )
-              if !File.exist?(n)
+              unless File.exist?(n)
                 inexistentes << [a.id, a.adjunto_file_name]
               end
             end
             validaciones << {
               titulo: "Anexos con archivo inexistente",
               encabezado: ["Código de Anexo", "Archivo"],
-              cuerpo: inexistentes
-              #enlaces: inexistentes.map {|a| msip.edit_persona_path(p.id)}
+              cuerpo: inexistentes,
+              # enlaces: inexistentes.map {|a| msip.edit_persona_path(p.id)}
             }
           end
-
         end # class_methods
-
       end
     end
   end

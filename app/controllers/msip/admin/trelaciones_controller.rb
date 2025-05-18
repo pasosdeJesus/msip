@@ -9,7 +9,6 @@ module Msip
       load_and_authorize_resource class: Msip::Trelacion
 
       include Msip::Concerns::Controllers::TrelacionesController
-
     end
   end
 end

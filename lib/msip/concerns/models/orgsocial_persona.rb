@@ -16,15 +16,15 @@ module Msip
             class_name: "Msip::Orgsocial",
             inverse_of: :orgsocial_persona,
             optional: true
-          belongs_to :persona, 
-            class_name: "Msip::Persona", 
+          belongs_to :persona,
+            class_name: "Msip::Persona",
             optional: false,
             validate: true
-          accepts_nested_attributes_for :persona, 
+          accepts_nested_attributes_for :persona,
             reject_if: :all_blank
 
-          belongs_to :perfilorgsocial, 
-            class_name: "Msip::Perfilorgsocial", 
+          belongs_to :perfilorgsocial,
+            class_name: "Msip::Perfilorgsocial",
             optional: true,
             validate: true
         end # included

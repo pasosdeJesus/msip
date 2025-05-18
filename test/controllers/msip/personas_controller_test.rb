@@ -91,7 +91,7 @@ module Msip
         assigns(:persona),
       )
       ids2 = Msip::Persona.pluck(:id)
-      idr = (ids2-ids1).first
+      idr = (ids2 - ids1).first
 
       persona = Msip::Persona.all.take
       get persona_url(persona)

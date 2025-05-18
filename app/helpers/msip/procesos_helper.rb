@@ -41,7 +41,7 @@ module Msip
     def discousado_OpenBSD(ruta)
       p = %x(du -s #{Shellwords.escape(ruta)})
       l = p.split(" ")
-      return l[0].to_i * 512 # bytes
+      l[0].to_i * 512 # bytes
     end
     module_function :discousado_OpenBSD
 
@@ -51,38 +51,37 @@ module Msip
       p = %x(df #{Shellwords.escape(ruta)})
       l = p.split("\n")
       c = l[1].split(" ")
-      return [c[5], c[2].to_i*512, c[3].to_i*512]
+      [c[5], c[2].to_i * 512, c[3].to_i * 512]
     end
     module_function :espacioparticion_OpenBSD
-
 
     # Retorna una representación para humanos en sistema internacional
     # de unidades (ver https://es.wikipedia.org/wiki/Megabyte) de una
     # cantidad en bytes
     def tamhumano(bytes)
-      if bytes<10000
+      if bytes < 10000
         return bytes.to_s
       end
-      if bytes<1000*1000
-        k = bytes/1000
+
+      if bytes < 1000 * 1000
+        k = bytes / 1000
         return k.to_s + "kB"
       end
-      if bytes<1000*1000*1000
-        m = bytes/(1000*1000)
+      if bytes < 1000 * 1000 * 1000
+        m = bytes / (1000 * 1000)
         return m.to_s + "MB"
       end
-      if bytes<1000*1000*1000*1000
-        g = bytes/(1000*1000*1000)
+      if bytes < 1000 * 1000 * 1000 * 1000
+        g = bytes / (1000 * 1000 * 1000)
         return g.to_s + "GB"
       end
-      if bytes<1000*1000*1000*1000*1000
-        t = bytes/(1000*1000*1000*1000)
+      if bytes < 1000 * 1000 * 1000 * 1000 * 1000
+        t = bytes / (1000 * 1000 * 1000 * 1000)
         return t.to_s + "TB"
       end
-      p = bytes/(1000*1000*1000*1000*1000)
-      return p.to_s + "PB"
+      p = bytes / (1000 * 1000 * 1000 * 1000 * 1000)
+      p.to_s + "PB"
     end
     module_function :tamhumano
-
   end
 end

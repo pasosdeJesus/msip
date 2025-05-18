@@ -10,10 +10,12 @@ module Msip
         included do
           self.table_name = "msip_etiqueta"
 
-
-          has_many :etiqueta_persona, class_name: 'Msip::EtiquetaPersona',
-            foreign_key: 'etiqueta_id', dependent: :delete_all
-          has_many :persona, class_name: 'Msip::Persona',
+          has_many :etiqueta_persona,
+            class_name: "Msip::EtiquetaPersona",
+            foreign_key: "etiqueta_id",
+            dependent: :delete_all
+          has_many :persona,
+            class_name: "Msip::Persona",
             through: :etiqueta_persona
 
           has_and_belongs_to_many :municipio,

@@ -24,7 +24,6 @@ module Msip
           def tsitio_params
             params.require(:tsitio).permit(*atributos_form)
           end
-
         end # included
       end
     end

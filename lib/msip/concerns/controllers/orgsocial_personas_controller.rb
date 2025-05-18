@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Msip
   module Concerns
     module Controllers
@@ -5,7 +7,6 @@ module Msip
         extend ActiveSupport::Concern
 
         included do
-
           def destroy
           end
 
@@ -18,9 +19,7 @@ module Msip
             @registro = @orgsocial = Msip::Orgsocial.new(orgsocial_persona: [Msip::OrgsocialPersona.new])
           end
         end # included
-
       end
     end
   end
 end
-

@@ -6,8 +6,8 @@ module Msip
     # Si la cotejación es nil o "" quita la posible cotejación
     # que la columna tuviera
     def cambiar_cotejacion(tabla, columna, long, cotejacion)
-      orden = "ALTER TABLE #{tabla} "\
-        "ALTER COLUMN #{columna} "\
+      orden = "ALTER TABLE #{tabla} " \
+        "ALTER COLUMN #{columna} " \
         "SET DATA TYPE VARCHAR(#{long.to_i})"
       if !cotejacion.nil? && cotejacion != ""
         orden += " COLLATE \"#{cotejacion}\";"
@@ -52,42 +52,42 @@ module Msip
       # Orden importa por ahora soporta bien FMS -> MHS y MHS->FMS
       if convencion_inicial == "FMS" && convencion_final == "MHS"
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='H'"\
-            " WHERE sexo='M';",
+          "UPDATE msip_persona SET sexo='H' " \
+            "WHERE sexo='M';",
           true,
         )
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='M'"\
-            " WHERE sexo='F';",
+          "UPDATE msip_persona SET sexo='M' " \
+            "WHERE sexo='F';",
           true,
         )
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='S'"\
-            " WHERE sexo='S';",
+          "UPDATE msip_persona SET sexo='S' " \
+            "WHERE sexo='S';",
           true,
         )
       elsif convencion_inicial == "MHS" && convencion_final == "FMS"
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='F'"\
-            " WHERE sexo='M';",
+          "UPDATE msip_persona SET sexo='F' " \
+            "WHERE sexo='M';",
           true,
         )
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='M'"\
-            " WHERE sexo='H';",
+          "UPDATE msip_persona SET sexo='M' " \
+            "WHERE sexo='H';",
           true,
         )
         ejecuta_sql(
-          "UPDATE msip_persona SET sexo='S'"\
-            " WHERE sexo='S';",
+          "UPDATE msip_persona SET sexo='S' " \
+            "WHERE sexo='S';",
           true,
         )
       end
 
       ejecuta_sql(
-        "ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check "\
-          " CHECK (LENGTH(sexo)=1 "\
-          " AND '#{convencion_final}' LIKE '%' || sexo || '%');",
+        "ALTER TABLE msip_persona ADD CONSTRAINT persona_sexo_check  " \
+          "CHECK (LENGTH(sexo)=1  " \
+          "AND '#{convencion_final}' LIKE '%' || sexo || '%');",
         true,
       )
     end
@@ -106,7 +106,7 @@ module Msip
       unless at.include?(nt.strip)
         at << nt
       end
-      t = at.join(",")
+      at.join(",")
     end
     module_function :agregar_tabla
 
@@ -132,7 +132,7 @@ module Msip
       if w != ""
         w += " #{con}"
       end
-      w += " " + n + opcmp + Msip::Persona.connection.quote(v)
+      w + " " + n + opcmp + Msip::Persona.connection.quote(v)
     end
     module_function :ampliar_where
     alias_method :consulta_and, :ampliar_where
@@ -154,7 +154,7 @@ module Msip
       if w != ""
         w += " " + con
       end
-      w += " " + n + opcmp + v
+      w + " " + n + opcmp + v
     end
     module_function :ampliar_where_sinap
 
@@ -207,15 +207,14 @@ module Msip
     def rehabilita_centropoblado(
       id, municipio_id, cplocal_cod, nombre, observacion, fechacreacion
     )
-
       # byebug
       if Msip::Centropoblado.where(id: id).count > 0
         c = Msip::Centropoblado.find(id)
         if c.municipio_id != municipio_id || c.cplocal_cod != cplocal_cod ||
             c.nombre != nombre
           Rails.logger.debug do
-            "Se espera que centro poblado #{id} fuera #{nombre} "\
-              " en municipio #{municipio_id} con cplocal_cod #{cplocal_cod}"
+            "Se espera que centro poblado #{id} fuera #{nombre}  " \
+              "en municipio #{municipio_id} con cplocal_cod #{cplocal_cod}"
           end
           exit(1)
         end
@@ -223,7 +222,7 @@ module Msip
         c.observaciones << ((c.observaciones.to_s == "" ? "" : ". ") + observacion)
         c.save!
       else
-        c = Msip::Centropoblado.new(
+        Msip::Centropoblado.new(
           id: id,
           municipio_id: municipio_id,
           cplocal_cod: cplocal_cod,
@@ -239,9 +238,9 @@ module Msip
 
     # Decide si existe una función f en base PostgreSQL
     def existe_función_pg?(f)
-      c = "SELECT EXISTS("\
-        "SELECT * FROM pg_proc "\
-        "WHERE proname = #{ActiveRecord::Base.connection.quote(f)}"\
+      c = "SELECT EXISTS(" \
+        "SELECT * FROM pg_proc " \
+        "WHERE proname = #{ActiveRecord::Base.connection.quote(f)}" \
         ");"
       r = ActiveRecord::Base.connection.execute(c)
       r[0]["exists"]
@@ -264,9 +263,9 @@ module Msip
 
     # Decide si existe una restricción r en base PostgreSQL
     def existe_restricción_pg?(r)
-      c = "SELECT EXISTS("\
-        "SELECT * FROM pg_constraint "\
-        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}"\
+      c = "SELECT EXISTS(" \
+        "SELECT * FROM pg_constraint " \
+        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}" \
         ");"
       r = ActiveRecord::Base.connection.execute(c)
       r[0]["exists"]
@@ -275,11 +274,11 @@ module Msip
 
     # Decide si existe una restricción r en una tabla t en una base PostgreSQL
     def existe_restricción_en_tabla_pg?(r, t)
-      c = "SELECT EXISTS("\
-        "SELECT * FROM pg_constraint "\
-        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}"\
-        "  AND conrelid=(SELECT oid FROM pg_class "\
-        "    WHERE relname = #{ActiveRecord::Base.connection.quote(t)})"\
+      c = "SELECT EXISTS(" \
+        "SELECT * FROM pg_constraint " \
+        "WHERE conname = #{ActiveRecord::Base.connection.quote(r)}  " \
+        "AND conrelid=(SELECT oid FROM pg_class     " \
+        "WHERE relname = #{ActiveRecord::Base.connection.quote(t)})" \
         ");"
       r = ActiveRecord::Base.connection.execute(c)
       r[0]["exists"]
@@ -289,9 +288,9 @@ module Msip
     # Decide si existe una secuencia s en base PostgreSQL
     def existe_secuencia_pg?(s)
       reversible do |_dir|
-        c = "SELECT EXISTS("\
-          "SELECT * FROM pg_class c WHERE c.relkind = 'S' "\
-          "AND c.relname = #{ActiveRecord::Base.connection.quote(s)}"\
+        c = "SELECT EXISTS(" \
+          "SELECT * FROM pg_class c WHERE c.relkind = 'S' " \
+          "AND c.relname = #{ActiveRecord::Base.connection.quote(s)}" \
           ");"
         r = ActiveRecord::Base.connection.execute(c)
         r[0]["exists"]
@@ -344,11 +343,11 @@ module Msip
     def renombrar_restricción_pg(tabla, nomini, nomfin)
       reversible do |dir|
         dir.up   do
-          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} "\
+          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} " \
             "RENAME CONSTRAINT #{nomini} TO #{nomfin};")
         end
         dir.down do
-          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} "\
+          ActiveRecord::Base.connection.execute("ALTER TABLE #{tabla} " \
             "RENAME CONSTRAINT #{nomfin} TO #{nomini};")
         end
       end
@@ -412,23 +411,21 @@ module Msip
     end
     module_function :renombrar_vistamat_pg
 
-
     # Convierte cadena por hacer búsqueda de textos completos (full text search)
     # en secuencia de palabras para tsquery
     def cadena_a_palabras_tsquery(cadena)
       # escapado y en minúsuculas
-      sp = Msip::Persona.connection.quote_string(cadena).downcase 
+      sp = Msip::Persona.connection.quote_string(cadena).downcase
       sp.gsub!(/[^-_@#$%&A-Za-z0-9áéíóúÁÉÍÓÚñÑüÜ]/, " ") # Solo simples
       sp.gsub!(/^  */, "") # Sin espacios al comienzo
       sp.gsub!(/  *$/, "") # Sin espacios al final
       sp.gsub!(/  */, " ") # Sin espacios extra
       sp.gsub!(/ +/, ":* & ") # Cambiar espacios por marcador de fin de palabra
       if sp.length > 0
-          sp += ":*"
+        sp += ":*"
       end
-      return sp
+      sp
     end
     module_function :cadena_a_palabras_tsquery
-
   end
 end

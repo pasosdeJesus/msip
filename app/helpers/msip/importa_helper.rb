@@ -5,20 +5,20 @@ module Msip
     def nombre_en_tabla_basica(tbasica, nombre, menserror,
       camponombre = "nombre")
       if !nombre || nombre == ""
-        return nil
+        return
       end
 
       d = tbasica.where(
-        "upper(unaccent(#{camponombre})) = "\
+        "upper(unaccent(#{camponombre})) = " \
           "upper(unaccent(?))",
         nombre,
       )
       if d.count == 0
-        menserror << "  No se encontró '#{nombre}' en tabla básica "\
+        menserror << "  No se encontró '#{nombre}' en tabla básica " \
           "#{tbasica} al buscar en el campo #{camponombre}."
         nil
       elsif d.count > 1
-        menserror << "  En la tabla básica #{tbasica.class} hay #{d.count} "\
+        menserror << "  En la tabla básica #{tbasica.class} hay #{d.count} " \
           "registros cuyo campo #{camponombre} es #{nombre}."
         nil
       else # d.count == 1
@@ -71,7 +71,7 @@ module Msip
       elsif p.count == 7
         apellidos = p[0] + " " + p[1] + " " + p[2] + " " + p[3]
         nombres = p[4] + " " + p[5] + " " + p[6]
-      else 
+      else
         apellidos = p[0] + " " + p[1] + " " + p[2] + " " + p[3]
         nombres = p[4..-1].join(" ")
       end

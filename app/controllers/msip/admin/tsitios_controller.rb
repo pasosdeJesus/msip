@@ -9,7 +9,6 @@ module Msip
       load_and_authorize_resource class: Msip::Tsitio
 
       include Msip::Concerns::Controllers::TsitiosController
-
     end
   end
 end

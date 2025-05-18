@@ -27,7 +27,7 @@ module Msip
 
     def contexto_d
       contexto_p
-      @departamento = Departamento.where(id: 1).take
+      @departamento = Departamento.find_by(id: 1)
       @ubicacion.departamento_id = @departamento.id
     end
 
@@ -39,7 +39,7 @@ module Msip
 
     def contexto_m
       contexto_d
-      @municipio = Municipio.where(id: 25).take
+      @municipio = Municipio.find_by(id: 25)
       @ubicacion.municipio_id = @municipio.id
     end
 
@@ -51,7 +51,7 @@ module Msip
 
     def contexto_c
       contexto_m
-      @centropoblado = Centropoblado.where(municipio_id: 25).take
+      @centropoblado = Centropoblado.find_by(municipio_id: 25)
       @ubicacion.centropoblado_id = @centropoblado.id
     end
 

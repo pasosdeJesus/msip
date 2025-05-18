@@ -35,5 +35,4 @@ Rails.application.routes.draw do
 
   root "msip/hogar#index"
   mount Msip::Engine, at: "/", as: :msip
-
 end

@@ -20,7 +20,7 @@ module Msip
     end
 
     test "existente" do
-      departamento = Msip::Departamento.where(pais_id: 862, id: 1).take
+      departamento = Msip::Departamento.find_by(pais_id: 862, id: 1)
 
       assert_equal("Distrito Capital", departamento.nombre)
     end
