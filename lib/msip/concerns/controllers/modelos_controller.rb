@@ -651,7 +651,7 @@ module Msip
             end
             modelo = clase.constantize
             if modelo.where(id: params[:id].to_i).count != 1
-              render(inline: "No existe registro con la id #{params[:id]}")
+              render(inline: "No existe registro con la id #{params[:id].to_i}")
               return
             end
             a = modelo.find(params[:id].to_i)

@@ -39,7 +39,7 @@ module Msip
 
     # Espacio en bytes usado por la ruta dada
     def discousado_OpenBSD(ruta)
-      p = %x(du -s #{ruta})
+      p = %x(du -s #{Shellwords.escape(ruta)})
       l = p.split(" ")
       return l[0].to_i * 512 # bytes
     end
@@ -48,7 +48,7 @@ module Msip
     # Espacio en la partición que contiene la ruta dada
     # @return [puntodemontaje, usado, libre] en bytes
     def espacioparticion_OpenBSD(ruta)
-      p = %x(df #{ruta})
+      p = %x(df #{Shellwords.escape(ruta)})
       l = p.split("\n")
       c = l[1].split(" ")
       return [c[5], c[2].to_i*512, c[3].to_i*512]

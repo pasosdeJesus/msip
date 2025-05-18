@@ -3,7 +3,7 @@
 module Msip
   module Concerns
     module Controllers
-    module TrelacionesController 
+      module TrelacionesController 
         extend ActiveSupport::Concern
 
         included do

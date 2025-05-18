@@ -42,7 +42,7 @@ module Msip
             render(layout: "application")
           end
 
-         def espacio
+          def espacio
             verificarutas
             render(layout: "application")
           end
