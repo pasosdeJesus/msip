@@ -110,6 +110,25 @@ export default class Msip__Motor {
   }
 
 
+  // Retorna valor flotante con locale de USA a partir de `n` un 
+  // flotante con locale de Colombia, por ejemplo si recibe 
+  // 1'323.000,2 retorna 1323000,2
+  static reconocerDecimalLocaleEsCO(n) {
+    if (n === "") return 0;
+
+    let r = "";
+
+    for (let i = 0; i < n.length; i++) {
+      if (n[i] === ",") {
+        r += ".";
+      } else if (n[i] >= "0" && n[i] <= "9") {
+        r += n[i];
+      }
+    }
+    return parseFloat(r);
+  }
+
+
   /* Remplaza las opciones de un cuadro de seleccion por unas nuevas
    * @idsel es identificación del select
    * @nuevasop Arreglo de hashes con nuevas opciones, cada una tiene propiedades
