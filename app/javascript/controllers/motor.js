@@ -987,7 +987,7 @@ export default class Msip__Motor {
 
 
 
-  // Retorna valor flotante con locale de USA a partir de un 
+  // Retorna valor flotante con locale de USA a partir de `n` un 
   // flotante con locale de Colombia, por ejemplo si recibe 
   // 1'323.000,2 retorna 1323000,2
   static reconocerDecimalLocaleEsCO(n) {
