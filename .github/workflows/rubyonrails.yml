@@ -37,7 +37,7 @@ jobs:
       - name: Instalar Ruby y gemas
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1.2'
+          ruby-version: '3.4.1'
           bundler-cache: true
       - name: Instalar paquetes adicionales
         run: sudo apt install poppler-utils # Incluye pdftoppm
@@ -55,7 +55,7 @@ jobs:
       - name: Instalar Ruby y gemas
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.0-preview1'
+          ruby-version: '3.4.1'
           bundler-cache: true
       # Agregue o remplace verificadores 
       - name: Verificación de seguridad a dependencias ruby
