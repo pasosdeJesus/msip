@@ -42,6 +42,8 @@ gem "rails", "~> 8.0"
 
 gem "rails-i18n"      # Localización e Internacionalización
 
+gem "rorvswild"
+
 gem "simple_form"     # Formularios
 
 gem "stimulus-rails"            # Controladores en javascript

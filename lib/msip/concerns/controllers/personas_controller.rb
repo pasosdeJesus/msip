@@ -71,6 +71,7 @@ module Msip
           end
 
           def index_msip(c = nil)
+            debugger
             if c.nil?
               c = Msip::Persona.all
             end
