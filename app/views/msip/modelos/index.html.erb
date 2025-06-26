@@ -13,9 +13,13 @@
 <% else %>
   <% url_formulario = modelos_path(@registros) %>
 <% end %>
+<% metodo_formulario = "get" %>
+<% if @metodo_formulario_msipmodelo && @metodo_formulario_msipmodelo == "post" %>
+  <% metodo_formulario = "post" %>
+<% end %>
 <%= simple_form_for :filtro,
   { url: url_formulario,
-    method: "get"} do |f| %>
+    method: metodo_formulario} do |f| %>
 
   <%= render partial: 'index_encabezado', locals: {titulo: titulo, f: f} %>
 
