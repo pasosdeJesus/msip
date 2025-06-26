@@ -13,14 +13,19 @@
   <% else %>
     <% url_formulario = modelos_path(@registros) %>
   <% end %>
+  <% metodo_formulario = "get" %>
+  <% if @metodo_formulario_msipmodelo && @metodo_formulario_msipmodelo == "post" %>
+   <% metodo_formulario = "post" %>
+  <% end %>
   <%= simple_form_for :filtro,
     { url: url_formulario,
-      method: "get",
+      method: metodo_formulario,
       html: {
         "data-controller": "msip--enviarautomatico",
         "data-msip--enviarautomatico-target": "formulario repintar",
       }
     } do |f| %>
+
     <%= render partial: 'index_encabezado', locals: {titulo: titulo, f: f} %>
 
     <%= render partial: 'index_filtro_antestabla', locals: {f: f} %>
