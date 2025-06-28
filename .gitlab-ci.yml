@@ -7,7 +7,6 @@ services:
     alias: postgres
 
 variables:
-  BUNDLE_PATH: vendor/bundle
   CC_TEST_REPORTER_ID: "0b795636959c0c2fc716869449d4c0bbe5743d7626dba9235a942a9ba68869cd"
   CI: 'Si'
   NOKOGIRI_USE_SYSTEM_LIBRARIES: 'true'
@@ -44,7 +43,6 @@ test:
     - apt install -y -qq nodejs
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-    - apt-get install -yq openssl-dev
     - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq yarn
     - gem install bundler dotenv --no-document
     - bundle install --jobs $(nproc) "${FLAGS[@]}"
