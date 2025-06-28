@@ -31,7 +31,6 @@ test:
       - vendor/bundle
   before_script:
     - uname -a
-    - lsb_release --all
     - whoami
     - echo "HOME=${HOME}"
     - pwd
