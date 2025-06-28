@@ -28,6 +28,7 @@ test:
       - node_modules
       - vendor/bundle
   before_script:
+    - cat /etc/os-release
     - uname -a
     - whoami
     - echo "HOME=${HOME}"
