@@ -121,11 +121,6 @@ if (test "$SALTASIASOM" != "1") then {
   actuno si_asom
 } fi;
 
-if (test "$SALTASIFASOL" != "1") then {
-  echo "**** si_fasol"
-  actuno si_fasol
-} fi;
-
 if (test "$SALTASIJRSCOL" != "1") then {
   echo "**** si_jrscol"
   actuno si_jrscol
