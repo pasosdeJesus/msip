@@ -30,35 +30,3 @@
     </table>
   <% end %>
 </div>
-<div class="accordion" id="acordeon_fdeids">
-  <%= item_acordeon_bs(
-    'acordeon_familiardeids', 'familardeids', 
-    'Expandir / Colapsar de quien es familiar', false, {
-      'estilo_accordion-header': 'text-align: center',
-      'clase_accordion-body': 'table-responsive',
-      'estilo_accordion-body': 'overflow-x:scroll'
-    }) do %>
-    <table class='table table-bordered table-sm'>
-      <thead class='thead-light'>
-        <tr>
-          <th>Id Persona</th><th>Nombre</th><th>Relación</th>
-        </tr>
-      </thead class='thead-light'>
-      <tbody>
-        <% Msip::PersonaTrelacion.where(persona2: @registro.id).each do |pt| %>
-          <tr>
-            <td>
-              <%= link_to pt.persona1, msip.persona_path(pt.persona1), target: '_blank' %>
-            </td>
-            <td>
-              <%= pt.personauno.presenta_nombre %>
-            </td>
-            <td>
-              <%= pt.trelacion.nombre %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-</div>
