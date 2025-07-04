@@ -13,10 +13,10 @@ Rails.application.config.assets.version = "1.0"
 # Agregue más rutas a la ruta para cargar recursos
 # Rails.application.config.assets.paths << Emoji.images_path
 
-Rails.application.config.assets.paths << Rails.root.join("node_modules")
+#Rails.application.config.assets.paths << Rails.root.join("node_modules")
 
-Rails.application.config.assets.paths << Rails.root.join("node_modules/@fortawesome/fontawesome-free/")
-Rails.application.config.assets.paths << Rails.root.join("node_modules/tom-select/")
+#Rails.application.config.assets.paths << Rails.root.join("node_modules/@fortawesome/fontawesome-free/")
+#Rails.application.config.assets.paths << Rails.root.join("node_modules/tom-select/")
 
 # Precompilar recursos adicionales.
 # application.js, application.css, y todo lo que no es JS/CSS
