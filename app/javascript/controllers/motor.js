@@ -832,7 +832,7 @@ export default class Msip__Motor {
 
   // Pone colores del tema en elementos de la interfaz de manera dinámica
   static ponerTema(tema) {
-    return
+    return;
     console.log("entro a msip_ pone_tema")
     document.querySelectorAll('.table-striped>tbody>tr:nth-child(odd)').forEach((element) => {
       element.style.backgroundColor = tema.fondo_lista;

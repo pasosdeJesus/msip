@@ -281,7 +281,6 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
-    rorvswild (1.9.2)
     rubocop (1.75.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -396,7 +395,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   rails-i18n
-  rorvswild
   rubocop-minitest
   rubocop-rails
   rubocop-shopify
