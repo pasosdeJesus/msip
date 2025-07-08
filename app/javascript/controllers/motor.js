@@ -290,7 +290,7 @@ export default class Msip__Motor {
       });
     });
 
-    Msip__Motor.ponerTemaUsuarioAjax();
+    //Msip__Motor.ponerTemaUsuarioAjax();
 
     document.querySelectorAll("a[rel~=popover], .has-popover").forEach(elem => {
       new bootstrap.Popover(elem);
@@ -340,7 +340,7 @@ export default class Msip__Motor {
       this.inicializaMotor();
     }
     Msip__Motor.iniciar()
-    Msip__Motor.ponerTemaUsuarioAjax()
+    //Msip__Motor.ponerTemaUsuarioAjax()
 
     Msip__Motor.configurarElementosTomSelect()
 
@@ -832,6 +832,7 @@ export default class Msip__Motor {
 
   // Pone colores del tema en elementos de la interfaz de manera dinámica
   static ponerTema(tema) {
+    return
     console.log("entro a msip_ pone_tema")
     document.querySelectorAll('.table-striped>tbody>tr:nth-child(odd)').forEach((element) => {
       element.style.backgroundColor = tema.fondo_lista;
@@ -903,6 +904,7 @@ export default class Msip__Motor {
 
   // Pide al servidor el tema del usuario y lo establece
   static async ponerTemaUsuarioAjax(){
+    return
     var ruta = 'temausuario'
     var datos = {}
     var t = Date.now();
