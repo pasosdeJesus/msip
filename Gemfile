@@ -14,15 +14,11 @@ gem "bootsnap"
 
 gem "cancancan"
 
-gem "cssbundling-rails"
-
 gem "devise"
 
 gem "devise-i18n"
 
 gem "jbuilder"
-
-gem "jsbundling-rails"
 
 gem "kt-paperclip",             # Anexos
   git: "https://github.com/kreeti/kt-paperclip.git"
@@ -33,8 +29,6 @@ gem "nokogiri"
 
 gem "pg" # PostgreSQL
 
-gem "propshaft"
-
 gem "puma" # Lanza en modo desarrollo
 
 gem "rails", "~> 8.0"
@@ -43,6 +37,8 @@ gem "rails", "~> 8.0"
 gem "rails-i18n"      # Localización e Internacionalización
 
 gem "simple_form"     # Formularios
+
+gem "sprockets-rails"
 
 gem "stimulus-rails"            # Controladores en javascript
 

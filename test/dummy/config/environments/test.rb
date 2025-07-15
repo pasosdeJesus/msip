@@ -28,8 +28,6 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
-  config.assets.css_compressor = nil
-
   # Store uploaded files on the local file system in a temporary directory.
   # config.active_storage.service = :test
 
