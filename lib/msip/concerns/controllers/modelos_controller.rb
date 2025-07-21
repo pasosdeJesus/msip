@@ -208,7 +208,9 @@ module Msip
                 @registros
               end
               format.json do
-                render(:index, json: regjson)
+                 if !performed?
+                  render(:index, json: regjson)
+                 end
                 return
               end
               format.js do
@@ -239,7 +241,11 @@ module Msip
 
           # Despliega detalle de un registro
           def show_msip
-            @registro = clase.constantize.find(params[:id])
+            c = clase.constantize
+            # Aseguramos llamara accessible_by para posibilitar
+            # autenticar con billetera y token
+            c = c.accessible_by(current_ability)
+            @registro = c.find(params[:id])
             if @registro.respond_to?("current_usuario=")
               @registro.current_usuario = current_usuario
             end

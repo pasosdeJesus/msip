@@ -18,7 +18,30 @@ module Msip
     # Aplicación final debe hacer algo como:
     # protect_from_forgery with: :exception
 
+    # learn.tg propone una autenticación con un token firmado
+    # con la billetera y verificado al lado del servidor y tras
+    # eso almacenado en base de datos en BilleteraUsuario(usuario_id,
+    # billetera, token).
+    #
+    # En lugar de usar devise para ese caso puede activarse
+    # la ubicación del usuario con config.autentica_token_cripto_billetera
     def current_ability
+      if !current_usuario && request.format.json? &&
+          Rails.configuration.x.autentica_token_cripto_billetera
+        if params[:walletAddress] && params[:token]
+          b = BilleteraUsuario.where(billetera: params[:walletAddress])
+          if b.count == 0
+            puts "No BilleteraUsuario for #{params[:walletAddress]}"
+          else
+            ub = b.take
+            if ub.token != params[:token]
+              merr << "Different tokens #{ub.token} and #{params[:token]}"
+            else
+              @current_usuario = ub.usuario
+            end
+          end
+        end
+      end
       @current_ability ||= ::Ability.new(current_usuario)
     end
 
