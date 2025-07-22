@@ -35,7 +35,7 @@ module Msip
           else
             ub = b.take
             if ub.token != params[:token]
-              merr << "Different tokens #{ub.token} and #{params[:token]}"
+              puts "Different tokens #{ub.token} and #{params[:token]}"
             else
               @current_usuario = ub.usuario
             end
