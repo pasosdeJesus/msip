@@ -41,38 +41,6 @@
   </li>
 
   <li>
-    <i class='fa fa-flag'>Font-awesome</i>
-    <span id='ver_fontawesome'></span>
-    <script type="module"> 
-      //https://stackoverflow.com/questions/3368837/list-every-font-a-users-browser-can-display
-      function verFontAwesome() {
-        let { fonts } = document;
-        const it = fonts.entries();
-
-        let arr = [];
-        let done = false;
-        let ver = '';
-
-        while (!done) {
-          const font = it.next();
-          if (!font.done && font.value[0].family.includes('Font Awesome')) {
-            ver = font.value[0].family;
-            done = true;
-          } else {
-            done = font.done;
-          }
-        }
-        return ver
-      }
-      setTimeout(() => {
-        let vf = document.querySelector("#ver_fontawesome");
-        vf.innerHTML = verFontAwesome();
-      }, 1000);
-    </script>
-
-  </li>
-
-  <li>
     <select class="form-control select optional msip-sf-bs-input tom-select" 
             multiple="multiple" name="f[ejtom_ids][]" 
                                 id="f_ejtom_ids">
