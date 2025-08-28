@@ -1,0 +1,210 @@
+<div class="ubicacionpre" id="ubicacionpre-<%= htmlid %>" 
+  style="<%= estilogen %>" data-controller="msip--geodep">
+  <div class="row">
+    <div class="offset-md-0 col-md-6">
+      <%= f.association campopais, #:salida_pais,
+        collection: Msip::Pais.habilitados,
+        include_blank: '-- '+ campopais_etiqueta,
+        input_html: {
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_pais",
+            placeholder: "#{campopais_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campopais_etiqueta, #"País de salida"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
+    </div>
+    <% pa =  f.object.send("#{campopais}_id") #salida_pais_id %>
+    <% col = pa ? Msip::Departamento.habilitados.where(pais_id: pa).
+      order(:nombre) : [] %>
+    <div class="col-md-6">
+      <%= f.association campodepartamento, #:salida_departamento,
+        collection: col,
+        include_blank: '-- '+ campodepartamento_etiqueta,
+        input_html: {
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_departamento",
+            "msip--geodep-target": "departamento",
+            placeholder: "#{campodepartamento_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campodepartamento_etiqueta, #"Departamento"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="offset-md-0 col-md-6">
+      <% dep =  f.object.send("#{campodepartamento}_id") #salida_departamento_id %>
+      <% col = dep ? Msip::Municipio.habilitados.where(departamento_id: dep).
+        order(:nombre) : [] %>
+      <%= f.association campomunicipio, #:salida_municipio,
+        collection: col,
+        include_blank: '-- '+ campomunicipio_etiqueta,
+        input_html: {
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_municipio",
+            "msip--geodep-target": "municipio",
+            placeholder: "#{campomunicipio_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campomunicipio_etiqueta, #"Municipio"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
+    </div>
+
+    <% mun =  f.object.send("#{campomunicipio}_id") #salida_municipio_id %>
+    <% estsinmun = (mun && mun != "") ? false : true %>
+    <div class="col-md-6" id="<%= "restocp-#{htmlid}" %>">
+      <% colver = mun ? Msip::Vereda.habilitados.where(municipio_id: mun).
+         order(:nombre) : [] %>
+      <%= f.association campovereda , #:salida_vereda
+        collection: colver,
+        include_blank: '-- '+ campovereda_etiqueta,
+        input_html: {
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_vereda",
+            "msip--geodep-target": "vereda",
+            placeholder: "#{campovereda_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campovereda_etiqueta, #"Vereda"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
+      <% col = mun ? Msip::Centropoblado.habilitados.where(municipio_id: mun).
+        order(:nombre) : [] %>
+      <%= f.association campocentropoblado, #:salida_centropoblado,
+        collection: col,
+        include_blank: '-- '+ campocentropoblado_etiqueta,
+        input_html: {
+          class: "tom-select",
+          data: {
+            action: "change->msip--geodep#cambiar_centropoblado",
+            "msip--geodep-target": "centropoblado",
+            placeholder: "#{campocentropoblado_etiqueta}...",
+            toggle: "tooltip"
+          },
+          placeholder: campocentropoblado_etiqueta, #"Centro poblado"
+        },
+        label: false,
+        label_method: :nombre,
+        value_method: :id
+      %>
+
+
+    </div>
+
+  </div> <!-- row -->
+
+  <div class="row">
+    <% ph = campolugar_etiqueta #"Barrio o zona de Salida" %>
+    <% ih = { 
+      data: {
+        "msip--geodep-target": "lugar",
+        toggle: "tooltip" } } 
+      %>
+    <% if (!f.object.send(campolugar) || 
+      f.object.send(campolugar) == "") %>
+      <% ph = "#{campolugar_etiqueta}... (Buscar)" %>
+      <% #"Barrio o zona de salida... (Buscar)" %>
+      <% #ih = {"data-toggle" => "tooltip"} %>
+    <% end %>
+    <div class="col-md-6">
+      <%= f.input campolugar, #:salida_lugar,
+        disabled: estsinmun,
+        input_html: ih,
+        label: false,
+        placeholder: ph %>
+      <%= f.input campoubicacionpre_id, #as: :hidd:salidaubicacionpre_id, 
+        as: :hidden %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.input campositio, #:salida_sitio,
+        disabled: estsinmun,
+        input_html: {
+          data: {
+            "msip--geodep-target": "sitio",
+            toggle: "tooltip"
+          }
+        },
+        label: false,
+        placeholder: campositio_etiqueta
+      %>
+    </div>
+
+  </div> <!-- row -->
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= f.association campotsitio, #:salida_tsitio,
+        collection: Msip::Tsitio.where(fechadeshabilitacion: nil).order(:nombre),
+        label_method: :nombre,
+        value_method: :id,
+        label: false,
+        disabled: estsinmun,
+        include_blank: false,
+        selected: f.object.send("#{campotsitio}_id") ?
+          f.object.send("#{campotsitio}_id") : 1,
+        input_html: {
+          data: {
+            "msip--geodep-target": "tsitio",
+            toggle: "tooltip"
+          },
+          title: "Seleccione el #{campotsitio_etiqueta}" 
+        } %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input campolatitud, #:salida_latitud_localizado,
+        disabled: estsinmun,
+        input_html: {
+          data: {
+            "msip--geodep-target": "latitud",
+            toggle: "tooltip"
+          },
+          placeholder: campolatitud_etiqueta, #"Latitud"
+          value: f.object.send(campolatitud) || "0,0"
+        },
+        label: false
+      %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input campolongitud, #:salida_longitud_localizado,
+        disabled: estsinmun,
+        input_html: {
+          data: {
+            "msip--geodep-target": "longitud",
+            toggle: "tooltip"
+          },
+          placeholder: campolongitud_etiqueta, #"Longitud"
+          value: f.object.send(campolongitud) || "0,0"
+        },
+        label: false
+      %>
+    </div>
+    <div class="col-md-3">
+      <%= render partial: "/msip/ubicacionespre/ubicacionpre_campo_f4_extra", 
+        locals: { f: f, formupapa: formupapa || nil, indice: indice} %>
+    </div>
+ 
+  </div> <!-- row -->
+</div>

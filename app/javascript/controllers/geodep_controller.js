@@ -24,6 +24,7 @@ export default class extends Controller {
     "departamento", 
     "municipio", 
     "centropoblado", 
+    "vereda", 
     "lugar",
     "sitio",
     "tsitio",
@@ -118,28 +119,67 @@ export default class extends Controller {
     var purl = Msip__Motor.arreglarPuntoMontaje()
 
     console.log("centro poblado ahora es", this.centropobladoTarget.value)
-    let url = purl + '/admin/centrospoblados.json?municipio_id=' + 
-      e.target.value
-    window.Rails.ajax({
-      type: 'GET',
-      url: url,
-      data: null,
-      success: (resp, estado, xhr) => {
-        if (this.hasCentropobladoTarget) {
+    if (this.hasCentropobladoTarget) {
+      let urlcp = purl + '/admin/centrospoblados.json?municipio_id=' + 
+        e.target.value
+      window.Rails.ajax({
+        type: 'GET',
+        url: urlcp,
+        data: null,
+        success: (resp, estado, xhr) => {
           Msip__Motor.remplazarOpcionesSelect(this.centropobladoTarget.id,
             resp, true, 'id', 'nombre', true)
+          this.centropobladoTarget.tomselect.enable()
+          this.habilitarCamposExtra()
+        },
+        error: (req, estado, xhr) => {
+          window.alert('No pudo consultar "centrospoblados"')
         }
-        this.habilitarCamposExtra()
-      },
-      error: (req, estado, xhr) => {
-        window.alert('No pudo consultar centrospoblados')
-      }
-    })
+      })
+    }
+    if (this.hasVeredaTarget) {
+      let urlv = purl + '/admin/veredas.json?municipio_id=' + 
+        e.target.value
+      window.Rails.ajax({
+        type: 'GET',
+        url: urlv,
+        data: null,
+        success: (resp, estado, xhr) => {
+          Msip__Motor.remplazarOpcionesSelect(this.veredaTarget.id,
+            resp, true, 'id', 'nombre', true)
+          this.veredaTarget.tomselect.enable()
+          this.habilitarCamposExtra()
+        },
+        error: (req, estado, xhr) => {
+          window.alert('No pudo consultar "veredas"')
+        }
+      })
+    }
+
   }
 
   cambiar_centropoblado(e) {
+    // desactivar vereda y fijar tipo en urbano
+    if (this.hasVeredaTarget) {
+      this.veredaTarget.tomselect.disable()
+    }
+    if (this.hasTsitioTarget) {
+      this.tsitioTarget.value = 2 // URBANO
+      this.tsitioTarget.disabled = true
+    }
   }
  
+  cambiar_vereda(e) {
+    // desactivar centropoblado y fijar tipo en rural
+    if (this.hasCentropobladoTarget) {
+      this.centropobladoTarget.tomselect.disable()
+    }
+    if (this.hasTsitioTarget) {
+      this.tsitioTarget.value = 3 // RURAL
+      this.tsitioTarget.disabled = true
+    }
 
+  }
+ 
 
 }

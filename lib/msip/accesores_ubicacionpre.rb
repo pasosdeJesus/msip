@@ -28,6 +28,7 @@ module Msip
       send(:attr_accessor, "#{prefijo}_departamento_id")
       send(:attr_accessor, "#{prefijo}_municipio_id")
       send(:attr_accessor, "#{prefijo}_centropoblado_id")
+      send(:attr_accessor, "#{prefijo}_vereda_id")
       send(:attr_accessor, "#{prefijo}_lugar")
       send(:attr_accessor, "#{prefijo}_sitio")
       send(:attr_accessor, "#{prefijo}_tsitio_id")
@@ -117,6 +118,27 @@ module Msip
         foreign_key: "#{prefijo}_centropoblado_id",
         optional: true,
       )
+
+      define_method("#{prefijo}_vereda_id") do
+        if send(prefijo.to_s)
+          send(prefijo.to_s).vereda_id
+        else
+          ""
+        end
+      end
+
+      define_method("#{prefijo}_vereda") do
+        send(prefijo.to_s)&.vereda
+      end
+
+      send(
+        :belongs_to,
+        "#{prefijo}_vereda".to_sym,
+        class_name: "Msip::Vereda",
+        foreign_key: "#{prefijo}_vereda_id",
+        optional: true,
+      )
+
 
       define_method("#{prefijo}_lugar") do
         if send(prefijo.to_s)
