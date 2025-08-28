@@ -155,7 +155,9 @@ export default class extends Controller {
         }
       })
     }
-
+    if (this.hasTsitioTarget) {
+      this.tsitioTarget.tomselect.enable()
+    }
   }
 
   cambiar_centropoblado(e) {
