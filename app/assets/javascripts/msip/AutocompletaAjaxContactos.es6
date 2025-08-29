@@ -12,9 +12,17 @@ export default class MsipAutocompletaAjaxContactos {
     msip_arregla_puntomontaje(root)
     const cs = id.split(';')
     const idPersona = cs[0]
-    if ([...document.querySelector('#orgsocial_persona').
-        querySelectorAll('[id$=_attributes_id]')].filter(
-          e => e.value==idPersona).length > 0) {
+    if (document.querySelector('#orgsocial_persona_0') == null) {
+      window.alert("No se encontró #orgsocial_persona_0");
+      return
+    }
+    const lrep = [
+      ...document.querySelector('#orgsocial_persona_0').
+        querySelectorAll('[id$=_attributes_id]')
+    ].filter(
+          e => e.value==idPersona
+    )
+    if (lrep.length > 0) {
       window.alert("La misma persona ya está en el listado de contactos");
       return
     }
@@ -105,5 +113,5 @@ export default class MsipAutocompletaAjaxContactos {
 
 // Queriamos hacer dentro de MsipAutocompletaAjaxConactos static
 // claseEnvoltura = 'campos_persona' pero la versión de bable usada por babel-transpiler, usado por sprockets4 no lo soporta así que:
-MsipAutocompletaAjaxContactos.claseEnvoltura = 'campos_persona'
+MsipAutocompletaAjaxContactos.claseEnvoltura = 'div-tabla-fila'
 MsipAutocompletaAjaxContactos.idDatalist = 'fuente-contactos-orgsocial'
