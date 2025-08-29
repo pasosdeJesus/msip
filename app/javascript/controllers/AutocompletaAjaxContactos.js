@@ -11,9 +11,17 @@ export default class Msip__AutocompletaAjaxContactos {
     Msip__Motor.arreglarPuntoMontaje()
     const cs = id.split(';')
     const idPersona = cs[0]
-    if ([...document.querySelector('.orgsocial_persona').
-        querySelectorAll('[id$=_attributes_id]')].filter(
-          e => e.value==idPersona).length > 0) {
+    if (document.querySelector('#orgsocial_persona_0') == null) {
+      window.alert("No se encontró #orgsocial_persona_0");
+      return
+    }
+    const lrep = [
+      ...document.querySelector('#orgsocial_persona_0').
+        querySelectorAll('[id$=_attributes_id]')
+    ].filter(
+          e => e.value==idPersona
+    )
+    if (lrep.length > 0) {
       window.alert("La misma persona ya está en el listado de contactos");
       return
     }
