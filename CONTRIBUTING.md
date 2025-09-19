@@ -4,11 +4,11 @@
 
 Al hacer una contribución estás aceptando los términos de reproducción
 que estamos usando para este motor, que encuentras en:
-<https://gitlab.com/pasosdeJesus/msip/blob/main/LICENCIA.md>
+[LICENCIA.md](LICENCIA.md)
 
 ## 2. Tareas de integración continua
 
-El archivo `README.md` incluye varias banderas que queremos dejar en
+El archivo [README.md](README.md) incluye varias banderas que queremos dejar en
 buen estado:
   1. Que pase pruebas en plataforma de integración continua. Agradecemos
      servicio a _gitlab_.
@@ -23,9 +23,8 @@ buen estado:
 Puedes probar el motor msip y los cambios que hagas en la aplicación de prueba
 disponible en el directorio `test/dummy`
 
-Para hacer operar la aplicación sigue las instrucciones disponibles en
-
-<https://gitlab.com/pasosdeJesus/msip/blob/main/doc/aplicacion-de-prueba.md>
+Para hacer operar la aplicación sigue las instrucciones disponibles en 
+[doc/aplicacion-de-prueba.md](doc/aplicacion-de-prueba.md)
 
 
 
