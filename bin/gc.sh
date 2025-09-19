@@ -50,6 +50,13 @@ if (test "$SINAC" != "1") then {
     if (test "$?" != "0") then {
       exit 1;
     } fi;
+    if (test -d "$rutaap/test/pupeteer") then {
+      (cd $rutaap/test/pupeteer; CXX=c++ yarn upgrade)
+      if (test "$?" != "0") then {
+        exit 1;
+      } fi;
+    } fi;
+
   } fi;
 } fi;
 
