@@ -3,7 +3,7 @@
 [![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) [![Mantenibilidad](https://api.codeclimate.com/v1/badges/a20b38b425687073070e/maintainability)](https://codeclimate.com/github/pasosdeJesus/msip/maintainability) [![Cobertura de Pruebas](https://api.codeclimate.com/v1/badges/a20b38b425687073070e/test_coverage)](https://codeclimate.com/github/pasosdeJesus/msip/test_coverage) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip)
 
 
-![Logo de msip](https://gitlab.com/pasosdeJesus/msip/-/raw/main/test/dummy/app/assets/images/logo.jpg)
+![Logo de msip](test/dummy/app/assets/images/logo.jpg)
 
 Este es un motor diseñado para ser base actualizada de sistemas de información
 seguros o de otros motores para sistemas de información.
@@ -22,8 +22,7 @@ de información a diversos niveles:
     `app/views/msip/modelos/`. La vista `index` incluye
     un filtro definible con `scope` en el modelo.  La vista parcial
     `_form` genera automáticamente un formulario con elementos típicos.
-    Consulta
-    <https://gitlab.com/pasosdeJesus/msip/-/blob/main/doc/vistas-automaticas.md>
+    Consulta [doc/vistas-automaticas.md](doc/vistas-automaticas.md)
   - Vistas y formularios generados con las herramientas estándar de `rails`
     y `simple_form`. Listados paginados con `will_paginate`.
   - Preparado para construir aplicaciones adaptables (_responsive_) con
@@ -123,14 +122,14 @@ de información a diversos niveles:
   - Busca promover gemas recienten que faciliten el desarrollo del resto
   de la aplicación a nivel de interfaz e internacionalización y proveer
   ayudas para actualizar --por lo menos documentación en el directorio
-  [doc](https://gitlab.com/pasosdeJesus/msip/-/tree/main/doc) y guías de 
+  [doc](doc) y guías de 
   actualización en el [wiki](https://gitlab.com/pasosdeJesus/msip/-/wikis).
   - Busca mantener actualizada la información geográfica respecto al DIVIPOLA
     colombiano y OpenStreetMap
 
 ## Requisitos
 
-Ver <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md>
+Ver [doc/requisitos.md](doc/requisitos.md)
 
 ## Aplicación mínima incluida en msip
 
@@ -140,12 +139,11 @@ con diseño web adaptable, autenticación, manejo de clave con condensado
 `bcrypt`, usuarios, grupos, vistas completas para tablas básicas y para
 modelos persona y organización social. Incluso antes de intentar
 iniciar una aplicación aparte, puede intentar ejecutar esa aplicación mínima,
-siguiendo las instrucciones de [CONTRIBUTING.md](CONTRIBUTING.md)
+siguiendo las instrucciones de [doc/aplicacion-de-prueba.md](doc/aplicacion-de-prueba.md)
 
 ## Iniciar un sistema de información usando msip
 
-Ver 
-<https://gitlab.com/pasosdeJesus/msip/blob/main/doc/iniciar-si-usando-msip.md>
+Ver [doc/iniciar-si-usando-msip.md](doc/iniciar-si-usando-msip.md)
 
 ## Documentación
 
@@ -153,7 +151,7 @@ Después de tener tu primer ejemplo puedes generar tablas básicas para
 tu aplicación, personalizar los modelos, vistas y controladores que `msip`
 ofrece. Puedes consultar:
 * Guías para varias operaciones usuales: 
-  <https://gitlab.com/pasosdeJesus/msip/blob/main/doc/README.md>
+  [doc/README.md](doc/README.md)
 * Documentación de las fuentes de msip en:
   <https://rubydoc.info/github/pasosdeJesus/msip/>
 * Noticias y actualizaciones:
