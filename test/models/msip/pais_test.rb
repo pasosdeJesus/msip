@@ -82,9 +82,15 @@ module Msip
       Pais.connection.execute(cup)
 
       # Se debió disparar el trigger de actualización de ubicacionpre
-      assert_equal "z", Msip::Ubicacionpre.find_by(pais_id: pais_id).nombre
+      assert_equal "z", Msip::Ubicacionpre.find_by(
+        pais_id: pais_id,
+        departamento_id: nil
+      ).nombre
       assert_equal "", Msip::Ubicacionpre
-        .find_by(pais_id: pais_id).nombre_sin_pais
+        .find_by(
+          pais_id: pais_id,
+          departamento_id: nil
+        ).nombre_sin_pais
       assert_equal "y / z", Msip::Ubicacionpre
         .find_by(departamento_id: departamento_id, municipio_id: nil).nombre
       assert_equal "y", Msip::Ubicacionpre
