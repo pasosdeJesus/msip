@@ -140,7 +140,7 @@ con diseño web adaptable, autenticación, manejo de clave con condensado
 `bcrypt`, usuarios, grupos, vistas completas para tablas básicas y para
 modelos persona y organización social. Incluso antes de intentar
 iniciar una aplicación aparte, puede intentar ejecutar esa aplicación mínima,
-siguiendo las instrucciones de [CONTRIBUTING.md]
+siguiendo las instrucciones de [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Iniciar un sistema de información usando msip
 
