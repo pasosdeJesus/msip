@@ -41,7 +41,7 @@ gem "pg" # PostgreSQL
 
 gem "puma" # Lanza en modo desarrollo
 
-gem "rails", ">= 7.2", "< 7.3"
+gem "rails", ">= 7.2.2.2", "< 7.3"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
 gem "rails-i18n", "~> 7.0"      # Localización e Internacionalización
@@ -84,6 +84,8 @@ group :development, :test do
   gem "rubocop-rails"
 
   gem "rubocop-shopify"
+
+  gem "thor", ">= 1.4.0"
 end
 
 group :development do
