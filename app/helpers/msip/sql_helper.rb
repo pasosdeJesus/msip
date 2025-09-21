@@ -96,11 +96,11 @@ module Msip
     ##
     # Agrega una nueva tabla al listado $t
     #
-    # @param t [Array<String>] Listado de tablas separadas por ,
+    # @param t [String] Listado de tablas separadas por ,
     # @param nt [String] Nueva tabla por agregar si falta
     #
     # @return [String] cadena t completada para asegurar tabla
-    # /
+    ##
     def agregar_tabla(t, nt)
       at = t.split(",").map(&:strip)
       unless at.include?(nt.strip)
@@ -116,7 +116,6 @@ module Msip
     ##
     # Agrega condición a WHERE en un SELECT de SQL
     #
-    # @param [Object]  db   Conexión a base de datos
     # @param [String]  w    cadena con WHERE que se completa
     # @param [String]  n     nombre de campo
     # @param [String]  v     valor esperado
