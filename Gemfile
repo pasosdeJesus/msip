@@ -88,6 +88,8 @@ group :development, :test do
   gem "rubocop-shopify"
 
   gem "thor", ">= 1.4.0"
+
+  gem "yard"
 end
 
 group :development do
