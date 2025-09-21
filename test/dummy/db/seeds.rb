@@ -22,7 +22,7 @@ if (ENV.fetch('SEMILLA_PEQ', "0") == "1") then
   puts "grep4"
   `grep "INSERT INTO public.msip_vereda.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
   puts "grep5"
-  `grep "INSERT INTO public.msip_ubicaiconpre.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
+  `grep -e "msip_ubicacionpre.* 'Colombia', 170, NULL, NULL, NULL" -e "msip_ubicacionpre.*, 170, 27, 1359," -e "msip_ubicacionpre.*, 170, 27, NULL,"  ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
   puts "ls"
   puts `ls -l ../../db/`
   puts "cargando"

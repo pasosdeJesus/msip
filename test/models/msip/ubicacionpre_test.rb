@@ -65,19 +65,19 @@ module Msip
       assert u.poner_nombre_estandar
 
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, nil, nil, nil, nil, nil, nil, nil
+        170, 27, nil, nil, nil, nil, nil, nil, nil
       )
 
-      assert_operator idu, :>, 0
+      assert idu > 0
       u = Msip::Ubicacionpre.find(idu)
 
-      assert_equal "Boyacá / Colombia", u.nombre
-      assert_equal "Boyacá", u.nombre_sin_pais
+      assert_equal "Cundinamarca / Colombia", u.nombre
+      assert_equal "Cundinamarca", u.nombre_sin_pais
 
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
-        departamento_id: 11,
-        municipio_id: 1013,
+        departamento_id: 27,
+        municipio_id: 1359,
         nombre: "x",
         lugar: "x",
       )
@@ -86,20 +86,20 @@ module Msip
       assert u.poner_nombre_estandar
 
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, nil, nil, nil, nil, nil
+        170, 27, 1359, nil, nil, nil, nil, nil, nil
       )
 
       assert_operator idu, :>, 0
       u = Msip::Ubicacionpre.find(idu)
 
-      assert_equal "Ráquira / Boyacá / Colombia", u.nombre
-      assert_equal "Ráquira / Boyacá", u.nombre_sin_pais
+      assert_equal "Une / Cundinamarca / Colombia", u.nombre
+      assert_equal "Une / Cundinamarca", u.nombre_sin_pais
 
       u = Msip::Ubicacionpre.create(
         pais_id: 170,
-        departamento_id: 11,
-        municipio_id: 1013,
-        centropoblado_id: 1248,
+        departamento_id: 27,
+        municipio_id: 1359,
+        centropoblado_id: 4872,
         nombre: "x",
         lugar: "x",
       )
@@ -111,69 +111,69 @@ module Msip
       assert u.poner_nombre_estandar
 
       idc = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, 1248, nil, nil, nil, nil, nil
+        170, 27, 1359, 4872, nil, nil, nil, nil, nil
       )
 
       assert_operator idc, :>, 0
       u = Msip::Ubicacionpre.find(idc)
 
-      assert_equal "Ráquira / Ráquira / Boyacá / Colombia", u.nombre
-      assert_equal "Ráquira / Ráquira / Boyacá", u.nombre_sin_pais
+      assert_equal "El Ramal / Une / Cundinamarca / Colombia", u.nombre
+      assert_equal "El Ramal / Une / Cundinamarca", u.nombre_sin_pais
 
       # Vereda
       idv = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Vereda l", nil, nil, nil, nil
+        170, 27, 1359, nil, "Vereda l", nil, nil, nil, nil
       )
 
       assert_operator idv, :>, 0
       u = Msip::Ubicacionpre.find(idv)
 
-      assert_equal "Vereda l / Ráquira / Boyacá / Colombia", u.nombre
-      assert_equal "Vereda l / Ráquira / Boyacá", u.nombre_sin_pais
+      assert_equal "Vereda l / Une / Cundinamarca / Colombia", u.nombre
+      assert_equal "Vereda l / Une / Cundinamarca", u.nombre_sin_pais
 
       # Finca
       idf = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Vereda l", "Finca r", nil, nil, nil
+        170, 27, 1359, nil, "Vereda l", "Finca r", nil, nil, nil
       )
 
       assert_operator idf, :>, 0
       u = Msip::Ubicacionpre.find(idf)
 
-      assert_equal "Finca r / Vereda l / Ráquira / Boyacá / Colombia", u.nombre
-      assert_equal "Finca r / Vereda l / Ráquira / Boyacá", u.nombre_sin_pais
+      assert_equal "Finca r / Vereda l / Une / Cundinamarca / Colombia", u.nombre
+      assert_equal "Finca r / Vereda l / Une / Cundinamarca", u.nombre_sin_pais
 
       # Si es una vereda con nombre de centro poblado suponemos que es centro
       # poblado
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Ráquira", nil, nil, nil, nil
+        170, 27, 1359, nil, "El Ramal", nil, nil, nil, nil
       )
 
       assert_equal idc, idu
 
       # tsitio no válido
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Vereda l", nil, -1, nil, nil
+        170, 27, 1359, nil, "Vereda l", nil, -1, nil, nil
       )
 
       assert_nil idu
 
       # tsitio rural
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Vereda l", nil, 3, nil, nil
+        170, 27, 1359, nil, "Vereda l", nil, 3, nil, nil
       )
 
       assert_equal idv, idu
 
       # tsitio rural
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, "Vereda l", nil, 3, nil, nil
+        170, 27, 1359, nil, "Vereda l", nil, 3, nil, nil
       )
 
       assert_equal idv, idu
 
       # tsitio rural
       idu = Msip::Ubicacionpre.buscar_o_agregar(
-        170, 11, 1013, nil, nil, "Finca x", 3, nil, nil
+        170, 27, 1359, nil, nil, "Finca x", 3, nil, nil
       )
 
       assert_operator idu, :>, 0
@@ -241,7 +241,6 @@ module Msip
       ubicacionpre = Ubicacionpre.where(
         pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil,
       )
-
       assert_equal 1, ubicacionpre.count
     end
   end

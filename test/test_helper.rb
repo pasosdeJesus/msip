@@ -39,7 +39,7 @@ PRUEBA_CENTROPOBLADO = {
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
-  municipio_id: 1,
+  municipio_id: 1359,
   tcentropoblado_id: "CAS",
 }
 
@@ -228,19 +228,19 @@ PRUEBA_TSITIO = {
 
 PRUEBA_UBICACION = {
   tsitio_id: 1,
-  pais_id: 862, # VENEZUELA
-  departamento_id: 1, # DISTRITO CAPITAL
-  municipio_id: 25, # BOLIVARIANO LIBERTADOR
-  centropoblado_id: 217, # CARACAS
+  pais_id: 170, # Colombia
+  departamento_id: 27, # Cundinamarca
+  municipio_id: 1359, # Une
+  centropoblado_id: 1, # Une
   created_at: "2014-11-06",
 }
 
 PRUEBA_UBICACIONPRE = {
-  nombre: "BARRANCOMINAS / BARRANCOMINAS / GUAINÍA / COLOMBIA",
+  nombre: "UNE / Une / Cundinamarca / Colombia",
   pais_id: 170,
-  departamento_id: 56,
-  municipio_id: 594,
-  centropoblado_id: 13064,
+  departamento_id: 27,
+  municipio_id: 1359,
+  centropoblado_id: 1,
   lugar: nil,
   sitio: nil,
   tsitio_id: nil,
@@ -248,7 +248,7 @@ PRUEBA_UBICACIONPRE = {
   longitud: nil,
   created_at: "2021-12-08",
   updated_at: "2021-12-08",
-  nombre_sin_pais: "BARRANCOMINAS / BARRANCOMINAS / GUAINÍA",
+  nombre_sin_pais: "UNE / Une / Cundinamarca",
   fechacreacion: "2023-12-07",
 }
 
@@ -302,5 +302,5 @@ PRUEBA_VEREDA = {
   latitud: 1.5,
   longitud: 1.5,
   fechacreacion: "2014-08-04",
-  municipio_id: 1417,
+  municipio_id: 1359,
 }

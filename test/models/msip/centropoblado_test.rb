@@ -20,9 +20,9 @@ module Msip
     end
 
     test "existente" do
-      centropoblado = Msip::Centropoblado.find_by(id: 217)
+      centropoblado = Msip::Centropoblado.find_by(id: 1)
 
-      assert_equal("Caracas", centropoblado.nombre)
+      assert_equal("Une", centropoblado.nombre)
     end
   end
 end
