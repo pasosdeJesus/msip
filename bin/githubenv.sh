@@ -7,14 +7,14 @@
 
 # Install PostgreSQL 17 and required development libraries
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee
-/etc/apt/sources.list.d/pgdg.list
+echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee /etc/apt/sources.list.d/pgdg.list
 sudo apt update
 sudo apt install -y postgresql-17 postgresql-client-17
 
-sudo pg_createcluster 17 main --start
+sudo locale-gen es_CO.UTF-8 && sudo update-locale
 
-sudo sed -i "s|peer|md5|g" /etc/postgresql/17/main/pg_hba.conf
+sudo pg_createcluster 17 main --start
+sudo sed -i "s|local.*all.*all.*peer|local all all md5|g" /etc/postgresql/17/main/pg_hba.conf
 
 # Start PostgreSQL service
 sudo service postgresql restart
@@ -42,8 +42,6 @@ echo "export RAILS_ENV=test" >> .env
 source .env
 
 bundle
-
-
 
 echo "PostgreSQL environment configured successfully!"
 echo "Database: $BD_PRUEBA"

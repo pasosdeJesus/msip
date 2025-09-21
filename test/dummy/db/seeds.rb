@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # Este archivo debe contener todas las creaciones de registros
 # necesarias para alimentar la base de datos con sus valores por defecto.
 # Los datos puede cargarse con la tarea rake db:seed (o creados junto
@@ -12,7 +11,25 @@
 
 conexion = ActiveRecord::Base.connection
 
-Msip.carga_semillas_sql(conexion, "../..", :datos)
+
+if (ENV.fetch('SEMILLA_PEQ', "0") == "1") then
+  puts "grep1"
+  `grep -v -e "INSERT INTO public.msip_centropoblado" -e "INSERT INTO public.msip_municipio" -e "INSERT INTO public.msip_vereda" ../../db/datos-basicas.sql  > ../../db/datospeq-basicas.sql`
+  puts "grep2"
+  `grep "INSERT INTO public.msip_municipio.*\(1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
+  puts "grep3"
+  `grep "INSERT INTO public.msip_centropoblado.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
+  puts "grep4"
+  `grep "INSERT INTO public.msip_vereda.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
+  puts "ls"
+  puts `ls -l ../../db/`
+  puts "cargando"
+  Msip.carga_semillas_sql(conexion, "../..", :datospeq)
+else
+  Msip.carga_semillas_sql(conexion, "../..", :datos)
+end
+
+
 
 # usuario msip, clave msip
 conexion.execute("INSERT INTO public.usuario
