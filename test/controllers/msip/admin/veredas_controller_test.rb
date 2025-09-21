@@ -100,8 +100,8 @@ module Msip
 
     test "debe eliminar" do
       assert_difference("Vereda.count", -1) do
-        Msip::Ubicacionpre.where(vereda_id: 323).delete_all
-        delete msip.admin_vereda_path(Vereda.find(323))
+        Msip::Ubicacionpre.where(vereda_id: 27737).delete_all
+        delete msip.admin_vereda_path(Vereda.find(27737))
       end
 
       assert_redirected_to msip.admin_veredas_path

@@ -116,9 +116,9 @@ module Msip
     end
 
     test "existente" do
-      vereda = Vereda.find_by(id: 1)
+      vereda = Vereda.find_by(id: 27735)
 
-      assert_equal("Nuevo Morichal", vereda.nombre)
+      assert_equal("El Ramal", vereda.nombre)
     end
   end
 end

@@ -29,13 +29,13 @@ module Msip
     test "presenta_nombre" do
       u = Ubicacion.create(PRUEBA_UBICACION)
 
-      assert_equal "Venezuela / Distrito Capital / Bolivariano Libertador / Caracas",
+      assert_equal "Colombia / Cundinamarca / Une / Une",
         u.presenta_nombre
-      assert_equal "Venezuela / Distrito Capital / Bolivariano Libertador",
+      assert_equal "Colombia / Cundinamarca / Une",
         u.presenta_nombre({ sin_centropoblado: 1 })
-      assert_equal "Venezuela / Distrito Capital",
+      assert_equal "Colombia / Cundinamarca",
         u.presenta_nombre({ sin_centropoblado: 1, sin_municipio: 1 })
-      assert_equal "Venezuela",
+      assert_equal "Colombia",
         u.presenta_nombre({ sin_centropoblado: 1, sin_municipio: 1, sin_departamento: 1 })
       assert_equal "",
         u.presenta_nombre({

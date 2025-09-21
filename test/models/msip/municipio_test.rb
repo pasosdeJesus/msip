@@ -89,9 +89,9 @@ module Msip
     end
 
     test "existente" do
-      municipio = Msip::Municipio.find_by(id: 25)
+      municipio = Msip::Municipio.find_by(id: 1359)
 
-      assert_equal("Bolivariano Libertador", municipio.nombre)
+      assert_equal("Une", municipio.nombre)
     end
   end
 end
