@@ -5,19 +5,25 @@
 # of this repository (see .github/workflows/rubyonrails.yml)
 # It includes installation, service setup, and environment configuration
 
+
 # Install PostgreSQL 17 and required development libraries
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee /etc/apt/sources.list.d/pgdg.list
-sudo apt update
-sudo apt install -y postgresql-17 postgresql-client-17
+if (test ! -f /etc/postgresql/17/main/pg_hba.conf) then {
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+	echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee /etc/apt/sources.list.d/pgdg.list
+	sudo apt update
+	sudo apt install -y postgresql-17 postgresql-client-17
 
-sudo locale-gen es_CO.UTF-8 && sudo update-locale
+	sudo locale-gen es_CO.UTF-8 && sudo update-locale
 
-sudo pg_createcluster 17 main --start
-sudo sed -i "s|local.*all.*all.*peer|local all all md5|g" /etc/postgresql/17/main/pg_hba.conf
+	sudo pg_createcluster 17 main --start
+	sudo sed -i "s|local.*all.*all.*peer|local all all md5|g" /etc/postgresql/17/main/pg_hba.conf
+} fi;
 
-# Start PostgreSQL service
-sudo service postgresql restart
+sudo service postgresql status | grep online
+if (test "$?" != "0") then {
+	# Start PostgreSQL service
+	sudo service postgresql start
+} fi;
 
 # Create user and database as postgres user
 sudo su - postgres -c "createuser -s rails"

@@ -14,13 +14,15 @@ conexion = ActiveRecord::Base.connection
 
 if (ENV.fetch('SEMILLA_PEQ', "0") == "1") then
   puts "grep1"
-  `grep -v -e "INSERT INTO public.msip_centropoblado" -e "INSERT INTO public.msip_municipio" -e "INSERT INTO public.msip_vereda" ../../db/datos-basicas.sql  > ../../db/datospeq-basicas.sql`
+  `grep -v -e "INSERT INTO public.msip_centropoblado" -e "INSERT INTO public.msip_municipio" -e "INSERT INTO public.msip_vereda" -e "INSERT INTO public.msip_ubicacionpre" ../../db/datos-basicas.sql  > ../../db/datospeq-basicas.sql`
   puts "grep2"
   `grep "INSERT INTO public.msip_municipio.*\(1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
   puts "grep3"
   `grep "INSERT INTO public.msip_centropoblado.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
   puts "grep4"
   `grep "INSERT INTO public.msip_vereda.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
+  puts "grep5"
+  `grep "INSERT INTO public.msip_ubicaiconpre.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql`
   puts "ls"
   puts `ls -l ../../db/`
   puts "cargando"
