@@ -46,10 +46,6 @@ test:
     - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq yarn
     - gem install bundler dotenv --no-document
     - bundle install --jobs $(nproc) "${FLAGS[@]}"
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    - ./cc-test-reporter -v
-    - ./cc-test-reporter before-build
     - cd test/dummy
     - cp .env.gitlab .env
     - cp db/structure.sql db/structure.sql.copia 
@@ -66,7 +62,8 @@ test:
     - NOPRUEBAJS=1 bin/regresion.sh
     - export exit_code=$?
   after_script:
-    - if (test "${exit_code}" == "") then { exit_code=0; } fi; ./cc-test-reporter after-build -t simplecov --exit-code "${exit_code}" || true
+    - echo "exit_code=$exit_code"
+    - exit $exit_code
 
 
 include:
