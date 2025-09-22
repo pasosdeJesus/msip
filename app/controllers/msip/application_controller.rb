@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Msip
+  # Controlador base para la aplicación Msip.
+  # Incluye funcionalidades comunes como manejo de parámetros, autenticación
+  # y autorización con Devise y CanCanCan.
   class ApplicationController < ActionController::Base
     # sin autorizacion porque es utilidad para otros controladores
 

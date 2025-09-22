@@ -3,6 +3,7 @@
 require "rails/generators/base"
 
 module Msip
+  # Generador para crear una tabla básica.
   class TablabasicaGenerator < Rails::Generators::Base
     desc "Genera tabla básica"
 
@@ -27,6 +28,7 @@ module Msip
       default: "",
       desc: "Crea un belongs_to en un tabla"
 
+    # Genera la tabla básica, modelo, controlador y pruebas.
     def genera_tablabasica
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
@@ -48,6 +50,7 @@ module Msip
 
     private
 
+    # Genera el modelo.
     def genera_modelo
       template(
         "tablabasica.rb.erb",
@@ -77,6 +80,7 @@ module Msip
       puts "      #{tablabasicaplural.capitalize}: Descripción plural"
     end
 
+    # Genera el controlador.
     def genera_controlador
       template(
         "tablasbasicas_controller.rb.erb",
@@ -84,6 +88,7 @@ module Msip
       )
     end
 
+    # Genera las pruebas.
     def genera_test
       template(
         "tablabasica_test.rb.erb",
@@ -95,6 +100,7 @@ module Msip
       )
     end
 
+    # Genera la asociación.
     def genera_asociacion
       puts "Para asociarla en #{options.asocia}:"
       puts <<~EOF
@@ -131,18 +137,26 @@ module Msip
       end
     end
 
+    # Retorna el nombre del archivo.
+    # @return [String] El nombre del archivo.
     def nom_arch
       tablabasica.underscore
     end
 
+    # Retorna el nombre plural del archivo.
+    # @return [String] El nombre plural del archivo.
     def nom_arch_plural
       tablabasicaplural.underscore
     end
 
+    # Retorna el nombre de la clase.
+    # @return [String] El nombre de la clase.
     def nom_clase
       tablabasica.capitalize
     end
 
+    # Retorna el nombre plural de la clase.
+    # @return [String] El nombre plural de la clase.
     def nom_clase_plural
       tablabasicaplural.capitalize
     end

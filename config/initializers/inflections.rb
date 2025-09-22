@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# Be sure to restart your server when you modify this file.
+# == Reglas de Inflección
+#
+# Este archivo define reglas de inflección personalizadas para la aplicación.
+# Asegúrese de reiniciar su servidor tras modificar este archivo.
 
 # Add new inflection rules using the following format. Inflections
 # are locale specific, and you may define rules for as many different

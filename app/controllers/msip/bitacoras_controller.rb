@@ -3,6 +3,7 @@
 require "msip/concerns/controllers/bitacoras_controller"
 
 module Msip
+  # Controlador de bitácoras.
   class BitacorasController < Msip::ModelosController
     before_action :set_bitacora,
       only: [:show, :edit, :update, :destroy]

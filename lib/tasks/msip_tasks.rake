@@ -11,6 +11,8 @@ require_relative "../../app/helpers/msip/tareasrake_helper"
 
 namespace :msip do
   desc "Actualiza indices"
+  # Actualiza las secuencias de IDs de las tablas básicas y otras tablas con índices.
+  # Asegura que las secuencias de IDs de PostgreSQL estén sincronizadas con los IDs máximos existentes en las tablas.
   task indices: :environment do
     connection = ActiveRecord::Base.connection
     puts "msip - indices"
@@ -44,6 +46,8 @@ namespace :msip do
   # De implementacion de structure:dump de rake y de
   # https://github.com/opdemand/puppet-modules/blob/master/rails/files/databases.rakeset
   desc "Vuelca tablas básicas de aplicación en orden"
+  # Vuelca las tablas básicas de la aplicación en un orden específico para mantener la integridad referencial.
+  # Genera el archivo `db/datos-basicas.sql` con los datos de las tablas básicas.
   task vuelcabasicas: :environment do
     puts "msip - vuelcabasicas"
     Msip::TareasrakeHelper.asegura_varambiente_bd
@@ -115,6 +119,7 @@ namespace :msip do
   end
 
   desc "Actualiza tablas básicas"
+  # Restaura las tablas básicas de la base de datos utilizando el archivo `db/datos-basicas.sql`.
   task actbasicas: :environment do
     puts "msip - actbasicas"
     %x(
@@ -126,6 +131,8 @@ EOF
   end
 
   desc "Vuelca base de datos completa"
+  # Realiza un volcado completo de la base de datos utilizando `pg_dump`.
+  # El volcado se guarda en un archivo con un nombre basado en la fecha y hora actual en el directorio de volcados configurado.
   task vuelca: :environment do
     puts "msip - vuelca"
     Msip::TareasrakeHelper.asegura_varambiente_bd
@@ -156,6 +163,8 @@ EOF
   end # vuelca
 
   desc "Vuelca base de datos completa con un método rápido pero poco portable"
+  # Realiza un volcado completo de la base de datos utilizando un método rápido de `pg_dump`.
+  # El volcado se guarda en un archivo con un nombre basado en la fecha y hora actual en el directorio de volcados configurado.
   task vuelcarapido: :environment do
     puts "msip - vuelcarapido"
     Msip::TareasrakeHelper.asegura_varambiente_bd
@@ -172,6 +181,8 @@ EOF
   end # vuelcarapido
 
   desc "Restaura volcado"
+  # Restaura una base de datos a partir de un archivo de volcado especificado por la variable de entorno `ARCH`.
+  # @param _t [Object] Parámetro de la tarea (no utilizado).
   task restaura: :environment do |_t|
     arch = ENV.fetch("ARCH")
     puts "Restaurar #{arch} en ambiente"
@@ -185,6 +196,8 @@ EOF
   end # restaura
 
   desc "Enlaza controladores de motores en app/javascript/controllers y actualiza index.js"
+  # Enlaza los controladores Stimulus de los motores a la aplicación principal y actualiza el archivo `index.js`.
+  # Esto permite que los controladores de los motores sean utilizados por la aplicación principal.
   task stimulus_motores: :environment do
     # No funciona desde la aplicación hacer `import` de controladores que
     # están en motores especificando la ruta del motor
@@ -197,11 +210,11 @@ EOF
     # Agregue a su `.gitignore` las rutas de los motores e.g
     # `app/javascript/controllers/mi_motor`
 
-    # @param motor identificación del motor e.g msip
-    # @param rutac ruta con controlador stimulus por enlazar  e.g
-    # ../../app/javascript/controllers
-    # @param cgitignore  líneas de .gitignore
-    # @param pora lista de rutas por agregar a .gitignore
+    # Enlaza un controlador Stimulus de un motor a la aplicación principal.
+    # @param motor [String] Identificación del motor (e.g., 'msip').
+    # @param rutac [String] Ruta con el controlador Stimulus por enlazar (e.g., '../../app/javascript/controllers').
+    # @param cgitignore [Array<String>] Líneas del archivo .gitignore.
+    # @param pora [Array<String>] Lista de rutas por agregar a .gitignore.
     def enlaza(motor, rutac, cgitignore, pora)
       puts "Enlazando controladores de #{motor}"
       rr = "app/javascript/controllers/#{motor}"
@@ -248,6 +261,8 @@ EOF
   end
 
   desc "Mezcla reporte de cobertura de pruebas con los de pruebas del sistema"
+  # Mezcla los reportes de cobertura de pruebas unitarias y de pruebas del sistema.
+  # Utiliza SimpleCov para combinar los resultados de cobertura de diferentes fuentes.
   task :reporteregresion do
     require "simplecov"
     SimpleCov.formatters = [

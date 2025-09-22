@@ -4,6 +4,7 @@ require "msip/concerns/controllers/oficinas_controller"
 
 module Msip
   module Admin
+    # Controlador de oficinas.
     class OficinasController < Msip::Admin::BasicasController
       before_action :set_oficina,
         only: [:show, :edit, :update, :destroy]

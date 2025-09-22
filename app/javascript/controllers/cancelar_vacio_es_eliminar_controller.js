@@ -1,34 +1,38 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Conecta con data-controller="msip--cancelar-vacio-es-eliminar"
-export default class extends Controller {
-/* Convierte botón cancelar a eliminación cuando algunos campos
- * determinadores del formulario están vacíos
+/**
+ * Controlador para convertir el botón cancelar a eliminación cuando algunos campos
+ * determinadores del formulario están vacíos.
  *
- * 1. Conecte el formulario con este controlador con:
- *    data-controller="msip--cancelar-vacio-es-eliminar"
- * 2. Marque uno a uno los campos determinadores con
- *    data-msip--cancelar-vacio-es-eliminar-target='determinador'
+ * 1. Conecte el formulario con este controlador con: `data-controller="msip--cancelar-vacio-es-eliminar"`.
+ * 2. Marque uno a uno los campos determinadores con `data-msip--cancelar-vacio-es-eliminar-target='determinador'`.
  * 3. Cambie el botón cancelar para agregarle:
- *    'data-msip--cancelar-vacio-es-eliminar-target' => 'boton',
- *    'data-msip--cancelar-vacio-es-eliminar-id-param' => @registro.nil? ? '' :
- *      @registro.id.to_s,
- *    'data-msip--cancelar-vacio-es-eliminar-urlparcial-param' => '/casos/',
+ *    `data-msip--cancelar-vacio-es-eliminar-target` => `boton`,
+ *    `data-msip--cancelar-vacio-es-eliminar-id-param` => `@registro.nil? ? '' : @registro.id.to_s`,
+ *    `data-msip--cancelar-vacio-es-eliminar-urlparcial-param` => `/casos/`,
  *
  *     Teniendo en cuenta que:
- *       - id debe tener id del registro que se edita y que podría borrarse
- *       - urlparcial debe ser ruta a registros que permita borrar con ruta/id
+ *       - `id` debe tener id del registro que se edita y que podría borrarse.
+ *       - `urlparcial` debe ser ruta a registros que permita borrar con ruta/id.
  */
+export default class extends Controller {
 
   static targets = [
     'boton',
     'determinador'
   ]
 
+  /**
+   * Conecta el controlador.
+   */
   connect() {
   }
 
-  talvezEliminar(evento) { 
+  /**
+   * Evalúa si el formulario debe ser eliminado y modifica el botón de cancelar.
+   * @param {Event} evento - El evento que dispara la función.
+   */
+  talvezEliminar(evento) {
     if (!this.hasDeterminadorTarget) {
       return
     }
@@ -51,5 +55,4 @@ export default class extends Controller {
       this.botonTarget.setAttribute('href', url)
     }
   }
-
 }

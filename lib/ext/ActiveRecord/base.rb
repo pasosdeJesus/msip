@@ -3,8 +3,8 @@
 module ActiveRecord
   class Base
     class << self
-      # Basado en soluciones de
-      # http://stackoverflow.com/questions/6541209/decimals-and-commas-when-entering-a-number-into-a-ruby-on-rails-form
+      # Define métodos para manejar campos flotantes localizados.
+      # @param fields [Array<Symbol>] Nombres de los campos flotantes.
       def flotante_localizado(*fields)
         fields.each do |f|
           define_method("#{f}_localizado") do
@@ -25,6 +25,8 @@ module ActiveRecord
         end
       end
 
+      # Define métodos para manejar campos de fecha en formato dd/M/yyyy.
+      # @param fields [Array<Symbol>] Nombres de los campos de fecha.
       def fecha_ddMyyyy(*fields)
         fields.each do |f|
           define_method("#{f}_ddMyyyy") do

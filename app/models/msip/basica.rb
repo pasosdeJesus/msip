@@ -8,10 +8,14 @@ module Msip
       include Msip::Localizacion
       include Msip::Modelo
 
+      # Scope para registros habilitados.
+      # @param campoord [String] Campo por el cual ordenar.
+      # @return [ActiveRecord::Relation] Registros habilitados ordenados.
       scope :habilitados, ->(campoord = "nombre") {
         where(fechadeshabilitacion: nil).order(campoord.to_sym)
       }
 
+      # Scope para filtro permanente (sin efecto por ahora).
       scope :filtro_permanente, -> () {
       }
 
@@ -34,6 +38,8 @@ module Msip
             },
       }
 
+      # Valida que la fecha de creación sea posterior al año 2000.
+      # @return [void]
       validate :fechacreacion_posible?
       def fechacreacion_posible?
         if !fechacreacion || fechacreacion < Date.new(2000, 1, 1)
@@ -41,6 +47,8 @@ module Msip
         end
       end
 
+      # Valida que la fecha de deshabilitación sea posterior a la de creación.
+      # @return [void]
       validate :fechadeshabilitacion_posible?
       def fechadeshabilitacion_posible?
         if fechadeshabilitacion.present? && fechadeshabilitacion < fechacreacion
@@ -53,12 +61,18 @@ module Msip
       # def nombre=(val)
       #   self[:nombre] = val.squish
       # end
+      # Convierte el nombre a mayúsculas y elimina espacios redundantes.
+      # @param val [String] El valor a asignar al nombre.
+      # @return [void]
       def nombre=(val)
         self[:nombre] = val.upcase.squish if val
       end
 
       # Si atr corresponde a tabla combinada la retorna
       # en otro caso retorna nil
+      # Retorna la asociación combinada si `atr` corresponde a una tabla combinada.
+      # @param atr [Object] Atributo a verificar.
+      # @return [ActiveRecord::Associations::Association, nil] La asociación combinada o nil.
       def asociacion_combinada(atr)
         if atr.is_a?(Hash) && atr.first[0].to_s.ends_with?("_ids")
           na = atr.first[0].to_s.chomp("_ids")
@@ -71,6 +85,9 @@ module Msip
 
       # Si atr es llave foranea retorna asociación a este modelo
       # en otro caso retorna nil
+      # Retorna la asociación si `atr` es una llave foránea.
+      # @param atr [String] Atributo a verificar.
+      # @return [ActiveRecord::Associations::Association, nil] La asociación o nil.
       def asociacion_llave_foranea(atr)
         aso = self.class.reflect_on_all_associations
         bel = aso.select { |a| a.macro == :belongs_to }
@@ -84,6 +101,9 @@ module Msip
 
       # Si atr es atributo que es llave foranea retorna su clase
       # si no retorna nil
+      # Retorna la clase de la llave foránea si `atr` es un atributo que es llave foránea.
+      # @param atr [String] Atributo a verificar.
+      # @return [Class, nil] La clase de la llave foránea o nil.
       def clase_llave_foranea(atr)
         r = asociacion_llave_foranea(atr)
         if r
@@ -94,6 +114,8 @@ module Msip
       end
 
       # Presentar nombre del registro en index y show
+      # Presenta el nombre del registro en index y show.
+      # @return [String] El nombre del registro.
       def presenta_nombre
         self["nombre"]
       end
@@ -129,11 +151,15 @@ module Msip
       #      end
 
       # Para búsquedas tipo autocompletacion en base de datos campos a observar
+      # Para búsquedas tipo autocompletacion en base de datos, campos a observar.
+      # @return [Array<String>] Lista de campos a observar.
       def self.busca_etiqueta_campos
         ["nombre"]
       end
 
       # Para búsquedas tipo autocompletacion etiqueta que se retorna
+      # Para búsquedas tipo autocompletacion, etiqueta que se retorna.
+      # @return [String] La etiqueta para autocompletacion.
       def busca_etiqueta
         v = self.class.busca_etiqueta_campos.map do |c|
           self[c]
@@ -142,16 +168,23 @@ module Msip
       end
 
       # Para búsquedas tipo autocompletacion valor que se retorna
+      # Para búsquedas tipo autocompletacion, valor que se retorna.
+      # @return [Object] El valor para autocompletacion.
       def busca_valor
         self["id"]
       end
 
+      # Atributo para indicar si el registro está habilitado.
+      # @return [String] "Si" si está habilitado, "No" si no.
       attr_accessor :habilitado
 
       def habilitado
         fechadeshabilitacion.nil? ? "Si" : "No"
       end
 
+      # Scope para filtrar por estado de habilitación.
+      # @param o [String] "SI" para habilitados, "NO" para deshabilitados.
+      # @return [ActiveRecord::Relation] Registros filtrados por estado de habilitación.
       scope :filtro_habilitado, lambda { |o|
         if o.upcase.strip == "SI"
           where("#{table_name}.fechadeshabilitacion IS NULL")
@@ -161,20 +194,32 @@ module Msip
         end
       }
 
+      # Scope para filtrar por nombre.
+      # @param n [String] Nombre a buscar.
+      # @return [ActiveRecord::Relation] Registros filtrados por nombre.
       scope :filtro_nombre, lambda { |n|
         where("unaccent(#{table_name}.nombre) ILIKE '%' || unaccent(?) || '%'", n)
       }
 
+      # Scope para filtrar por observaciones.
+      # @param o [String] Observaciones a buscar.
+      # @return [ActiveRecord::Relation] Registros filtrados por observaciones.
       scope :filtro_observaciones, lambda { |o|
         where("unaccent(#{table_name}.observaciones) ILIKE '%' || unaccent(?) || '%'", o)
       }
 
+      # Scope para filtrar por fecha de creación inicial.
+      # @param f [Date] Fecha de creación inicial.
+      # @return [ActiveRecord::Relation] Registros filtrados por fecha de creación inicial.
       scope :filtro_fechacreacionini, lambda { |f|
         where("fechacreacion >= ?", f)
         # El control de fecha HTML estándar retorna la fecha
         # en formato yyyy-mm-dd siempre
       }
 
+      # Scope para filtrar por fecha de creación final.
+      # @param f [Date] Fecha de creación final.
+      # @return [ActiveRecord::Relation] Registros filtrados por fecha de creación final.
       scope :filtro_fechacreacionfin, lambda { |f|
         where("fechacreacion <= ?", f)
       }

@@ -3,6 +3,8 @@
 require "devise"
 
 module Msip
+  # Motor de la aplicación Msip.
+  # Configura generadores, migraciones y decoradores.
   class Engine < ::Rails::Engine
     isolate_namespace Msip
 
@@ -34,44 +36,122 @@ module Msip
     end
   end
 
+  # @!attribute longitud_nusuario
+  #   @return [Integer] Longitud máxima del nombre de usuario.
   mattr_accessor :longitud_nusuario
+  # @!attribute paginador
+  #   @return [Symbol] Paginador utilizado (e.g., :will_paginate).
   mattr_accessor :paginador
+  # @!attribute paisomision
+  #   @return [Integer] ID del país por omisión.
   mattr_accessor :paisomision
+  # @!attribute ruta_anexos
+  #   @return [String] Ruta del directorio de anexos.
   mattr_accessor :ruta_anexos
+  # @!attribute ruta_volcados
+  #   @return [String] Ruta del directorio de volcados de base de datos.
   mattr_accessor :ruta_volcados
+  # @!attribute titulo
+  #   @return [String] Título de la aplicación.
   mattr_accessor :titulo
+  # @!attribute descripcion
+  #   @return [String] Descripción de la aplicación.
   mattr_accessor :descripcion
+  # @!attribute codigofuente
+  #   @return [String] URL del repositorio de código fuente.
   mattr_accessor :codigofuente
+  # @!attribute urllogo
+  #   @return [String] URL del logo de la aplicación.
   mattr_accessor :urllogo
+  # @!attribute urlcontribuyentes
+  #   @return [String] URL de la página de contribuyentes.
   mattr_accessor :urlcontribuyentes
+  # @!attribute urlcreditos
+  #   @return [String] URL de la página de créditos.
   mattr_accessor :urlcreditos
+  # @!attribute urllicencia
+  #   @return [String] URL de la licencia de la aplicación.
   mattr_accessor :urllicencia
+  # @!attribute agradecimientoDios
+  #   @return [String] Texto de agradecimiento a Dios.
   mattr_accessor :agradecimientoDios
 
   # Tema
+  # @!attribute colorom_nav_ini
+  #   @return [String] Color inicial de la barra de navegación.
   mattr_accessor :colorom_nav_ini
+  # @!attribute colorom_nav_fin
+  #   @return [String] Color final de la barra de navegación.
   mattr_accessor :colorom_nav_fin
+  # @!attribute colorom_nav_fuente
+  #   @return [String] Color de la fuente de la barra de navegación.
   mattr_accessor :colorom_nav_fuente
+  # @!attribute colorom_fondo_lista
+  #   @return [String] Color de fondo de las listas.
   mattr_accessor :colorom_fondo_lista
+  # @!attribute colorom_btn_primario_fondo_ini
+  #   @return [String] Color inicial de fondo del botón primario.
   mattr_accessor :colorom_btn_primario_fondo_ini
+  # @!attribute colorom_btn_primario_fondo_fin
+  #   @return [String] Color final de fondo del botón primario.
   mattr_accessor :colorom_btn_primario_fondo_fin
+  # @!attribute colorom_btn_primario_fuente
+  #   @return [String] Color de la fuente del botón primario.
   mattr_accessor :colorom_btn_primario_fuente
+  # @!attribute colorom_btn_peligro_fondo_ini
+  #   @return [String] Color inicial de fondo del botón de peligro.
   mattr_accessor :colorom_btn_peligro_fondo_ini
+  # @!attribute colorom_btn_peligro_fondo_fin
+  #   @return [String] Color final de fondo del botón de peligro.
   mattr_accessor :colorom_btn_peligro_fondo_fin
+  # @!attribute colorom_btn_peligro_fuente
+  #   @return [String] Color de la fuente del botón de peligro.
   mattr_accessor :colorom_btn_peligro_fuente
+  # @!attribute colorom_btn_accion_fondo_ini
+  #   @return [String] Color inicial de fondo del botón de acción.
   mattr_accessor :colorom_btn_accion_fondo_ini
+  # @!attribute colorom_btn_accion_fondo_fin
+  #   @return [String] Color final de fondo del botón de acción.
   mattr_accessor :colorom_btn_accion_fondo_fin
+  # @!attribute colorom_btn_accion_fuente
+  #   @return [String] Color de la fuente del botón de acción.
   mattr_accessor :colorom_btn_accion_fuente
+  # @!attribute colorom_alerta_exito_fondo
+  #   @return [String] Color de fondo de las alertas de éxito.
   mattr_accessor :colorom_alerta_exito_fondo
+  # @!attribute colorom_alerta_exito_fuente
+  #   @return [String] Color de la fuente de las alertas de éxito.
   mattr_accessor :colorom_alerta_exito_fuente
+  # @!attribute colorom_alerta_problema_fondo
+  #   @return [String] Color de fondo de las alertas de problema.
   mattr_accessor :colorom_alerta_problema_fondo
+  # @!attribute colorom_alerta_problema_fuente
+  #   @return [String] Color de la fuente de las alertas de problema.
+  # @!attribute colorom_alerta_problema_fuente
+  #   @return [String] Color de la fuente de las alertas de problema.
   mattr_accessor :colorom_alerta_problema_fuente
+  # @!attribute colorom_fondo
+  #   @return [String] Color de fondo general.
+  # @!attribute colorom_fondo
+  #   @return [String] Color de fondo general.
   mattr_accessor :colorom_fondo
+  # @!attribute colorom_color_fuente
+  #   @return [String] Color de la fuente general.
+  # @!attribute colorom_color_fuente
+  #   @return [String] Color de la fuente general.
   mattr_accessor :colorom_color_fuente
+  # @!attribute colorom_color_flota_subitem_fondo
+  #   @return [String] Color de fondo de los subítems flotantes.
+  # @!attribute colorom_color_flota_subitem_fondo
+  #   @return [String] Color de fondo de los subítems flotantes.
   mattr_accessor :colorom_color_flota_subitem_fondo
+  # @!attribute colorom_color_flota_subitem_fuente
+  #   @return [String] Color de la fuente de los subítems flotantes.
   mattr_accessor :colorom_color_flota_subitem_fuente
 
   # Prosidebar
+  # @!attribute prosidebar_colapsada
+  #   @return [Boolean] Indica si la barra lateral de Prosidebar está colapsada.
   mattr_accessor :prosidebar_colapsada
 
   # Valores iniciales

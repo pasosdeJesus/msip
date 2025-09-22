@@ -4,6 +4,7 @@ require "msip/concerns/controllers/ubicacionespre_controller"
 
 module Msip
   module Admin
+    # Controlador de ubicaciones predefinidas.
     class UbicacionespreController < Msip::Admin::BasicasController
       before_action :set_ubicacionpre,
         only: [:show, :edit, :update, :destroy],

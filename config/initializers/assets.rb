@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# Asegurese de reiniciar su  servidor tras modificar este archivo.
+# == Configuración de Assets
+#
+# Este archivo configura el pipeline de assets de la aplicación.
+# Asegúrese de reiniciar su servidor tras modificar este archivo.
 
 if !Rails || !Rails.application || !Rails.application.config || !Rails.application.config.respond_to?(:assets)
   return

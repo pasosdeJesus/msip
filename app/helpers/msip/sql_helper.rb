@@ -93,14 +93,13 @@ module Msip
     end
     module_function :cambiar_convencion_sexo
 
-    ##
+    # @!method agregar_tabla(t, nt)
     # Agrega una nueva tabla al listado $t
     #
     # @param t [String] Listado de tablas separadas por ,
     # @param nt [String] Nueva tabla por agregar si falta
     #
     # @return [String] cadena t completada para asegurar tabla
-    ##
     def agregar_tabla(t, nt)
       at = t.split(",").map(&:strip)
       unless at.include?(nt.strip)
@@ -113,7 +112,7 @@ module Msip
     alias_method :agrega_tabla, :agregar_tabla
     module_function :agrega_tabla
 
-    ##
+    # @!method ampliar_where(w, n, v, opcmp = "=", con = "AND")
     # Agrega condición a WHERE en un SELECT de SQL
     #
     # @param [String]  w    cadena con WHERE que se completa
@@ -137,7 +136,7 @@ module Msip
     alias_method :consulta_and, :ampliar_where
     module_function :consulta_and
 
-    ##
+    # @!method ampliar_where_sinap(w, n, v, opcmp = "=", con = "AND")
     # Como la función anterior sólo que el valor no lo pone entre
     # apostrofes y supone que ya viene escapado el valor $v
     #
@@ -148,7 +147,6 @@ module Msip
     # @param con [String]   conector
     #
     # @return [String] cadena w completada con nueva condición
-    # /
     def ampliar_where_sinap(w, n, v, opcmp = "=", con = "AND")
       if w != ""
         w += " " + con

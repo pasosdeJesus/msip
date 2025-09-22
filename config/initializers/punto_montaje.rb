@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# == Configuración del Punto de Montaje
+#
+# Este archivo configura el punto de montaje de la aplicación y de los assets.
+# Asegúrese de reiniciar su servidor tras modificar este archivo.
+
 # punto de montaje de la aplicación
 Rails.application.config.relative_url_root =
   ENV.fetch("RUTA_RELATIVA", "/")

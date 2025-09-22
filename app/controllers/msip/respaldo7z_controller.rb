@@ -8,6 +8,7 @@ Rake::Task.clear # evitar cargar muchas veces en modo desarrollo
 Rails.application.load_tasks
 
 module Msip
+  # Controlador para la gestión de respaldos cifrados.
   class Respaldo7zController < ApplicationController
     load_and_authorize_resource class: Msip::Respaldo7z
 

@@ -5,13 +5,21 @@ module Msip
   class Ability
     include CanCan::Ability
 
+    # @!attribute ROLADMIN
+    #   @return [Integer] Role ID for Administrator.
     ROLADMIN  = 1
     # ROLINV    = 2
+    # @!attribute ROLDIR
+    #   @return [Integer] Role ID for Director.
     ROLDIR    = 3
     # ROLCOOR   = 4
+    # @!attribute ROLOPERADOR
+    #   @return [Integer] Role ID for Operator/Analyst.
     ROLOPERADOR = ROLANALI = 5
     # ROLSIST   = 6
 
+    # @!attribute ROLES
+    #   @return [Array<Array<String, Integer>>] List of roles with their IDs.
     ROLES = [
       ["Administrador", ROLADMIN], # 1
       ["", 0], # 2
@@ -21,6 +29,8 @@ module Msip
       ["", 0], # 6
     ]
 
+    # @!attribute ROLES_CA
+    #   @return [Array<String>] List of role capabilities/descriptions.
     ROLES_CA = [
       "Crear copias de respaldo cifradas. " \
         "Administrar usuarios. " \
@@ -33,6 +43,8 @@ module Msip
       "", # 7
     ]
 
+    # @!attribute BASICAS_PROPIAS
+    #   @return [Array<Array<String>>] List of proprietary basic tables.
     BASICAS_PROPIAS = [
       ["Msip", "centropoblado"],
       ["Msip", "departamento"],
@@ -57,6 +69,8 @@ module Msip
       ["Msip", "vereda"],
     ]
 
+    # @!attribute INISEC_TB
+    #   @return [Hash] Dictionary for initializing ID sequences of some basic tables.
     INISEC_TB = {
       msip_centropoblado: 1000000,
       msip_departamento: 10000,
@@ -66,6 +80,10 @@ module Msip
       msip_vereda: 1000000,
     }
 
+    # Retorna diccionario con inicialización para secuencia de ids de
+    # algunas tablas básicas que comienzan en valores mayor a 100.
+    # Las tablas básicas que no esten indexadas comienzan secuencia
+    # de ids en 100
     # Retorna diccionario con inicialización para secuencia de ids de
     # algunas tablas básicas que comienzan en valores mayor a 100.
     # Las tablas básicas que no esten indexadas comienzan secuencia
@@ -83,12 +101,15 @@ module Msip
       BASICAS_PROPIAS
     end
 
+    # @!attribute BASICAS_ID_NOAUTO
+    #   @return [Array<Array<String>>] List of basic tables whose ID is not autoincremental.
     BASICAS_ID_NOAUTO = [
       ["Msip", "tcentropoblado"],
       ["Msip", "trelacion"],
     ]
 
-    # Tablas básicas cuyo id no es autoincremental
+    # Arreglo de tablas básicas cuyo ID no es autoincremental.
+    # @return [Array<Array<String>>]
     def basicas_id_noauto
       BASICAS_ID_NOAUTO
     end
@@ -107,6 +128,7 @@ module Msip
     ]
 
     # Tablas no básicas pero que tienen índice *_seq_id
+    # @return [Array<Array<String>>] 
     def nobasicas_indice_seq_con_id
       NOBASICAS_INDSEQID
     end
@@ -129,6 +151,8 @@ module Msip
 
     # Recibe una tabla básica como pareja [Modulo, clase] y retorna
     # clase completa Modulo::Clase
+    # @param t [Array<String>] Tabla básica como pareja [Modulo, clase]
+    # @return [Class] Clase completa Modulo::Clase
     def self.tb_clase(t)
       k = if t[0] != ""
         t[0] + "::" + t[1].camelize
@@ -140,6 +164,8 @@ module Msip
 
     # Recibe una tabla básica como pareja [Modulo, clase] y retorna
     # nombre de tabla modulo_clase
+    # @param t [Array<String>] Tabla básica como pareja [Modulo, clase]
+    # @return [String] Nombre de tabla modulo_clase
     def self.tb_modelo(t)
       if t[0] != ""
         t[0].underscore.gsub(%r{/}, "_") + "_" + t[1]
@@ -148,6 +174,7 @@ module Msip
       end
     end
 
+    # @return [Array<Class>] Lista de modelos relacionados con persona
     def self.lista_modelos_persona
       [
         Msip::EtiquetaPersona,

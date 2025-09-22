@@ -4,6 +4,7 @@ require "msip/concerns/controllers/tcentrospoblados_controller"
 
 module Msip
   module Admin
+    # Controlador de tipos de centros poblados.
     class TcentrospobladosController < BasicasController
       before_action :set_tcentropoblado, only: [:show, :edit, :update, :destroy]
       load_and_authorize_resource class: Msip::Tcentropoblado

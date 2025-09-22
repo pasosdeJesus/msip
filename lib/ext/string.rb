@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
 class String
+  # Extensión a la clase String para manejo de decimales localizados y otras utilidades.
+
+  # Convierte una cadena a un decimal no localizado.
   # Basado en soluciones de
   # http://stackoverflow.com/questions/6541209/decimals-and-commas-when-entering-a-number-into-a-ruby-on-rails-form
+  # @return [String] El decimal no localizado.
   def a_decimal_nolocalizado
     delimiter = I18n.t("number.format.delimiter")
     separator = I18n.t("number.format.separator")
     gsub(/[#{delimiter}#{separator}]/, delimiter => "", separator => ".")
   end
 
+  # Convierte una cadena a un decimal localizado.
+  # @return [String] El decimal localizado.
   def a_decimal_localizado
     if !self || self == ""
       return ""
@@ -42,8 +48,9 @@ class String
     end
   end
 
-  # Convierte una cadena a altas y bajas es decir primera letra de
-  # cada palabra mayúscula y las demás de la palabra en minúsculas.
+  # Convierte una cadena a altas y bajas, es decir, la primera letra de
+  # cada palabra en mayúscula y las demás en minúsculas.
+  # @return [String] La cadena convertida.
   def altas_bajas
     inip = true
     r = "".dup # descongela

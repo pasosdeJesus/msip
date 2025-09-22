@@ -4,6 +4,7 @@ require "msip/concerns/controllers/veredas_controller"
 
 module Msip
   module Admin
+    # Controlador de veredas.
     class VeredasController < Msip::Admin::BasicasController
       before_action :set_vereda,
         only: [:show, :edit, :update, :destroy]

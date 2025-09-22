@@ -8,7 +8,6 @@ require "msip/engine"
 # y organizaciones sociales, (3) control de acceso a la aplicación,
 # (4) ubicaciones geográficas, (5) temas y (6) tablas básicas.
 module Msip
-  # Carga un archivo con semillas SQL de un motor, ruta o app
   # @param conexion [Object] Tipicamente ActiveRecord::Base.connection()
   # @param motor [String] motor del cual cargar, o cadena con ruta
   #   o nil para que sea de aplicación
@@ -17,7 +16,6 @@ module Msip
   #     a tablas básicas de motor del cual desciende directamente.
   #     El segundo debería tener nuevos datos para las tablas básicas.
   # @param patexcluye [Pattern] Excluir lineas que cumplan el patrón
-  #
   # @return [void] Si el archivo existe lo ejecuta
   def self.carga_semillas_sql(conexion, motor, tipoarchivo, patexcluye = nil)
     if tipoarchivo.to_s != "datos" && tipoarchivo.to_s != "cambios" && tipoarchivo.to_s != "datospeq"
@@ -55,6 +53,9 @@ module Msip
   # Considerar https://rubygems.org/gems/activerecord-postgresql-extensions
   # (aunque parece no proveer algo como primary_key_exists?)
   # http://stackoverflow.com/questions/11905868/Check-if-sequence-exists-in-Postgres-plpgsql/11919600#11919600
+  # @param conexion [Object] Conexión a la base de datos.
+  # @param nombre [String] Nombre de la secuencia.
+  # @return [Boolean] True si la secuencia existe, false en caso contrario.
   def self.existe_secuencia?(conexion, nombre)
     cs = conexion.select_all("SELECT c.relkind
       FROM   pg_catalog.pg_namespace n
@@ -68,7 +69,10 @@ module Msip
   end
 
   # Renombra una secuncia
-  # @return bool true sii puede renombrar
+  # @param conexion [Object] Conexión a la base de datos.
+  # @param anterior [String] Nombre anterior de la secuencia.
+  # @param nuevo [String] Nuevo nombre de la secuencia.
+  # @return [Boolean] true si puede renombrar, false en caso contrario.
   def self.renombra_secuencia(conexion, anterior, nuevo)
     if Msip.existe_secuencia?(conexion, anterior) &&
         !Msip.existe_secuencia?(conexion, nuevo)

@@ -3,6 +3,7 @@
 require "rails/generators/base"
 
 module Msip
+  # Generador para crear un descendiente de Msip::Modelo.
   class ModeloGenerator < Rails::Generators::Base
     desc "Genera descendiente de Msip::Modelo"
 
@@ -23,6 +24,7 @@ module Msip
       default: true,
       desc: "Genera prueba minitest para el modelo"
 
+    # Genera el modelo, controlador y pruebas.
     def genera_modelo
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
@@ -40,6 +42,7 @@ module Msip
 
     private
 
+    # Genera el modelo.
     def genera_modelom
       template(
         "modelo.rb.erb",
@@ -64,6 +67,7 @@ module Msip
       EOF
     end
 
+    # Genera el controlador.
     def genera_controlador
       template(
         "modelos_controller.rb.erb",
@@ -71,6 +75,7 @@ module Msip
       )
     end
 
+    # Genera las pruebas.
     def genera_test
       template(
         "modelo_test.rb.erb",
@@ -82,18 +87,26 @@ module Msip
       )
     end
 
+    # Retorna el nombre del archivo.
+    # @return [String] El nombre del archivo.
     def nom_arch
       modelo.underscore
     end
 
+    # Retorna el nombre plural del archivo.
+    # @return [String] El nombre plural del archivo.
     def nom_arch_plural
       modeloplural.underscore
     end
 
+    # Retorna el nombre de la clase.
+    # @return [String] El nombre de la clase.
     def nom_clase
       modelo.capitalize
     end
 
+    # Retorna el nombre plural de la clase.
+    # @return [String] El nombre plural de la clase.
     def nom_clase_plural
       modeloplural.capitalize
     end

@@ -3,6 +3,7 @@
 require "rails/generators/base"
 
 module Msip
+  # Generador para asociar una tabla básica con otra.
   class AsociabasicaGenerator < Rails::Generators::Base
     desc "Asocia tabla básica con otra"
 
@@ -28,6 +29,7 @@ module Msip
       desc: "Crea un belongs_to en un tabla2 --selección simple-- " \
         "de lo contrario tabla combinada y has_many --selección múltiple"
 
+    # Genera la asociación entre tablas básicas.
     def genera_asociabasica
       if ENV["DISABLE_SPRING"].to_i != 1
         # http://makandracards.com/makandra/24525-disabling-spring-when-debugging
@@ -126,6 +128,7 @@ end
 
     private
 
+    # Genera el modelo.
     def genera_modelo
       template(
         "tablabasica.rb.erb",
@@ -169,6 +172,7 @@ end
       Rails.logger.debug { "      #{tablabasicaplural}: Descripción plural" }
     end
 
+    # Genera el controlador.
     def genera_controlador
       template(
         "tablasbasicas_controller.rb.erb",
@@ -176,6 +180,7 @@ end
       )
     end
 
+    # Genera las pruebas.
     def genera_test
       template(
         "tablabasica_test.rb.erb",
@@ -187,6 +192,7 @@ end
       )
     end
 
+    # Genera la factory.
     def genera_factory
       template(
         "factory_tablabasica.rb.erb",
@@ -194,21 +200,30 @@ end
       )
     end
 
+    # Genera la asociación.
     def genera_asociacion
     end
 
+    # Retorna el nombre del archivo.
+    # @return [String] El nombre del archivo.
     def nom_arch
       tablabasica.underscore
     end
 
+    # Retorna el nombre plural del archivo.
+    # @return [String] El nombre plural del archivo.
     def nom_arch_plural
       tablabasicaplural.underscore
     end
 
+    # Retorna el nombre de la clase.
+    # @return [String] El nombre de la clase.
     def nom_clase
       tablabasica.capitalize
     end
 
+    # Retorna el nombre plural de la clase.
+    # @return [String] El nombre plural de la clase.
     def nom_clase_plural
       tablabasicaplural.capitalize
     end

@@ -2,6 +2,7 @@
 
 module Msip
   module Admin
+    # Controlador de tablas básicas.
     class BasicasController < Msip::ModelosController
       include BasicasHelpers
       helper BasicasHelpers

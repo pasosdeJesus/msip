@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SolicitudMailer < ApplicationMailer
+  # Mailer para el envío de solicitudes.
   def solicitud
     unless ENV["SMTP_MAQ"]
       Rails.logger.debug("No esta definida variable de ambiente SMTP_MAQ")

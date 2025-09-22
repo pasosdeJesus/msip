@@ -10,6 +10,11 @@ module Msip
     # y que la tabla tenga el respectivo campo salidaubicacionpre_id,
     # expulsionubicacionpre_id, destinoubicacionpre_id o
     # llegadaubicacionpre_id.
+    # Agrega accesores del estilo prefijo_pais_id, prefijo_departamento_id... etc
+    # A un modelo que tiene un campo ubicacionpre de nombre prefijoubicacionpre_id
+    #
+    # Utilizar con extend
+    # @param prefijo [String] Prefijo para los accesores (e.g., 'salida', 'expulsion').
     def accesores_ubicacionpre(prefijo)
       send(
         :belongs_to,
