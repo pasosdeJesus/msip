@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Relación n:n entre organización social y sector de organización social
       module OrgsocialSectororgsocial
         extend ActiveSupport::Concern
 

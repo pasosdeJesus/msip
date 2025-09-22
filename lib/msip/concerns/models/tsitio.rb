@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Tipo de sitio, (e.g rural, urbano)
       module Tsitio
         extend ActiveSupport::Concern
 

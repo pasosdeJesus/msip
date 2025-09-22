@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # 
       module Perfilorgsocial
         extend ActiveSupport::Concern
 

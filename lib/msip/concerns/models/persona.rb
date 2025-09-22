@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Datos de una persona
       module Persona
         extend ActiveSupport::Concern
         include Msip::Modelo

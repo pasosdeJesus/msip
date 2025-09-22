@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Respuesta Si, No, Sin Información
       module Trivalente
         extend ActiveSupport::Concern
 

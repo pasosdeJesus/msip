@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Una ubicación geográfica enmarcada en una división política (pueden
+      # haber repetidos)  
       module Ubicacion
         extend ActiveSupport::Concern
 

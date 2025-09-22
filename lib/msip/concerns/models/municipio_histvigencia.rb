@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Historial de vigencia de municipios deshabilitados
       module MunicipioHistvigencia
         extend ActiveSupport::Concern
 

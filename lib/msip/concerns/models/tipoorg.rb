@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Tipo de organización
       module Tipoorg
         extend ActiveSupport::Concern
 

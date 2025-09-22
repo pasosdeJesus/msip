@@ -2,6 +2,7 @@
 
 module Msip
   module Concerns
+    # Relación n:n entre persona y organización social
     module Models
       module OrgsocialPersona
         extend ActiveSupport::Concern

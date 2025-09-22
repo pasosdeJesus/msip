@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Tema para la interfaz del sistema de información. Actualmente colores de
+      # varios elementos.
       module Tema
         extend ActiveSupport::Concern
 

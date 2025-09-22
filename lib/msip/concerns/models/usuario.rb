@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+       # Virtual: usuario del sistema.  El modelo concreto es ::Usuario
       module Usuario
         extend ActiveSupport::Concern
         include Msip::Modelo

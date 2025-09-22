@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Virtual para facilitar respaldos con 7z
       module Respaldo7z
         extend ActiveSupport::Concern
 

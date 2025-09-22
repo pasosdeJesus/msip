@@ -3,6 +3,9 @@
 module Msip
   module Concerns
     module Models
+      # Cuarto nivel en la división político administrativa cuando la ubicación
+      # es rural.
+      # Ver {https://gitlab.com/pasosdeJesus/division-politica}
       module Vereda
         extend ActiveSupport::Concern
 

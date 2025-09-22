@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Tipo de documento de identidad (e.g Cédula, Pasaporte)
       module Tdocumento
         extend ActiveSupport::Concern
 

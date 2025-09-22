@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Tipo de centro poblado. Proviene de tipología del DANE para Colombia
+      # (e.g Cabecera municipal, Área no municipalizada)
       module Tcentropoblado
         extend ActiveSupport::Concern
 

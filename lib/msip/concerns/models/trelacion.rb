@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Tipo de relación entre dos personas (tipicamente familiares)
       module Trelacion
         extend ActiveSupport::Concern
 

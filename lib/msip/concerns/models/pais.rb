@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Primer nivel en división político administrativa: país. 
+      # Ver: https://gitlab.com/pasosdeJesus/division-politica
       module Pais
         extend ActiveSupport::Concern
 

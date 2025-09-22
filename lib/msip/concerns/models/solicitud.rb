@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Una solicitud de un usuario a otro
       module Solicitud
         extend ActiveSupport::Concern
 

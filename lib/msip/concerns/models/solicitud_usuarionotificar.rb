@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Relación n:n entre solicitud y usuario con los usuarios
+      # por notificar sobre la solicitud
       module SolicitudUsuarionotificar
         extend ActiveSupport::Concern
 

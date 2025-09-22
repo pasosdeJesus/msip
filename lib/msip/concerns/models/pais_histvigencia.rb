@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Historial de vigencia de pais deshabilitados
       module PaisHistvigencia
         extend ActiveSupport::Concern
 

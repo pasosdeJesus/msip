@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Tercer nivel en división político administrativa: municipio.
+      # Ver {https://gitlab.com/pasosdeJesus/division-politica}
       module Municipio
         extend ActiveSupport::Concern
 
