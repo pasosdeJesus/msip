@@ -40,8 +40,7 @@ jobs:
           ruby-version: '3.4.5'
           bundler-cache: true
       - name: Instalar paquetes adicionales
-        run: sudo apt install poppler-utils # Incluye pdftoppm
-        run: sudo apt install -y postgis postgresql-17-postgis-3.6
+        run: sudo apt install poppler-utils postgis postgresql-17-postgis-3.6
       - name: Configurar esquema de base de datos
         run: (cd test/dummy; cp .env.github .env; RAILS_ENV=test bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:stimulus_motores; bin/rails assets:precompile)
       # Agregue o remplace ejecutores de pruebas aquí
