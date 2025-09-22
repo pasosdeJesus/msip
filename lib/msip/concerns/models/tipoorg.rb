@@ -7,6 +7,7 @@ module Msip
         extend ActiveSupport::Concern
 
         include Msip::Basica
+
         included do
           ORGACOMP   = 1
           ORGNOACOMP = 2

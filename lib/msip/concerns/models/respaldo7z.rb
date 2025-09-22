@@ -5,6 +5,7 @@ module Msip
     module Models
       module Respaldo7z
         extend ActiveSupport::Concern
+
         included do
           include ActiveModel::Model
 

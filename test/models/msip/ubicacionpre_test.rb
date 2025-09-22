@@ -68,7 +68,7 @@ module Msip
         170, 27, nil, nil, nil, nil, nil, nil, nil
       )
 
-      assert idu > 0
+      assert_operator idu, :>, 0
       u = Msip::Ubicacionpre.find(idu)
 
       assert_equal "Cundinamarca / Colombia", u.nombre
@@ -241,6 +241,7 @@ module Msip
       ubicacionpre = Ubicacionpre.where(
         pais_id: 170, departamento_id: nil, municipio_id: nil, centropoblado_id: nil,
       )
+
       assert_equal 1, ubicacionpre.count
     end
   end

@@ -8,6 +8,7 @@ module Msip
 
         included do
           include ModeloHelper
+
           helper ModeloHelper
 
           # Deben registrarse en Msip::Bitacora usos de este controlador
@@ -248,8 +249,8 @@ module Msip
             c2 = clase.demodulize.underscore
             eval("@#{c2} = @registro")
             presentar_intermedio(
-              @registro, 
-              current_usuario ? current_usuario.id : nil
+              @registro,
+              current_usuario ? current_usuario.id : nil,
             )
             show_plantillas
             if registrar_en_bitacora

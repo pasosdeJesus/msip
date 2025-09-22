@@ -7,6 +7,7 @@ module Msip
         extend ActiveSupport::Concern
 
         include Msip::Basica
+
         included do
           Nombresunicos = false # Por ejemplo hay departamento AMAZONAS en COLOMBIA y en VENEZUELA
           self.table_name = "msip_centropoblado"

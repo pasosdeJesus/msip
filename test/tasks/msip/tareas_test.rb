@@ -6,6 +6,7 @@ require "rake"
 module Msip
   class TareasTest < ActiveSupport::TestCase
     include Engine.routes.url_helpers
+
     # include Devise::Test::IntegrationHelpers
 
     setup do

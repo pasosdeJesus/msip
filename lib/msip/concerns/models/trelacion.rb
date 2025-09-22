@@ -7,6 +7,7 @@ module Msip
         extend ActiveSupport::Concern
 
         include Msip::Basica
+
         included do
           self.table_name = "msip_trelacion"
           has_many :persona_trelacion,

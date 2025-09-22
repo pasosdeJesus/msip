@@ -6,6 +6,7 @@ module Msip
   class OrgsocialesControllerTest < ActionDispatch::IntegrationTest
     include Rails.application.routes.url_helpers
     include Devise::Test::IntegrationHelpers
+
     # include Cocoon::ViewHelpers
 
     setup do

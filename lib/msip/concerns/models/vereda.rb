@@ -7,6 +7,7 @@ module Msip
         extend ActiveSupport::Concern
 
         include Msip::Basica
+
         included do
           Nombresunicos = false # Por ejemplo hay vereda SAN ANTONIO en 146 municipios
           self.table_name = "msip_vereda"

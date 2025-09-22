@@ -2,6 +2,7 @@
 
 class IndicesUbicacionpreSiFaltan < ActiveRecord::Migration[7.0]
   include Msip::SqlHelper
+
   def up
     unless existe_índice_pg?("msip_ubicacionpre_pais_id_idx")
       add_index(
