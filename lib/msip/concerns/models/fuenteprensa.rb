@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Fuente de prensa. Listado inicial para Colombia de periodicos recientes.
       module Fuenteprensa
         extend ActiveSupport::Concern
         include Msip::Basica

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Msip
+  # Amplia modelo de rails
   module Modelo
     extend ActiveSupport::Concern
     include Msip::Localizacion

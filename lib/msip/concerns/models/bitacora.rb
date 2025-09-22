@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Registra un evento (adición, eliminación, etc.) junto con quien lo hizo
+      # y detalles para analizar y/o depurar
       module Bitacora
         extend ActiveSupport::Concern
 

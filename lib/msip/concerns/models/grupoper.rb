@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Grupo de personas.  Base para organización social
       module Grupoper
         extend ActiveSupport::Concern
 

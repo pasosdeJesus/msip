@@ -40,7 +40,7 @@ jobs:
           ruby-version: '3.4.5'
           bundler-cache: true
       - name: Instalar paquetes adicionales
-        run: sudo apt install poppler-utils postgis
+        run: sudo apt install poppler-utils postgis postgresql-16-postgis
       - name: Modificar volcados para que operen en versiones antiguas de PostgreSQL
         run: (cp test/dummy/db/structure.sql test/dummy/db/structure.sql.copia; sed -e 's/provider = libc,//g;s/SET default_table_access_method.*/-- &/g;s/SET transaction_timeout.*//g' test/dummy/db/structure.sql.copia > test/dummy/db/structure.sql; cp db/datos-basicas.sql db/datos-basicas.sql.copia; sed -e 's/provider = libc,//g;s/SET default_table_access_method.*/-- &/g;s/SET transaction_timeout.*//g' db/datos-basicas.sql.copia > db/datos-basicas.sql)
       - name: Configurar esquema de base de datos

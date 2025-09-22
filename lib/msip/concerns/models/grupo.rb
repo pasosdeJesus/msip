@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Grupo de usuarios.  Puede relacionarse con organigrama.
+      # Útil por ejemplo para dar/quitar acceso.
       module Grupo
         extend ActiveSupport::Concern
 

@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Historial de vigencia de departamentos deshabilitados
       module DepartamentoHistvigencia
         extend ActiveSupport::Concern
 

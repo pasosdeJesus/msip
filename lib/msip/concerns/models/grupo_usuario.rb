@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Relacion n-n entre usuario y grupo
       module GrupoUsuario
         extend ActiveSupport::Concern
 

@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Etnia de una persona. El listado de Colombia proviene del ministerio de
+      # interior
       module Etnia
         extend ActiveSupport::Concern
 

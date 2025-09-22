@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Segundo nivel en división politico administrativa: departamento/estado.
+      # Ver {https://gitlab.com/pasosdeJesus/division-politica}
       module Departamento
         extend ActiveSupport::Concern
 

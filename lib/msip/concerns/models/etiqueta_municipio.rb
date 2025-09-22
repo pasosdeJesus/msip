@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Relación n:n entre etiqueta y municipio
       module EtiquetaMunicipio
         extend ActiveSupport::Concern
 

@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Historial de vigencia de centros poblados deshabilitados
       module CentropobladoHistvigencia
         extend ActiveSupport::Concern
 

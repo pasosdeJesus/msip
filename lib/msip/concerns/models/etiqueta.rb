@@ -3,6 +3,8 @@
 module Msip
   module Concerns
     module Models
+      # Etiqueta que puede ponérsele a algún elemento por ejemplo para analizar
+      # un conjunto de datos o para alertar
       module Etiqueta
         extend ActiveSupport::Concern
 

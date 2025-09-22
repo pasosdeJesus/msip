@@ -3,6 +3,9 @@
 module Msip
   module Concerns
     module Models
+      # Archivo adjuntando a algún otro elemento. El archivo se almacena en el
+      # directorio del servidor definido en la variable de ambiente
+      # `MSIP_RUTA_ANEXOS`
       module Anexo
         extend ActiveSupport::Concern
 

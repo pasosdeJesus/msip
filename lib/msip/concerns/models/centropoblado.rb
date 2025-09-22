@@ -3,6 +3,9 @@
 module Msip
   module Concerns
     module Models
+      # Cuarto nivel en división politico administrativa cuando la ubicación
+      # es urbana: centro poblado.
+      # Ver {https://gitlab.com/pasosdeJesus/division-politica}
       module Centropoblado
         extend ActiveSupport::Concern
 

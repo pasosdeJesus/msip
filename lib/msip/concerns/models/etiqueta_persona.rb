@@ -3,6 +3,7 @@
 module Msip
   module Concerns
     module Models
+      # Relación n:n entre etiqueta y persona
       module EtiquetaPersona
         extend ActiveSupport::Concern
 
