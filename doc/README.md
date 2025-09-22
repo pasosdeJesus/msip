@@ -1,62 +1,97 @@
-# Documentación de msip
+# Documentación de msip - Motor para Sistemas de Información
 
-Motor sobre Ruby on Rails para facilitar desarrollo y actualización de 
-Sistemas de Información al estilo Pasos de Jesús
+Motor sobre Ruby on Rails que facilita el desarrollo y actualización de Sistemas
+de Información al estilo Pasos de Jesús.
 
-Es posible desarrollar rápidamente aplicaciones sobre Ruby on Rails, entre 
-otras, por  el principio de convención sobre configuración.
+## 🎯 Filosofía del Proyecto
 
-Con msip se ha buscado aplicar más este principio al proceso de desarrollo, 
-suponiendo que se seguirá una metodología ágil para poner en marcha el sistema 
-y después seguir un ciclo regular de actualizaciones que mantenga sobre 
-tecnologías recientes lo desarrollado durante bastantes años (e.g. cada 
-6 meses versiones mayores de sistema operativo, lenguaje y motor de base 
-de datos y máximo cada 2 meses actualización a gemas y paquetes).
+msip aplica el principio de **"convención sobre configuración"** de Rails a un
+nivel superior, permitiendo:
+- Desarrollo rápido de aplicaciones
+- Metodología ágil para puesta en marcha
+- Ciclos regulares de actualización (cada 6 meses para tecnologías base)
+- Mantenimiento a largo plazo sobre tecnologías recientes
 
-Entre las diversas elecciones, un poco contracorriente, se ha preferido el 
-idioma español tanto para los sistemas que se desarrollan como para las 
-fuentes  (por ejemplo para autenticación se emplea `Devise` con modelo 
-`usuario`).
+**Elecciones técnicas distintivas:**
+- Uso del español en sistemas desarrollados y fuentes
+- Modelo `usuario` para autenticación con Devise
+- Enfoque en sostenibilidad y actualizaciones periódicas
 
+## 📚 Índice de Documentación
 
-## Contenido
+### 🏗️ **Implementación**
+- **[Requisitos del Sistema](requisitos.md)** - Configuración necesaria
+- **[Iniciar un SI usando msip](iniciar-si-usando-msip.md)** - Guía de inicio
+  rápido
+- **[Ejemplo con Vistas Automáticas](ejemplo-con-vistas-automaticas.md)** - Caso
+  práctico completo
 
-* Implementación
-  * [Requisitos](requisitos.md)
-  * [Iniciar un sistema de información usando Msip](iniciar-si-usando-msip.md)
-  * [Ejemplo de creación de tabla, modelo y controlador con vistas automáticas](ejemplo-con-vistas-automaticas.md)
-  * Modelos
-    * [Tablas incluidas y modelo entidad-asociación](modelo-entidad-asociacion.md)
-    * [Tablas Básicas](tablas-basicas.md)
-    * [Tablas Asociativas](tablas-asociativas.md)
-    * [Uso y personalización del modelo usuario](modelo-usuario.md)
-    * [Personalización de modelos](personalizacion-de-modelos.md)
-      * Persona : [Familiares](familiares.md)
-      * Ubicación geográfica: [División político administrativa y ubicaciones predefinidas](ubicacionpre.md)
-  * Controladores
-    * [Facilidades con controladores descendientes de Msip::ModelosController](facilidades-controlador.md)
-  * Rutas y vistas
-    * [Vistas automáticas con Msip::Modelo y Msip::ModelosController](vistas-automaticas.md)
-    * [Personalización de rutas, controladores y vistas](rutas-controladores-vistas.md)
-    * [Personalización del punto de montaje](punto-de-montaje.md)
-    * [Personalización de recursos javascript y css](recursos-javascript-y-css.md)
-    * [Diseño visual estándar con logo y favicon](diseño-visual-logo-y-favicon.md)
-    * [Temas con colores](temas.md)
-    * [Diseño visual con prosidebar e iconos de remixicon](diseño-visual-prosidebar.md)
-    * [Uso de controladores stimulus de motores rails](stimulus.md)
-  * Internacionalización y personalización
-    * [Inflecciones en español](inflecciones_espanol.md)
-    * [Internacionalización y personalización de nombres de campos y tablas](internacionalizacion-nombres-campos-y-tablas.md)
-    * [Localización de cantidades numéricas y fechas](localizacion-numeros-y-fechas.md)
-    * [Personalizaciones que pueden hacer los desarrolladores](personalizaciones_desarrolladores.md)
-* Pruebas
-  * [Aplicación de prueba](aplicacion-de-prueba.md)
-  * [Pruebas con minitest](pruebas-con-minitest.md)
-  * [Pruebas del sistema con puppeteer](pruebas-al-sistema-con-puppeteer.md)
-* Mantenimiento 
-  * [Configurar copia de respaldo cifrada](respaldo-cifrado.md)
-  * Vea ayudas para actualizaciones en el wiki de msip: [https://gitlab.com/pasosdeJesus/msip/wiki]
-* Convenciones, modularidad
-  * [Convenciones respecto al código fuente](convenciones.md)
-  * [Iniciar un motor que use msip](iniciar-motor-con-msip.md)
+#### **Modelos de Datos**
+- **[Modelo Entidad-Asociación](modelo-entidad-asociacion.md)** - Estructura
+  general
+- **[Tablas Básicas](tablas-basicas.md)** - Parámetros y catálogos
+- **[Tablas Asociativas](tablas-asociativas.md)** - Relaciones entre entidades
+- **[Modelo Usuario](modelo-usuario.md)** - Autenticación y personalización
+- **[Personalización de Modelos](personalizacion-de-modelos.md)**
+  - [Familiares](familiares.md) - Extensión del modelo Persona
+  - [Ubicación Predefinida](ubicacionpre.md) - Datos geográficos
+
+#### **Controladores**
+- **[Facilidades de Controladores](facilidades-controlador.md)** - Herencia de
+  `Msip::ModelosController`
+
+#### **Vistas y Frontend**
+- **[Vistas Automáticas](vistas-automaticas.md)** - Generación automática de
+  interfaces
+- **[Rutas, Controladores y Vistas](rutas-controladores-vistas.md)** -
+  Personalización
+- **[Punto de Montaje](punto-de-montaje.md)** - Configuración de rutas
+- **[Recursos JavaScript y CSS](recursos-javascript-y-css.md)** - Gestión de
+  assets
+- **[Diseño Visual](diseño-visual-logo-y-favicon.md)** - Logo y favicon
+- **[Temas de Colores](temas.md)** - Personalización visual
+- **[ProSidebar y Iconos](diseño-visual-prosidebar.md)** - Navegación avanzada
+- **[Stimulus Controllers](stimulus.md)** - Controladores modernos
+
+#### **Internacionalización**
+- **[Inflecciones en Español](inflecciones_espanol.md)** - Gramática y
+  pluralización
+- **[Internacionalización](internacionalizacion-nombres-campos-y-tablas.md)** -
+  Nombres de campos/tablas
+- **[Localización](localizacion-numeros-y-fechas.md)** - Formatos numéricos y de
+  fecha
+- **[Personalizaciones](personalizaciones_desarrolladores.md)** - Para
+  desarrolladores
+
+### 🧪 **Pruebas y Calidad**
+- **[Aplicación de Prueba](aplicacion-de-prueba.md)** - Entorno de desarrollo
+- **[Pruebas con Minitest](pruebas-con-minitest.md)** - Testing unitario
+- **[Pruebas del Sistema](pruebas-al-sistema-con-puppeteer.md)** - Testing
+  end-to-end
+
+### 🔧 **Mantenimiento**
+- **[Respaldo Cifrado](respaldo-cifrado.md)** - Configuración de backups
+- **[Actualizaciones](https://gitlab.com/pasosdeJesus/msip/wiki)** - Wiki con
+  guías de actualización
+
+### 📐 **Convenciones y Modularidad**
+- **[Convenciones de Código](convenciones.md)** - Estándares del proyecto
+- **[Motores con msip](iniciar-motor-con-msip.md)** - Creación de motores
+  derivados
+
+## 🚀 Flujo de Aprendizaje Recomendado
+
+1. **Comienza con**: [Requisitos](requisitos.md) → [Aplicación de
+   Prueba](aplicacion-de-prueba.md)
+2. **Primer proyecto**: [Iniciar un SI usando msip](iniciar-si-usando-msip.md) →
+   [Ejemplo con Vistas Automáticas](ejemplo-con-vistas-automaticas.md)
+3. **Profundización**: Explora las secciones según tus necesidades específicas
+
+## 💡 ¿Necesitas Ayuda?
+
+- Revisa la [aplicación de prueba](aplicacion-de-prueba.md) para ejemplos
+  funcionales
+- Consulta las [convenciones](convenciones.md) para estándares de código
+- Utiliza el [wiki](https://gitlab.com/pasosdeJesus/msip/wiki) para
+  actualizaciones
 
