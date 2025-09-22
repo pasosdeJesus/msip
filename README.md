@@ -1,6 +1,6 @@
 # msip - Motor para Sistemas de Información estilo Pasos de Jesús
 
-[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip)
+[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/msip/badges/v2.2/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=v2.2) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip)
 
 
 ![Logo de msip](test/dummy/app/assets/images/logo.jpg)
@@ -42,8 +42,7 @@ interfaces automatizadas y mejores prácticas de seguridad.
 
 ## 📋 Requisitos
 
-Consultalos en [requisitos del
-sistema](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/requisitos.md).
+Consultalos en [requisitos del sistema](doc/requisitos.md).
 
 ## 🏁 Comenzar Rápido
 
