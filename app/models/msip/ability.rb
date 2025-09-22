@@ -128,7 +128,7 @@ module Msip
     ]
 
     # Tablas no básicas pero que tienen índice *_seq_id
-    # @return [Array<Array<String>>] 
+    # @return [Array<Array<String>>]
     def nobasicas_indice_seq_con_id
       NOBASICAS_INDSEQID
     end

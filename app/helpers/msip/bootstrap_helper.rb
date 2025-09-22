@@ -315,7 +315,7 @@ module Msip
       ) do
         content_tag(
           :button,
-          class: "nav-link #{clase_boton} #{elegida ? "active" : ""}",
+          class: "nav-link #{clase_boton} #{"active" if elegida}",
           id: "#{idit}-pestana",
           "aria-selected" => (elegida ? "true" : "false"),
           "aria-controls" => idit,
@@ -338,7 +338,7 @@ module Msip
     def contenido_pestaña_bs(idit, elegida = false, &bloque)
       content_tag(
         :div,
-        class: "tab-pane fade #{elegida ? "show active" : ""}",
+        class: "tab-pane fade #{"show active" if elegida}",
         role: "tabpanel",
         id: idit,
         "aria-labelledby" => idit + "-pestana",

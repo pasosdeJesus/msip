@@ -2,6 +2,7 @@
 
 class RenombraClase < ActiveRecord::Migration[7.0]
   include Msip::SqlHelper
+
   def up
     if existe_restricción_pg?("tclase_pkey")
       renombrar_restricción_pg("msip_tclase", "tclase_pkey", "msip_tclase_pkey")

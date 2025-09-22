@@ -7,6 +7,7 @@ module Msip
     # Controlador de grupos.
     class GruposController < Msip::Admin::BasicasController
       include Msip::Concerns::Controllers::GruposController
+
       load_and_authorize_resource class: Msip::Grupo
     end
   end

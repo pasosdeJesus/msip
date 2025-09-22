@@ -5,6 +5,7 @@ module Msip
     # Controlador de tablas básicas.
     class BasicasController < Msip::ModelosController
       include BasicasHelpers
+
       helper BasicasHelpers
 
       # Nombre de la tabla básica
