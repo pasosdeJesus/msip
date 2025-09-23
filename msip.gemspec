@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("sprockets-rails", "~> 3")
   s.add_runtime_dependency("stimulus-rails", "~> 1")
   s.add_runtime_dependency("twitter_cldr", "~> 6")
-  s.add_runtime_dependency("will_paginate", "~> 3")
+  s.add_runtime_dependency("will_paginate", "~> 4")
 
   s.add_development_dependency("cuprite", "~> 0")
   s.add_development_dependency("minitest", "~> 5")

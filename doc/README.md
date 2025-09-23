@@ -50,8 +50,8 @@ nivel superior, permitiendo:
   assets
 - **[Diseño Visual](diseño-visual-logo-y-favicon.md)** - Logo y favicon
 - **[Temas de Colores](temas.md)** - Personalización visual
-- **[ProSidebar y Iconos](diseño-visual-prosidebar.md)** - Navegación avanzada
-- **[Stimulus Controllers](stimulus.md)** - Controladores modernos
+- **[ProSidebar e Iconos](diseño-visual-prosidebar.md)** - Navegación avanzada
+- **[Controladores Stimulus](stimulus.md)** - Controladores modernos
 
 #### **Internacionalización**
 - **[Inflecciones en Español](inflecciones_espanol.md)** - Gramática y
