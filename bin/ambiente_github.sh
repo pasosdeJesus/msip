@@ -7,17 +7,17 @@
 # pdftoppm en poppler-utils
 sudo apt install poppler-utils
 
-# Instala PostgreSQL 17 y las librerías requeridas
-if (test ! -f /etc/postgresql/17/main/pg_hba.conf) then {
+# Instala PostgreSQL 16 y las librerías requeridas
+if (test ! -f /etc/postgresql/16/main/pg_hba.conf) then {
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee /etc/apt/sources.list.d/pgdg.list
 	sudo apt update
-	sudo apt install -y postgresql-17 postgresql-client-17
+	sudo apt install -y postgresql-16 postgresql-client-16
 
 	sudo locale-gen es_CO.UTF-8 && sudo update-locale
 
-	sudo pg_createcluster 17 main --start
-	sudo sed -i "s|local.*all.*all.*peer|local all all md5|g" /etc/postgresql/17/main/pg_hba.conf
+	sudo pg_createcluster 16 main --start
+	sudo sed -i "s|local.*all.*all.*peer|local all all md5|g" /etc/postgresql/16/main/pg_hba.conf
 } fi;
 
 sudo service postgresql status | grep online
