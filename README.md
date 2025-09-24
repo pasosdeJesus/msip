@@ -51,18 +51,22 @@ msip incluye una aplicación completa en `test/dummy` que puedes ejecutar
 inmediatamente:
 
 ```sh
-# Clonar el repositorio
+# Crea un usuario y base de datos en PostgreSQL
+# Clona el repositorio
 git clone https://gitlab.com/pasosdeJesus/msip.git
 cd msip
 
-# Configurar y ejecutar la aplicación de prueba
+# Configura y ejecuta la aplicación de prueba
 bundle install
 cd test/dummy
+cp .env.plantilla .env
+# Edita .env y pon base de datos y usuario
 rails db:setup
 rails server
 ```
 
-Sigue la guía completa de la aplicación de prueba para más detalles.
+Sigue la guía completa de la [aplicación de prueba](doc/aplicacion-de-prueba.md)
+para más detalles.
 
 ### Crear un Nuevo Proyecto
 
