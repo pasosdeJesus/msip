@@ -13,6 +13,8 @@ if (test ! -f /etc/postgresql/16/main/pg_hba.conf) then {
 	echo 'deb http://apt.postgresql.org/pub/repos/apt/ noble-pgdg main' | sudo tee /etc/apt/sources.list.d/pgdg.list
 	sudo apt update
 	sudo apt install -y postgresql-16 postgresql-client-16
+  sudo apt-get update
+  sudo apt-get install postgis postgresql-16-postgis-3
 
 	sudo locale-gen es_CO.UTF-8 && sudo update-locale
 
