@@ -7,9 +7,9 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@pasosdeJesus/pruebas_puppeteer@https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect":
+"@pasosdeJesus/pruebas_puppeteer@https://gitpkg.vercel.app/pasosdeJesus/msip/pruebas_puppeteer?v2.2":
   version "0.3.4"
-  resolved "https://gitpkg.now.sh/pasosdeJesus/msip/pruebas_puppeteer?tomselect#d2a969ac9c4e1cbd6a0bcbf77eab6f0811698c5f"
+  resolved "https://gitpkg.vercel.app/pasosdeJesus/msip/pruebas_puppeteer?v2.2#e0b68d5936d83ae7496a4d60ad99bc326a82888d"
   dependencies:
     "@puppeteer/replay" "^3.0.0"
     dotenv "^16.4.5"
