@@ -13,11 +13,9 @@ Como ilustramos en <https://github.com/rails/rails/issues/49688> desde rails 7.1
 | Uso de racc | No | Si | Si |
 | Punto de montaje | / | Configurable en `RUTA_RELATIVA` | Configurable en `RUTA_RELATIVA` |
 
-Aunque las pruebas típicamente corren en un navegador sin cabeza (del inglés 
+Las pruebas del sistema corren en un navegador sin cabeza (del inglés 
 _headless_), es decir que el navegador se ejecuta en la CPU y la memoria 
-del computador pero desconectado del vídeo, del teclado y del ratón, por lo menos 
-en adJ 7.5 que incluye chromium 122.06261.111 no opera el modo headless,
-por lo que con adJ es necesario correr las pruebas en un navegador que corra localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
+del computador pero desconectado del vídeo, del teclado y del ratón.
 
 ## Ejecutar todas las pruebas 
 
