@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "msip"
   s.version     = Msip::VERSION
   s.authors     = ["Vladimir Támara Patiño"]
-  s.email       = ["vtamara@pasosdeJesus.org"]
+  s.email       = ["vtamara@pasosdejesus.org"]
   s.homepage    = "http://gitlab.com/pasosdeJesus/msip.git"
   s.summary     = "Motor para Sistemas de Información estilo Pasos de Jesús"
   s.description = "Motor para Rails que le facilita construir su sistema de información."
