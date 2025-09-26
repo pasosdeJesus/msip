@@ -7,7 +7,6 @@ services:
     alias: postgres
 
 variables:
-  CC_TEST_REPORTER_ID: "0b795636959c0c2fc716869449d4c0bbe5743d7626dba9235a942a9ba68869cd"
   CI: 'Si'
   NOKOGIRI_USE_SYSTEM_LIBRARIES: 'true'
   POSTGRES_DB: msipdes_pru

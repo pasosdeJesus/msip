@@ -45,7 +45,7 @@ jobs:
       - name: Reiniciar PostgreSQL
         run: ( sudo service postgresql restart; sudo systemctl restart postgresql.service)
       - name: Modificar volcados para que operen en versiones antiguas de PostgreSQL
-        run: (cp test/dummy/db/structure.sql test/dummy/db/structure.sql.copia; sed -e 's/provider = libc,//g;s/SET default_table_access_method.*/-- &/g;s/SET transaction_timeout.*//g' test/dummy/db/structure.sql.copia > test/dummy/db/structure.sql;)
+        run: (cp test/dummy/db/structure.sql test/dummy/db/structure.sql.copia; sed -e 's/provider = libc,//g;s/SET default_table_access_method.*/-- &/g;s/SET transaction_timeout.*//g' test/dummy/db/structure.sql.copia > test/dummy/db/structure.sql )
       - name: Configurar esquema de base de datos
         run: (cd test/dummy; cp .env.github .env; RAILS_ENV=test bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:stimulus_motores; bin/rails assets:precompile)
       # Agregue o remplace ejecutores de pruebas aquí
@@ -56,12 +56,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sacar código fuente
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Instalar Ruby y gemas
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4.5'
           bundler-cache: true
+      - name: Generate binstubs
+        run: bundle binstubs bundler-audit brakeman rubocop
       # Agregue o remplace verificadores 
       - name: Verificación de seguridad a dependencias ruby
         run: (bin/bundler-audit --update || exit_code=$?; echo "exit_code=$exit_code")
