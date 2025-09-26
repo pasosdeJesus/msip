@@ -2,7 +2,7 @@
 # Genera gema y la prueba en subdirectorio x
 
 rm pkg/msip-*.gem
-rake build
+bundle exec rake build
 mkdir -p x
 rm -rf x/*
 cd x
