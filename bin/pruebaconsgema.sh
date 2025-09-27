@@ -1,8 +1,8 @@
 #!/bin/sh
 # Genera gema y la prueba en subdirectorio x
 
-rm pkg/msip-*.gem
-rake build
+rm -f pkg/msip-*.gem
+bundle exec rake build
 mkdir -p x
 rm -rf x/*
 cd x

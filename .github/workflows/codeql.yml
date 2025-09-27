@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, "v2.2" ]
   pull_request:
     # Las ramas siguientes deben ser subconjunto de las ramas de arriba
-    branches: [ main ]
+    branches: [ main, "v2.2" ]
   schedule:
     - cron: '28 5 * * 2'
 
@@ -42,7 +42,7 @@ jobs:
 
     # Inicializa herramientas de CodeQL para el sondeo
     - name: Inicializar CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         # Si quiere especificar consultas personalizadas, puede hacerlo aquí o
@@ -57,7 +57,7 @@ jobs:
     # Si este paso falla, entonces puede eliminarlo y ejecutar la construcción
     # manualmente (ver más abajo)
     - name: Autoconstrucción
-      uses: github/codeql-action/autobuild@v2
+      uses: github/codeql-action/autobuild@v3
 
     # Programas de la línea de ordenes para ejecutar el interprete del SO.
     # https://git.io/JvXDl
@@ -71,4 +71,4 @@ jobs:
     #   make release
 
     - name: Realizar análisis de CodeQL
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
