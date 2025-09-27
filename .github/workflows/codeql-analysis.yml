@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - name: Sacar repositorio
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # Inicializa herramientas de CodeQL para el sondeo
     - name: Inicializar CodeQL
