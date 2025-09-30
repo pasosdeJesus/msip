@@ -69,7 +69,7 @@ namespace :msip do
           command = "pg_dump --inserts --data-only --no-privileges " \
             "--no-owner --column-inserts --table=#{Ability.tb_modelo(t)} " \
             "#{maq} #{Shellwords.escape(ENV.fetch("BD_NOMBRE"))} " \
-            "| sed -e \"s/SET lock_timeout = 0;//g\" > #{archt.to_path}"
+            "| sed -e \"s/SET lock_timeout .*//g;s/SET transaction_timeout.*//g\" > #{archt.to_path}"
           puts command.green
           raise "Error al volcar tabla #{Ability.tb_modelo(t)}" unless Kernel.system(command)
 
