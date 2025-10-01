@@ -34,6 +34,9 @@ gem "puma" # Lanza en modo desarrollo
 gem "rails", "~> 8.0"
 # git: 'https://github.com/rails/rails.git', branch: '6-1-stable'
 
+# Disable activestorage
+gem "activestorage", require: false
+
 gem "rails-i18n"      # Localización e Internacionalización
 
 gem "simple_form"     # Formularios
