@@ -20,11 +20,11 @@ module Msip
       ActiveRecord::Base.connection.execute(<<-SQL)
         UPDATE msip_ubicacionpre#{" "}
           SET lugar='z'
-          WHERE id=61;
+          WHERE id=1;
       SQL
-      u = Msip::Ubicacionpre.find(61)
+      u = Msip::Ubicacionpre.find(1)
 
-      assert_equal "z / Dominica", u.nombre
+      assert_equal "z / Colombia", u.nombre
     end
 
     test "crea simple" do
