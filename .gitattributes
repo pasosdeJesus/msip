@@ -5,3 +5,8 @@
 *.js text
 *.css text
 *.png binary
+*.jpg binary
+*.erb text
+*.json text
+*.log text
+*.lock text

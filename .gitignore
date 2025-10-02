@@ -10,14 +10,26 @@
 /.bundle
 config/database.yml
 .env
+.env.local
+.env.*.local
+!.env.example
+
 
 # Ignorara bases de datos SQLite
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
 # Ignorar bitácoras y archivos temporales
-/log/*.log
-/tmp
+log/*.log
+tmp/
+endor/bundle/
+vendor/cache/
+vendor/gems/
+vendor/ruby/
+public/system/
+public/uploads/
+public/assets/
+
 *~
 *swp
 *.log
