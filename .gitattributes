@@ -1,0 +1,7 @@
+* text=auto eol=lf
+
+*.rb text
+*.yml text
+*.js text
+*.css text
+*.png binary
