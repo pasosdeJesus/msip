@@ -1,0 +1,186 @@
+diff --cc app/helpers/msip/modelo_helper.rb
+index 9f49d25,2ef5179..0000000
+--- a/app/helpers/msip/modelo_helper.rb
++++ b/app/helpers/msip/modelo_helper.rb
+@@@ -237,6 -238,7 +238,8 @@@ module Msi
+        raise "No se encontro ruta para copiar #{n}"
+      end
+  
++ 
+++>>>>>>> 7ebdc14 (Funcionalidad generia para copiar registros. Ver https://gitlab.com/pasosdeJesus/msip/-/wikis/2024_03-Propuesta-de-bot%C3%B3n-para-copiar-registro. Avanza https://gitlab.com/pasosdeJesus/si_jrscol/-/issues/1022)
+      def self.poromision(params, s, valorsp = "")
+        if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
+          valorsp
+diff --cc app/models/msip/modelo.rb
+index f776caa,4b0a2fb..0000000
+--- a/app/models/msip/modelo.rb
++++ b/app/models/msip/modelo.rb
+diff --cc app/views/msip/modelos/index.html.erb
+index b80f258,680b20d..0000000
+--- a/app/views/msip/modelos/index.html.erb
++++ b/app/views/msip/modelos/index.html.erb
+diff --cc config/routes.rb
+index b453343,a5d96db..0000000
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@@ -13,79 -11,60 +13,109 @@@ Msip::Engine.routes.draw d
+    get "/anexos/mostrar_portada/:id",
+      to: "anexos#mostrar_portada",
+      as: "mostrar_portada"
+ +
+-   resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
+- 
+-   get "/controldeacceso", to: "hogar#ayuda_controldeacceso",
++   get "/controldeacceso" => "hogar#ayuda_controldeacceso",
+      as: "ayuda_controldeacceso"
++   get "/espacio" => "hogar#espacio", as: "espacio"
++   get "/gruposper" => "gruposper#index"
++   get "/gruposper/remplazar" => "gruposper#remplazar"
++   get "/hogar" => "hogar#index"
++   get "/mundep" => "admin/municipios#mundep"
++   get "/personas" => "personas#index"
++   get "/personas/datos" => "personas#datos"
++   get "/personas/remplazar" => "personas#remplazar"
++   get "/personas/identificacionsd" => "personas#identificacionsd",
++     as: :personas_identificacionsd
++ 
++   get "/personas/remplazarfamiliar" => "personas#remplazarfamiliar",
++     as: :personas_remplazarfamiliar
++ 
++   post '/persona_trelaciones/actualizar' => 'persona_trelaciones#update',
++     as: :actualizar_familiar
++   post '/persona_trelaciones/crear' => 'persona_trelaciones#create',
++     as: :crear_familiar
++   delete '/persona_trelaciones/eliminar' => 'persona_trelaciones#destroy',
++     as: :eliminar_familiar
++ 
++   get "/personas/validar_conjunto" => "personas#validar_conjunto",
++     as: :personas_validar_conjunto
++ 
++   post '/personas/unificar' => 'personas#unificar',
++     as: :personas_unificar
++   get '/personas/unificar' => 'personas#unificar',
++     as: :personas_unificar_get
++ 
++ 
++   get "/respaldo7z" => "respaldo7z#new", as: "respaldo7z"
++   post "/respaldo7z" => "respaldo7z#create"
++   get "/tablasbasicas" => "hogar#tablasbasicas"
++   get "/temausuario" => "admin/temas#temausuario"
++ 
+  
+-   get "/espacio", to: "hogar#espacio", as: "espacio"
++   get "/tipocentropoblado" => "admin/centrospoblados#tipo_centropoblado"
++   get "/ubicaciones/nuevo" => "ubicaciones#nuevo", as: :nueva_ubicacion
++   get "/ubicacionespre_mundep" => "admin/ubicacionespre#mundep"
++ 
++   resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
+  
+ +  resources :etiqueta_persona, only: [], param: :index do
+ +    member do
+ +      delete "(:id)", to: "etiquetas_persona#destroy", as: "eliminar"
+ +      post "/", to: "etiquetas_persona#create", as: "crear"
+ +    end
+ +  end
+ +
+-   get "/gruposper", to: "gruposper#index"
+-   get "/gruposper/remplazar", to: "gruposper#remplazar"
+- 
+-   get "/hogar", to: "hogar#index"
+- 
+-   get "/mundep", to: "admin/municipios#mundep"
+- 
+ +  resources :orgsocial_persona, only: [], param: :index do
+ +    member do
+ +      delete "(:id)", to: "orgsocial_personas#destroy", as: "eliminar"
+ +      post "/", to: "orgsocial_personas#create", as: "crear"
+ +    end
+ +  end
+ +
+    resources :orgsociales, path_names: { new: "nueva", edit: "edita" }
+  
+ +  resources :persona_trelacion, only: [], param: :index do
+ +    member do
+ +      delete "(:id)", to: "persona_trelaciones#destroy", as: "eliminar"
+ +      post "/", to: "persona_trelaciones#create", as: "crear"
+ +    end
+ +  end
+ +  post "/persona_trelaciones/actualizar", to: "persona_trelaciones#update",
+ +    as: :actualizar_familiar
+ +
+ +
+ +  get "/personas", to: "personas#index"
+ +  get "/personas/datos", to: "personas#datos"
+ +  get "/personas/remplazar", to: "personas#remplazar"
+ +  get "/personas/identificacionsd", to: "personas#identificacionsd",
+ +    as: :personas_identificacionsd
+ +  get "/personas/remplazarfamiliar", to: "personas#remplazarfamiliar",
+ +    as: :personas_remplazarfamiliar
+ +  get "/personas/validar_conjunto", to: "personas#validar_conjunto",
+ +    as: :personas_validar_conjunto
+ +  post "/personas/unificar", to: "personas#unificar",
+ +    as: :personas_unificar
+ +  get "/personas/unificar", to: "personas#unificar",
+ +    as: :personas_unificar_get
+ +
+    resources :personas, path_names: { new: "nueva", edit: "edita" }
+  
+ +  get "/respaldo7z", to: "respaldo7z#new", as: "respaldo7z"
+ +  post "/respaldo7z", to: "respaldo7z#create"
+ +
+    resources :solicitudes, path_names: { new: "nueva", edit: "edita" }
+  
+ +  get "/tablasbasicas", to: "hogar#tablasbasicas"
+  
+ -  #resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
+ +  get "/temausuario", to: "admin/temas#temausuario"
+  
+ +  get "/tipocentropoblado", to: "admin/centrospoblados#tipo_centropoblado"
+  
+ +  get "/ubicaciones/nuevo", to: "ubicaciones#nuevo", as: :nueva_ubicacion
+ +
+ +  get "/ubicacionespre_mundep", to: "admin/ubicacionespre#mundep"
+ +
+ +  # resources :ubicacionespre, path_names: { new: "nueva", edit: "edita" }
+  
+    # En su aplicación al emplear ayudadores de rutas utilice prefijo
+    # "msip." si viene de msip o "main_app." si es de las rutas de la aplicación.
+@@@ -128,9 -105,10 +158,13 @@@
+        c = t[1].pluralize
+        resources c.to_sym,
+          path_names: { new: "nueva", edit: "edita" }
+++<<<<<<< HEAD
+ +      get "#{t[1]}/copiar/:id", to: "#{c}#copiar",
+++=======
++       get "#{t[1]}/copiar/:id" => "#{c}#copiar",
+++>>>>>>> 7ebdc14 (Funcionalidad generia para copiar registros. Ver https://gitlab.com/pasosdeJesus/msip/-/wikis/2024_03-Propuesta-de-bot%C3%B3n-para-copiar-registro. Avanza https://gitlab.com/pasosdeJesus/si_jrscol/-/issues/1022)
+          as: "copiar_#{t[1]}".to_sym
+      end
+ -
+    end
+  
+    root "hogar#index"
+diff --cc lib/msip/concerns/controllers/modelos_controller.rb
+index e65a58d,3505ee2..0000000
+--- a/lib/msip/concerns/controllers/modelos_controller.rb
++++ b/lib/msip/concerns/controllers/modelos_controller.rb
+@@@ -670,9 -659,10 +670,9 @@@ module Msi
+  
+              @registro = a.copiar_y_guardar
+              @registro_orig_id = a.id
+-             render(:copiar, layout: "application")
++             render :copiar, layout: "application"
+            end
+  
+ -
+            # Nombre del modelo
+            def clase
+              "Msip::ModelosCambiar"
+diff --cc lib/msip/concerns/controllers/temas_controller.rb
+index 59fd336,86331d7..0000000
+--- a/lib/msip/concerns/controllers/temas_controller.rb
++++ b/lib/msip/concerns/controllers/temas_controller.rb
+diff --cc lib/msip/concerns/models/tema.rb
+index dece505,9d88bae..0000000
+--- a/lib/msip/concerns/models/tema.rb
++++ b/lib/msip/concerns/models/tema.rb
