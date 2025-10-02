@@ -47,7 +47,7 @@ if (test "$SALTAPREPARA" != "1") then {
   } fi;
 } fi;
 
-(cd $rutaap; RAILS_ENV=test ${RAILS} msip:enlaces_motores; yarn build:css; RAILS_ENV=test ${RAILS} assets:precompile)
+(cd $rutaap; RAILS_ENV=test ${RAILS} msip:enlaces_motores; yarn build; yarn build:css; RAILS_ENV=test ${RAILS} assets:precompile)
 
 if (test "$SALTAUNITARIAS" != "1") then {
   echo "== Pruebas de regresión unitarias"
