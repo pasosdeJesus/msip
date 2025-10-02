@@ -47,6 +47,8 @@ if (test "$SALTAPREPARA" != "1") then {
   } fi;
 } fi;
 
+(cd $rutaap; RAILS_ENV=test ${RAILS} msip:enlaces_motores; yarn build:css; RAILS_ENV=test ${RAILS} assets:precompile)
+
 if (test "$SALTAUNITARIAS" != "1") then {
   echo "== Pruebas de regresión unitarias"
   mkdir -p cobertura-unitarias/
@@ -91,7 +93,7 @@ if (test -d test/integration -a "$SALTAINTEGRACION" != "1") then {
 s=`uname`
 if (test "$s" != "OpenBSD" -a -f $rutaap/bin/pruebasjs.sh -a -d $rutaap/test/puppeteer -a "x$NOPRUEBAJS" != "x1") then {
   echo "== Con puppeteer"
-  (cd $rutaap; ${RAILS} msip:stimulus_motores; bin/pruebasjs.sh)
+  (cd $rutaap; ${RAILS} msip:enlaces_motores; bin/pruebasjs.sh)
   if (test "$?" != "0") then {
     echo "No pasaron pruebas del sistema js";
     exit 1;
