@@ -12,7 +12,16 @@
 
 conexion = ActiveRecord::Base.connection
 
-Msip.carga_semillas_sql(conexion, "../..", :datos)
+if ENV.fetch("SEMILLA_PEQ", "0") == "1"
+  %x(grep -v -e "INSERT INTO public.msip_centropoblado" -e "INSERT INTO public.msip_municipio" -e "INSERT INTO public.msip_vereda" -e "INSERT INTO public.msip_ubicacionpre" ../../db/datos-basicas.sql  > ../../db/datospeq-basicas.sql)
+  %x(grep "INSERT INTO public.msip_municipio.*\(1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql)
+  %x(grep "INSERT INTO public.msip_centropoblado.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql)
+  %x(grep "INSERT INTO public.msip_vereda.*, 1359," ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql)
+  %x(grep -e "msip_ubicacionpre.* 'Colombia', 170, NULL, NULL, NULL" -e "msip_ubicacionpre.*, 170, 27, 1359," -e "msip_ubicacionpre.*, 170, 27, NULL,"  ../../db/datos-basicas.sql >> ../../db/datospeq-basicas.sql)
+  Msip.carga_semillas_sql(conexion, "../..", :datospeq)
+else
+  Msip.carga_semillas_sql(conexion, "../..", :datos)
+end
 
 # usuario msip, clave msip
 conexion.execute("INSERT INTO public.usuario
