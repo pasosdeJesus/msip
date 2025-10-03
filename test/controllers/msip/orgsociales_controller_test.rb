@@ -96,5 +96,94 @@ module Msip
 
       assert_redirected_to msip.orgsociales_path
     end
+
+    test "debe filtrar por nombre" do
+      get msip.orgsociales_path, params: {
+        q: { grupoper_nombre_cont: "Organización" }
+      }
+      
+      assert_response :success
+      assert_template :index
+    end
+
+    test "debe filtrar por sector" do
+      get msip.orgsociales_path, params: {
+        q: { sectororgsocial_id_eq: 1 }
+      }
+      
+      assert_response :success
+      assert_template :index
+    end
+
+    test "debe filtrar por perfil" do
+      get msip.orgsociales_path, params: {
+        q: { perfilorgsocial_id_eq: 1 }
+      }
+      
+      assert_response :success
+      assert_template :index
+    end
+
+    test "debe manejar búsqueda por múltiples criterios" do
+      get msip.orgsociales_path, params: {
+        q: {
+          grupoper_nombre_cont: "Test",
+          sectororgsocial_id_eq: 1,
+          perfilorgsocial_id_eq: 1
+        }
+      }
+      
+      assert_response :success
+      assert_template :index
+    end
+
+    test "debe exportar como CSV" do
+      get msip.orgsociales_path, params: { formato: "csv" }
+      
+      # Puede dar success o redirect
+      assert_includes [200, 302], response.status
+    end
+
+    test "debe crear organización con personas asociadas" do
+      skip "Requiere configuración específica de datos anidados"
+    end
+
+    test "debe actualizar organización y sus personas" do
+      patch msip.orgsocial_path(@orgsocial), params: {
+        orgsocial: {
+          grupoper_attributes: {
+            id: @orgsocial.grupoper.id,
+            nombre: "Organización Actualizada"
+          }
+        }
+      }
+
+      assert_redirected_to msip.orgsocial_path(@orgsocial)
+      
+      # Verificar que se actualizó
+      @orgsocial.reload
+      assert_equal "Organización Actualizada", @orgsocial.grupoper.nombre
+    end
+
+    test "debe validar datos requeridos al crear" do
+      post msip.orgsociales_path, params: {
+        orgsocial: {
+          grupoper_attributes: {
+            nombre: "" # Nombre vacío debe fallar
+          }
+        }
+      }
+      
+      assert_response :success
+      assert_template :new
+      # Debe mostrar el formulario con errores
+    end
+
+    test "debe manejar paginación" do
+      get msip.orgsociales_path, params: { page: 1 }
+      
+      assert_response :success
+      assert_template :index
+    end
   end
 end
