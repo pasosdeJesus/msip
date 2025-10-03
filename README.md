@@ -45,7 +45,7 @@ interfaces automatizadas y mejores prácticas de seguridad.
 - **Respaldos seguros**: Exportación cifrada y comprimida con 7z
 
 ### 📊 Calidad y Confiabilidad
-- **Cobertura de pruebas minitest a modelos, controladores y helpers**: Superior al 67%
+- **Cobertura de pruebas minitest a modelos, controladores y helpers**: Superior al 70%
 - **Pruebas End-to-End con Puppeteer**: Optimizadas para OpenBSD 7.7+
 - **CI/CD robusto**: GitHub Actions y GitLab CI
 

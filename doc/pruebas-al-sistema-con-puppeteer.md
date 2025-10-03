@@ -21,6 +21,7 @@ en adJ 7.5 que incluye chromium 122.06261.111 no opera el modo headless
 por lo que con adJ es necesario correr las pruebas en un navegador que corra 
 localmente, aunque el sistema que se prueba pueda correr en un servidor remoto.
 
+
 ## Ejecutar todas las pruebas 
 
 Para lanzar una aplicación de prueba localmente en el puerto `$PUERTOPRU` (definido en `.env`) 
@@ -210,6 +211,45 @@ Si la prueba tiene dialogos de confirmación por ejemplo para eliminar, agregue 
     offsetX: 40.75,
   });
 ```
+
+
+## Integración en CI (GitHub Actions) y OpenBSD
+
+Desde OpenBSD 7.7 el modo headless de Chromium volvió a funcionar, lo que permitió integrar las pruebas Puppeteer en GitHub Actions usando máquinas virtuales OpenBSD. La integración proporciona:
+
+
+### Flujo del workflow
+1. Arranca VM de OpenBSD (acción `vmactions/openbsd-vm`).
+2. Instala dependencias del sistema y paquetes (incluyendo Chromium).
+3. Prepara base de datos de pruebas y dependencias Ruby/Node.
+4. Ejecuta `yarn install` en `pruebas_puppeteer`.
+5. Lanza script de pruebas (`bin/pruebasjs.sh`) con timeout controlado.
+6. Genera logs y reportes para diagnóstico si algo falla.
+
+### Variables relevantes
+- `CI` (automática en Actions) — fuerza headless.
+- `IPDES`, `PUERTOPRU` — para apuntar al servidor de pruebas.
+- `RAILS_ENV=test`, `DATABASE_URL` — conexión BD.
+- `CONCABEZA=1` — (local) desactiva headless para depuración.
+
+### Beneficios
+- Paridad: mismo SO en desarrollo y CI.
+- Robustez: timeouts y verificación previa de navegador.
+- Mantenimiento mínimo: cambios pequeños en script y `index.mjs`.
+
+### Scripts involucrados
+- `pruebas_puppeteer/index.mjs`: Detección `CI` y selección binario Chromium.
+- `bin/verificar-puppeteer-ci.sh`: Validaciones previas (opcional en local/CI).
+
+### Ejecución manual en GitHub
+Ir a Actions → workflow de Puppeteer → “Run workflow”.
+
+### Recomendaciones de mantenimiento
+- Mantener OpenBSD actualizado (parches de seguridad).
+- Actualizar Chromium y dependencias Node.js/Ruby periódicamente.
+- Revisar ejecuciones programadas para detectar regresiones tempranas.
+
+Para detalles extendidos ver el historial previo (documento original ahora resumido en esta sección).
 
 
 # Referencias

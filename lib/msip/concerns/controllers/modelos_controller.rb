@@ -392,8 +392,15 @@ module Msip
             # y comentó en update_gen
             eval("@#{c2} = @registro")
             if !validaciones(@registro) || !@registro.valid?
-              flash[:error] = @validaciones_error
-              render(action: "new", layout: "application")
+              respond_to do |format|
+                format.html do
+                  flash[:error] = @validaciones_error
+                  render(action: "new", layout: "application")
+                end
+                format.json do
+                  render(json: @registro.errors, status: :unprocessable_entity)
+                end
+              end
               return
             end
             authorize!(:create, @registro)
@@ -419,7 +426,8 @@ module Msip
                   )
                 end
                 format.json do
-                  render(action: "show", status: :created, location: @registro)
+                  # Evita polymorphic_url con nombres no convencionales
+                  render(json: @registro.as_json, status: :created)
                 end
               else
                 @registro.id = nil; # Volver a elegir Id
