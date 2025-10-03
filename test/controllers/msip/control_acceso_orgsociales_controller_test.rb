@@ -93,6 +93,12 @@ module Msip
       current_usuario = ::Usuario.find_by(nusuario: "operador")
       sign_in current_usuario
       get msip.edit_orgsocial_path(@orgsocial.id)
+      assert_response :ok
+      assert_select 'form' do |forms|
+        # Espera al menos un formulario de edición
+        assert forms.length >= 1
+      end
+      assert_select 'input,select,textarea', minimum: 3
     end
 
     test "autenticado como operador no debe eliminar" do

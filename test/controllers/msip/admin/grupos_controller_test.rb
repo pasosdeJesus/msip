@@ -187,6 +187,58 @@ module Msip
         # Limpiar
         grupo.destroy
       end
+
+      # Ramas JSON similares a Tdocumentos
+      test "create JSON éxito" do
+        payload = GRUPO_NUEVO.merge(
+          nombre: "Grupo Json #{Time.current.to_i}"
+        )
+        assert_difference("Grupo.count", 1) do
+          post msip.admin_grupos_path,
+            params: { grupo: payload },
+            as: :json
+        end
+        assert_equal 201, response.status, "Debe devolver 201 Created"
+        body = response.parsed_body rescue nil
+        assert body.is_a?(Hash), "Cuerpo JSON debe ser hash"
+        if body
+          assert_match(/Grupo Json/i, body.to_json)
+        end
+      end
+
+      test "create JSON error" do
+        payload = GRUPO_NUEVO.merge(nombre: "")
+        assert_no_difference("Grupo.count") do
+          post msip.admin_grupos_path,
+            params: { grupo: payload },
+            as: :json
+        end
+        assert_equal 422, response.status, "Debe devolver 422 en error de validación JSON"
+        body = response.parsed_body rescue nil
+        assert body.is_a?(Hash), "Cuerpo JSON de error debe ser hash"
+      end
+
+      test "update JSON éxito" do
+        g = Msip::Grupo.create!(GRUPO_NUEVO.merge(nombre: "GrupoUp #{Time.current.to_i}"))
+        patch msip.admin_grupo_path(g),
+          params: { grupo: { observaciones: 'ObsJson' } },
+          as: :json
+        assert_includes [200, 204, 302], response.status
+        g.reload
+        assert_equal 'ObsJson', g.observaciones
+        g.destroy
+      end
+
+      test "update JSON error" do
+        g = Msip::Grupo.create!(GRUPO_NUEVO.merge(nombre: "GrupoErr #{Time.current.to_i}"))
+        patch msip.admin_grupo_path(g),
+          params: { grupo: { nombre: '' } },
+          as: :json
+        assert_equal 422, response.status
+        g.reload
+        assert_match(/GRUPOERR/i, g.nombre.upcase)
+        g.destroy
+      end
     end
   end
 end

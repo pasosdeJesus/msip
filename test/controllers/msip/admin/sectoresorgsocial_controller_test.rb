@@ -45,6 +45,17 @@ module Msip
     end
 
     test "edit: formulario de edición" do
+      registro = Msip::Sectororgsocial.create!(PRUEBA_SECTORORGSOCIAL)
+      get edit_admin_sectororgsocial_url(registro)
+
+      assert_response :success
+      assert_template :edit
+      # Verifica que el formulario tenga campo nombre y botón guardar
+      assert_select 'form' do
+        assert_select 'input[name="sectororgsocial[nombre]"]', 1
+        assert_select 'input[type=submit],button[type=submit]', minimum: 1
+      end
+      registro.destroy
     end
 
     test "post: crea un registro" do

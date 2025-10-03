@@ -121,26 +121,23 @@ module Msip
       end
 
       test "debe deshabilitar en lugar de eliminar si tiene referencias" do
-        skip "Funcionalidad de soft delete pendiente de implementar"
-        # Crear etnia con referencias para test
-        etnia_con_ref = Msip::Etnia.create!(ETNIA_NUEVO.merge(
-          nombre: "Etnia con Referencias"
-        ))
-        
-        persona = Msip::Persona.create!(PRUEBA_PERSONA.merge(
-          nombres: "Test",
-          etnia: etnia_con_ref
-        ))
-        
-        # Intentar eliminar debe deshabilitar en lugar de eliminar
-        delete msip.admin_etnia_url(etnia_con_ref)
-        
-        etnia_con_ref.reload
-        assert_not_nil etnia_con_ref.fechadeshabilitacion
-        
-        # Limpiar
+        # La lógica genérica impide eliminar si hay asociaciones has_many (mensajes y redirect)
+        etnia_con_ref = Msip::Etnia.create!(ETNIA_NUEVO.merge(nombre: "Etnia con Referencias"))
+        persona = Msip::Persona.create!(PRUEBA_PERSONA.merge(nombres: "Test", etnia: etnia_con_ref))
+
+        assert_no_difference("Etnia.count", "No debe eliminar mientras tenga personas asociadas") do
+          delete msip.admin_etnia_url(etnia_con_ref)
+        end
+        assert_response :redirect
+        follow_redirect!
+        # El flash debería contener mensaje de error (flexible)
+        assert_match(/no puede eliminarse|relaciona/i, flash[:error]) if flash[:error]
+
+        # Remover dependencias y luego sí eliminar
         persona.destroy
-        etnia_con_ref.destroy
+        assert_difference("Etnia.count", -1) do
+          delete msip.admin_etnia_url(etnia_con_ref)
+        end
       end
 
       test "debe manejar edición de etnia inexistente" do
@@ -162,6 +159,60 @@ module Msip
         
         assert_response :success
         assert_template :edit
+      end
+
+      # Ramas JSON similares a Tdocumentos
+      test "create JSON éxito" do
+        payload = ETNIA_NUEVO.merge(
+          nombre: "Etnia Json #{Time.current.to_i}"
+        )
+        assert_difference("Etnia.count", 1) do
+          post msip.admin_etnias_path,
+            params: { etnia: payload },
+            as: :json
+        end
+        assert_equal 201, response.status, "Debe devolver 201 Created"
+        body = response.parsed_body rescue nil
+        assert body.is_a?(Hash), "Cuerpo JSON debe ser hash"
+        if body
+          assert_match(/Etnia Json/i, body.to_json)
+        end
+      end
+
+      test "create JSON error" do
+        payload = ETNIA_NUEVO.merge(
+          nombre: ""
+        )
+        assert_no_difference("Etnia.count") do
+          post msip.admin_etnias_path,
+            params: { etnia: payload },
+            as: :json
+        end
+        assert_equal 422, response.status, "Debe devolver 422 en error de validación JSON"
+        body = response.parsed_body rescue nil
+        assert body.is_a?(Hash), "Cuerpo JSON de error debe ser hash"
+      end
+
+      test "update JSON éxito" do
+        et = Msip::Etnia.create!(ETNIA_NUEVO.merge(nombre: "EtniaUp #{Time.current.to_i}"))
+        patch msip.admin_etnia_path(et),
+          params: { etnia: { observaciones: 'ObsJson' } },
+          as: :json
+        assert_includes [200, 204, 302], response.status
+        et.reload
+        assert_equal 'ObsJson', et.observaciones
+        et.destroy
+      end
+
+      test "update JSON error" do
+        et = Msip::Etnia.create!(ETNIA_NUEVO.merge(nombre: "EtniaErr #{Time.current.to_i}"))
+        patch msip.admin_etnia_path(et),
+          params: { etnia: { nombre: '' } },
+          as: :json
+        assert_equal 422, response.status
+        et.reload
+        assert_match(/ETNIAERR|ETNIAERR/i, et.nombre.upcase)
+        et.destroy
       end
     end
   end

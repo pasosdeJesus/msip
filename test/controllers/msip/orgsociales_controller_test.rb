@@ -145,7 +145,23 @@ module Msip
     end
 
     test "debe crear organización con personas asociadas" do
-      skip "Requiere configuración específica de datos anidados"
+      # Preparar parámetros anidados mínimos (persona asociada si el modelo acepta nested)
+      Msip::Orgsocial.connection.execute(<<-SQL.squish)
+        SELECT setval('public.msip_orgsocial_id_seq', MAX(id)) FROM public.msip_orgsocial;
+      SQL
+      params = {
+        orgsocial: {
+          id: nil,
+          grupoper_attributes: {
+            id: nil,
+            nombre: "GG Asociada"
+          }
+        }
+      }
+      assert_difference("Orgsocial.count") do
+        post msip.orgsociales_path, params: params
+      end
+      assert_redirected_to msip.orgsocial_path(assigns(:orgsocial))
     end
 
     test "debe actualizar organización y sus personas" do

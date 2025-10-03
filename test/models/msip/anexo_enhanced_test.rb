@@ -9,11 +9,18 @@ module Msip
       anexo = Anexo.new(PRUEBA_ANEXO)
       
       # Verificar si el modelo es válido sin adjunto
-      if anexo.valid?
-        assert_predicate anexo, :valid?
+      if !anexo.valid? && anexo.errors[:adjunto].any?
+        # Adjuntar archivo dummy mínimo
+        Dir.mktmpdir do |d|
+          fpath = File.join(d, 'prueba.txt')
+          File.write(fpath, 'contenido')
+          anexo.adjunto = File.new(fpath)
+          assert anexo.valid?, "Debe ser válido con adjunto"
+          anexo.save!
+        end
       else
-        # Si no es válido, puede requerir adjunto
-        skip "Anexo requiere archivo adjunto para ser válido"
+        # Ya es válido sin adjunto (configuración laxa)
+        assert_predicate anexo, :valid?
       end
       
       anexo.destroy

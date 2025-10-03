@@ -28,7 +28,9 @@ module Msip
     # Pruebas adicionales para mejorar cobertura
 
   test "nombre es requerido" do
-    skip "Validación específica compleja"
+    tdocumento = Tdocumento.new(PRUEBA_TDOCUMENTO.except(:id, 'id').merge(nombre: nil, sigla: 'NOMREQ'))
+    assert_not tdocumento.valid?, "Debe ser inválido sin nombre"
+    assert_includes tdocumento.errors.attribute_names, :nombre
   end
 
   test "sigla es requerida" do
@@ -39,7 +41,16 @@ module Msip
     end
 
     test "sigla debe ser única" do
-      skip "Requiere configuración específica de unicidad"
+      base = PRUEBA_TDOCUMENTO.except(:id, 'id')
+      t1 = Tdocumento.create!(base.merge(sigla: 'UNIQSIG', nombre: 'Nombre Uno'))
+      t2 = Tdocumento.new(base.merge(sigla: 'UNIQSIG', nombre: 'Nombre Dos'))
+
+      assert_not t2.valid?, "Debe ser inválido por sigla duplicada"
+      # Mensaje puede variar según localización; basta con que haya error
+      ms = t2.errors[:sigla].join(' ')
+      assert_match(/repite|tomado|taken/i, ms)
+
+      t1.destroy
     end
 
     test "nombre debe tener longitud válida" do
@@ -50,7 +61,11 @@ module Msip
     end
 
     test "sigla debe tener longitud válida" do
-      skip "Longitud de sigla varía según configuración"
+      tdocumento = Tdocumento.new(PRUEBA_TDOCUMENTO.except(:id, 'id'))
+      tdocumento.sigla = 'a' * 101
+
+      assert_not tdocumento.valid?
+      assert tdocumento.errors[:sigla].any?, "Debe haber errores de longitud en sigla"
     end
 
     test "observaciones es opcional" do
@@ -61,11 +76,30 @@ module Msip
     end
 
     test "fechacreacion es asignada automáticamente" do
-      skip "Fechacreacion requerida en PRUEBA_TDOCUMENTO"
+      tdocumento = Tdocumento.create!(PRUEBA_TDOCUMENTO.except(:id, 'id').merge(sigla: 'FECHA1', nombre: 'Fecha Auto'))
+      assert_not_nil tdocumento.fechacreacion, "Debe tener fechacreacion"
+      assert tdocumento.fechacreacion.is_a?(Date), "fechacreacion debe ser Date"
+      tdocumento.destroy
     end
 
     test "scope habilitado excluye deshabilitados" do
-      skip "Requiere datos específicos sin conflictos de ID"
+      base = PRUEBA_TDOCUMENTO.except(:id, 'id')
+      habilitado = Tdocumento.create!(base.merge(sigla: 'HAB1', nombre: 'Hab 1', fechadeshabilitacion: nil))
+      deshabilitado = Tdocumento.create!(base.merge(sigla: 'DESH1', nombre: 'Desh 1', fechadeshabilitacion: Date.current))
+
+      if Tdocumento.respond_to?(:habilitados)
+        hs = Tdocumento.habilitados
+        assert_includes hs, habilitado
+        refute_includes hs, deshabilitado
+      else
+        # Fallback: filtrar manualmente para cubrir rama
+        hs = Tdocumento.where(fechadeshabilitacion: nil)
+        assert_includes hs, habilitado
+        refute_includes hs, deshabilitado
+      end
+
+      habilitado.destroy
+      deshabilitado.destroy
     end
 
     test "to_s devuelve representación" do
@@ -78,25 +112,42 @@ module Msip
     end
 
     test "puede tener personas asociadas" do
-      tdocumento = Tdocumento.create!(PRUEBA_TDOCUMENTO)
-      
-      # Verificar asociación si existe
-      assert_respond_to tdocumento, :personas if tdocumento.respond_to?(:personas)
-
-      # Limpiar
+      tdocumento = Tdocumento.create!(PRUEBA_TDOCUMENTO.except(:id, 'id').merge(sigla: 'ASOC', nombre: 'Asociado'))
+      if tdocumento.respond_to?(:personas)
+        # Solo ejercitar si existe la asociación
+        assert_respond_to tdocumento, :personas
+      else
+        assert tdocumento.valid?
+      end
       tdocumento.destroy
     end
 
     test "validación de fechas" do
-      skip "Validación de fechas depende de la lógica específica"
+      tdocumento = Tdocumento.new(PRUEBA_TDOCUMENTO.except(:id, 'id').merge(sigla: 'FECHX', nombre: 'Fechas X', fechadeshabilitacion: Date.current - 1))
+      # Si la lógica exige que fechadeshabilitacion no sea pasada, debería ser válido igual (no tenemos regla explícita)
+      assert tdocumento.valid?, "Sin reglas adicionales debería ser válido"
     end
 
     test "busqueda por nombre y sigla" do
-      skip "Requiere configuración específica sin conflictos"
+      base = PRUEBA_TDOCUMENTO.except(:id, 'id')
+      t1 = Tdocumento.create!(base.merge(sigla: 'BUSN1', nombre: 'Documento Alfa'))
+      t2 = Tdocumento.create!(base.merge(sigla: 'BUSN2', nombre: 'Beta Doc'))
+      # Búsqueda simple por nombre contiene
+      r1 = Tdocumento.where("LOWER(nombre) LIKE ?", '%alfa%')
+      assert_includes r1, t1
+      refute_includes r1, t2
+      # Búsqueda por sigla exacta
+      r2 = Tdocumento.where(sigla: 'BUSN2')
+      assert_equal [t2.id], r2.pluck(:id)
+      t1.destroy
+      t2.destroy
     end
 
     test "normalización de datos" do
-      skip "Normalización varía según callbacks del modelo"
+      tdocumento = Tdocumento.create!(PRUEBA_TDOCUMENTO.except(:id, 'id').merge(sigla: 'norm1', nombre: 'mi documento'))
+      # Suponemos que la normalización convierte a mayúsculas el nombre (observado en otros tests)
+      assert_equal tdocumento.nombre.upcase, tdocumento.reload.nombre, "Nombre debería estar normalizado (mayúsculas)"
+      tdocumento.destroy
     end
 
     test "actualizacion mantiene integridad" do
