@@ -1,6 +1,6 @@
 # Requisitos
 
-* Recomendamos emplear la distribución adJ 7.5 del sistema operativo OpenBSD,
+* Recomendamos emplear la distribución adJ 7.7 del sistema operativo OpenBSD,
   que ya incluye configurada la pila de software que presentamos a 
   continuación.
   Puedes consultar sobre el uso de Ruby on Rails en adJ en

@@ -238,8 +238,6 @@ module Msip
       raise "No se encontro ruta para copiar #{n}"
     end
 
-
->>>>>>> 7ebdc14 (Funcionalidad generia para copiar registros. Ver https://gitlab.com/pasosdeJesus/msip/-/wikis/2024_03-Propuesta-de-bot%C3%B3n-para-copiar-registro. Avanza https://gitlab.com/pasosdeJesus/si_jrscol/-/issues/1022)
     def self.poromision(params, s, valorsp = "")
       if params.nil? || params[:filtro].nil? || params[:filtro][s].nil?
         valorsp
