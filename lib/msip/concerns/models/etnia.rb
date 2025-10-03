@@ -16,7 +16,8 @@ module Msip
             foreign_key: "etnia_id",
             dependent: :delete_all
 
-          validates :nombre, presence: true, allow_blank: false
+          validates :nombre, presence: true, allow_blank: false, 
+            uniqueness: true
           validates :fechacreacion, presence: true, allow_blank: false
           validates :descripcion, length: { maximum: 1000 }
         end

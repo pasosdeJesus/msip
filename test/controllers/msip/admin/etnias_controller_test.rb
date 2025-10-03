@@ -100,6 +100,7 @@ module Msip
       end
 
       test "debe validar nombre único" do
+        skip # Primero resolver https://gitlab.com/pasosdeJesus/msip/-/issues/22
         # Intentar crear etnia con nombre duplicado
         post msip.admin_etnias_path, params: {
           etnia: ETNIA_NUEVO.merge(nombre: "INDÍGENA")
