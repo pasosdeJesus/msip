@@ -32,7 +32,7 @@ test:
     - uname -a
     - whoami
     - echo "HOME=${HOME}"
-    - pwd
+    - pwd # /builds/pasosdeJesus/msip/
     - which ruby
     - ruby -v
     - export APT_CACHE_DIR=`pwd`/apt-cache && mkdir -pv $APT_CACHE_DIR
