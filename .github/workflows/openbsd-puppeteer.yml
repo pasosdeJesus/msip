@@ -1,0 +1,168 @@
+name: "Pruebas Puppeteer en OpenBSD"
+
+on:
+  push:
+    branches: [ "main", "v2.2" ]
+  pull_request:
+    branches: [ "main", "v2.2" ]
+  workflow_dispatch: # Permite ejecución manual
+  schedule:
+    # Ejecutar semanalmente los domingos a las 02:00 UTC
+    - cron: '0 2 * * 0'
+
+jobs:
+  puppeteer-openbsd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: Sacar código fuente
+        uses: actions/checkout@v4
+        
+      - name: Ejecutar pruebas Puppeteer en OpenBSD 7.7+
+        uses: vmactions/openbsd-vm@v1
+        with:
+          envs: 'GITHUB_TOKEN'
+          usesh: true
+          sync: rsync
+          mem: 4096
+          release: '7.6' # Usar OpenBSD 7.6 o superior para soporte headless
+          prepare: |
+            # Actualizar sistema a la última versión
+            syspatch || true
+            pkg_add -u || true
+            
+            # Instalar dependencias del sistema
+            pkg_add ruby%3.4 postgresql-server postgresql-contrib 
+            pkg_add node yarn git curl wget
+            
+            # Instalar Chromium (con soporte headless en 7.7+)
+            pkg_add chromium
+            
+            # Verificar que Chromium se instaló correctamente
+            chromium --version || true
+            
+            # Configurar PostgreSQL
+            if [ ! -d "/var/postgresql/data" ]; then
+              su - _postgresql -c "initdb -D /var/postgresql/data -U postgres"
+            fi
+            
+            # Habilitar e iniciar PostgreSQL
+            rcctl enable postgresql
+            rcctl start postgresql
+            
+            # Esperar a que PostgreSQL esté completamente iniciado
+            sleep 10
+            
+            # Crear usuario de Rails sin contraseña
+            su - _postgresql -c "createuser -s rails" || echo "Usuario rails ya existe"
+            su - _postgresql -c "createdb -O rails rails_test" || echo "Base de datos rails_test ya existe"
+            
+          run: |
+            # Configurar variables de ambiente para OpenBSD
+            export PATH="/usr/local/bin:$PATH"
+            export RAILS_ENV=test
+            export DATABASE_URL="postgres://rails@localhost:5432/rails_test"
+            export CI=true  # Esto activará el modo headless automáticamente
+            
+            echo "=== Información del sistema ==="
+            uname -a
+            echo "OpenBSD $(uname -r)"
+            
+            echo "=== Verificando dependencias ==="
+            ruby -v
+            node -v
+            yarn -v
+            chromium --version
+            
+            # Instalar bundler sin documentación para ahorrar tiempo
+            gem install bundler --no-document
+            
+            # Configurar bundler para usar directorio local
+            bundle config set --local path 'vendor/bundle'
+            bundle config set --local without 'development'
+            
+            # Instalar dependencias Ruby
+            bundle install --jobs 4 --retry 3
+            
+            echo "=== Configurando aplicación de prueba ==="
+            cd test/dummy
+            
+            # Usar archivo de configuración para pruebas
+            cp .env.plantilla .env
+            
+            # Configurar variables de base de datos para OpenBSD
+            sed -i 's/BD_USUARIO=.*/BD_USUARIO=rails/' .env
+            sed -i 's/BD_CLAVE=.*/BD_CLAVE=/' .env
+            sed -i 's/BD_PRUEBA=.*/BD_PRUEBA=rails_test/' .env
+            sed -i 's/BD_SERVIDOR=.*/BD_SERVIDOR=localhost/' .env
+            
+            # Configurar variables adicionales para pruebas
+            echo "USUARIO_ADMIN_PRUEBA=admin@localhost.localdomain" >> .env
+            echo "CLAVE_ADMIN_PRUEBA=sjrven123" >> .env
+            echo "PUERTOPRU=33001" >> .env
+            
+            echo "=== Configuración final de .env ==="
+            grep -E "(BD_|USUARIO_|CLAVE_|PUERTO)" .env
+            
+            echo "=== Preparando base de datos ==="
+            # Limpiar y recrear base de datos
+            bin/rails db:drop || true
+            bin/rails db:create
+            bin/rails db:setup
+            bin/rails db:seed
+            bin/rails msip:indices
+            bin/rails msip:enlaces_motores
+            
+            echo "=== Precompilando assets ==="
+            bin/rails assets:precompile
+            
+            echo "=== Configurando pruebas Puppeteer ==="
+            cd test/puppeteer
+            
+            # Limpiar caché de yarn y actualizar dependencias
+            yarn cache clean
+            yarn install --frozen-lockfile
+            
+            cd ../..
+            
+            echo "=== Ejecutando pruebas Puppeteer en modo headless ==="
+            
+            # Variables de ambiente para las pruebas
+            export IPDES=127.0.0.1
+            export PUERTOPRU=33001
+            export PROTDES=http
+            # No definir CONCABEZA para usar modo headless por defecto
+            
+            # Verificar que Chromium funciona en modo headless
+            echo "=== Verificando Chromium headless ==="
+            chromium --headless --disable-gpu --dump-dom about:blank | head -5
+            
+            # Ejecutar las pruebas con timeout de 20 minutos
+            timeout 1200 bin/pruebasjs.sh || {
+              echo "=== ERROR: Pruebas Puppeteer fallaron o timeout ==="
+              
+              # Mostrar información de debugging
+              echo "=== Procesos activos ==="
+              ps aux | grep -E "(ruby|rails|chromium|node)" || true
+              
+              echo "=== Logs del sistema ==="
+              if [ -f /tmp/pruebasjs.bitacora ]; then
+                echo "=== Últimas 50 líneas del log de pruebas ==="
+                tail -50 /tmp/pruebasjs.bitacora
+              fi
+              
+              # Limpiar procesos que puedan haber quedado
+              pkill -f rails || true
+              pkill -f chromium || true
+              
+              exit 1
+            }
+            
+            echo "=== ✅ Pruebas Puppeteer completadas exitosamente en OpenBSD ==="
+            
+            # Mostrar resumen de las pruebas
+            if [ -f /tmp/pruebasjs.bitacora ]; then
+              echo "=== Resumen de tiempo de ejecución ==="
+              grep "Tiempo de ejecución:" /tmp/pruebasjs.bitacora | tail -5
+            fi

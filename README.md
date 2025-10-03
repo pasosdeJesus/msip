@@ -97,12 +97,29 @@ Consulta nuestras [guías de contribución](CONTRIBUTING.md) para:
 * Sugerir nuevas características
 * Enviar pull requests
 
+## 🧪 Pruebas Automatizadas
+
+msip incluye suites de pruebas completas:
+
+### Pruebas Unitarias y de Integración
+- **Minitest**: Pruebas de modelos, controladores y helpers
+- **CI/CD**: Integración continua en GitLab CI y GitHub Actions
+- **Cobertura**: Análisis de cobertura con SimpleCov
+
+### Pruebas End-to-End con Puppeteer
+- **Navegador real**: Pruebas con Chromium en OpenBSD
+- **GitHub Actions**: Ejecución automática en VMs OpenBSD
+- **Modo headless**: Optimizado para CI con OpenBSD 7.7+
+
+Más detalles en [pruebas al sistema con Puppeteer](doc/pruebas-al-sistema-con-puppeteer.md) y [integración GitHub Actions OpenBSD](doc/github-actions-openbsd-puppeteer.md).
+
 # 🔄 Mantenimiento y Actualizaciones
 
 msip se mantiene actualizado mediante:
 
 * Actualizaciones semestrales en sincronía con adJ (OpenBSD)
-* Pruebas continuas en Linux via GitLab CI y Github Actions
+* Pruebas continuas en OpenBSD via GitHub Actions y Linux via GitLab CI
+* Pruebas end-to-end automatizadas con Puppeteer en OpenBSD
 * Actualización periódica de datos geográficos según DIVIPOLA colombiano
 * Gemas actualizadas semanalmente para garantizar seguridad y funcionalidad
 

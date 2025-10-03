@@ -23,33 +23,49 @@ export async function preparar(timeout = 5000, rutainicial = '/msip') {
   //console.log("sincabeza=", sincabeza);
   let browser = null;
   if (typeof process.env.CI == "string") {
-    console.log("Esta función no opera en gitlab");
-    exit(1);
+    // En CI (GitHub Actions con OpenBSD), usar modo headless automáticamente
+    console.log("Ejecutando en CI - modo headless automático");
+    sincabeza = 'new'; // Forzar headless en CI
+  }
+  
+  if (fs.existsSync("/usr/local/bin/chrome")) {
+    console.log("Corriendo en OpenBSD con Chrome")
+    browser = await puppeteer.launch({
+      executablePath: '/usr/local/bin/chrome',
+      defaultViewport: { width: 1240, height: 800},
+      headless: sincabeza 
+    });
+  } else if (fs.existsSync("/usr/local/bin/chromium")) {
+    console.log("Corriendo en OpenBSD con Chromium")
+    browser = await puppeteer.launch({
+      executablePath: '/usr/local/bin/chromium',
+      defaultViewport: { width: 1240, height: 800},
+      headless: sincabeza,
+      args: [
+        '--no-first-run',
+        '--disable-background-timer-throttling',
+        '--disable-backgrounding-occluded-windows',
+        '--disable-renderer-backgrounding'
+      ]
+    });
+  } else if (fs.existsSync("/usr/bin/chromium-browser")) {
+    console.log("Corriendo en Linux con Chromium")
+    browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+      defaultViewport: { width: 1240, height: 800},
+      headless: sincabeza,
+      devtools: true
+    });
+  } else if (fs.existsSync("/bin/chromium-browser")) {
+    console.log("Corriendo en Linux con Chromium (alternativo)")
+    browser = await puppeteer.launch({
+      executablePath: '/bin/chromium-browser',
+      defaultViewport: { width: 1240, height: 800},
+      headless: sincabeza,
+      devtools: true
+    });
   } else {
-    if (fs.existsSync("/usr/local/bin/chrome")) {
-      console.log("Corriendo en OpenBSD")
-      browser = await puppeteer.launch({
-        executablePath: '/usr/local/bin/chrome',
-        defaultViewport: { width: 1240, height: 800},
-        headless: sincabeza 
-      });
-    } else if (fs.existsSync("/usr/bin/chromium-browser")) {
-      browser = await puppeteer.launch({
-        executablePath: '/usr/bin/chromium-browser',
-        defaultViewport: { width: 1240, height: 800},
-        headless: sincabeza,
-        devtools: true
-      });
-    } else if (fs.existsSync("/bin/chromium-browser")) {
-      browser = await puppeteer.launch({
-        executablePath: '/bin/chromium-browser',
-        defaultViewport: { width: 1240, height: 800},
-        headless: sincabeza,
-        devtools: true
-      });
-    } else {
-      throw "No se encontró navegador";
-    }
+    throw "No se encontró navegador";
   }
   //console.log("browser=", browser);
 

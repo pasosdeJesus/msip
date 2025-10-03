@@ -4,7 +4,7 @@
 #
 # Este flujo de trabajo instalará una versión preconstruida de Ruby,
 # instalará dependencias y ejecutará pruebas y verificadores.
-name: "IC para Ruby on Rails"
+name: "IC para Ruby on Rails (Ubuntu)"
 on:
   push:
     branches: [ "main", "v2.2" ]
@@ -49,8 +49,13 @@ jobs:
       - name: Configurar esquema de base de datos
         run: (cd test/dummy; cp .env.github .env; RAILS_ENV=test bin/rails db:drop db:create db:setup db:seed msip:indices; bin/rails msip:enlaces_motores; bin/rails assets:precompile)
       # Agregue o remplace ejecutores de pruebas aquí
-      - name: Ejecutar pruebas
+      - name: Ejecutar pruebas (sin Puppeteer)
         run: NOPRUEBAJS=1 bin/regresion.sh
+      - name: Información sobre pruebas Puppeteer
+        run: |
+          echo "ℹ️  Las pruebas Puppeteer se ejecutan en OpenBSD"
+          echo "   Ver workflow 'Pruebas Puppeteer en OpenBSD' para pruebas end-to-end"
+          echo "   Las pruebas Puppeteer están optimizadas para OpenBSD/adJ"
 
 
   lint:
