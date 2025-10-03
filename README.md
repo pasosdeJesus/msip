@@ -1,11 +1,17 @@
 # msip - Motor para Sistemas de Información estilo Pasos de Jesús
 
-[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción gitlab](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip) [![Integración continua github](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml) [![CodeQL en github](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml)
+[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) 
+[![Estado Construcción gitlab](https://gitlab.com/pasosdeJesus/msip/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?page=1&scope=all&ref=main) 
+[![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip) 
+[![Integración continua github](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml) 
+[![CodeQL en github](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml)
+[![Cobertura de Pruebas](https://img.shields.io/badge/Coverage-67.48%25-green.svg)](https://gitlab.com/pasosdeJesus/msip/-/jobs/artifacts/main/file/coverage/index.html?job=pruebas)
+[![Pruebas Automatizadas](https://img.shields.io/badge/Tests-493_passing-brightgreen.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines)
 
 ![Logo de msip](test/dummy/app/assets/images/logo.jpg)
 
 Motor Ruby on Rails que proporciona una base segura y actualizada para
-desarrollar sistemas de información complejos. Incluye componentes estándar,
+desarrollar sistemas de información. Incluye componentes estándar,
 interfaces automatizadas y mejores prácticas de seguridad.
 
 ## 🚀 Características Principales
@@ -15,23 +21,33 @@ interfaces automatizadas y mejores prácticas de seguridad.
   sin código adicional
 - **Filtros y paginación**: Listados con filtros configurables y paginación con
   `will_paginate`
-- **Interfaz adaptable**: Diseño responsive con Bootstrap, Stimulus y jQuery
+- **Interfaz adaptable**: Diseño responsive con Bootstrap y Stimulus
 - **Componentes modernos**: `tom-select` para selecciones, controles nativos
   para fechas
-- **Sistema de temas**: Múltiples temas de colores configurables por usuario
 
 ### 🏗️ Componentes Preconstruidos
 - **Geolocalización**: Países, departamentos, municipios y centros poblados
   - Datos completos para Colombia, Venezuela y Honduras
   - Mapas SVG de departamentos y municipios de Colombia
+  - Validaciones geográficas y jerarquías territoriales
 - **Gestión de Personas**: Personas, documentos, y relaciones entre personas
+  - Validaciones de documentos por país
+  - Sistema de familiares y relaciones
+  - Etiquetado para categorización flexible
 - **Organizaciones**: Grupos, organizaciones sociales y sectores
+  - Gestión de grupos con personas asociadas
+  - Roles y cargos organizacionales
 - **Sistema de archivos**: Anexos con almacenamiento seguro
 
 ### 🔐 Seguridad y Control de Acceso
 - **Autenticación**: Integración con Devise y bcrypt
 - **Autorización flexible**: Sistema de roles y grupos con Cancancan
 - **Respaldos seguros**: Exportación cifrada y comprimida con 7z
+
+### 📊 Calidad y Confiabilidad
+- **Cobertura de pruebas minitest a modelos, controladores y helpers**: Superior al 67%
+- **Pruebas End-to-End con Puppeteer**: Optimizadas para OpenBSD 7.7+
+- **CI/CD robusto**: GitHub Actions y GitLab CI
 
 ### 🛠️ Desarrollo y Configuración
 - **Configuración centralizada**: Variables de ambiente con `.env` y `dotenv`
@@ -77,7 +93,7 @@ Consulta instrucciones detalladas en la
 * Guías de uso: [Documentación principal](doc/README.me)
 * Vistas automáticas: [Configuración y uso](doc/vistas-automaticas.md)
 * Actualizaciones: [Wiki del proyecto](https://gitlab.com/pasosdeJesus/msip/-/wikis/pages)
-* Historial de cambios: [Versiones y publicaciones](https://gitlab.com/pasosdeJesus/msip/-/releases)
+* Historial de publicaciones: [Versiones y publicaciones](https://gitlab.com/pasosdeJesus/msip/-/releases)
 
 # 🐛 Reportar Problemas y Contribuir
 
@@ -97,29 +113,13 @@ Consulta nuestras [guías de contribución](CONTRIBUTING.md) para:
 * Sugerir nuevas características
 * Enviar pull requests
 
-## 🧪 Pruebas Automatizadas
-
-msip incluye suites de pruebas completas:
-
-### Pruebas Unitarias y de Integración
-- **Minitest**: Pruebas de modelos, controladores y helpers
-- **CI/CD**: Integración continua en GitLab CI y GitHub Actions
-- **Cobertura**: Análisis de cobertura con SimpleCov
-
-### Pruebas End-to-End con Puppeteer
-- **Navegador real**: Pruebas con Chromium en OpenBSD
-- **GitHub Actions**: Ejecución automática en VMs OpenBSD
-- **Modo headless**: Optimizado para CI con OpenBSD 7.7+
-
-Más detalles en [pruebas al sistema con Puppeteer](doc/pruebas-al-sistema-con-puppeteer.md) y [integración GitHub Actions OpenBSD](doc/github-actions-openbsd-puppeteer.md).
-
 # 🔄 Mantenimiento y Actualizaciones
 
 msip se mantiene actualizado mediante:
 
-* Actualizaciones semestrales en sincronía con adJ (OpenBSD)
-* Pruebas continuas en OpenBSD via GitHub Actions y Linux via GitLab CI
+* Publicación de nuevas versiones más o menos cada 3 meses
+* Actualizaciones semestrales al sistema base (distribución adJ) en sincronía con OpenBSD
+* Gemas actualizadas semanalmente para garantizar seguridad y funcionalidad
+* Pruebas continuas via GitHub Actions y Linux via GitLab CI
 * Pruebas end-to-end automatizadas con Puppeteer en OpenBSD
 * Actualización periódica de datos geográficos según DIVIPOLA colombiano
-* Gemas actualizadas semanalmente para garantizar seguridad y funcionalidad
-

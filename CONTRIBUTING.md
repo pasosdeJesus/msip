@@ -180,8 +180,23 @@ por lo que debes visitar con frecuencia tu solicitud de cambio y ver
 nuevos comentarios que puedan haber (los comentarios más recientes
 quedan al final de la pestaña de comentarios).
 
+## 5. Pruebas Unitarias y de Integración
 
-## 5. Otros aspectos a tener en cuenta
+Suele bastar desde el directorio raíz de las fuentes
+  o desde `test/dummy` si es un motor:
+```sh
+SEMILLA_PEQ=1 CONFIG_HOSTS=www.example.com RUTA_RELATIVA=/ bin/regresion.sh
+```
+o puedes ejecutar pruebas específicas con:
+bundle exec rails test test/models/
+CONFIG_HOSTS=www.example.com RUTA_RELATIVA bundle exec rails test test/controllers/
+bundle exec rails test test/helpers/
+
+Y examinar el reporte de cobertura en `cobertura-unitarias/index.html`
+
+Hay también pruebas al sistema, mira detalles en [pruebas al sistema con Puppeteer](doc/pruebas-al-sistema-con-puppeteer.md) e [integración GitHub Actions OpenBSD](doc/github-actions-openbsd-puppeteer.md).
+
+## 6. Otros aspectos a tener en cuenta
 
 * Durante el desarrollo de tu contribución actualiza constantemente
   las dependencias para usar siempre las versiones más recientes de librerías
@@ -192,14 +207,7 @@ quedan al final de la pestaña de comentarios).
 	<https://aprendiendo.pasosdeJesus.org>
   Por eso después de hacer cambios sugerimos que en esa plataforma pruebes
   las novedades que introduces y que ejecutes las pruebas de regresión para
-  asegurar que pasan. Suele bastar desde el directorio raíz de las fuentes
-  o desde `test/dummy` si es un motor:
-  ```sh
-  RAILS_ENV=test  bin/rails db:drop db:prepare msip:indices
-  ```
-  Y desde el directorio raíz de las fuentes:
-  ```
-	CONFIG_HOSTS=www.example.com bin/rails test
-  ```
+  asegurar que pasan.
+  
 * Sigue las convenciones acordes al lenguaje de lo que estás aportando
   descritas en [Convenciones](https://gitlab.com/pasosdeJesus/msip/blob/main/doc/convenciones.md)
