@@ -1,0 +1,25 @@
+{
+  "name": "@pasosdejesus/msipn-db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "migrate:make": "kysely migrate:make",
+    "migrate:up": "kysely migrate up",
+    "migrate:down": "kysely migrate down",
+    "codegen": "kysely-codegen --out-file src/db.d.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "kysely": "^0.27.3",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "kysely-codegen": "^0.15.0",
+    "kysely-ctl": "^0.9.0",
+    "@types/pg": "^8.10.0"
+  }
+}

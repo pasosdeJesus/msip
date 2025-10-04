@@ -1,0 +1,2 @@
+import './entity.tdocumento';
+export {};

@@ -1,0 +1,2 @@
+import './entity.usuario';
+export {};

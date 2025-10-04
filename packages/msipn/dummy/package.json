@@ -1,0 +1,21 @@
+{
+  "name": "@pasosdejesus/msipn-dummy",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+  "build": "tsc -p tsconfig.json",
+  "start": "pnpm -r --filter @pasosdejesus/msipn-core --filter @pasosdejesus/msipn-domain-* run build && tsx src/index.ts"
+  },
+  "dependencies": {
+    "@pasosdejesus/msipn-core": "workspace:*",
+    "@pasosdejesus/msipn-domain-persona": "workspace:*",
+    "@pasosdejesus/msipn-domain-etnia": "workspace:*",
+    "@pasosdejesus/msipn-domain-tdocumento": "workspace:*",
+    "@pasosdejesus/msipn-domain-usuario": "workspace:*"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
