@@ -1,0 +1,40 @@
+{
+  "name": "@pasosdejesus/app-msipn",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build:engine": "pnpm -w build",
+    "db:schema:dump": "kysely-codegen --out-file db/db.d.ts",
+    "msipn:install": "node scripts/msipn-install.cjs",
+    "msipn": "node bin/msipn",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pasosdejesus/msipn-cli": "link:../msipn/cli",
+    "@pasosdejesus/msipn-core": "link:../msipn/core",
+    "@pasosdejesus/msipn-domain-etnia": "link:../msipn/domain-etnia",
+    "@pasosdejesus/msipn-domain-persona": "link:../msipn/domain-persona",
+    "@pasosdejesus/msipn-domain-tdocumento": "link:../msipn/domain-tdocumento",
+    "@pasosdejesus/msipn-domain-usuario": "link:../msipn/domain-usuario",
+    "kysely": "^0.27.3",
+    "next": "14.2.4",
+    "pg": "^8.11.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "@types/node": "^20.19.19",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "kysely-codegen": "^0.14.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.1"
+  }
+}

@@ -9,8 +9,7 @@
     "packages/msipn/domain-etnia",
     "packages/msipn/domain-persona",
     "packages/msipn/domain-usuario",
-    "packages/msipn/db",
-    "packages/msipn/dummy"
+    "packages/msipn/db"
   ],
   "scripts": {
     "build": "pnpm -r run build",

@@ -1,0 +1,20 @@
+{
+  "name": "@pasosdejesus/msipn",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Meta-paquete agregador para msipn (core, dominios, cli, db)",
+  "scripts": {
+    "build": "echo 'meta paquete sin build'",
+    "postinstall": "echo 'msipn meta instalado'"
+  },
+  "dependencies": {
+    "@pasosdejesus/msipn-core": "workspace:*",
+    "@pasosdejesus/msipn-domain-tdocumento": "workspace:*",
+    "@pasosdejesus/msipn-domain-etnia": "workspace:*",
+    "@pasosdejesus/msipn-domain-persona": "workspace:*",
+    "@pasosdejesus/msipn-domain-usuario": "workspace:*",
+    "@pasosdejesus/msipn-db": "workspace:*",
+    "@pasosdejesus/msipn-cli": "workspace:*"
+  }
+}

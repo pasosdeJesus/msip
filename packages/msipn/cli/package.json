@@ -7,13 +7,21 @@
     "msipn": "bin/msipn.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepare": "test -d dist || pnpm run build"
   },
   "dependencies": {
     "commander": "^11.0.0",
     "dotenv": "^16.4.5"
   },
+  "peerDependencies": {
+    "kysely": "^0.27.3",
+    "pg": "^8.11.5"
+  },
   "devDependencies": {
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "kysely": "^0.27.3",
+    "pg": "^8.11.5",
+    "@types/pg": "^8.11.6"
   }
 }

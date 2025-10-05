@@ -14,6 +14,8 @@ Motor Ruby on Rails que proporciona una base segura y actualizada para
 desarrollar sistemas de información. Incluye componentes estándar,
 interfaces automatizadas y mejores prácticas de seguridad.
 
+> Nota sobre rama experimental `msipn`: Se está desarrollando un motor paralelo en TypeScript/Next.js dentro de `packages/msipn/*`. La aplicación de prueba ahora reside en `packages/app-msipn` y no hace parte de los `workspaces` de pnpm; se ejecuta de forma independiente con su propio `.env` (instalar con `cd packages/app-msipn && pnpm install`).
+
 ## 🚀 Características Principales
 
 ### 📊 Vistas Automatizadas
