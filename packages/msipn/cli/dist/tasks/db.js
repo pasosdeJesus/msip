@@ -3,6 +3,7 @@ import { spawnSync } from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { success, problem, info, warn } from '../util/colors.js';
 function pgConfig() {
     return {
         database: process.env.PGDATABASE || 'msipn_dev',
@@ -40,7 +41,7 @@ export async function runDbSuperCreateUser() {
     const user = process.env.PGUSER;
     const pass = process.env.PGPASSWORD;
     if (!user || !pass) {
-        console.error('PGUSER or PGPASSWORD not defined in environment (.env)');
+        problem('PGUSER or PGPASSWORD not defined in environment (.env)');
         return;
     }
     function hasCmd(c) {
@@ -110,26 +111,26 @@ export async function runDbSuperCreateUser() {
     modes = modes.filter((m, i) => modes.indexOf(m) === i);
     if (modes.length === 0)
         modes = ['direct'];
-    let success = false;
+    let opSuccess = false;
     let lastErr;
     for (const mode of modes) {
-        console.log(`[db:super:createuser] intentando modo=${mode}`);
+        info(`[db:super:createuser] intentando modo=${mode}`);
         let res = runPriv(mode, createCmd);
         if (res.status !== 0) {
             const stderr = (res.stderr || '').toString();
             if (/already exists/i.test(stderr)) {
-                console.log(`PostgreSQL role '${user}' already exists (continuing).`);
+                info(`PostgreSQL role '${user}' already exists (continuing).`);
             }
             else {
                 lastErr = stderr || `Exit code ${res.status}`;
-                console.log(`[db:super:createuser] fallo crear usuario en modo=${mode}: ${lastErr}`);
+                warn(`[db:super:createuser] fallo crear usuario en modo=${mode}: ${lastErr}`);
                 // Intentar siguiente modo
                 // pero antes verificar si error fue autenticación -> seguir
                 continue;
             }
         }
         else {
-            console.log(`PostgreSQL superuser role created: ${user}`);
+            success(`PostgreSQL superuser role created: ${user}`);
         }
         // Actualiza contraseña
         res = runPriv(mode, alterCmd);
@@ -140,14 +141,14 @@ export async function runDbSuperCreateUser() {
             continue; // probar otro modo quizá con privilegios correctos
         }
         else {
-            console.log(`Password updated for role: ${user}`);
-            success = true;
+            success(`Password updated for role: ${user}`);
+            opSuccess = true;
             break;
         }
     }
-    if (!success) {
-        console.error(`[db:super:createuser] no se pudo crear/actualizar rol '${user}'. Último error: ${lastErr || 'desconocido'}`);
-        console.error('Sugerencia: ejecute manualmente con sudo o ajuste variables PG_ESCALATION=direct|sudo y/o configure sudo sin contraseña.');
+    if (!opSuccess) {
+        problem(`[db:super:createuser] no se pudo crear/actualizar rol '${user}'. Último error: ${lastErr || 'desconocido'}`);
+        problem('Sugerencia: ejecute manualmente con sudo o ajuste variables PG_ESCALATION=direct|sudo y/o configure sudo sin contraseña.');
         return; // No lanzar para que CI no quede esperando interacción
     }
     // Determine target home for .pgpass entry
@@ -165,7 +166,7 @@ export async function runDbSuperCreateUser() {
         home = process.env.HOME || '';
     }
     if (!home) {
-        console.warn('Could not resolve home directory to write .pgpass (skipping)');
+        warn('Could not resolve home directory to write .pgpass (skipping)');
         return;
     }
     const pgpassPath = path.join(home, '.pgpass');
@@ -180,14 +181,14 @@ export async function runDbSuperCreateUser() {
         if (needsAppend) {
             fs.appendFileSync(pgpassPath, line + os.EOL, 'utf-8');
             fs.chmodSync(pgpassPath, 0o600);
-            console.log(`Added credentials to ${pgpassPath}`);
+            success(`Added credentials to ${pgpassPath}`);
         }
         else {
-            console.log(`Credentials already present in ${pgpassPath}`);
+            info(`Credentials already present in ${pgpassPath}`);
         }
     }
     catch (e) {
-        console.warn(`Warning: could not update ${pgpassPath}: ${e.message}`);
+        warn(`Warning: could not update ${pgpassPath}: ${e.message}`);
     }
 }
 export async function runDbCreate() {
@@ -228,11 +229,11 @@ export async function runDbStructureDump() {
     // Usamos spawnSync con pipe para capturar y escribir archivo
     const res = spawnSync('pg_dump', args, { env });
     if (res.status !== 0) {
-        console.error('[structure:dump]', await cliKey('structure.dump_error'));
+        problem('[structure:dump] ' + await cliKey('structure.dump_error'));
         process.exit(res.status ?? 1);
     }
     fs.writeFileSync(outFile, res.stdout);
-    console.log('[structure:dump]', await cliKey('structure.dump_written'));
+    success('[structure:dump] ' + await cliKey('structure.dump_written'));
     if (process.exitCode == null)
         process.exitCode = 0;
 }
@@ -242,10 +243,10 @@ export async function runDbStructureLoad() {
     const env = buildEnvArgs(cfg);
     const file = path.join(process.cwd(), 'db', 'structure.sql');
     if (!fs.existsSync(file)) {
-        console.error('[structure:load]', await cliKey('structure.load_missing'));
+        problem('[structure:load] ' + await cliKey('structure.load_missing'));
         process.exit(1);
     }
-    console.log('[structure:load]', await cliKey('structure.load_ensuring'));
+    info('[structure:load] ' + await cliKey('structure.load_ensuring'));
     // Try a simple connection listing tables; if it fails with 3D000 create
     let needCreate = false;
     try {
@@ -258,20 +259,20 @@ export async function runDbStructureLoad() {
         needCreate = true;
     }
     if (needCreate) {
-        console.log('[structure:load]', await cliKey('structure.load_creating_db', { db: cfg.database }));
+        info('[structure:load] ' + await cliKey('structure.load_creating_db', { db: cfg.database }));
         const c = spawnSync('createdb', [cfg.database], { env });
         if (c.status !== 0) {
-            console.error('[structure:load]', await cliKey('structure.load_create_failed'));
+            problem('[structure:load] ' + await cliKey('structure.load_create_failed'));
             process.exit(c.status ?? 1);
         }
     }
-    console.log('[structure:load]', await cliKey('structure.load_applying'));
+    info('[structure:load] ' + await cliKey('structure.load_applying'));
     const apply = spawnSync('psql', [...psqlArgs(cfg), '-v', 'ON_ERROR_STOP=1', '-f', file, cfg.database], { stdio: 'inherit', env });
     if (apply.status !== 0) {
-        console.error('[structure:load]', await cliKey('structure.load_apply_error'));
+        problem('[structure:load] ' + await cliKey('structure.load_apply_error'));
         process.exit(apply.status ?? 1);
     }
-    console.log('[structure:load]', await cliKey('structure.load_applied'));
+    success('[structure:load] ' + await cliKey('structure.load_applied'));
     if (process.exitCode == null)
         process.exitCode = 0;
 }
@@ -323,30 +324,30 @@ export async function runDbMigrate() {
             // Migraciones compiladas en dist/db/migrations
             const coreMigDist = path.join(coreRoot, 'dist', 'db', 'migrations');
             if (fs.existsSync(coreMigDist)) {
-                console.debug('[migrate]', await cliKey('migrate.total_sources'), coreMigDist);
+                info('[migrate] ' + await cliKey('migrate.total_sources') + ' ' + coreMigDist);
                 sources.push(coreMigDist);
             }
             else {
-                console.debug('[migrate]', await cliKey('migrate.error_reading', { folder: coreMigDist, error: 'missing' }));
+                warn('[migrate] ' + await cliKey('migrate.error_reading', { folder: coreMigDist, error: 'missing' }));
             }
         }
     }
     catch (e) {
-        console.warn('[migrate]', await cliKey('migrate.error_reading', { folder: 'msipn-core', error: e.message }));
+        warn('[migrate] ' + await cliKey('migrate.error_reading', { folder: 'msipn-core', error: e.message }));
     }
     const appMig = path.join(process.cwd(), 'db', 'migrations');
     if (fs.existsSync(appMig)) {
-        console.log('[migrate]', await cliKey('migrate.reading_folder', { folder: appMig }));
+        info('[migrate] ' + await cliKey('migrate.reading_folder', { folder: appMig }));
         sources.push(appMig);
     }
     else {
-        console.log('[migrate]', await cliKey('migrate.no_folders'));
+        info('[migrate] ' + await cliKey('migrate.no_folders'));
     }
     // TODO: detect other engines: could inspect node_modules/@pasosdejesus/*/src/db/migrations
     // For now only core + app.
     try {
         if (sources.length === 0) {
-            console.log('[migrate]', await cliKey('migrate.no_folders'));
+            info('[migrate] ' + await cliKey('migrate.no_folders'));
             return;
         }
         // Verificar conectividad y crear base si falta
@@ -354,58 +355,58 @@ export async function runDbMigrate() {
         const env = buildEnvArgs(cfg);
         const probe = spawnSync('psql', [...psqlArgs(cfg), '-c', 'SELECT 1', cfg.database], { env });
         if (probe.status !== 0) {
-            console.log('[migrate]', await cliKey('migrate.creating_db', { db: cfg.database }));
+            info('[migrate] ' + await cliKey('migrate.creating_db', { db: cfg.database }));
             const createdb = spawnSync('createdb', [cfg.database], { env });
             if (createdb.status !== 0) {
-                console.error('[migrate]', await cliKey('migrate.create_failed'));
+                problem('[migrate] ' + await cliKey('migrate.create_failed'));
                 process.exit(createdb.status ?? 1);
             }
         }
         const { Kysely, PostgresDialect, FileMigrationProvider, Migrator, sql } = await dynamicLoadKysely();
-        console.log('[migrate]', await cliKey('migrate.instantiating'));
+        info('[migrate] ' + await cliKey('migrate.instantiating'));
         const db = await buildKyselyInstance(Kysely, PostgresDialect);
         // Eliminado: creación manual de tablas de tracking (Kysely las crea/gestiona). Evitamos inconsistencias vs. esquema esperado.
-        console.log('[migrate]', await cliKey('migrate.total_sources'), sources);
+        info('[migrate] ' + await cliKey('migrate.total_sources') + ' ' + sources);
         const allMigrations = {};
         for (const folder of sources) {
-            console.log('[migrate]', await cliKey('migrate.reading_folder', { folder }));
+            info('[migrate] ' + await cliKey('migrate.reading_folder', { folder }));
             const provider = new FileMigrationProvider({ fs: fs.promises, path, migrationFolder: folder });
             try {
                 const migs = await provider.getMigrations();
                 const keys = Object.keys(migs);
-                console.log('[migrate]', await cliKey('migrate.source_contains', { folder, list: keys.join(', ') }));
+                info('[migrate] ' + await cliKey('migrate.source_contains', { folder, list: keys.join(', ') }));
                 for (const k of keys) {
                     if (allMigrations[k]) {
-                        console.warn('[migrate]', await cliKey('migrate.conflict', { name: k }));
+                        warn('[migrate] ' + await cliKey('migrate.conflict', { name: k }));
                         continue;
                     }
                     allMigrations[k] = migs[k];
                 }
             }
             catch (e) {
-                console.error('[migrate]', await cliKey('migrate.error_reading', { folder, error: e.message }));
+                problem('[migrate] ' + await cliKey('migrate.error_reading', { folder, error: e.message }));
             }
         }
         const finalProvider = { getMigrations: async () => allMigrations };
-        console.log('[migrate]', await cliKey('migrate.final_map', { list: Object.keys(allMigrations).join(', ') }));
+        info('[migrate] ' + await cliKey('migrate.final_map', { list: Object.keys(allMigrations).join(', ') }));
         if (Object.keys(allMigrations).length === 0) {
-            console.log('[migrate]', await cliKey('migrate.no_files'));
+            info('[migrate] ' + await cliKey('migrate.no_files'));
         }
         const migrator = new Migrator({ db, provider: finalProvider });
-        console.log('[migrate]', await cliKey('migrate.executing'));
+        info('[migrate] ' + await cliKey('migrate.executing'));
         const { error, results } = await migrator.migrateToLatest();
         if (results) {
             for (const r of results) {
                 if (r.status === 'Success') {
-                    console.log('[migrate]', await cliKey('migrate.applied', { name: r.migrationName }));
+                    success('[migrate] ' + await cliKey('migrate.applied', { name: r.migrationName }));
                 }
                 else if (r.status === 'Error') {
-                    console.error('[migrate]', await cliKey('migrate.error_in', { name: r.migrationName }));
+                    problem('[migrate] ' + await cliKey('migrate.error_in', { name: r.migrationName }));
                 }
             }
         }
         if (error) {
-            console.error('[migrate]', await cliKey('migrate.failure'), error);
+            problem('[migrate] ' + await cliKey('migrate.failure') + ' ' + error);
             await db.destroy();
             process.exit(1);
         }
@@ -416,26 +417,26 @@ export async function runDbMigrate() {
             const dbDir = path.join(appCwd, 'db');
             if (fs.existsSync(codegenBin) && fs.existsSync(dbDir)) {
                 const outFile = path.join(dbDir, 'db.d.ts');
-                console.log('[migrate]', await cliKey('migrate.post_codegen', { file: outFile }));
+                info('[migrate] ' + await cliKey('migrate.post_codegen', { file: outFile }));
                 const cg = spawnSync(codegenBin, ['--out-file', outFile], { stdio: 'inherit', env: process.env });
                 if (cg.status !== 0) {
-                    console.warn('[migrate]', await cliKey('migrate.codegen_warn', { code: cg.status }));
+                    warn('[migrate] ' + await cliKey('migrate.codegen_warn', { code: cg.status }));
                 }
                 else {
-                    console.log('[migrate]', await cliKey('migrate.codegen_types', { file: outFile }));
+                    success('[migrate] ' + await cliKey('migrate.codegen_types', { file: outFile }));
                 }
             }
             else {
-                console.log('[migrate]', await cliKey('migrate.codegen_skip'));
+                info('[migrate] ' + await cliKey('migrate.codegen_skip'));
             }
         }
         catch (e) {
-            console.warn('[migrate]', await cliKey('migrate.codegen_error', { error: e.message }));
+            warn('[migrate] ' + await cliKey('migrate.codegen_error', { error: e.message }));
         }
         await db.destroy();
     }
     catch (e) {
-        console.error('[migrate]', await cliKey('migrate.unexpected', { error: e.message }));
+        problem('[migrate] ' + await cliKey('migrate.unexpected', { error: e.message }));
         process.exit(1);
     }
 }
@@ -468,7 +469,7 @@ export async function runDbRollback() {
     if (fs.existsSync(appMig))
         sources.push(appMig);
     if (sources.length === 0) {
-        console.log('[rollback]', await cliKey('migrate.no_folders'));
+        info('[rollback] ' + await cliKey('migrate.no_folders'));
         return;
     }
     const { Kysely, PostgresDialect, FileMigrationProvider, Migrator } = await dynamicLoadKysely();
@@ -500,28 +501,28 @@ export async function runDbRollback() {
         appliedNames = rows.map((r) => r.name);
     }
     catch (e) {
-        console.log('[rollback]', await cliKey('rollback.reverted', { name: 'none' }));
+        info('[rollback] ' + await cliKey('rollback.reverted', { name: 'none' }));
         await db.destroy();
         return;
     }
     const last = appliedNames[appliedNames.length - 1];
     if (!last) {
-        console.log('[rollback]', await cliKey('migrate.no_files'));
+        info('[rollback] ' + await cliKey('migrate.no_files'));
         await db.destroy();
         return;
     }
     const target = appliedNames[appliedNames.length - 2];
-    console.log('[rollback]', await cliKey('rollback.reverting', { last, target: target ?? '(base)' }));
+    info('[rollback] ' + await cliKey('rollback.reverting', { last, target: target ?? '(base)' }));
     const rollbackRes = await migrator.migrateTo(target);
     if (rollbackRes.results) {
         for (const r of rollbackRes.results) {
             if (r.status === 'Success') {
-                console.log('[rollback]', await cliKey('rollback.reverted', { name: r.migrationName }));
+                success('[rollback] ' + await cliKey('rollback.reverted', { name: r.migrationName }));
             }
         }
     }
     if (rollbackRes.error) {
-        console.error('[rollback]', await cliKey('rollback.error'), rollbackRes.error);
+        problem('[rollback] ' + await cliKey('rollback.error') + ' ' + rollbackRes.error);
         await db.destroy();
         process.exit(1);
     }
@@ -534,7 +535,7 @@ async function dynamicLoadKysely() {
         return mod;
     }
     catch (e) {
-        console.error('[kysely]', await cliKey('kysely.load_error'));
+        problem('[kysely] ' + await cliKey('kysely.load_error'));
         throw e;
     }
 }
@@ -544,7 +545,7 @@ async function buildKyselyInstance(Kysely, PostgresDialect) {
         ({ Pool } = await import('pg'));
     }
     catch (e) {
-        console.error('[kysely]', await cliKey('kysely.pg_import_error'));
+        problem('[kysely] ' + await cliKey('kysely.pg_import_error'));
         throw e;
     }
     const pool = new Pool({
@@ -564,16 +565,16 @@ export async function runDbSeed() {
     const seedSql = path.join(process.cwd(), 'db', 'seeds.sql');
     if (fs.existsSync(seedSql)) {
         run('psql', [...psqlArgs(cfg), '-f', seedSql, cfg.database], env);
-        console.log('[seed]', await cliKey('seed.applied'));
+        success('[seed] ' + await cliKey('seed.applied'));
     }
     else {
-        console.log('[seed]', await cliKey('seed.missing'));
+        info('[seed] ' + await cliKey('seed.missing'));
     }
 }
 export async function runDbConsole() {
     const cfg = pgConfig();
     if (!cfg.database) {
-        console.error('[console]', await cliKey('console.pgdatabase_missing'));
+        problem('[console] ' + await cliKey('console.pgdatabase_missing'));
         return;
     }
     const env = buildEnvArgs(cfg);
@@ -581,6 +582,6 @@ export async function runDbConsole() {
     const args = [...psqlArgs(cfg), cfg.database];
     const res = spawnSync('psql', args, { stdio: 'inherit', env });
     if (res.status !== 0) {
-        console.error('[console]', await cliKey('console.psql_exit_code', { code: res.status }));
+        problem('[console] ' + await cliKey('console.psql_exit_code', { code: res.status }));
     }
 }

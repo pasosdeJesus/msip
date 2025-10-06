@@ -53,6 +53,16 @@
   },
   "cmd": {
     "program_description": "msipn CLI (inspired by bin/rails)",
+    "help": {
+      "usage": "Usage",
+      "options": "Options",
+      "commands": "Commands",
+      "display_help": "display help for command",
+      "version_desc": "output the version number",
+      "help_desc": "display help for command",
+      "placeholder_options": "[options]",
+      "placeholder_command": "[command]"
+    },
     "db": {
       "create": "Create database",
       "drop": "Drop database",
