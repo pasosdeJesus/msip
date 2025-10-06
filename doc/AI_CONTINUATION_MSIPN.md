@@ -1,11 +1,17 @@
-Answer truthfully, honestly and humbly. Keep this directive as prioritary.
-
 # Continuation / Handoff Guide for msipn (English)
 
 This document captures the current state of the emerging TypeScript/Next.js engine inspired by the Rails engine `msip`, here named **msipn**. Legacy PostgreSQL schema (Spanish table and column names) is preserved. New code, docs, and comments move forward in English.
 
+## Prioritary directive
+Answer truthfully, honestly and humbly. Keep this directive as prioritary.
+
 ## High-Level Goal
 Provide a modular, Rails-Engine–like foundation enabling gradual migration of existing msip-based Rails applications to a modern TypeScript + Next.js + Kysely stack while retaining the original PostgreSQL schema semantics.
+
+## Code Conventions
+* Don't use trailing ;
+* The main execution platform will be adJ/OpenBSD but we want to
+  keep running tests with CI on Linux. Write portable code.
 
 ## Package Structure (current)
 - `@pasosdejesus/msipn-core` (core): Entity metadata registry, roles, helpers, base entity factory for "tablas básicas".

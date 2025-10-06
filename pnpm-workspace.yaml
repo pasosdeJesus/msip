@@ -1,9 +1,0 @@
-packages:
-  - packages/msipn/core
-  - packages/msipn/domain-tdocumento
-  - packages/msipn/domain-etnia
-  - packages/msipn/domain-persona
-  - packages/msipn/domain-usuario
-  - packages/msipn/db
-  - packages/msipn/dummy
-  - packages/msipn/cli

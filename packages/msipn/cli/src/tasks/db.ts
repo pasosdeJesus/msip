@@ -1,6 +1,7 @@
-import { spawnSync } from 'child_process';
-import * as path from 'path';
+import { execSync, spawnSync } from 'child_process';
 import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 import { pathToFileURL } from 'url';
 
 // Cargamos dinámicamente Kysely sólo si se usan comandos de migración para no añadir dependencia dura a CLI
@@ -41,22 +42,48 @@ function run(cmd: string, args: string[], env: any) {
 }
 
 export async function runDbSuperCreateUser() {
+  const systemUser = process.env.USER
+  if (systemUser != 'root') {
+    console.error(`This order must be executed by root not by "${systemUser}" (use doas or sudo)`)
+    return
+  }
+  const pgsystemuser = process.env.PGSYSTEMUSER;
+  const pghost = process.env.PGHOST;
   const user = process.env.PGUSER;
   const pass = process.env.PGPASSWORD;
-  if (!user || !pass) {
-    console.error('PGUSER o PGPASSWORD no definidos en entorno (.env)');
+  if (!pgsystemuser || !pghost || !user || !pass) {
+    console.error('PGSYSTEMUSER or PGHOST or PGUSER o PGPASSWORD not defined in environment (.env)');
     return;
   }
-  // Usar psql como usuario del sistema actual para crear rol superusuario
-  // CREATE ROLE user WITH LOGIN SUPERUSER PASSWORD 'pass';
-  const sql = `DO $$\nBEGIN\n   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${user}') THEN\n      CREATE ROLE ${user} WITH LOGIN SUPERUSER PASSWORD '${pass}';\n   ELSE\n      RAISE NOTICE 'Rol ya existe: ${user}';\n   END IF;\nEND$$;`;
   const env = { ...process.env };
-  const res = spawnSync('psql', ['-v', 'ON_ERROR_STOP=1', '-c', sql], { stdio: 'inherit', env });
+  const createuser = `createuser -U postgres -h ${pghost} -s ${user}`
+  let res = spawnSync('su', ['-', pgsystemuser, '-c', createuser], { stdio: 'inherit', env });
   if (res.status === 0) {
-    console.log(`Rol superusuario verificado/creado: ${user}`);
+    console.log(`PostgreSQL user created as superuser: ${user}`);
   } else {
-    console.error('No se pudo crear/verificar el rol');
+    throw new Error(`Not possible to create PostgreSQL user ${user}. res=${res}`);
   }
+  const setpassword= `psql -U postgres -h ${pghost} -c "ALTER USER ${user} WITH PASSWORD '${pass}';"`
+  res = spawnSync('su', ['-', pgsystemuser, '-c', setpassword], { stdio: 'inherit', env });
+  if (res.status === 0) {
+    console.log(`Changed the passowrd of superuser: ${user}`);
+  } else {
+    throw new Error(`Not possible to change password of PostgreSQL ${user}. res=${res}`);
+  }
+
+  let home = `/home/${process.env.DOAS_USER}`
+  res = spawnSync('sh', ['-c', `echo ~${process.env.DOAS_USER}`])
+  home =`${res.stdout}`
+  home = home.trimEnd()
+  const lineToAppend = `*:*:*:${user}:${pass}`;
+  const pgpassPath = `${home}/.pgpass`;
+
+  fs.appendFile(pgpassPath, lineToAppend + os.EOL, 'utf8', (err) => {
+    if (err) {
+      throw new Error(`Not possible to add line to ${pgpassPath}. ${err}`);
+    }
+    console.log(`User and password added to ${pgpassPath}`)
+  })
 }
 
 export async function runDbCreate() {

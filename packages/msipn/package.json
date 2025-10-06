@@ -1,20 +1,27 @@
 {
-  "name": "@pasosdejesus/msipn",
+  "name": "msip-root-next-engine",
   "private": true,
-  "version": "0.0.1",
-  "type": "module",
-  "description": "Meta-paquete agregador para msipn (core, dominios, cli, db)",
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "core",
+    "domain-tdocumento",
+    "domain-etnia",
+    "domain-persona",
+    "domain-usuario",
+    "db"
+  ],
   "scripts": {
-    "build": "echo 'meta paquete sin build'",
-    "postinstall": "echo 'msipn meta instalado'"
+    "build": "pnpm -r run build",
+    "lint": "echo 'TODO: add linter'",
+    "dev": "echo 'TODO: add dev harness'",
+    "codegen": "pnpm --filter @pasosdejesus/msipn-db run codegen"
   },
-  "dependencies": {
-    "@pasosdejesus/msipn-core": "workspace:*",
-    "@pasosdejesus/msipn-domain-tdocumento": "workspace:*",
-    "@pasosdejesus/msipn-domain-etnia": "workspace:*",
-    "@pasosdejesus/msipn-domain-persona": "workspace:*",
-    "@pasosdejesus/msipn-domain-usuario": "workspace:*",
-    "@pasosdejesus/msipn-db": "workspace:*",
-    "@pasosdejesus/msipn-cli": "workspace:*"
+  "devDependencies": {
+    "@types/commander": "2.12.5",
+    "@types/node": "^20.19.19",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }

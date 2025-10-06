@@ -1,0 +1,9 @@
+packages:
+  - cli
+  - core
+  - domain-tdocumento
+  - domain-etnia
+  - domain-persona
+  - domain-usuario
+  - msipn/db
+  - msipn/cli

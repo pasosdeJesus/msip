@@ -20,7 +20,7 @@ function psql(sql: string): string {
   parts.push('-t','-A','-F',',','-c', sql, db);
   // Escapar cada parte para shell seguro
   const cmd = parts.map(p => `'${p.replace(/'/g,"'\\''")}'`).join(' ');
-  return execSync(cmd, { stdio: 'pipe', env: process.env, shell: '/bin/bash' }).toString('utf-8').trim();
+  return execSync(cmd, { stdio: 'pipe', env: process.env, shell: '/bin/sh' }).toString('utf-8').trim();
 }
 
 describe('core migrations', () => {
