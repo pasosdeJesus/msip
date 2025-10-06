@@ -1,21 +1,35 @@
-import path from 'node:path';
-import fs from 'node:fs';
+// Test environment bootstrap: load variables from .env manually before any tests run.
+// This file is automatically loaded by Vitest (configured via pattern) if present.
 
-const envPath = path.join(process.cwd(), '.env');
-if (fs.existsSync(envPath)) {
-  const content = fs.readFileSync(envPath, 'utf-8');
-  for (const line of content.split(/\r?\n/)) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    const eq = trimmed.indexOf('=');
-    if (eq === -1) continue;
-    const key = trimmed.slice(0, eq).trim();
-    const value = trimmed.slice(eq + 1).trim();
-    if (!(key in process.env)) {
-      process.env[key] = value;
-    }
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+
+(function loadEnv() {
+  const envPath = path.join(process.cwd(), '.env');
+  if (!existsSync(envPath)) {
+    // eslint-disable-next-line no-console
+    console.warn('[test-setup] .env file not found, skipping load');
+    return;
   }
-  console.log('[test-setup] .env parsed manually');
-} else {
-  console.warn('[test-setup] .env not found, relying on existing environment');
-}
+  try {
+    const raw = readFileSync(envPath, 'utf-8');
+    raw.split(/\r?\n/).forEach(line => {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+      if (!m) return;
+      let [, key, val] = m;
+      if (val.startsWith('"') && val.endsWith('"')) {
+        val = val.slice(1, -1);
+      } else if (val.startsWith("'") && val.endsWith("'")) {
+        val = val.slice(1, -1);
+      }
+      if (!(key in process.env)) {
+        process.env[key] = val;
+      }
+    });
+    // eslint-disable-next-line no-console
+    console.log('[test-setup] .env parsed manually');
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('[test-setup] error parsing .env:', (e as Error).message);
+  }
+})();

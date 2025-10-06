@@ -16,6 +16,43 @@ interfaces automatizadas y mejores prácticas de seguridad.
 
 > Nota sobre rama experimental `msipn`: Se está desarrollando un motor paralelo en TypeScript/Next.js dentro de `packages/msipn/*`. La aplicación de prueba ahora reside en `packages/app-msipn` y no hace parte de los `workspaces` de pnpm; se ejecuta de forma independiente con su propio `.env` (instalar con `cd packages/app-msipn && pnpm install`).
 
+### Comandos CLI experimentales (rama `msipn`)
+
+Dentro de `packages/app-msipn` existe un binario Node `bin/msipn` que provee tareas para la base de datos (similar a Rake) escritas en TypeScript.
+
+Creación idempotente del rol superusuario definido en `.env`:
+
+```sh
+cd packages/app-msipn
+cp .env.template .env # si aún no existe y ajusta PGUSER/PGPASSWORD
+sudo ./bin/msipn db:super:createuser
+```
+
+El comando:
+* Carga automáticamente `.env` (incluso bajo `sudo`).
+* Intenta primero conexión directa (peer/password). Si falla, usa escalamiento no interactivo (sudo/doas) cuando está disponible.
+* Es idempotente: si el rol existe, sólo actualiza contraseña.
+* Añade/actualiza entrada en `~/.pgpass` (`*:*:*:PGUSER:PGPASSWORD`).
+
+Variables de control opcionales:
+* `PG_ESCALATION=direct|sudo|doas|root-su` fuerza modo.
+* `PG_NO_SUDO=1` evita intentar sudo aunque exista.
+* `PG_ALLOW_INTERACTIVE_SUDO=1` permite (como último recurso) sudo con prompt.
+
+Requisitos para uso no interactivo:
+* Sudo o doas configurado sin contraseña para ejecutar como el usuario del sistema `postgres` (e.g. entrada sudoers `usuario ALL=(postgres) NOPASSWD:ALL`).
+
+Prueba automatizada:
+* El archivo `packages/app-msipn/tests/db_super_createuser.test.ts` valida idempotencia y superusuario cuando `sudo -n -u postgres` está disponible; se auto-salta si no.
+
+Después de crear el rol puedes crear la base y migrar:
+```sh
+./bin/msipn db:create
+./bin/msipn db:migrate
+```
+
+Advertencia: Esta interfaz es experimental y su API puede cambiar hasta estabilizar el motor TypeScript.
+
 ## 🚀 Características Principales
 
 ### 📊 Vistas Automatizadas

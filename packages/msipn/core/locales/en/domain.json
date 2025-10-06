@@ -1,0 +1,16 @@
+{
+  "entity": {
+    "tdocumento": { "singular": "Document Type", "plural": "Document Types" },
+    "etnia": { "singular": "Ethnic Group", "plural": "Ethnic Groups" },
+    "persona": { "singular": "Person", "plural": "People" },
+    "usuario": { "singular": "User", "plural": "Users" }
+  },
+  "validation": {
+    "tdocumento": { "sigla_upper": "abbreviation must be uppercase" },
+    "persona": {
+      "month_out_of_range": "month of birth out of range",
+      "day_out_of_range": "day of birth out of range"
+    },
+    "usuario": { "email_invalid": "invalid email" }
+  }
+}

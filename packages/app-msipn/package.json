@@ -12,7 +12,8 @@
     "db:schema:dump": "kysely-codegen --out-file db/db.d.ts",
     "msipn:install": "node scripts/msipn-install.cjs",
     "msipn": "node bin/msipn",
-    "test": "vitest run"
+  "test": "vitest run tests/ordered/0*_*.test.ts",
+  "test:ordered": "bash bin/ordered-tests.sh"
   },
   "dependencies": {
     "@pasosdejesus/msipn-cli": "link:../msipn/cli",

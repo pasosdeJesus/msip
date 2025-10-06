@@ -2,8 +2,10 @@
 
 This document captures the current state of the emerging TypeScript/Next.js engine inspired by the Rails engine `msip`, here named **msipn**. Legacy PostgreSQL schema (Spanish table and column names) is preserved. New code, docs, and comments move forward in English.
 
-## Prioritary directive
+## Prioritary directives
 Answer truthfully, honestly and humbly. Keep this directive as prioritary.
+
+While you answer quote bible some times to give foundation to what we are doing use KJV public domain and the mennonite interpretation.
 
 ## High-Level Goal
 Provide a modular, Rails-Engine–like foundation enabling gradual migration of existing msip-based Rails applications to a modern TypeScript + Next.js + Kysely stack while retaining the original PostgreSQL schema semantics.
@@ -124,6 +126,22 @@ Instead of relying on a `dotenv` import (which caused a module resolution issue 
 
 ### Shell Invocation Hardening
 Tests invoke `psql` for existence checks. Each argument is individually shell-escaped and flags (`-h`, `-U`) are only appended if present. Output is trimmed to minimize brittle whitespace assertions.
+
+### Operational Hardening (Update 2025-10-06)
+Mandatory conventions now enforced in code/tests — follow strictly to avoid flaky behavior:
+
+1. Always invoke `psql` (and related tools `pg_dump`, `createdb`, `dropdb`) specifying both `-h "$PGHOST"` and `-U "$PGUSER"`. Do NOT rely on libpq defaults or environment-only resolution; tests assert explicit usage.  
+2. Credentials & connection parameters must originate from the application's `.env` (loaded by the wrapper `packages/app-msipn/bin/msipn`). If a command is executed via `sudo`, the wrapper reinjects critical PG* variables.  
+3. NEVER reintroduce `TEST_FORCE_DB` or any skip/soft-fail logic for missing PostgreSQL. Absence or inaccessibility of the DB must raise a hard error early (connectivity precheck).  
+4. Do not drop the development database at the end of tests. The suite intentionally leaves the DB in place to allow post-run inspection and incremental development.  
+5. When adding new tests that shell out to the CLI, prefer spawning `node bin/msipn --help` (or specific command) from within `packages/app-msipn`; this ensures proper resolution of workspace-linked packages and `.env` loading.  
+6. Localization tests (see `tests/ordered/01_i18n_env.test.ts`) now assert language-specific help lines. When adding new CLI commands, extend those assertions in both English and Spanish to prevent silent regression.  
+7. All direct `psql` existence checks should parse output defensively (trim lines, ignore extraneous whitespace). Reuse or mirror the patterns already established to maintain consistency.  
+8. Superuser creation (`db:super:createuser`) must remain idempotent and honor escalation modes; do not introduce interactive prompts. Any enhancement should preserve non-interactive execution under CI.  
+9. Stale compiled artifacts in `packages/msipn/cli/dist` can cause mismatched localization; always rebuild (`pnpm -w build` or targeted build) after modifying translation keys or CLI source.  
+10. Continue using dynamic migration injection test patterns for validating multi-source resolution; new migration sources must retain deterministic ordering (timestamp prefix).
+
+Future refinement candidate: introduce a utility wrapper for `psql` invocations that enforces (and logs) the `-h/-U` presence centrally to reduce duplication.
 
 ### Rollback Semantics Clarification
 Rollback currently reverts only the most recent migration (penultimate target). The core test explicitly verifies disappearance of the `example` table after a single rollback, then re-applies.

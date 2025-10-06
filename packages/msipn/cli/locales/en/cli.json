@@ -1,0 +1,68 @@
+{
+  "structure": {
+    "dump_start": "Dumping structure to db/structure.sql ...",
+    "dump_error": "Error running pg_dump",
+    "dump_written": "Structure written to db/structure.sql",
+    "load_missing": "db/structure.sql does not exist",
+    "load_ensuring": "Ensuring database exists...",
+    "load_creating_db": "Creating database {{db}}",
+    "load_create_failed": "Could not create database",
+    "load_applying": "Applying db/structure.sql ...",
+    "load_apply_error": "Error applying structure.sql",
+    "load_applied": "Structure applied"
+  },
+  "migrate": {
+    "no_folders": "No migration folders found",
+    "creating_db": "Database does not exist or inaccessible, attempting to create it: {{db}}",
+    "create_failed": "Could not create database, aborting",
+    "instantiating": "Instantiating Kysely pool...",
+    "total_sources": "Total sources:",
+    "reading_folder": "Reading folder: {{folder}}",
+    "source_contains": "Source {{folder}} contains: {{list}}",
+    "conflict": "Migration name conflict {{name}} (keeping the first)",
+    "error_reading": "Error reading migrations in {{folder}}: {{error}}",
+    "final_map": "Final combined map: {{list}}",
+    "no_files": "No migration files detected in sources.",
+    "executing": "Executing migrateToLatest...",
+    "applied": "Applied migration {{name}}",
+    "error_in": "Error in migration {{name}}",
+    "failure": "Migration failure",
+    "post_codegen": "Running post-codegen: {{file}}",
+    "codegen_warn": "Warning: kysely-codegen exited with code {{code}}",
+    "codegen_types": "Types regenerated at {{file}}",
+    "codegen_skip": "Skipping codegen (kysely-codegen not found)",
+    "codegen_error": "Error running codegen (ignored): {{error}}",
+    "unexpected": "Unexpected exception: {{error}}"
+  },
+  "rollback": {
+    "reverting": "Reverting migration {{last}} -> target = {{target}}",
+    "reverted": "Reverted: {{name}}",
+    "error": "Error in rollback"
+  },
+  "seed": {
+    "applied": "Seed SQL applied",
+    "missing": "No seeds.sql (could implement seeds.ts in the future)"
+  },
+  "console": {
+    "pgdatabase_missing": "PGDATABASE not defined",
+    "psql_exit_code": "psql finished with code {{code}}"
+  },
+  "kysely": {
+    "load_error": "Could not load Kysely. Ensure it is installed in the external app.",
+    "pg_import_error": "Could not import pg. Ensure the application declares pg dependency."
+  },
+  "cmd": {
+    "program_description": "msipn CLI (inspired by bin/rails)",
+    "db": {
+      "create": "Create database",
+      "drop": "Drop database",
+      "structure_dump": "Dump current DB structure to db/structure.sql (pg_dump)",
+      "structure_load": "Create (if missing) and apply structure from db/structure.sql (psql)",
+      "migrate": "Run pending migrations",
+      "rollback": "Revert last migration",
+      "seed": "Load seed data",
+      "super_createuser": "Create (if missing) a superuser role PGUSER with PGPASSWORD",
+      "console": "Open a psql console using current .env variables"
+    }
+  }
+}

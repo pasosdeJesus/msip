@@ -1,7 +1,9 @@
 import { execSync } from 'node:child_process';
-import { existsSync, readdirSync, rmSync } from 'node:fs';
+import { readdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { describe, it, beforeAll, afterAll, expect } from 'vitest';
+
+// 04: Migraciones core después de preparar rol y base.
 
 const BIN = path.join(process.cwd(), 'bin', 'msipn');
 
@@ -9,26 +11,30 @@ function run(cmd: string) {
   return execSync(cmd, { stdio: 'pipe', env: process.env });
 }
 
-// Utilidad para ejecutar SQL y retornar filas usando psql -t -A -F ','
 function psql(sql: string): string {
   const db = process.env.PGDATABASE || 'msipn_dev';
-  const host = process.env.PGHOST;
+  const host = process.env.PGHOST || 'localhost';
   const user = process.env.PGUSER;
-  const parts = ['psql'];
-  if (host) parts.push('-h', host);
-  if (user) parts.push('-U', user);
-  parts.push('-t','-A','-F',',','-c', sql, db);
-  // Escapar cada parte para shell seguro
+  if (!user) {
+    throw new Error('PGUSER requerido para ejecutar consultas psql en test 04');
+  }
+  const parts = ['psql', '-h', host, '-U', user, '-t','-A','-F',',','-c', sql, db];
   const cmd = parts.map(p => `'${p.replace(/'/g,"'\\''")}'`).join(' ');
   return execSync(cmd, { stdio: 'pipe', env: process.env, shell: '/bin/sh' }).toString('utf-8').trim();
 }
 
-describe('core migrations', () => {
+describe('Migraciones núcleo', () => {
   beforeAll(() => {
-    // asegurar db fresca
-    try { run(`${BIN} db:drop`); } catch {}
-    run(`${BIN} db:create`);
-    // Eliminar migraciones dinámicas de la app que puedan alterar orden y última migración
+    const host = process.env.PGHOST || 'localhost';
+    const user = process.env.PGUSER || 'msipn';
+    const dbname = process.env.PGDATABASE || 'msipn_dev';
+    try {
+      run(`psql -h '${host}' -U '${user}' '${dbname}' -c 'SELECT 1'`);
+    } catch {
+      try { run(`${BIN} db:create`); } catch {}
+      run(`psql -h '${host}' -U '${user}' '${dbname}' -c 'SELECT 1'`);
+    }
+
     const appMigDir = path.join(process.cwd(), 'db', 'migrations');
     try {
       for (const f of readdirSync(appMigDir)) {
@@ -40,23 +46,21 @@ describe('core migrations', () => {
   });
 
   afterAll(() => {
-    try { run(`${BIN} db:drop`); } catch {}
   });
 
-  it('applies core migrations including example table', () => {
+  it('aplica migraciones núcleo incluyendo tabla example', () => {
     run(`${BIN} db:migrate`);
     const reg = psql("SELECT to_regclass('public.example')");
     expect(reg).toContain('example');
   });
 
-  it('rolls back last migration removing example table', () => {
+  it('revierte última migración eliminando tabla example', () => {
     run(`${BIN} db:rollback`);
-    // Usamos EXISTS para evitar espacios o salidas inesperadas de to_regclass
     const reg = psql("SELECT EXISTS (SELECT 1 FROM pg_class WHERE relname='example')::text");
-    expect(reg).toContain('f'); // debe ser falsa la existencia tras rollback
+    expect(reg).toContain('f');
   });
 
-  it('re-applies example after re-migrate', () => {
+  it('vuelve a aplicar migración de example tras re-migrate', () => {
     run(`${BIN} db:migrate`);
     const reg = psql("SELECT to_regclass('public.example')");
     expect(reg).toContain('example');

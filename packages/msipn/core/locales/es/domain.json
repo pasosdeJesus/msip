@@ -1,0 +1,16 @@
+{
+  "entity": {
+    "tdocumento": { "singular": "Tipo de Documento", "plural": "Tipos de Documento" },
+    "etnia": { "singular": "Etnia", "plural": "Etnias" },
+    "persona": { "singular": "Persona", "plural": "Personas" },
+    "usuario": { "singular": "Usuario", "plural": "Usuarios" }
+  },
+  "validation": {
+    "tdocumento": { "sigla_upper": "sigla debe estar en mayúsculas" },
+    "persona": {
+      "month_out_of_range": "mesnac fuera de rango",
+      "day_out_of_range": "dianac fuera de rango"
+    },
+    "usuario": { "email_invalid": "email inválido" }
+  }
+}

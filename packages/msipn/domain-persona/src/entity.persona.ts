@@ -4,7 +4,8 @@ export const personaEntity: EntityDefinition = {
   name: 'persona',
   table: 'msip_persona',
   primaryKey: 'id',
-  labels: { singular: 'Persona', plural: 'Personas' },
+  // Labels use keys entity.persona.* for external resolution
+  labels: { singular: 'Person', plural: 'People' },
   fields: {
     id: { type: 'integer', required: true, sortable: true },
     nombres: { type: 'string', required: true, maxLength: 100, searchable: true },
@@ -34,8 +35,8 @@ export const personaEntity: EntityDefinition = {
     {
       name: 'fecha_coherente',
       run: r => {
-        if (r.mesnac && (r.mesnac < 1 || r.mesnac > 12)) return 'mesnac fuera de rango';
-        if (r.dianac && (r.dianac < 1 || r.dianac > 31)) return 'dianac fuera de rango';
+  if (r.mesnac && (r.mesnac < 1 || r.mesnac > 12)) return 'validation.persona.month_out_of_range';
+  if (r.dianac && (r.dianac < 1 || r.dianac > 31)) return 'validation.persona.day_out_of_range';
         return true;
       }
     }

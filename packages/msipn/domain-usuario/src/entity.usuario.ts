@@ -4,7 +4,8 @@ export const usuarioEntity: EntityDefinition = {
   name: 'usuario',
   table: 'usuario',
   primaryKey: 'id',
-  labels: { singular: 'Usuario', plural: 'Usuarios' },
+  // Labels resolved via keys entity.usuario.*
+  labels: { singular: 'User', plural: 'Users' },
   fields: {
     id: { type: 'integer', required: true, sortable: true },
     nusuario: { type: 'string', required: true, maxLength: 100, searchable: true },
@@ -25,7 +26,7 @@ export const usuarioEntity: EntityDefinition = {
     { name: 'rol', operator: 'eq', field: 'rol' }
   ],
   validations: [
-    { name: 'email_formato', run: r => /\S+@\S+\.\S+/.test(r.email) ? true : 'email inválido' }
+  { name: 'email_formato', run: r => /\S+@\S+\.\S+/.test(r.email) ? true : 'validation.usuario.email_invalid' }
   ],
   permissions: {
     read: ({ user }) => esAdminLike(user),

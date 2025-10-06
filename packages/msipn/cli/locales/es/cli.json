@@ -1,0 +1,68 @@
+{
+  "structure": {
+    "dump_start": "Volcando estructura a db/structure.sql ...",
+    "dump_error": "Error ejecutando pg_dump",
+    "dump_written": "Estructura escrita en db/structure.sql",
+    "load_missing": "db/structure.sql no existe",
+    "load_ensuring": "Asegurando que la base de datos existe...",
+    "load_creating_db": "Creando base de datos {{db}}",
+    "load_create_failed": "No se pudo crear la base de datos",
+    "load_applying": "Aplicando db/structure.sql ...",
+    "load_apply_error": "Error aplicando structure.sql",
+    "load_applied": "Estructura aplicada"
+  },
+  "migrate": {
+    "no_folders": "No se encontraron carpetas de migraciones",
+    "creating_db": "Base no existe o inaccesible, intentando crearla: {{db}}",
+    "create_failed": "No se pudo crear la base, abortando",
+    "instantiating": "Instanciando pool Kysely...",
+    "total_sources": "Fuentes totales:",
+    "reading_folder": "Leyendo carpeta: {{folder}}",
+    "source_contains": "Fuente {{folder}} contiene: {{list}}",
+    "conflict": "Conflicto de nombre de migración {{name}} (se mantiene la primera)",
+    "error_reading": "Error leyendo migraciones en {{folder}}: {{error}}",
+    "final_map": "Mapa combinado final: {{list}}",
+    "no_files": "No se detectaron archivos de migración en las fuentes.",
+    "executing": "Ejecutando migrateToLatest...",
+    "applied": "Migración aplicada {{name}}",
+    "error_in": "Error en migración {{name}}",
+    "failure": "Fallo al migrar",
+    "post_codegen": "Ejecutando post-codegen: {{file}}",
+    "codegen_warn": "Advertencia: kysely-codegen terminó con código {{code}}",
+    "codegen_types": "Types regenerados en {{file}}",
+    "codegen_skip": "Omitiendo codegen (kysely-codegen no encontrado)",
+    "codegen_error": "Error ejecutando codegen (ignorado): {{error}}",
+    "unexpected": "Excepción inesperada: {{error}}"
+  },
+  "rollback": {
+    "reverting": "Revirtiendo migración {{last}} -> target = {{target}}",
+    "reverted": "Revertido: {{name}}",
+    "error": "Error en rollback"
+  },
+  "seed": {
+    "applied": "Seeds SQL aplicados",
+    "missing": "No hay seeds.sql (puede implementarse seeds.ts en el futuro)"
+  },
+  "console": {
+    "pgdatabase_missing": "PGDATABASE no definido",
+    "psql_exit_code": "psql terminó con código {{code}}"
+  },
+  "kysely": {
+    "load_error": "No se pudo cargar Kysely. Asegúrese de tenerlo instalado en la app externa.",
+    "pg_import_error": "No se pudo importar pg. Asegúrese de que la aplicación tenga dependencia pg."
+  },
+  "cmd": {
+    "program_description": "CLI msipn (inspirado en bin/rails)",
+    "db": {
+      "create": "Crea la base de datos",
+      "drop": "Elimina la base de datos",
+      "structure_dump": "Vuelca estructura actual a db/structure.sql (pg_dump)",
+      "structure_load": "Crea (si falta) y aplica estructura desde db/structure.sql (psql)",
+      "migrate": "Corre migraciones pendientes",
+      "rollback": "Revierte última migración",
+      "seed": "Carga datos semilla",
+      "super_createuser": "Crea (si no existe) rol superusuario PGUSER con PGPASSWORD",
+      "console": "Abre consola psql usando variables de .env"
+    }
+  }
+}

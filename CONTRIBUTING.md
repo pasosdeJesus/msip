@@ -1,5 +1,73 @@
 # Información dedicada a contribuidores #
 
+## Addendum: Internationalization (i18n) for msipn engine components
+
+Although the historical documentation and many code comments are in Spanish, new work in the **msipn** TypeScript/Next.js engine layer must follow these i18n conventions to promote clarity and reuse.
+
+### Principles
+1. Preserve legacy PostgreSQL table and column names (Spanish) — they are part of the stable public schema ("remove not the ancient landmark" – Proverbs 22:28).
+2. Prefer English for new code comments, identifiers, and user-facing messages; supply Spanish in locale files when relevant.
+3. Validation logic should return stable translation keys (e.g. `validation.usuario.email_invalid`) rather than hard‑coded human text.
+4. CLI and domain/entity messages must be centralized under locale JSON resources, not inline strings ("Let all things be done decently and in order." – 1 Corinthians 14:40).
+5. Keep messages short, actionable, and neutral; avoid embedding variable data directly in text—use interpolation variables.
+
+### Directory Layout (current)
+Core domain/entity messages:
+```
+packages/msipn/core/locales/<lang>/domain.json
+```
+CLI operational messages:
+```
+packages/msipn/cli/locales/<lang>/cli.json
+```
+
+### Key Naming Conventions
+| Area | Pattern | Example |
+|------|---------|---------|
+| Entity labels | `entity.<entity>.singular` / `entity.<entity>.plural` | `entity.tdocumento.singular` |
+| Validation messages | `validation.<entity>.<rule>` | `validation.persona.month_out_of_range` |
+| CLI structure tasks | `structure.<action>` | `structure.dump_start` |
+| CLI migrations | `migrate.<token>` | `migrate.applied` |
+| CLI rollback | `rollback.<token>` | `rollback.reverting` |
+| CLI seed | `seed.<token>` | `seed.applied` |
+| CLI console | `console.<token>` | `console.pgdatabase_missing` |
+| Kysely load errors | `kysely.<token>` | `kysely.load_error` |
+
+Rules:
+* Use lowercase, snake_case for rule suffixes (e.g. `email_invalid`).
+* Prefer nouns/adjectives for labels; verbs for process events.
+* Avoid tense in keys—tense belongs to localized value.
+
+### Adding a New Message
+1. Decide namespace (`domain.json` vs `cli.json`).
+2. Add English entry first; mirror in Spanish if applicable.
+3. If variable data is needed, use i18next interpolation: `"applied": "Applied migration {{name}}"`.
+4. Reference key in code; do not inline literal text.
+
+### Validation Flow
+1. Validation function returns either `true` or a key string (`validation.*`).
+2. Presentation / API layer resolves the key with `t(key)`; if key not found, log a warning and show a generic fallback.
+
+### Environment Locale Detection (CLI)
+The CLI chooses locale based on `LANG` / `LC_ALL` / `LC_MESSAGES` (first matching `en` or `es`, otherwise falls back to `en`). Override by exporting `LANG=en_US.UTF-8` (etc.).
+
+### Testing
+* Add integration tests (Vitest) in consumer app verifying at least one English and one Spanish key.
+* When adding a new namespace or large batch of keys, include a test ensuring no orphaned keys (future enhancement: lint script).
+
+### Do / Don’t Summary
+**Do** return `validation.usuario.email_invalid` — **Don’t** return `"Invalid email"` directly.
+**Do** add both `en` and `es` entries — **Don’t** leave keys untranslated in the default fallback if Spanish is still in active use.
+**Do** group related CLI messages — **Don’t** create one-off JSON files per message.
+
+### Future Enhancements (Planned)
+* Add script to detect unused / missing translation keys.
+* Support per-request locale injection for API responses.
+* Add pluralization utilities if needed (currently labels handle plural explicitly).
+
+“Let your speech be alway with grace, seasoned with salt…” (Colossians 4:6) — concise, clear, and edifying messages help every contributor and user.
+
+
 ## 1. Términos de reproducción
 
 Al hacer una contribución estás aceptando los términos de reproducción

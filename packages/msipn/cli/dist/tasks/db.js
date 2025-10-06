@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { spawnSync } from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -30,52 +31,164 @@ function psqlArgs(cfg, extra = []) {
 function run(cmd, args, env) {
     const res = spawnSync(cmd, args, { stdio: 'inherit', env });
     if (res.status !== 0) {
-        throw new Error(`${cmd} fallo con código ${res.status}`);
+        throw new Error(`${cmd} failed with exit code ${res.status}`);
     }
 }
 export async function runDbSuperCreateUser() {
-    const systemUser = process.env.USER;
-    if (systemUser != 'root') {
-        console.error(`This order must be executed by root not by "${systemUser}" (use doas or sudo)`);
-        return;
-    }
-    const pgsystemuser = process.env.PGSYSTEMUSER;
-    const pghost = process.env.PGHOST;
+    const pgsystemuser = process.env.PGSYSTEMUSER || 'postgres'; // OS-level postgres user
+    const pghost = process.env.PGHOST || '';
     const user = process.env.PGUSER;
     const pass = process.env.PGPASSWORD;
-    if (!pgsystemuser || !pghost || !user || !pass) {
-        console.error('PGSYSTEMUSER or PGHOST or PGUSER o PGPASSWORD not defined in environment (.env)');
+    if (!user || !pass) {
+        console.error('PGUSER or PGPASSWORD not defined in environment (.env)');
         return;
     }
-    const env = { ...process.env };
-    const createuser = `createuser -U postgres -h ${pghost} -s ${user}`;
-    let res = spawnSync('su', ['-', pgsystemuser, '-c', createuser], { stdio: 'inherit', env });
-    if (res.status === 0) {
-        console.log(`PostgreSQL user created as superuser: ${user}`);
-    }
-    else {
-        throw new Error(`Not possible to create PostgreSQL user ${user}. res=${res}`);
-    }
-    const setpassword = `psql -U postgres -h ${pghost} -c "ALTER USER ${user} WITH PASSWORD '${pass}';"`;
-    res = spawnSync('su', ['-', pgsystemuser, '-c', setpassword], { stdio: 'inherit', env });
-    if (res.status === 0) {
-        console.log(`Changed the passowrd of superuser: ${user}`);
-    }
-    else {
-        throw new Error(`Not possible to change password of PostgreSQL ${user}. res=${res}`);
-    }
-    let home = `/home/${process.env.DOAS_USER}`;
-    res = spawnSync('sh', ['-c', `echo ~${process.env.DOAS_USER}`]);
-    home = `${res.stdout}`;
-    home = home.trimEnd();
-    const lineToAppend = `*:*:*:${user}:${pass}`;
-    const pgpassPath = `${home}/.pgpass`;
-    fs.appendFile(pgpassPath, lineToAppend + os.EOL, 'utf8', (err) => {
-        if (err) {
-            throw new Error(`Not possible to add line to ${pgpassPath}. ${err}`);
+    function hasCmd(c) {
+        try {
+            return spawnSync('which', [c], { stdio: 'ignore' }).status === 0;
         }
-        console.log(`User and password added to ${pgpassPath}`);
-    });
+        catch {
+            return false;
+        }
+    }
+    function canNonInteractiveSudo() {
+        if (!hasCmd('sudo'))
+            return false;
+        const r = spawnSync('sudo', ['-n', '-u', pgsystemuser, 'true'], { encoding: 'utf-8' });
+        return r.status === 0;
+    }
+    function canNonInteractiveDoas() {
+        if (!hasCmd('doas'))
+            return false;
+        // doas -n retorna 0 si no requiere contraseña para esa regla
+        const r = spawnSync('doas', ['-n', '-u', pgsystemuser, 'true'], { encoding: 'utf-8' });
+        return r.status === 0;
+    }
+    const interactive = process.stdin.isTTY && !process.env.CI;
+    const forced = process.env.PG_ESCALATION;
+    const skipSudo = !!process.env.PG_NO_SUDO || !!process.env.PG_SKIP_SUDO;
+    const hostArg = (pghost && pghost !== 'localhost') ? `-h ${pghost}` : '';
+    const createCmd = `createuser ${hostArg} -s ${user}`.trim();
+    const alterCmd = `psql ${hostArg} -c "ALTER USER \"${user}\" WITH PASSWORD '${pass}';"`.trim();
+    function runPriv(mode, cmd) {
+        switch (mode) {
+            case 'root-su':
+                return spawnSync('su', ['-', pgsystemuser, '-c', cmd], { encoding: 'utf-8' });
+            case 'doas':
+                return spawnSync('doas', ['-u', pgsystemuser, 'sh', '-c', cmd], { encoding: 'utf-8' });
+            case 'sudo':
+                return spawnSync('sudo', ['-u', pgsystemuser, 'sh', '-c', cmd], { encoding: 'utf-8' });
+            default:
+                return spawnSync('sh', ['-c', cmd], { encoding: 'utf-8' });
+        }
+    }
+    let modes = [];
+    if (forced) {
+        modes = [forced];
+    }
+    else {
+        // Siempre intentar directo primero (por si hay peer trust)
+        modes.push('direct');
+        if (process.getuid && process.getuid() === 0) {
+            modes.push('root-su');
+        }
+        // doas no interactivo primero
+        if (canNonInteractiveDoas())
+            modes.push('doas');
+        // sudo no interactivo
+        if (!skipSudo && canNonInteractiveSudo())
+            modes.push('sudo');
+        // Si seguimos sin modos privilegiados y es interactivo y no skip, permitir sudo/doas potencialmente interactivos al final
+        if (!skipSudo && interactive && process.env.PG_ALLOW_INTERACTIVE_SUDO) {
+            if (hasCmd('doas') && !modes.includes('doas'))
+                modes.push('doas');
+            if (hasCmd('sudo') && !modes.includes('sudo'))
+                modes.push('sudo');
+        }
+    }
+    // Eliminar duplicados preservando orden
+    modes = modes.filter((m, i) => modes.indexOf(m) === i);
+    if (modes.length === 0)
+        modes = ['direct'];
+    let success = false;
+    let lastErr;
+    for (const mode of modes) {
+        console.log(`[db:super:createuser] intentando modo=${mode}`);
+        let res = runPriv(mode, createCmd);
+        if (res.status !== 0) {
+            const stderr = (res.stderr || '').toString();
+            if (/already exists/i.test(stderr)) {
+                console.log(`PostgreSQL role '${user}' already exists (continuing).`);
+            }
+            else {
+                lastErr = stderr || `Exit code ${res.status}`;
+                console.log(`[db:super:createuser] fallo crear usuario en modo=${mode}: ${lastErr}`);
+                // Intentar siguiente modo
+                // pero antes verificar si error fue autenticación -> seguir
+                continue;
+            }
+        }
+        else {
+            console.log(`PostgreSQL superuser role created: ${user}`);
+        }
+        // Actualiza contraseña
+        res = runPriv(mode, alterCmd);
+        if (res.status !== 0) {
+            const stderr = (res.stderr || '').toString();
+            lastErr = stderr || `Exit code ${res.status}`;
+            console.log(`[db:super:createuser] fallo establecer password en modo=${mode}: ${lastErr}`);
+            continue; // probar otro modo quizá con privilegios correctos
+        }
+        else {
+            console.log(`Password updated for role: ${user}`);
+            success = true;
+            break;
+        }
+    }
+    if (!success) {
+        console.error(`[db:super:createuser] no se pudo crear/actualizar rol '${user}'. Último error: ${lastErr || 'desconocido'}`);
+        console.error('Sugerencia: ejecute manualmente con sudo o ajuste variables PG_ESCALATION=direct|sudo y/o configure sudo sin contraseña.');
+        return; // No lanzar para que CI no quede esperando interacción
+    }
+    // Determine target home for .pgpass entry
+    const candidateUsers = [process.env.DOAS_USER, process.env.SUDO_USER, process.env.USER].filter(Boolean);
+    let targetUser = candidateUsers[0] || user;
+    let home = '';
+    try {
+        const hres = spawnSync('sh', ['-c', `echo ~${targetUser}`], { encoding: 'utf-8' });
+        if (hres.status === 0)
+            home = hres.stdout.trim();
+    }
+    catch { }
+    if (!home) {
+        // Fallback to env HOME
+        home = process.env.HOME || '';
+    }
+    if (!home) {
+        console.warn('Could not resolve home directory to write .pgpass (skipping)');
+        return;
+    }
+    const pgpassPath = path.join(home, '.pgpass');
+    const line = `*:*:*:${user}:${pass}`;
+    try {
+        let needsAppend = true;
+        if (fs.existsSync(pgpassPath)) {
+            const existing = fs.readFileSync(pgpassPath, 'utf-8');
+            if (existing.split(/\r?\n/).some(l => l.trim() === line))
+                needsAppend = false;
+        }
+        if (needsAppend) {
+            fs.appendFileSync(pgpassPath, line + os.EOL, 'utf-8');
+            fs.chmodSync(pgpassPath, 0o600);
+            console.log(`Added credentials to ${pgpassPath}`);
+        }
+        else {
+            console.log(`Credentials already present in ${pgpassPath}`);
+        }
+    }
+    catch (e) {
+        console.warn(`Warning: could not update ${pgpassPath}: ${e.message}`);
+    }
 }
 export async function runDbCreate() {
     const cfg = pgConfig();
@@ -87,15 +200,16 @@ export async function runDbDrop() {
     const env = buildEnvArgs(cfg);
     run('dropdb', ['--if-exists', cfg.database], env);
 }
-// Dump de estructura a SQL plano: truth = BD -> db/structure.sql
+import { cliKey } from '../i18n.js';
+// Structure dump to plain SQL: truth = DB -> db/structure.sql
 export async function runDbStructureDump() {
     const cfg = pgConfig();
     const env = buildEnvArgs(cfg);
     const dbDir = path.join(process.cwd(), 'db');
     fs.mkdirSync(dbDir, { recursive: true });
     const outFile = path.join(dbDir, 'structure.sql');
-    console.log('[structure:dump] Volcando estructura a db/structure.sql ...');
-    // pg_dump opciones: sin owner, sólo schema, sin privilegios
+    console.log('[structure:dump]', await cliKey('structure.dump_start'));
+    // pg_dump options: no owner, schema only, no privileges
     const args = [
         '--schema-only',
         '--no-owner',
@@ -114,25 +228,25 @@ export async function runDbStructureDump() {
     // Usamos spawnSync con pipe para capturar y escribir archivo
     const res = spawnSync('pg_dump', args, { env });
     if (res.status !== 0) {
-        console.error('[structure:dump] Error ejecutando pg_dump');
+        console.error('[structure:dump]', await cliKey('structure.dump_error'));
         process.exit(res.status ?? 1);
     }
     fs.writeFileSync(outFile, res.stdout);
-    console.log('[structure:dump] Estructura escrita en db/structure.sql');
+    console.log('[structure:dump]', await cliKey('structure.dump_written'));
     if (process.exitCode == null)
         process.exitCode = 0;
 }
-// Load de estructura desde db/structure.sql: recreate DB (o asegurar) y aplicar
+// Load structure from db/structure.sql: recreate DB (or ensure) and apply
 export async function runDbStructureLoad() {
     const cfg = pgConfig();
     const env = buildEnvArgs(cfg);
     const file = path.join(process.cwd(), 'db', 'structure.sql');
     if (!fs.existsSync(file)) {
-        console.error('[structure:load] No existe db/structure.sql');
+        console.error('[structure:load]', await cliKey('structure.load_missing'));
         process.exit(1);
     }
-    console.log('[structure:load] Asegurando base de datos existente...');
-    // Intentar simple conexión lista tablas; si falla con 3D000 crear
+    console.log('[structure:load]', await cliKey('structure.load_ensuring'));
+    // Try a simple connection listing tables; if it fails with 3D000 create
     let needCreate = false;
     try {
         const probe = spawnSync('psql', [...psqlArgs(cfg), '-c', 'SELECT 1', cfg.database], { env });
@@ -144,24 +258,24 @@ export async function runDbStructureLoad() {
         needCreate = true;
     }
     if (needCreate) {
-        console.log('[structure:load] Creando base de datos', cfg.database);
+        console.log('[structure:load]', await cliKey('structure.load_creating_db', { db: cfg.database }));
         const c = spawnSync('createdb', [cfg.database], { env });
         if (c.status !== 0) {
-            console.error('[structure:load] No se pudo crear la base');
+            console.error('[structure:load]', await cliKey('structure.load_create_failed'));
             process.exit(c.status ?? 1);
         }
     }
-    console.log('[structure:load] Aplicando db/structure.sql ...');
+    console.log('[structure:load]', await cliKey('structure.load_applying'));
     const apply = spawnSync('psql', [...psqlArgs(cfg), '-v', 'ON_ERROR_STOP=1', '-f', file, cfg.database], { stdio: 'inherit', env });
     if (apply.status !== 0) {
-        console.error('[structure:load] Error aplicando structure.sql');
+        console.error('[structure:load]', await cliKey('structure.load_apply_error'));
         process.exit(apply.status ?? 1);
     }
-    console.log('[structure:load] Estructura aplicada');
+    console.log('[structure:load]', await cliKey('structure.load_applied'));
     if (process.exitCode == null)
         process.exitCode = 0;
 }
-// Migraciones mínimas: archivos numerados en db/migrate/*.sql
+// Minimal migrations: numbered files in db/migrate/*.sql
 function migrationsDir() {
     return path.join(process.cwd(), 'db', 'migrate');
 }
@@ -181,14 +295,14 @@ function recordMigration(cfg, env, version) {
 function deleteMigration(cfg, env, version) {
     run('psql', [...psqlArgs(cfg), '-c', `DELETE FROM schema_migrations WHERE version='${version}'`, cfg.database], env);
 }
-// Nueva implementación basada en Kysely Migrator
+// New implementation based on Kysely Migrator
 export async function runDbMigrate() {
     // Fuentes de migraciones:
-    // 1. Migraciones del core del engine: paquete @pasosdejesus/msipn-core
-    // 2. Migraciones de la app actual (cwd)/db/migrations
-    // 3. Futuro: otros engines descendientes (nombres que empiecen por @pasosdejesus/msipn-*)
+    // 1. Core engine migrations: package @pasosdejesus/msipn-core
+    // 2. Application migrations (cwd)/db/migrations
+    // 3. Future: other descendant engines (names starting @pasosdejesus/msipn-*)
     const sources = [];
-    // Resolver ubicación del paquete core: asumimos está instalado vía workspace y presente en node_modules o path relativo
+    // Resolve core package location: assume installed via workspace and present in node_modules or relative path
     try {
         // Buscar node_modules/@pasosdejesus/msipn-core/package.json relativo al cwd ascendiendo.
         let dir = process.cwd();
@@ -209,30 +323,30 @@ export async function runDbMigrate() {
             // Migraciones compiladas en dist/db/migrations
             const coreMigDist = path.join(coreRoot, 'dist', 'db', 'migrations');
             if (fs.existsSync(coreMigDist)) {
-                console.debug('[migrate] Fuente core dist:', coreMigDist);
+                console.debug('[migrate]', await cliKey('migrate.total_sources'), coreMigDist);
                 sources.push(coreMigDist);
             }
             else {
-                console.debug('[migrate] No existe carpeta migraciones core dist esperada:', coreMigDist);
+                console.debug('[migrate]', await cliKey('migrate.error_reading', { folder: coreMigDist, error: 'missing' }));
             }
         }
     }
     catch (e) {
-        console.warn('[migrate] No se pudo localizar msipn-core dist migrations:', e.message);
+        console.warn('[migrate]', await cliKey('migrate.error_reading', { folder: 'msipn-core', error: e.message }));
     }
     const appMig = path.join(process.cwd(), 'db', 'migrations');
     if (fs.existsSync(appMig)) {
-        console.log('[migrate] Fuente app:', appMig);
+        console.log('[migrate]', await cliKey('migrate.reading_folder', { folder: appMig }));
         sources.push(appMig);
     }
     else {
-        console.log('[migrate] No existe carpeta migraciones app:', appMig);
+        console.log('[migrate]', await cliKey('migrate.no_folders'));
     }
-    // TODO: detectar otros engines: podríamos inspeccionar node_modules/@pasosdejesus/*/src/db/migrations
-    // Por ahora sólo core + app.
+    // TODO: detect other engines: could inspect node_modules/@pasosdejesus/*/src/db/migrations
+    // For now only core + app.
     try {
         if (sources.length === 0) {
-            console.log('[migrate] No se encontraron carpetas de migraciones');
+            console.log('[migrate]', await cliKey('migrate.no_folders'));
             return;
         }
         // Verificar conectividad y crear base si falta
@@ -240,56 +354,58 @@ export async function runDbMigrate() {
         const env = buildEnvArgs(cfg);
         const probe = spawnSync('psql', [...psqlArgs(cfg), '-c', 'SELECT 1', cfg.database], { env });
         if (probe.status !== 0) {
-            console.log('[migrate] Base no existe o inaccesible, intentando crearla:', cfg.database);
+            console.log('[migrate]', await cliKey('migrate.creating_db', { db: cfg.database }));
             const createdb = spawnSync('createdb', [cfg.database], { env });
             if (createdb.status !== 0) {
-                console.error('[migrate] No se pudo crear la base, abortando');
+                console.error('[migrate]', await cliKey('migrate.create_failed'));
                 process.exit(createdb.status ?? 1);
             }
         }
         const { Kysely, PostgresDialect, FileMigrationProvider, Migrator, sql } = await dynamicLoadKysely();
-        console.log('[migrate] Instanciando pool Kysely...');
+        console.log('[migrate]', await cliKey('migrate.instantiating'));
         const db = await buildKyselyInstance(Kysely, PostgresDialect);
         // Eliminado: creación manual de tablas de tracking (Kysely las crea/gestiona). Evitamos inconsistencias vs. esquema esperado.
-        console.log('[migrate] Fuentes totales:', sources);
+        console.log('[migrate]', await cliKey('migrate.total_sources'), sources);
         const allMigrations = {};
         for (const folder of sources) {
-            console.log('[migrate] Leyendo carpeta:', folder);
+            console.log('[migrate]', await cliKey('migrate.reading_folder', { folder }));
             const provider = new FileMigrationProvider({ fs: fs.promises, path, migrationFolder: folder });
             try {
                 const migs = await provider.getMigrations();
                 const keys = Object.keys(migs);
-                console.log(`[migrate] Fuente ${folder} contiene:`, keys);
+                console.log('[migrate]', await cliKey('migrate.source_contains', { folder, list: keys.join(', ') }));
                 for (const k of keys) {
                     if (allMigrations[k]) {
-                        console.warn(`[migrate] Conflicto de nombre de migración ${k} (se mantiene la primera)`);
+                        console.warn('[migrate]', await cliKey('migrate.conflict', { name: k }));
                         continue;
                     }
                     allMigrations[k] = migs[k];
                 }
             }
             catch (e) {
-                console.error('[migrate] Error leyendo migraciones en', folder, e.message);
+                console.error('[migrate]', await cliKey('migrate.error_reading', { folder, error: e.message }));
             }
         }
         const finalProvider = { getMigrations: async () => allMigrations };
-        console.log('[migrate] Mapa combinado final:', Object.keys(allMigrations));
+        console.log('[migrate]', await cliKey('migrate.final_map', { list: Object.keys(allMigrations).join(', ') }));
         if (Object.keys(allMigrations).length === 0) {
-            console.log('[migrate] No se detectaron archivos de migración en las fuentes.');
+            console.log('[migrate]', await cliKey('migrate.no_files'));
         }
         const migrator = new Migrator({ db, provider: finalProvider });
-        console.log('[migrate] Ejecutando migrateToLatest...');
+        console.log('[migrate]', await cliKey('migrate.executing'));
         const { error, results } = await migrator.migrateToLatest();
-        results?.forEach((r) => {
-            if (r.status === 'Success') {
-                console.log(`Migración aplicada ${r.migrationName}`);
+        if (results) {
+            for (const r of results) {
+                if (r.status === 'Success') {
+                    console.log('[migrate]', await cliKey('migrate.applied', { name: r.migrationName }));
+                }
+                else if (r.status === 'Error') {
+                    console.error('[migrate]', await cliKey('migrate.error_in', { name: r.migrationName }));
+                }
             }
-            else if (r.status === 'Error') {
-                console.error(`Error en migración ${r.migrationName}`);
-            }
-        });
+        }
         if (error) {
-            console.error('Fallo al migrar', error);
+            console.error('[migrate]', await cliKey('migrate.failure'), error);
             await db.destroy();
             process.exit(1);
         }
@@ -300,26 +416,26 @@ export async function runDbMigrate() {
             const dbDir = path.join(appCwd, 'db');
             if (fs.existsSync(codegenBin) && fs.existsSync(dbDir)) {
                 const outFile = path.join(dbDir, 'db.d.ts');
-                console.log('[migrate] Ejecutando post-codegen:', outFile);
+                console.log('[migrate]', await cliKey('migrate.post_codegen', { file: outFile }));
                 const cg = spawnSync(codegenBin, ['--out-file', outFile], { stdio: 'inherit', env: process.env });
                 if (cg.status !== 0) {
-                    console.warn('[migrate] Advertencia: kysely-codegen terminó con código', cg.status);
+                    console.warn('[migrate]', await cliKey('migrate.codegen_warn', { code: cg.status }));
                 }
                 else {
-                    console.log('[migrate] Types regenerated at', outFile);
+                    console.log('[migrate]', await cliKey('migrate.codegen_types', { file: outFile }));
                 }
             }
             else {
-                console.log('[migrate] Omitiendo codegen (kysely-codegen no encontrado)');
+                console.log('[migrate]', await cliKey('migrate.codegen_skip'));
             }
         }
         catch (e) {
-            console.warn('[migrate] Error ejecutando codegen (ignorado):', e.message);
+            console.warn('[migrate]', await cliKey('migrate.codegen_error', { error: e.message }));
         }
         await db.destroy();
     }
     catch (e) {
-        console.error('[migrate] Excepción inesperada:', e.message);
+        console.error('[migrate]', await cliKey('migrate.unexpected', { error: e.message }));
         process.exit(1);
     }
 }
@@ -352,7 +468,7 @@ export async function runDbRollback() {
     if (fs.existsSync(appMig))
         sources.push(appMig);
     if (sources.length === 0) {
-        console.log('No hay carpetas de migraciones');
+        console.log('[rollback]', await cliKey('migrate.no_folders'));
         return;
     }
     const { Kysely, PostgresDialect, FileMigrationProvider, Migrator } = await dynamicLoadKysely();
@@ -384,23 +500,28 @@ export async function runDbRollback() {
         appliedNames = rows.map((r) => r.name);
     }
     catch (e) {
-        console.log('No hay tabla kysely_migration aún, nada que revertir');
+        console.log('[rollback]', await cliKey('rollback.reverted', { name: 'none' }));
         await db.destroy();
         return;
     }
     const last = appliedNames[appliedNames.length - 1];
     if (!last) {
-        console.log('No hay migraciones aplicadas');
+        console.log('[rollback]', await cliKey('migrate.no_files'));
         await db.destroy();
         return;
     }
     const target = appliedNames[appliedNames.length - 2];
-    console.log('[rollback] Revirtiendo migración', last, '-> target =', target ?? '(base)');
+    console.log('[rollback]', await cliKey('rollback.reverting', { last, target: target ?? '(base)' }));
     const rollbackRes = await migrator.migrateTo(target);
-    rollbackRes.results?.forEach((r) => { if (r.status === 'Success')
-        console.log(`Revertido: ${r.migrationName}`); });
+    if (rollbackRes.results) {
+        for (const r of rollbackRes.results) {
+            if (r.status === 'Success') {
+                console.log('[rollback]', await cliKey('rollback.reverted', { name: r.migrationName }));
+            }
+        }
+    }
     if (rollbackRes.error) {
-        console.error('Error en rollback', rollbackRes.error);
+        console.error('[rollback]', await cliKey('rollback.error'), rollbackRes.error);
         await db.destroy();
         process.exit(1);
     }
@@ -413,7 +534,7 @@ async function dynamicLoadKysely() {
         return mod;
     }
     catch (e) {
-        console.error('No se pudo cargar Kysely. Asegúrese de tenerlo instalado en la app externa.');
+        console.error('[kysely]', await cliKey('kysely.load_error'));
         throw e;
     }
 }
@@ -423,7 +544,7 @@ async function buildKyselyInstance(Kysely, PostgresDialect) {
         ({ Pool } = await import('pg'));
     }
     catch (e) {
-        console.error('[migrate] No se pudo importar pg. Asegúrese de que la aplicación tenga dependencia pg.');
+        console.error('[kysely]', await cliKey('kysely.pg_import_error'));
         throw e;
     }
     const pool = new Pool({
@@ -443,16 +564,16 @@ export async function runDbSeed() {
     const seedSql = path.join(process.cwd(), 'db', 'seeds.sql');
     if (fs.existsSync(seedSql)) {
         run('psql', [...psqlArgs(cfg), '-f', seedSql, cfg.database], env);
-        console.log('Seeds SQL aplicados');
+        console.log('[seed]', await cliKey('seed.applied'));
     }
     else {
-        console.log('No hay seeds.sql (puede implementarse seeds.ts en el futuro)');
+        console.log('[seed]', await cliKey('seed.missing'));
     }
 }
 export async function runDbConsole() {
     const cfg = pgConfig();
     if (!cfg.database) {
-        console.error('PGDATABASE no definido');
+        console.error('[console]', await cliKey('console.pgdatabase_missing'));
         return;
     }
     const env = buildEnvArgs(cfg);
@@ -460,6 +581,6 @@ export async function runDbConsole() {
     const args = [...psqlArgs(cfg), cfg.database];
     const res = spawnSync('psql', args, { stdio: 'inherit', env });
     if (res.status !== 0) {
-        console.error('psql terminó con código ' + res.status);
+        console.error('[console]', await cliKey('console.psql_exit_code', { code: res.status }));
     }
 }

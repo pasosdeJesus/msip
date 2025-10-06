@@ -41,6 +41,11 @@ echo "Creando base"
 sudo su - postgres -c "createdb -O rails rails_test"
 echo "Creada"
 
+# Facilitar uso de PostgreSQL desde codespace
+sudo -n sh -c 'echo "codespace ALL=(postgres) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/99-codespace-postgres-nopasswd'
+sudo -n chmod 440 /etc/sudoers.d/99-codespace-postgres-nopasswd
+sudo -n -u postgres id -u
+
 # Configura el ambiente
 cd "$(dirname "$0")/.." || exit 1
 if (test -d test/dummy) then {
