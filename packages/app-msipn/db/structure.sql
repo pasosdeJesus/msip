@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.5
--- Dumped by pg_dump version 17.5
+\restrict rB2sdb754A32ducsys4xnR8h12IwJRhzPMOUrzgiogogkip9oqtZH9tkttqH8DT
+
+-- Dumped from database version 17.6 (Ubuntu 17.6-2.pgdg24.04+1)
+-- Dumped by pg_dump version 17.6 (Ubuntu 17.6-2.pgdg24.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -172,4 +174,6 @@ ALTER TABLE ONLY public.kysely_migration
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict rB2sdb754A32ducsys4xnR8h12IwJRhzPMOUrzgiogogkip9oqtZH9tkttqH8DT
 

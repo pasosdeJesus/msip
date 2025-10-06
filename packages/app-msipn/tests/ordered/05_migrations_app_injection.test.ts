@@ -44,6 +44,13 @@ describe('Migraciones dinámicas de la aplicación', () => {
 
   afterAll(() => {
     try { run(`${BIN} db:rollback`); } catch {}
+    try {
+      for (const f of readdirSync(migDir)) {
+        if (/__create_example_inapp\.(t|j)s$/.test(f)) {
+          rmSync(path.join(migDir, f));
+        }
+      }
+    } catch {}
   });
 
   it('aplica migración dinámica de la aplicación', () => {

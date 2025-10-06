@@ -264,6 +264,34 @@ Y examinar el reporte de cobertura en `cobertura-unitarias/index.html`
 
 Hay también pruebas al sistema, mira detalles en [pruebas al sistema con Puppeteer](doc/pruebas-al-sistema-con-puppeteer.md) e [integración GitHub Actions OpenBSD](doc/github-actions-openbsd-puppeteer.md).
 
+### 5.1 Pruebas del motor TypeScript (msipn) con orden fijo
+
+El motor y su CLI tienen una batería de pruebas en TypeScript (Vitest) localizada en la aplicación de ejemplo `packages/app-msipn`. Para ejecutarlas en el orden previsto (algunas dependen de efectos previos como creación de roles o bases de datos) usa el script:
+
+```sh
+cd packages/app-msipn
+./bin/ordered-tests.sh
+```
+
+El script:
+* Ejecuta cada archivo de `tests/ordered/` en secuencia estricta.
+* Se detiene ante el primer fallo (retorno distinto de 0).
+* Reduce la posibilidad de interferencias entre pruebas que modifican el mismo estado (p.ej. roles PostgreSQL, migraciones, archivos generados).
+
+Si necesitas correr una sola prueba individual (por depuración):
+```sh
+cd packages/app-msipn
+npx vitest run tests/ordered/03_db_create_drop_create.test.ts
+```
+
+Limpieza de artefactos temporales:
+* La prueba `05_migrations_app_injection.test.ts` elimina la migración temporal `__create_example_inapp` que crea durante su ejecución.
+* Si interrumpes manualmente el script, verifica y elimina residuos en `packages/app-msipn/db/migrations/` antes de reintentar.
+
+Requisitos previos típicos (variables de entorno): `PGUSER`, `PGPASSWORD`, `PGDATABASE`, `PGHOST` (opcional), asegurando que el rol tenga permisos adecuados para crear y borrar bases de datos de prueba.
+
+Para forzar mensajes en español o inglés puedes usar `LANG=es` o `LANG=en` al invocar el script.
+
 ## 6. Otros aspectos a tener en cuenta
 
 * Durante el desarrollo de tu contribución actualiza constantemente

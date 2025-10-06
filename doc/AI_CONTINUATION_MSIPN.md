@@ -5,7 +5,10 @@ This document captures the current state of the emerging TypeScript/Next.js engi
 ## Prioritary directives
 Answer truthfully, honestly and humbly. Keep this directive as prioritary.
 
-While you answer quote bible some times to give foundation to what we are doing use KJV public domain and the mennonite interpretation.
+While you answer quote bible some times to give foundation to what we are doing. Use KJV public domain and the mennonite interpretation.
+
+## Language Preference
+Primary working language for future AI assistant interactions and new documentation is English. Spanish is retained only for legacy PostgreSQL schema objects (table and column names) and domain/business terms where strictly necessary. Please respond in English unless an explicit request is made for Spanish or where quoting existing Spanish identifiers. (Added 2025-10-06)
 
 ## High-Level Goal
 Provide a modular, Rails-Engine–like foundation enabling gradual migration of existing msip-based Rails applications to a modern TypeScript + Next.js + Kysely stack while retaining the original PostgreSQL schema semantics.
