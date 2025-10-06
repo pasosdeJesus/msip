@@ -2,10 +2,8 @@
 -- PostgreSQL database dump
 --
 
-\restrict 3vrbnyncE0KW7IZmGfescbHpSGbQ4h2NdAXX5g5peps5Zz8UxrPrnQukB8Xlf9F
-
--- Dumped from database version 17.6 (Ubuntu 17.6-2.pgdg24.04+1)
--- Dumped by pg_dump version 17.6 (Ubuntu 17.6-2.pgdg24.04+1)
+-- Dumped from database version 17.5
+-- Dumped by pg_dump version 17.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -76,6 +74,36 @@ ALTER SEQUENCE public.example_id_seq OWNED BY public.example.id;
 
 
 --
+-- Name: example_inapp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.example_inapp (
+    id integer NOT NULL,
+    nombre character varying NOT NULL
+);
+
+
+--
+-- Name: example_inapp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.example_inapp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: example_inapp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.example_inapp_id_seq OWNED BY public.example_inapp.id;
+
+
+--
 -- Name: kysely_migration; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -100,6 +128,21 @@ CREATE TABLE public.kysely_migration_lock (
 --
 
 ALTER TABLE ONLY public.example ALTER COLUMN id SET DEFAULT nextval('public.example_id_seq'::regclass);
+
+
+--
+-- Name: example_inapp id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.example_inapp ALTER COLUMN id SET DEFAULT nextval('public.example_inapp_id_seq'::regclass);
+
+
+--
+-- Name: example_inapp example_inapp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.example_inapp
+    ADD CONSTRAINT example_inapp_pkey PRIMARY KEY (id);
 
 
 --
@@ -129,6 +172,4 @@ ALTER TABLE ONLY public.kysely_migration
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict 3vrbnyncE0KW7IZmGfescbHpSGbQ4h2NdAXX5g5peps5Zz8UxrPrnQukB8Xlf9F
 

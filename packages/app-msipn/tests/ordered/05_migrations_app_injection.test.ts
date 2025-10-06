@@ -19,7 +19,7 @@ function psql(sql: string): string {
   if (!user) throw new Error('PGUSER requerido para test 05');
   const parts = ['psql', '-h', host, '-U', user, '-t','-A','-F',',','-c', sql, db];
   const cmd = parts.map(p => `'${p.replace(/'/g,"'\\''")}'`).join(' ');
-  return execSync(cmd, { stdio: 'pipe', env: process.env, shell: '/bin/bash' }).toString('utf-8').trim();
+  return execSync(cmd, { stdio: 'pipe', env: process.env, shell: '/bin/sh' }).toString('utf-8').trim();
 }
 
 // Verifica conexión obligatoria (lanza si no hay PostgreSQL)
@@ -56,6 +56,6 @@ describe('Migraciones dinámicas de la aplicación', () => {
   it('rollback elimina tabla example_inapp', () => {
     run(`${BIN} db:rollback`);
     const reg = psql("SELECT to_regclass('public.example_inapp')");
-    expect(reg === '' || reg === ' ').toBeTruthy();
+    expect(reg.trim() === '' || reg.includes('[NULL]')).toBeTruthy();
   });
 });
