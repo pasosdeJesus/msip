@@ -4,6 +4,7 @@ import { color, colorizeCommandName } from './util/colors.js';
 import pc from 'picocolors';
 import { loadEnv } from './util/env.js';
 import { runDbCreate, runDbDrop, runDbStructureDump, runDbStructureLoad, runDbMigrate, runDbRollback, runDbSeed, runDbSuperCreateUser, runDbConsole } from './tasks/db.js';
+import { runInstallCommand } from './tasks/install.js';
 import { getCliT } from './i18n.js';
 import { detectLocale } from './util/locale.js';
 
@@ -25,6 +26,7 @@ async function main() {
   program.command('db:seed').description(t('cmd.db.seed')).action(async () => { loadEnv(); await runDbSeed(); });
   program.command('db:super:createuser').description(t('cmd.db.super_createuser')).action(async () => { loadEnv(); await runDbSuperCreateUser(); });
   program.command('db:console').description(t('cmd.db.console')).action(async () => { loadEnv(); await runDbConsole(); });
+  program.command('install').description('Install msipn CLI into current project (add dependency & bin wrapper)').action(async () => { await runInstallCommand(); });
 
   // Override help to color command names blue
   const origHelp = program.helpInformation;

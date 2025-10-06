@@ -290,6 +290,8 @@ Limpieza de artefactos temporales:
 
 Requisitos previos típicos (variables de entorno): `PGUSER`, `PGPASSWORD`, `PGDATABASE`, `PGHOST` (opcional), asegurando que el rol tenga permisos adecuados para crear y borrar bases de datos de prueba.
 
+Requisito de servicio: asegúrate de que el servidor PostgreSQL esté arrancado antes de ejecutar `./bin/ordered-tests.sh` (p.ej. en Debian/Ubuntu `sudo service postgresql start`). Si el daemon no está disponible, las pruebas a partir de `02_db_super_createuser` fallarán con "connection refused".
+
 Para forzar mensajes en español o inglés puedes usar `LANG=es` o `LANG=en` al invocar el script.
 
 ## 6. Otros aspectos a tener en cuenta
