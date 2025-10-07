@@ -51,6 +51,10 @@ Y después `npm install` / `pnpm install` / `yarn`.
 
 Advertencia: La estructura y API pueden cambiar hasta publicación estable.
 
+### Verificación CI de instalación (GitHub)
+
+Se ejecuta un flujo de GitHub Actions (`msipn GitHub Install Smoke Test`) que crea un proyecto temporal, instala `@pasosdejesus/msipn` desde la rama `msipn` y verifica que `npx msipn --help` incluya comandos clave (`db:migrate`, `db:rollback`). Esto asegura que el paquete es consumible directamente desde GitHub.
+
 ### Comandos CLI experimentales (rama `msipn`)
 
 Dentro de `packages/app-msipn` existe un binario Node `bin/msipn` que provee tareas para la base de datos (similar a Rake) escritas en TypeScript.
