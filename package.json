@@ -1,0 +1,41 @@
+{
+  "name": "@pasosdejesus/msipn",
+  "version": "0.0.1",
+  "private": false,
+  "description": "GitHub-distributed msipn CLI wrapper (monorepo root)",
+  "type": "module",
+  "bin": {
+    "msipn": "bin/msipn.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pasosdeJesus/msip.git"
+  },
+  "license": "MIT",
+  "keywords": ["msipn", "kysely", "cli", "migration", "rails-like"],
+  "engines": {"node": ">=20"},
+  "workspaces": [
+    "packages/msipn/core",
+    "packages/msipn/domain-tdocumento",
+    "packages/msipn/domain-etnia",
+    "packages/msipn/domain-persona",
+    "packages/msipn/domain-usuario",
+    "packages/msipn/db",
+    "packages/msipn/cli"
+  ],
+  "scripts": {
+    "build": "pnpm -F @pasosdejesus/msipn run build",
+    "prepare": "pnpm -F @pasosdejesus/msipn run build || true"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "dotenv": "^16.4.5",
+    "i18next": "^23.10.1",
+    "i18next-fs-backend": "^2.3.1",
+    "picocolors": "^1.0.0"
+  },
+  "peerDependencies": {
+    "kysely": "^0.27.3",
+    "pg": "^8.11.5"
+  }
+}

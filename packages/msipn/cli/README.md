@@ -1,4 +1,4 @@
-# @pasosdejesus/msipn-cli
+# @pasosdejesus/msipn
 
 CLI para utilidades de msipn (inspirado en `bin/rails`). Provee comandos para manejo de base de datos y migraciones.
 

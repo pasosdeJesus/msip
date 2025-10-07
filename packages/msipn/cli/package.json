@@ -1,5 +1,5 @@
 {
-  "name": "@pasosdejesus/msipn-cli",
+  "name": "@pasosdejesus/msipn",
   "version": "0.0.1",
   "private": true,
   "type": "module",

@@ -13,10 +13,10 @@
     "msipn:install": "node scripts/msipn-install.cjs",
     "msipn": "node bin/msipn",
     "test": "vitest run tests/ordered/0*_*.test.ts",
-  "test:ordered": "sh bin/ordered-tests.sh"
+    "test:ordered": "sh bin/ordered-tests.sh"
   },
   "dependencies": {
-    "@pasosdejesus/msipn-cli": "link:../msipn/cli",
+  "@pasosdejesus/msipn": "link:../msipn/cli",
     "@pasosdejesus/msipn-core": "link:../msipn/core",
     "@pasosdejesus/msipn-domain-etnia": "link:../msipn/domain-etnia",
     "@pasosdejesus/msipn-domain-persona": "link:../msipn/domain-persona",

@@ -3,8 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { success, info, warn, problem } from '../util/colors.js';
 
-// Heuristic: dependency name of published CLI (when published we will remove private flag)
-const CLI_PKG_NAME = '@pasosdejesus/msipn-cli';
+// Name of the main msipn package (CLI is the entrypoint)
+const CLI_PKG_NAME = '@pasosdejesus/msipn';
 
 interface PkgJson {
   name?: string;

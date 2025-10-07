@@ -22,7 +22,7 @@ Provide a modular, Rails-Engine–like foundation enabling gradual migration of 
 - `@pasosdejesus/msipn-core` (core): Entity metadata registry, roles, helpers, base entity factory for "tablas básicas".
 - Domain packages: `domain-tdocumento`, `domain-etnia`, `domain-persona`, `domain-usuario` – each contributes entity definitions via the core factory/registry.
 - `@pasosdejesus/msipn-db` (db): Kysely instance / connection helpers (types TBD via codegen later).
-- `@pasosdejesus/msipn-cli` (cli): Database management commands, Rails-inspired.
+- `@pasosdejesus/msipn` (cli/main engine package): Database management commands, Rails-inspired.
 - `packages/app-msipn` (dummy external consumer app): Simulates a downstream project using the engine.
 
 ## Roles (numeric compatibility)
@@ -268,7 +268,7 @@ Guideline: treat `./bin/msipn` as the authoritative entrypoint for engine operat
 This snapshot is meant to let a future assistant (or a new chat) resume without re-reading full history.
 
 ### Architecture State
-- Monorepo packages: core engine (`msipn-core`), domain packages (persona, usuario, etnia, tdocumento), CLI (`msipn-cli`), DB helper (`msipn-db`), and a consumer app (`app-msipn`).
+- Monorepo packages: core engine (`msipn-core`), domain packages (persona, usuario, etnia, tdocumento), main CLI/engine (`msipn`), DB helper (`msipn-db`), and a consumer app (`app-msipn`).
 - Multi-source migrations working (core compiled JS + app runtime JS migrations).
 - CLI dynamically imports `kysely` / `pg`; no hard dependency compiled into CLI bundle.
 - Role constants and entity metadata registry operational (still lightweight, validation minimal).

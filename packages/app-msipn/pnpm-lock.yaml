@@ -11,7 +11,7 @@ importers:
 
   .:
     dependencies:
-      '@pasosdejesus/msipn-cli':
+      '@pasosdejesus/msipn':
         specifier: link:../msipn/cli
         version: link:../msipn/cli
       '@pasosdejesus/msipn-core':

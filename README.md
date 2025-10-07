@@ -14,6 +14,43 @@ interfaces automatizadas y mejores prácticas de seguridad.
 
 > Nota sobre rama experimental `msipn`: Se está desarrollando un motor paralelo en TypeScript/Next.js dentro de `packages/msipn/*`. La aplicación de prueba ahora reside en `packages/app-msipn` y no hace parte de los `workspaces` de pnpm; se ejecuta de forma independiente con su propio `.env` (instalar con `cd packages/app-msipn && pnpm install`).
 
+### Instalación experimental del CLI msipn (sin publicar aún)
+
+Puedes incorporar el CLI experimental directamente desde esta rama usando un dependency GitHub o el inicializador.
+
+Opción rápida (inyecta dependencias y scripts en tu proyecto existente):
+
+```sh
+npx github:pasosdeJesus/msip#msipn msipn-init -y
+```
+
+Lo anterior:
+1. Añade dependencia `@pasosdejesus/msipn` apuntando a la rama `msipn` del repositorio.
+2. Añade dependencias requeridas `kysely` y `pg` si faltan.
+3. Crea scripts en `package.json`: `db:migrate`, `db:rollback`, `db:console`.
+4. Ejecuta la instalación de dependencias (si confirmas o pasas `-y`).
+
+Luego puedes ejecutar:
+
+```sh
+npx msipn --help
+npm run db:migrate
+```
+
+Para agregar manualmente sin el inicializador, en tu `package.json`:
+```jsonc
+{
+  "dependencies": {
+    "@pasosdejesus/msipn": "github:pasosdeJesus/msip#msipn",
+    "kysely": "^0.27.3",
+    "pg": "^8.11.5"
+  }
+}
+```
+Y después `npm install` / `pnpm install` / `yarn`.
+
+Advertencia: La estructura y API pueden cambiar hasta publicación estable.
+
 ### Comandos CLI experimentales (rama `msipn`)
 
 Dentro de `packages/app-msipn` existe un binario Node `bin/msipn` que provee tareas para la base de datos (similar a Rake) escritas en TypeScript.
