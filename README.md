@@ -16,25 +16,24 @@ interfaces automatizadas y mejores prácticas de seguridad.
 
 ### Instalación experimental del CLI msipn (sin publicar aún)
 
-Puedes incorporar el CLI experimental directamente desde esta rama usando un dependency GitHub o el inicializador.
+Puedes incorporar el CLI experimental directamente desde esta rama usando el inicializador.
 
 Opción rápida (inyecta dependencias y scripts en tu proyecto existente):
 
 ```sh
-npx github:pasosdeJesus/msip#msipn msipn-init -y
+npx github:pasosdeJesus/msip#msipn
 ```
 
 Lo anterior:
 1. Añade dependencia `@pasosdejesus/msipn` apuntando a la rama `msipn` del repositorio.
 2. Añade dependencias requeridas `kysely` y `pg` si faltan.
-3. Crea scripts en `package.json`: `db:migrate`, `db:rollback`, `db:console`.
-4. Ejecuta la instalación de dependencias (si confirmas o pasas `-y`).
+3. Crea script `bin/msipn`
 
 Luego puedes ejecutar:
 
 ```sh
-npx msipn --help
-npm run db:migrate
+bin/msipn --help
+bin/msipn db:migrate
 ```
 
 Para agregar manualmente sin el inicializador, en tu `package.json`:
