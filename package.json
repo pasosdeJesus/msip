@@ -1,7 +1,7 @@
 {
   "name": "@pasosdejesus/msipn",
   "version": "0.0.1",
-  "private": false,
+  "private": true,
   "description": "GitHub-distributed msipn CLI wrapper (monorepo root)",
   "type": "module",
   "bin": {
@@ -14,18 +14,8 @@
   "license": "MIT",
   "keywords": ["msipn", "kysely", "cli", "migration", "rails-like"],
   "engines": {"node": ">=20"},
-  "workspaces": [
-    "packages/msipn/core",
-    "packages/msipn/domain-tdocumento",
-    "packages/msipn/domain-etnia",
-    "packages/msipn/domain-persona",
-    "packages/msipn/domain-usuario",
-    "packages/msipn/db",
-    "packages/msipn/cli"
-  ],
   "scripts": {
-    "build": "pnpm -F @pasosdejesus/msipn run build",
-    "prepare": "pnpm -F @pasosdejesus/msipn run build || true"
+    "prepare": "echo 'msipn prebuilt distribution'"
   },
   "dependencies": {
     "commander": "^11.0.0",

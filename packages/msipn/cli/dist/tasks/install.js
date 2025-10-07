@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { success, info, warn, problem } from '../util/colors.js';
-// Heuristic: dependency name of published CLI (when published we will remove private flag)
+// Name of the main msipn package (CLI is the entrypoint)
 const CLI_PKG_NAME = '@pasosdejesus/msipn';
 export async function runInstallCommand() {
     const cwd = process.cwd();
