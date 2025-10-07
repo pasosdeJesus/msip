@@ -1,5 +1,5 @@
 {
-  "name": "@pasosdejesus/msipn",
+  "name": "msipn",
   "version": "0.0.1",
   "description": "GitHub-distributed msipn CLI wrapper (monorepo root)",
   "type": "module",
