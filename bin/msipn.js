@@ -17,6 +17,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const ENGINE_PKG = '@pasosdejesus/msipn'
+console.error('[msipn] Bin iniciado (diagnóstico temporal).')
 const GITHUB_SPEC = 'github:pasosdeJesus/msip#msipn'
 const PEERS = { kysely: '^0.27.3', pg: '^8.11.5' }
 
