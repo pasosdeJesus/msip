@@ -5,13 +5,7 @@
 [![Gem Version](https://badge.fury.io/rb/msip.svg)](https://badge.fury.io/rb/msip) 
 [![Integración continua github](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/rubyonrails.yml) 
 [![CodeQL en github](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/pasosdeJesus/msip/actions/workflows/codeql.yml)
-[![Cobertura
-main](https://gitlab.com/pasosdeJesus/msip/badges/main/coverage.svg)](https://gitlab.com/pasosdeJesus/msip/-/commits/main)
 
-[![Cobertura
-v2.2](https://gitlab.com/pasosdeJesus/msip/badges/v2.2/coverage.svg)](https://gitlab.com/pasosdeJesus/msip/-/commits/v2.2)
-[![Pipeline
-v2.2](https://gitlab.com/pasosdeJesus/msip/badges/v2.2/pipeline.svg)](https://gitlab.com/pasosdeJesus/msip/-/pipelines?ref=v2.2)
 
 ![Logo de msip](test/dummy/app/assets/images/logo.jpg)
 
