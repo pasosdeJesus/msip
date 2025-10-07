@@ -17,7 +17,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const ENGINE_PKG = '@pasosdejesus/msipn'
-console.error('[msipn] Bin iniciado (diagnóstico temporal).')
 const GITHUB_SPEC = 'github:pasosdeJesus/msip#msipn'
 const PEERS = { kysely: '^0.27.3', pg: '^8.11.5' }
 
@@ -81,9 +80,16 @@ async function bootstrapIn(targetDir) {
 
 async function maybeBootstrap() {
   if (process.env.MSIPN_SKIP_BOOTSTRAP === '1') return false
+  
+  // If we're being called from an installed bin wrapper, skip bootstrap
   const cwd = process.cwd()
   const pkgPath = join(cwd, 'package.json')
   const pkg = loadJson(pkgPath)
+  if (pkg && pkg.dependencies && pkg.dependencies[ENGINE_PKG]) {
+    // Package is already installed, skip bootstrap
+    return false
+  }
+  
   if (!pkg) return false
   if (!isSandbox(pkg)) {
     // Acting directly in target directory
