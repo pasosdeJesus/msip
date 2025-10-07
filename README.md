@@ -16,27 +16,62 @@ interfaces automatizadas y mejores prácticas de seguridad.
 
 ### Instalación experimental del CLI msipn (sin publicar aún)
 
-Puedes incorporar el CLI experimental directamente desde esta rama usando el inicializador.
+Resumen rápido:
+* La forma `npx github:pasosdeJesus/msip#msipn` (sin comando) hoy NO funciona: npm muestra `could not determine executable to run` y no llega a ejecutar nuestro bin.
+* Usa una de las opciones documentadas abajo mientras preparamos un paquete más pequeño/publicado.
+* Causa principal: el tarball GitHub incluye un monorepo grande y npm no infiere de forma fiable el bin al usar un spec GitHub directo (el flujo de `npx` invoca internamente `npm exec install@...`).
 
-Opción rápida (inyecta dependencias y scripts en tu proyecto existente):
+#### ¿Por qué en otros repos funciona un solo comando?
+Repos como `llxprt-code` funcionan porque:
+1. Tienen un `bin` único en la raíz (`"bin": { "llxprt": "bundle/llxprt.js" }`).
+2. El proceso de build deja listo el artefacto ejecutable (`bundle/..`) sin pasos adicionales.
+3. El bin es invocado explícitamente al usar `npx https://github.com/...` (internamente resuelve nombre/desempaqueta y encuentra ese bin).
+4. Su motor de Node requerido (>=24) coincide con el del entorno donde se prueba.
 
-```sh
-npx github:pasosdeJesus/msip#msipn
+En nuestro caso, aunque publicamos `bin/msipn.js`, la combinación de:
+* Monorepo con múltiples rutas (`packages/*`, assets Rails, etc.)
+* Tamaño del tarball
+* Falta de publicación previa en el registro (sin metadata cacheada)
+
+Hace que `npx` no mapée automáticamente el ejecutable. La única diferencia funcional comprobada tras varias iteraciones es que debemos pasar el comando (`msipn`) de forma explícita.
+
+#### Hoja de ruta corta para habilitar comando único
+1. Reducir paquete: añadir campo `files` en `package.json` para incluir sólo `bin/`, `packages/msipn/cli/dist/`, `README.md`, `LICENSE`.
+2. Generar build pre-empaquetado pequeño (<1MB ideal) y remover artefactos Rails ajenos al CLI.
+3. (Opcional) Renombrar el paquete a `create-msipn` si queremos un flujo de scaffolding estilo `create-*` (ejecutado automáticamente por npx aun sin comando).
+4. Publicar versión pre-release `0.0.x-next` en npm para permitir `npx @pasosdejesus/msipn` directo.
+
+Mientras tanto usa una de las opciones siguientes:
+
+#### Opción A: Añadir dependencia y usar `npx msipn`
+
+```bash
+npm install --save-dev github:pasosdeJesus/msip#msipn
+# o
+pnpm add -D github:pasosdeJesus/msip#msipn
+# luego
+npx msipn --help
 ```
 
-Lo anterior:
-1. Añade dependencia `@pasosdejesus/msipn` apuntando a la rama `msipn` del repositorio.
-2. Añade dependencias requeridas `kysely` y `pg` si faltan.
-3. Crea script `bin/msipn`
+Esto instala `@pasosdejesus/msipn` (rama `msipn`) y te permite ejecutar el binario desde `npx`.
 
-Luego puedes ejecutar:
+#### Opción B: Invocación explícita con GitHub (descarga grande)
 
-```sh
-bin/msipn --help
-bin/msipn db:migrate
+```bash
+npx --yes github:pasosdeJesus/msip#msipn msipn --help
 ```
 
-Para agregar manualmente sin el inicializador, en tu `package.json`:
+Nota: La forma implícita `npx github:pasosdeJesus/msip#msipn` actualmente falla con `could not determine executable to run` (ver explicación arriba). Por eso se requiere pasar explícitamente `msipn` como comando.
+
+#### Opción C (futura): Publicación en npm
+
+Cuando se publique una pre-release:
+```bash
+npx @pasosdejesus/msipn init
+```
+
+#### Bootstrap manual (si prefieres editar tu package.json)
+
 ```jsonc
 {
   "dependencies": {
@@ -46,9 +81,32 @@ Para agregar manualmente sin el inicializador, en tu `package.json`:
   }
 }
 ```
-Y después `npm install` / `pnpm install` / `yarn`.
+Luego:
+```bash
+npm install
+# o pnpm install / yarn install
+```
 
-Advertencia: La estructura y API pueden cambiar hasta publicación estable.
+#### Próximos pasos tras instalación
+
+```bash
+bin/msipn --help
+bin/msipn db:migrate
+```
+
+#### Plan a corto plazo
+1. Reducir tamaño del tarball usando campo `files`/`.npmignore`.
+2. Publicar versión pre-release para habilitar `npx @pasosdejesus/msipn` directo.
+3. Mantener script bootstrap idempotente.
+
+#### Solución de problemas
+| Síntoma | Causa | Acción |
+|---------|-------|--------|
+| `could not determine executable to run` | npx no detecta bin implícito desde GitHub | Usar `npx github:... msipn --help` o instalar dependencia |
+| No aparece salida `[msipn]` esperada | Bin no se ejecutó | Verificar comando usado, probar Opción A |
+| Instalación lenta | Tarball (~25MB) del repo completo | Esperar publicación npm o clonar selectivamente |
+
+API y estructura sujetas a cambios antes de una versión estable.
 
 ### Verificación CI de instalación (GitHub)
 
