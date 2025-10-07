@@ -22,24 +22,39 @@ const PEERS = { kysely: '^0.27.3', pg: '^8.11.5' }
 
 // Detect if we should bootstrap: user cwd is a project (package.json present),
 // that package.json is NOT this same package, and does not yet depend on ENGINE_PKG.
-async function maybeBootstrap() {
-  if (process.env.MSIPN_SKIP_BOOTSTRAP === '1') return false
-  const cwd = process.cwd()
-  const pkgPath = join(cwd, 'package.json')
-  if (!existsSync(pkgPath)) {
-    return false // nothing to do; just run CLI (likely running inside repo itself)
-  }
-  let pkg
-  try { pkg = JSON.parse(readFileSync(pkgPath, 'utf8')) } catch { return false }
-  if (pkg.name === ENGINE_PKG) return false // executing inside repo / package itself
-  const hasDep = !!(pkg.dependencies && pkg.dependencies[ENGINE_PKG]) || !!(pkg.devDependencies && pkg.devDependencies[ENGINE_PKG])
-  if (hasDep) return false // Already installed; normal CLI flow
+function loadJson(path) { try { return JSON.parse(readFileSync(path, 'utf8')) } catch { return null } }
 
-  // Bootstrap mode
-  console.log('[msipn] Inicializando proyecto (bootstrap)...')
+function resolveTargetCwd() {
+  // Prefer explicit override
+  if (process.env.MSIPN_TARGET_DIR) return process.env.MSIPN_TARGET_DIR
+  // INIT_CWD is set by npm/pnpm for lifecycle scripts; sometimes available under npx
+  if (process.env.INIT_CWD) return process.env.INIT_CWD
+  // If current package.json is ours, try parent of sandbox pattern: /tmp or npm cache extraction
+  const cwd = process.cwd()
+  return cwd
+}
+
+function isSandbox(pkg) {
+  // Heuristic: if the current package name is ENGINE_PKG itself, or private true with version matching, treat as sandbox
+  return pkg && pkg.name === ENGINE_PKG
+}
+
+async function bootstrapIn(targetDir) {
+  const pkgPath = join(targetDir, 'package.json')
+  let pkg = loadJson(pkgPath)
+  if (!pkg) {
+    console.error('[msipn] No se encontró package.json en directorio destino para bootstrap:', targetDir)
+    return false
+  }
+  if (pkg.name === ENGINE_PKG) {
+    console.log('[msipn] Directorio destino parece ser el propio paquete; se omite bootstrap')
+    return false
+  }
+  const hasDep = (pkg.dependencies && pkg.dependencies[ENGINE_PKG]) || (pkg.devDependencies && pkg.devDependencies[ENGINE_PKG])
+  if (hasDep) return false
+  console.log('[msipn] Inicializando proyecto (bootstrap) en', targetDir)
   pkg.dependencies = pkg.dependencies || {}
   pkg.dependencies[ENGINE_PKG] = GITHUB_SPEC
-  // Add peers if missing
   for (const [dep, ver] of Object.entries(PEERS)) {
     if (!pkg.dependencies[dep] && !(pkg.devDependencies && pkg.devDependencies[dep])) {
       pkg.dependencies[dep] = ver
@@ -47,25 +62,38 @@ async function maybeBootstrap() {
     }
   }
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
-  // Create bin wrapper
-  const binDir = join(cwd, 'bin')
+  const binDir = join(targetDir, 'bin')
   mkdirSync(binDir, { recursive: true })
   const binFile = join(binDir, 'msipn')
   if (!existsSync(binFile)) {
     writeFileSync(binFile, "#!/usr/bin/env node\nimport('@pasosdejesus/msipn/bin/msipn.js')\n", { mode: 0o755 })
     console.log('[msipn] Creado bin/msipn')
-  } else {
-    console.log('[msipn] bin/msipn ya existe (no modificado)')
   }
-
-  // Detect package manager
-  const pm = detectPM(cwd)
-  console.log(`[msipn] Instalando dependencias con ${pm} ... (puede tardar)`)
-  await runInstall(pm)
+  const pm = detectPM(targetDir)
+  console.log(`[msipn] Instalando dependencias con ${pm} en ${targetDir}`)
+  await runInstall(pm, targetDir)
   console.log('[msipn] Instalación completa. Próximos pasos:')
   console.log('  bin/msipn --help')
   console.log('  bin/msipn db:migrate')
   return true
+}
+
+async function maybeBootstrap() {
+  if (process.env.MSIPN_SKIP_BOOTSTRAP === '1') return false
+  const cwd = process.cwd()
+  const pkgPath = join(cwd, 'package.json')
+  const pkg = loadJson(pkgPath)
+  if (!pkg) return false
+  if (!isSandbox(pkg)) {
+    // Acting directly in target directory
+    return await bootstrapIn(cwd)
+  }
+  // We are in sandbox; attempt to use INIT_CWD or user provided directory
+  const target = resolveTargetCwd()
+  if (target && target !== cwd) {
+    return await bootstrapIn(target)
+  }
+  return false
 }
 
 function detectPM(cwd) {
@@ -75,11 +103,11 @@ function detectPM(cwd) {
   return 'npm'
 }
 
-async function runInstall(pm) {
+async function runInstall(pm, dir) {
   return new Promise((resolve, reject) => {
     const cmd = pm
     const args = pm === 'yarn' ? [] : ['install']
-    const child = spawn(cmd, args, { stdio: 'inherit' })
+    const child = spawn(cmd, args, { stdio: 'inherit', cwd: dir })
     child.on('exit', code => {
       if (code === 0) resolve()
       else reject(new Error(`${pm} install exited with code ${code}`))
