@@ -118,10 +118,19 @@ async function runInstall(pm, dir) {
 
 // Main dispatcher
 (async () => {
-  const bootstrapped = await maybeBootstrap()
-  if (bootstrapped) {
-    // Done; do not immediately run CLI again (matches README example)
-    return
+  // Check if user explicitly wants the "add" command
+  const hasAddCommand = process.argv.includes('add')
+  
+  if (hasAddCommand) {
+    // For explicit "add" command, run the CLI normally (it will handle the add command)
+    // Skip automatic bootstrap
+  } else {
+    // For other cases, try automatic bootstrap
+    const bootstrapped = await maybeBootstrap()
+    if (bootstrapped) {
+      // Done; do not immediately run CLI again (matches README example)
+      return
+    }
   }
 
   // Normal CLI execution (inside package or already installed project)

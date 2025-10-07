@@ -27,6 +27,7 @@ async function main() {
   program.command('db:super:createuser').description(t('cmd.db.super_createuser')).action(async () => { loadEnv(); await runDbSuperCreateUser(); });
   program.command('db:console').description(t('cmd.db.console')).action(async () => { loadEnv(); await runDbConsole(); });
   program.command('install').description('Install msipn CLI into current project (add dependency & bin wrapper)').action(async () => { await runInstallCommand(); });
+  program.command('add').description('Add msipn to current project (bootstrap with dependencies and bin wrapper)').action(async () => { await runInstallCommand(); });
 
   // Override help to color command names blue
   const origHelp = program.helpInformation;
