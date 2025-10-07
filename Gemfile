@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # No usamos gemspec porque la aplicacón de prueba de un motor rails
 # no lo soporta.
 
-ruby ">= 3.4"
+ruby "3.4.1"
 
 gem "bcrypt"
 
