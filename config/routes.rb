@@ -14,7 +14,7 @@ Msip::Engine.routes.draw do
     to: "anexos#mostrar_portada",
     as: "mostrar_portada"
 
-  resources :bitacoras, path_names: { new: "nueva", edit: "edita" }
+  resources :bitacoras, only: [:index, :show]
 
   get "/controldeacceso", to: "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"
