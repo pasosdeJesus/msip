@@ -9,6 +9,9 @@ module Msip
         included do
           include ActionView::Helpers::AssetUrlHelper
 
+          # Bitácora es solo lectura - registros creados automáticamente por el sistema
+          # No debe tener formularios ni permitir creación/edición manual (issue #6)
+
           def clase
             "Msip::Bitacora"
           end
@@ -27,16 +30,8 @@ module Msip
             ]
           end
 
-          def atributos_form
-            atributos_index - [:id] + [:params]
-          end
-
           def index_reordenar(registros)
             registros.order(created_at: :desc)
-          end
-
-          def new_modelo_path(o)
-            new_bitacora_path
           end
 
           def genclase
@@ -47,11 +42,6 @@ module Msip
 
           def set_bitacora
             @registro = @bitacora = Msip::Bitacora.find(params[:id].to_i)
-          end
-
-          # No confiar parametros a Internet, sólo permitir lista blanca
-          def bitacora_params
-            params.require(:bitacora).permit(*atributos_form)
           end
         end
       end
