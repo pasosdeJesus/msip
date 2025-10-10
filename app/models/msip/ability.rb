@@ -213,8 +213,10 @@ module Msip
           can([:new, :index, :create, :show], ::Usuario, rol: 5)
           can([:show, :destroy], ::Usuario, nusuario: usuario.nusuario)
         when Ability::ROLADMIN
+          # Bitácora solo lectura - registros automáticos del sistema (issue #6)
+          can(:read, Msip::Bitacora)
+          
           can(:manage, [
-            Msip::Bitacora,
             Msip::Grupoper,
             Msip::Orgsocial,
             Msip::OrgsocialPersona,
