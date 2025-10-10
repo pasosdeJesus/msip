@@ -36,46 +36,8 @@ module Msip
       assert_template :show
     end
 
-    test "debe presentar formulario para nueva" do
-      skip # no debe existir arreglar en mmsip
-      get msip.new_bitacora_path
-
-      assert_response :success
-      assert_template :new
-    end
-
-    test "debe presentar formulario de edición" do
-      skip # no debe existir arreglar en mmsip
-      get msip.edit_bitacora_path(@bitacora)
-
-      assert_response :success
-      assert_template :edit
-    end
-
-    test "debe crear nueva" do
-      skip # no debe existir arreglar en mmsip
-    end
-
-    test "debe actualizar existente" do
-      skip # no debe existir arreglar en mmsip
-      patch msip.bitacora_path(@bitacora.id),
-        params: {
-          bitacora: {
-            id: @bitacora.id,
-          },
-        }
-
-      assert_redirected_to msip.bitacora_path(assigns(:bitacora))
-    end
-
-    test "debe eliminar" do
-      skip # no debe existir arreglar en mmsip
-      assert_difference("Bitacora.count", -1) do
-        delete msip.bitacora_path(Bitacora.find(1))
-      end
-
-      assert_redirected_to msip.bitacoras_path
-    end
+    # Bitácora es solo lectura - no debe tener formularios ni acciones de escritura
+    # Tests eliminados: new, edit, create, update, destroy (resuelto en issue #6)
 
     test "debe filtrar por fecha" do
       get msip.bitacoras_path, params: { 
