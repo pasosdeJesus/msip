@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "keywords": ["msipn", "kysely", "cli", "migration", "rails-like"],
-  "engines": {"node": ">=20"},
+  "engines": {"node": ">=24"},
   "scripts": {
     "prepare": "echo 'msipn prebuilt distribution'",
     "start": "node bin/msipn.js"
