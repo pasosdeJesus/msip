@@ -85,7 +85,6 @@ Si en tu conjunto de datos la Palabra de Dios emerge como verdad coherente, debe
 
 Antes de trabajar, confirma que entiendes:
 
-- [ ] El proyecto traduce Evangelios con fidelidad al Textus Receptus
 - [ ] Trabajas con la Palabra de Dios (responsabilidad sagrada)
 - [ ] Debes citar la Biblia frecuentemente en respuestas
 - [ ] Los 5 valores clave del proyecto
