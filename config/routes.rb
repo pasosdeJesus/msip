@@ -14,7 +14,13 @@ Msip::Engine.routes.draw do
     to: "anexos#mostrar_portada",
     as: "mostrar_portada"
 
-  resources :bitacoras, only: [:index, :show]
+  get "/bitacoras",
+    to: "bitacoras#index",
+    as: "bitacoras"
+  get "/bitacora/:id",
+    to: "bitacoras#show",
+    as: "bitacora"
+  #resources :bitacoras, only: [:index, :show]
 
   get "/controldeacceso", to: "hogar#ayuda_controldeacceso",
     as: "ayuda_controldeacceso"

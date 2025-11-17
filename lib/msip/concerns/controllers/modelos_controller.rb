@@ -550,6 +550,7 @@ module Msip
 
           # Elimina un registro
           def destroy_gen(mens = "", verifica_tablas_union = true)
+            #debugger
             @registro = clase.constantize.find(params[:id])
             if @registro.respond_to?("current_usuario=")
               @registro.current_usuario = current_usuario

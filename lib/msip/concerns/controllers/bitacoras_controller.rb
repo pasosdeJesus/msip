@@ -38,6 +38,10 @@ module Msip
             "F"
           end
 
+          def destroy
+            debugger
+          end
+
           private
 
           def set_bitacora
