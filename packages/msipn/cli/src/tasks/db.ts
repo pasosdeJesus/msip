@@ -290,6 +290,22 @@ function deleteMigration(cfg: PgConfig, env: any, version: string) {
   run('psql', [...psqlArgs(cfg), '-c', `DELETE FROM schema_migrations WHERE version='${version}'`, cfg.database], env);
 }
 
+export async function runDbMigMake(m: string) {
+  const kyselyBin = path.join(process.cwd(), 'node_modules', '.bin', 'kysely');
+  if (!fs.existsSync(kyselyBin)) {
+    problem('[db:mig:make] `kysely` binary not found. Is it installed in your project?');
+    process.exit(1);
+  }
+  const res = spawnSync(kyselyBin, ['migrate:make', m], { stdio: 'inherit' });
+  if (res.status !== 0) {
+    problem(`[db:mig:make] Kysely migrate:make failed with exit code ${res.status}`);
+    process.exit(res.status ?? 1);
+  }
+  success(
+    `[db:mig:make] Migration file created. Please edit the new file in db/migrations.`
+  );
+}
+
 // New implementation based on Kysely Migrator
 export async function runDbMigrate() {
   // Fuentes de migraciones:

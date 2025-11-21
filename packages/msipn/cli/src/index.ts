@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { color, colorizeCommandName } from './util/colors.js';
 import pc from 'picocolors';
 import { loadEnv } from './util/env.js';
-import { runDbCreate, runDbDrop, runDbStructureDump, runDbStructureLoad, runDbMigrate, runDbRollback, runDbSeed, runDbSuperCreateUser, runDbConsole } from './tasks/db.js';
+import { runDbCreate, runDbDrop, runDbStructureDump, runDbStructureLoad, runDbMigrate, runDbRollback, runDbSeed, runDbSuperCreateUser, runDbConsole, runDbMigMake } from './tasks/db.js';
 import { runInstallCommand } from './tasks/install.js';
 import { getCliT } from './i18n.js';
 import { detectLocale } from './util/locale.js';
@@ -22,6 +22,7 @@ async function main() {
   program.command('db:structure:dump').description(t('cmd.db.structure_dump')).action(async () => { loadEnv(); await runDbStructureDump(); });
   program.command('db:structure:load').description(t('cmd.db.structure_load')).action(async () => { loadEnv(); await runDbStructureLoad(); });
   program.command('db:migrate').description(t('cmd.db.migrate')).action(async () => { loadEnv(); await runDbMigrate(); });
+  program.command('db:mig:make <m>').description(t('cmd.db.mig_make')).action(async (m) => { loadEnv(); await runDbMigMake(m); });
   program.command('db:rollback').description(t('cmd.db.rollback')).action(async () => { loadEnv(); await runDbRollback(); });
   program.command('db:seed').description(t('cmd.db.seed')).action(async () => { loadEnv(); await runDbSeed(); });
   program.command('db:super:createuser').description(t('cmd.db.super_createuser')).action(async () => { loadEnv(); await runDbSuperCreateUser(); });
@@ -76,7 +77,7 @@ async function main() {
   if (new RegExp('^' + commandsLabel + ':').test(line)) { inCommands = true; return line; }
       if (inCommands) {
         if (/^\s*$/.test(line)) { inCommands = false; return line; }
-        const m = line.match(/^(\s{2})([a-zA-Z0-9:_-]+)(\s{2,}.*)$/);
+        const m = line.match(/^(\s{2})(.+?)(\s{2,}.*)$/);
         if (m) {
           const [, ws, cmd, rest] = m;
           return ws + pc.blue(cmd) + rest;

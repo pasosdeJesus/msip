@@ -69,6 +69,7 @@
       "structure_dump": "Vuelca estructura actual a db/structure.sql (pg_dump)",
       "structure_load": "Crea (si falta) y aplica estructura desde db/structure.sql (psql)",
       "migrate": "Corre migraciones pendientes",
+      "mig_make": "Crea una nueva migración con Kysely",
       "rollback": "Revierte última migración",
       "seed": "Carga datos semilla",
       "super_createuser": "Crea (si no existe) rol superusuario PGUSER con PGPASSWORD",
