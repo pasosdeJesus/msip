@@ -454,92 +454,41 @@ export async function runDbMigrate() {
     }
 }
 export async function runDbRollback() {
-    // Reutiliza descubrimiento multi-fuente para cargar todas las migraciones
-    const sources = [];
-    try {
-        let dir = process.cwd();
-        let corePkgJson;
-        for (let i = 0; i < 6 && dir; i++) {
-            const candidate = path.join(dir, 'node_modules', '@pasosdejesus', 'msipn-core', 'package.json');
-            if (fs.existsSync(candidate)) {
-                corePkgJson = candidate;
-                break;
-            }
-            const parent = path.dirname(dir);
-            if (parent === dir)
-                break;
-            dir = parent;
-        }
-        if (corePkgJson) {
-            const coreRoot = path.dirname(corePkgJson);
-            const coreMigDist = path.join(coreRoot, 'dist', 'db', 'migrations');
-            if (fs.existsSync(coreMigDist))
-                sources.push(coreMigDist);
-        }
-    }
-    catch { }
-    const appMig = path.join(process.cwd(), 'db', 'migrations');
-    if (fs.existsSync(appMig))
-        sources.push(appMig);
-    if (sources.length === 0) {
-        info('[rollback] ' + await cliKey('migrate.no_folders'));
-        return;
-    }
-    const { Kysely, PostgresDialect, FileMigrationProvider, Migrator } = await dynamicLoadKysely();
-    const db = await buildKyselyInstance(Kysely, PostgresDialect);
-    const allMigrations = {};
-    for (const folder of sources) {
-        const provider = new FileMigrationProvider({ fs: fs.promises, path, migrationFolder: folder });
-        try {
-            const migs = await provider.getMigrations();
-            for (const k of Object.keys(migs)) {
-                if (!allMigrations[k])
-                    allMigrations[k] = migs[k];
-            }
-        }
-        catch { }
-    }
-    const migrator = new Migrator({ db, provider: { getMigrations: async () => allMigrations } });
-    // Ensure schema up to date (applies pending ones, if any)
-    await migrator.migrateToLatest();
-    // Read applied migrations directly from tracking table (ordered by timestamp then name)
-    let appliedNames = [];
-    try {
-        const rows = await db
-            .selectFrom('kysely_migration')
-            .select(['name', 'timestamp'])
-            .orderBy('timestamp')
-            .orderBy('name')
-            .execute();
-        appliedNames = rows.map((r) => r.name);
-    }
-    catch (e) {
-        info('[rollback] ' + await cliKey('rollback.reverted', { name: 'none' }));
-        await db.destroy();
-        return;
-    }
-    const last = appliedNames[appliedNames.length - 1];
-    if (!last) {
-        info('[rollback] ' + await cliKey('migrate.no_files'));
-        await db.destroy();
-        return;
-    }
-    const target = appliedNames[appliedNames.length - 2];
-    info('[rollback] ' + await cliKey('rollback.reverting', { last, target: target ?? '(base)' }));
-    const rollbackRes = await migrator.migrateTo(target);
-    if (rollbackRes.results) {
-        for (const r of rollbackRes.results) {
-            if (r.status === 'Success') {
-                success('[rollback] ' + await cliKey('rollback.reverted', { name: r.migrationName }));
-            }
-        }
-    }
-    if (rollbackRes.error) {
-        problem('[rollback] ' + await cliKey('rollback.error') + ' ' + rollbackRes.error);
-        await db.destroy();
+    const kyselyBin = path.join(process.cwd(), 'node_modules', '.bin', 'kysely');
+    const codegenBin = path.join(process.cwd(), 'node_modules', '.bin', 'kysely-codegen');
+    if (!fs.existsSync(kyselyBin)) {
+        problem('[db:rollback] `kysely` binary not found. ' +
+            'Is it installed in your project?');
         process.exit(1);
     }
-    await db.destroy();
+    if (!fs.existsSync(codegenBin)) {
+        problem('[db:rollback] `kysely-codegen` binary not found. ' +
+            'Is it installed in your project?');
+        process.exit(1);
+    }
+    try {
+        info('[db:rollback] Executing: ./node_modules/.bin/kysely migrate:down');
+        const rollback = spawnSync(kyselyBin, ['migrate:down'], { stdio: 'inherit' });
+        if (rollback.status !== 0) {
+            problem(`[db:rollback] Kysely migrate:down failed ` +
+                `with exit code ${rollback.status}`);
+            process.exit(rollback.status ?? 1);
+        }
+        success('[db:rollback] Migration successfully rolled back.');
+        info('[db:rollback] Executing: ./node_modules/.bin/kysely-codegen --out-file ./db/db.d.ts');
+        const codegen = spawnSync(codegenBin, ['--out-file', './db/db.d.ts'], { stdio: 'inherit' });
+        if (codegen.status !== 0) {
+            problem(`[db:rollback] kysely-codegen failed ` +
+                `with exit code ${codegen.status}`);
+            process.exit(codegen.status ?? 1);
+        }
+        success('[db:rollback] Types generated successfully.');
+    }
+    catch (e) {
+        problem(`[db:rollback] An unexpected error occurred: ` +
+            `${e.message}`);
+        process.exit(1);
+    }
 }
 async function dynamicLoadKysely() {
     try {
