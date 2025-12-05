@@ -50,7 +50,7 @@ module Msip
 
     test "nombre estandar" do
       assert_nil Msip::Ubicacionpre.buscar_o_agregar(
-        nil, nil, nil, nil, nil, nil, nil, nil, nil
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
       )
 
       u = Msip::Ubicacionpre.create(
@@ -254,7 +254,7 @@ module Msip
 
     test "buscar o agregar" do
       u = Ubicacionpre.buscar_o_agregar(
-        170, nil, nil, nil, nil, nil, nil, nil, nil, false
+        170, nil, nil, nil, nil, nil, nil, nil, nil, nil, false
       )
 
       assert_equal 1, u

@@ -209,6 +209,43 @@ module Msip
             [nombre, nombre_sinp]
           end
 
+          def buscar_o_agregar_divipola(
+            opais, odepartamento, omunicipio, 
+            ocentropoblado, overeda, dlatitud, dlongitud
+          )
+            w = {
+              pais_id: opais.id,
+              departamento_id: odepartamento ? odepartamento.id : nil,
+              municipio_id: omunicipio ? omunicipio.id : nil,
+              centropoblado_id: ocentropoblado ? ocentropoblado.id : nil,
+              vereda_id: overeda ? overeda.id : nil
+            }
+            ubi = Msip::Ubicacionpre.where(w)
+            if ubi.count > 1
+              Rails.logger.debug(
+                "Se esperaba una sola ubicacionpre, se encontraron #{ubi}"
+              )
+              return
+            end
+            if ubi.count == 1
+              return ubi[0].id
+            end
+            w[:latitud] = dlatitud
+            w[:longitud] = dlongitud
+            w[:nombre], w[:nombre_sin_pais] = Msip::Ubicacionpre.nomenclatura(
+              opais.nombre,
+              odepartamento ? odepartamento.nombre : "",
+              omunicipio ? omunicipio.nombre : "",
+              overeda ? overeda.nombre : "",
+              ocentropoblado ? ocentropoblado.nombre : "",
+              "",
+              ""
+            )
+
+            nubi = Msip::Ubicacionpre.create!(w)
+            return nubi.id
+          end
+
           # A partir de datos como para ubicacionpre los valida
           # y crea una ubicacionpre y retorna su id o retorna id de una
           # ubicación existente hasta donde logre validar.
@@ -229,15 +266,19 @@ module Msip
           # @return id de ubicación que encuentra o que crea o nil si
           #   tiene problema
           def buscar_o_agregar(pais_id, departamento_id, municipio_id,
-            centropoblado_id, lugar, sitio, tsitio_id,
+            centropoblado_id, vereda_id, lugar, sitio, tsitio_id,
             latitud, longitud,
             usa_latlon = true)
             longitud = usa_latlon ? longitud.to_f : 0.0
 
-            if !pais_id || Msip::Pais.where(id: pais_id.to_i).count == 0
-              return
+            if !pais_id
+              Rails.logger.debug("Problema, ubicacionpre debe tener al menos pais")
+              return nil
             end
-
+            if Msip::Pais.where(id: pais_id.to_i).count == 0
+              Rails.logger.debug("Problema, pais_id desconocido")
+              return nil
+            end
             opais = Msip::Pais.find(pais_id.to_i)
             # Aquí debería chequearse que la latitud y longitud estén
             # dentro del país
@@ -253,96 +294,122 @@ module Msip
               departamento_id: nil,
               municipio_id: nil,
               centropoblado_id: nil,
+              vereda_id: nil,
+              tsitio_id: nil,
               lugar: nil,
               sitio: nil,
-              tsitio_id: nil, # SIN INFORMACIÓN
             }
-            if !departamento_id ||
-                Msip::Departamento.where(
-                  id: departamento_id.to_i,
-                  pais_id: opais.id,
-                ).count == 0
-              if Msip::Ubicacionpre.where(w).count == 0
-                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return
-              end
-              return Msip::Ubicacionpre.find_by(w).id # SIN INFORMACIÓN
+            if departamento_id.to_i > 0 && Msip::Departamento.where(
+                id: departamento_id.to_i,
+                pais_id: opais.id,
+            ).count == 0
+              Rails.logger.debug(
+                "Problema, departamento_id no valido #{departamento_id}"
+              )
+              return nil
             end
-            odepartamento = Msip::Departamento.find(departamento_id.to_i)
-            if (latitud.to_f == opais.latitud &&
-                longitud.to_f == opais.longitud) ||
-                !usa_latlon
-              latitud = odepartamento.latitud
-              longitud = odepartamento.longitud
-            end
-            w[:departamento_id] = odepartamento.id
+            w[:departamento_id] = departamento_id
+            odepartamento = departamento_id.to_i > 0 ? 
+              Msip::Departamento.find(departamento_id.to_i) : nil
 
-            if !municipio_id ||
-                Msip::Municipio.where(
-                  id: municipio_id.to_i,
-                  departamento_id: odepartamento.id,
-                ).count == 0
-              if Msip::Ubicacionpre.where(w).count == 0
-                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return
-              end
-              return Msip::Ubicacionpre.find_by(w).id
+            if (departamento_id.nil? && !municipio_id.nil?) 
+              Rails.logger.debug(
+                "Problema, municipio_id es #{municipio_id} "\
+                "pero departamento_id es nil"
+              )
+              return
             end
-            omunicipio = Msip::Municipio.find(municipio_id.to_i)
-            if (latitud == odepartamento.latitud &&
-                longitud == odepartamento.longitud) || !usa_latlon
-              latitud = omunicipio.latitud
-              longitud = omunicipio.longitud
+            if municipio_id.to_i > 0 && Msip::Municipio.where(
+                id: municipio_id.to_i,
+                departamento_id: odepartamento.id,
+            ).count == 0
+              Rails.logger.debug(
+                "Problema, municipio_id no valido #{municipio_id}"
+              )
+              return nil
             end
-            w[:municipio_id] = omunicipio.id
+            w[:municipio_id] = municipio_id
+            omunicipio = municipio_id.to_i > 0 ? 
+              Msip::Municipio.find(municipio_id.to_i) : nil
 
-            # centropoblado debe ser NULL para ubicaciones rurales
-            if centropoblado_id.to_i > 0 &&
-                Msip::Centropoblado.where(
-                  id: centropoblado_id.to_i,
-                  municipio_id: omunicipio.id,
-                ).count == 0
-              if Msip::Ubicacionpre.where(w).count == 0
-                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return
-              end
-              return Msip::Ubicacionpre.find_by(w).id
+            if (centropoblado_id.to_i > 0 and vereda_id.to_i > 0)
+              Rails.logger.debug(
+                "Problema: centropoblado_id es #{centropoblado_id} y "\
+                "vereda_id es #{vereda_id} que es inconsistencia"
+              )
+              return
             end
 
-            w[:centropoblado_id] = nil # Posiblemente Rural
-            if centropoblado_id.to_i > 0
-              w[:centropoblado_id] = centropoblado_id.to_i # Urbana
-              ocentropoblado = Msip::Centropoblado.find(centropoblado_id.to_i)
-              if (latitud == omunicipio.latitud &&
-                  longitud == omunicipio.longitud &&
-                  ocentropoblado.latitud && ocentropoblado.longitud) || !usa_latlon
-                latitud = ocentropoblado.latitud
-                longitud = ocentropoblado.longitud
-              end
+            if (municipio_id.to_i == 0 && centropoblado_id.to_i > 0) 
+              Rails.logger.debug(
+                "Problema, centropoblado_id es #{centropoblado_id} "\
+                "pero municipio_id es nil"
+              )
+              return
+            end
+            if centropoblado_id.to_i > 0 && Msip::Centropoblado.where(
+                id: centropoblado_id.to_i,
+                municipio_id: omunicipio.id,
+            ).count == 0
+              Rails.logger.debug(
+                "Problema, centropoblado_id no valido #{centropoblado_id}"
+              )
+              return nil
+            end
+            w[:centropoblado_id] = centropoblado_id
+            ocentropoblado = centropoblado_id.to_i > 0 ? 
+              Msip::Centropoblado.find(centropoblado_id.to_i) : nil
+
+            if (municipio_id.to_i == 0 && vereda_id.to_i > 0) 
+              Rails.logger.debug(
+                "Problema, vereda_id es #{vereda_id} "\
+                "pero municipio_id es nil"
+              )
+              return
+            end
+            if vereda_id.to_i > 0 && Msip::Vereda.where(
+                id: vereda_id.to_i,
+                municipio_id: omunicipio.id,
+            ).count == 0
+              Rails.logger.debug(
+                "Problema, vereda_id no valido #{vereda_id}"
+              )
+              return nil
+            end
+            w[:vereda_id] = vereda_id
+            overeda = vereda_id.to_i > 0 ? 
+              Msip::Vereda.find(vereda_id.to_i) : nil
+
+            # Latitud y longitud de DIVIPOLA
+            dlatitud =opais.latitud
+            dlongitud = opais.longitud
+            if overeda
+              dlatitud = overeda.latitud
+              dlongitud = overeda.longitud
+            elsif ocentropoblado
+              dlatitud = ocentropoblado.latitud
+              dlongitud = ocentropoblado.longitud
+            elsif omunicipio
+              dlatitud = omunicipio.latitud
+              dlongitud = omunicipio.longitud
+            elsif odepartamento
+              dlatitud = odepartamento.latitud
+              dlongitud = odepartamento.longitud
             end
 
-            if lugar.to_s.strip == ""
-              if Msip::Ubicacionpre.where(w).count == 0
-                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w.to_s)
-                return
-              end
-              return Msip::Ubicacionpre.find_by(w).id
+            if sitio.to_s.strip == "" && lugar.to_s.strip == ""
+              #  Es division politico administrativa dejamos
+              #  lugar, sitio y tsitio_id en nil, latitud y longitud
+              #  son las de la que tiene más resolución
+              return buscar_o_agregar_divipola(
+                opais, odepartamento, omunicipio, 
+                ocentropoblado, overeda, dlatitud, dlongitud)
             end
-
-            # Latitud, longitud, tipo de sitio no modificables por usuario
-            # para ubicaciones hasta centro poblado.
-            # Las ubicacionespre con lugar y/o sitio son modificables por
-            # cualquier usuario del sistema.
-            # Al buscar lugar y sitio se ignora capitalización así como
-            # espacios al comienzo o final y espacios redundantes
-            w.delete(:tsitio_id)
-            w.delete(:sitio)
-            w.delete(:lugar)
 
             # Revisamos posible error en información de entrada que pondría
             # como lugar un centro poblado y en tal caso se retorna el centro
             # poblado
-            if !w[:centropoblado_id] && Msip::Centropoblado.where(
+            if w[:centropoblado_id].to_i > 0 && Msip::Centropoblado.where(
               nombre: lugar.to_s.strip,
               municipio_id: omunicipio.id,
             ).count == 1
@@ -351,26 +418,15 @@ module Msip
                 municipio_id: omunicipio.id,
               ).first
               w[:centropoblado_id] = ocentropoblado.id
-              if Msip::Ubicacionpre.where(w).count == 0
-                Rails.logger.debug("Problema, no se encontró ubicación esperada " + w)
-                return
-              end
               if sitio.to_s.strip == ""
                 Rails.logger.debug do
                   "Ajustando ubicacion sin centro poblado, ni sitio pero con " \
                     "lugar '#{lugar.to_s.strip} / #{omunicipio.nombre}', " \
                     "para que coincida con centro poblado del mismo nombre. "
                 end
-                if tsitio_id != 2
-                  Rails.logger.debug("** Ignorando tsitio_id errado")
-                end
-                if latitud.to_f != ocentropoblado.latitud || longitud.to_f != ocentropoblado.longitud
-                  Rails.logger.debug do
-                    "** Ignorando (latitud, longitud) erradas " \
-                      "(#{latitud.to_f}, #{longitud.to_f})"
-                  end
-                end
-                return Msip::Ubicacionpre.find_by(w).id
+                return buscar_o_agregar_divipola(
+                  opais, odepartamento, omunicipio, 
+                  ocentropoblado, overeda, dlatitud, dlongitud)
               else
                 Rails.logger.debug do
                   "** Ajustando ubicacion sin centro poblado, pero con sitio y " \
@@ -383,16 +439,6 @@ module Msip
                 sitio = ""
               end
             end
-            # Preparamos tsitio_id
-            if tsitio_id && Msip::Tsitio.where(id: tsitio_id.to_i).count == 0
-              Rails.logger.debug do
-                "Problema, no se encontró " \
-                  "tsitio_id esperado #{tsitio_id}"
-              end
-              return
-            end
-            tsitio_id = tsitio_id.to_i > 0 ? tsitio_id.to_i : nil
-
             if sitio.to_s.strip == ""
               ubi = Msip::Ubicacionpre.where(w)
                 .where("lugar ILIKE ?", lugar.strip.gsub(/  */, " "))
@@ -435,14 +481,14 @@ module Msip
             end
             # Intentamos añadir nuevo teniendo en cuenta que lugar y sitio
             # ya estan dilig.
-            w[:tsitio_id] = tsitio_id
+            w[:tsitio_id] = tsitio_id.to_i
             w[:latitud] = latitud
             w[:longitud] = longitud
             w[:nombre], w[:nombre_sin_pais] = Msip::Ubicacionpre.nomenclatura(
               opais.nombre,
-              odepartamento.nombre,
-              omunicipio.nombre,
-              "", # Vereda por hacer
+              odepartamento ? odepartamento.nombre : "",
+              omunicipio ? omunicipio.nombre : "",
+              overeda ? overeda.nombre : "",
               ocentropoblado ? ocentropoblado.nombre : "",
               w[:lugar],
               w[:sitio],
@@ -455,14 +501,15 @@ module Msip
               end
               return Msip::Ubicacionpre.where(nombre: w[:nombre]).first.id
             end
+            Rails.logger.debug "OJO w=#{w.inspect}"
             nubi = Msip::Ubicacionpre.create!(w)
             unless nubi
               Rails.logger.debug { "Problema creando ubi #{nubi}" }
               return
             end
-
             nubi.id
           end
+
         end # class_methods
       end
     end
