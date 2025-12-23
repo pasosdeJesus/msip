@@ -12,7 +12,7 @@ gem "babel-transpiler"
 
 gem "benchmark"
 
-gem "bootsnap", ">= 1.4.4", require: false
+gem "bootsnap", "<= 1.19.0", require: false
 
 gem "cancancan", "~> 3.4" # Control de acceso
 
