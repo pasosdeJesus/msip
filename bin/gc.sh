@@ -32,6 +32,7 @@ if (test "$?" = "0") then {
   exit 1;
 } fi;
 
+echo "1"
 if (test "$SINAC" != "1") then {
   rer=`bundle config get path | grep ":" | head -n 1 | sed -e "s/.*\"\(.*\)\"/\1/g"`
   rubyver=`ruby -v | sed -e "s/^[^ ]* \([0-9].[0-9]\).*/\1/g"`
@@ -40,7 +41,7 @@ if (test "$SINAC" != "1") then {
     echo "Eliminando $rutapore/*"
     rm -rf $rutapore/*
   } fi;
-  NOKOGIRI_USE_SYSTEM_LIBRARIES=1 MAKE=gmake make=gmake QMAKE=qmake4 bundle update --conservative --all
+  NOKOGIRI_USE_SYSTEM_LIBRARIES=1 MAKE=gmake make=gmake QMAKE=qmake4 bundle update --all
   NOKOGIRI_USE_SYSTEM_LIBRARIES=1 MAKE=gmake make=gmake QMAKE=qmake4 bundle update --bundler
   if (test "$?" != "0") then {
     exit 1;
@@ -53,6 +54,7 @@ if (test "$SINAC" != "1") then {
   } fi;
 } fi;
 
+echo "2"
 if (test "$SININS" != "1") then {
   NOKOGIRI_USE_SYSTEM_LIBRARIES=1 MAKE=gmake make=gmake QMAKE=qmake4 bundle install
   if (test "$?" != "0") then {
