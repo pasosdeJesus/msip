@@ -6,8 +6,8 @@ module Msip
 
     # Retorna edad de una persona en cierta fecha
     # @param anionac año de nacimiento
-    # @param mesnac mes de nacimiento
-    # @param dianac dia de nacimiento
+    # @param mesnac mes de nacimiento (si no se conoce suponemos 6)
+    # @param dianac dia de nacimiento (si no se conoce suponemos 15)
     # @ return -1 si no puede calcularse por falta de años
     def edad_de_fechanac_fecha(anionac, mesnac, dianac,
       anio, mes, dia)
@@ -22,11 +22,20 @@ module Msip
       end
 
       na = anio - anionac
-      if mesnac && mesnac > 0 && mes && mes > 0 && mesnac >= mes
-        if mesnac > mes || (dianac && dianac > 0 && dia && dia > 0 &&
-            dianac > dia)
-          na -= 1
-        end
+      if (!mesnac)
+        mesnac = 6
+      end
+      if (!mes) 
+        mes =6
+      end
+      if (!dianac)
+        dianac = 15
+      end
+      if (!dia)
+        dia = 15
+      end
+      if mesnac > mes || (mesnac == mes && dianac > dia)
+        na -= 1
       end
 
       na
