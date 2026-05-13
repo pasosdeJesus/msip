@@ -29,7 +29,7 @@
     <thead>
       <tr>
         <!-- http://blog.crowdint.com/2013/08/22/rails-template-inheritance.html -->
-        <% #byebug %>
+        <% #debugger %>
         <% rutaf = clase.pluralize.underscore + '/index_titulos_tabla' %>
         <% if lookup_context.find_all(rutaf, [], true).any? %>
           <%= render partial: rutaf, locals: {f: f} %>
