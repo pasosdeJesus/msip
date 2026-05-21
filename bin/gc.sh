@@ -46,6 +46,7 @@ if (test "$SINAC" != "1") then {
     exit 1;
   } fi;
   if (test "$MSIP_API" != "1") then {
+    echo "OJO yarn upgrade"
     (cd $rutaap; CXX=c++ yarn upgrade)
     if (test "$?" != "0") then {
       exit 1;
