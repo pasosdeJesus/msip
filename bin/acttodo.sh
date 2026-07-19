@@ -116,10 +116,10 @@ if (test "$SALTAMIND" != "1") then {
   actuno sivel2_mujeresindigenas
 } fi;
 
-if (test "$SALTASIASOM" != "1") then {
-  echo "**** si_asom"
-  actuno si_asom
-} fi;
+#if (test "$SALTASIASOM" != "1") then {
+#  echo "**** si_asom"
+#  actuno si_asom
+#} fi;
 
 if (test "$SALTASIJRSCOL" != "1") then {
   echo "**** si_jrscol"
