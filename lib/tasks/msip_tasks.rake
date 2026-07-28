@@ -278,6 +278,8 @@ EOF
       dirs = Dir["cobertura-unitarias/.resultset.json",
         "test/dummy/cobertura-sistema/.resultset.json"]
     end
-    SimpleCov.collate(dirs)
+    if dirs.length > 0
+      SimpleCov.collate(dirs)
+    end
   end
 end
