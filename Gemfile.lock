@@ -205,7 +205,7 @@ GEM
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.3.0)
       timeout
     net-smtp (0.5.1)
       net-protocol
@@ -360,7 +360,7 @@ GEM
       activemodel (>= 7.0)
     simplecov (1.1.1)
     spork (0.9.2)
-    sprockets (4.4.0)
+    sprockets (4.4.1)
       concurrent-ruby (~> 1.1)
       logger
       rack (>= 2.2.4, < 4)
