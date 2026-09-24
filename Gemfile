@@ -28,6 +28,10 @@ gem "devise-i18n"               # Localización e Internacionalización
 
 gem "jbuilder", ">= 2.7"        # Json
 
+# ActiveSupport 7.2 llama JSON.parse con quirks_mode, opción eliminada en json
+# 3.x (ArgumentError: unknown keyword: quirks_mode). Rails 8.1 ya no la usa.
+gem "json", "< 3"
+
 gem "jsbundling-rails"
 
 gem "kt-paperclip"             # Anexos
