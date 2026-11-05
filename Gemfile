@@ -39,7 +39,7 @@ gem "kt-paperclip"             # Anexos
 # git: 'https://github.com/vtamara/paperclip.git', branch: 'fix-ruby3'
 # path: '../tmp/paperclip'
 
-gem "nokogiri", ">=1.11.1"
+gem "nokogiri", "1.19.4"
 
 gem "pg" # PostgreSQL
 
