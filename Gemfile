@@ -43,6 +43,8 @@ gem "nokogiri", "1.19.4"
 
 gem "pg" # PostgreSQL
 
+gem "prism", "~> 1.9"
+
 gem "puma" # Lanza en modo desarrollo
 
 gem "rails", ">= 7.2.2.2", "< 7.3"
