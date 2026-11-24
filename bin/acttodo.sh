@@ -63,22 +63,22 @@ function actuno {
 
 if (test "$SALTAMSIP" != "1") then {
   echo "**** msip"
-  actuno msip-2.2 test/dummy
+  actuno msip-2.2r3.4 test/dummy
 } fi;
 
 if (test "$SALTAMR519" != "1") then {
   echo "**** mr519_gen"
-  actuno mr519_gen-2.2 test/dummy; 
+  actuno mr519_gen-2.2r3.4 test/dummy; 
 } fi;
 
 if (test "$SALTAHEB412" != "1") then {
   echo "**** heb412_gen"
-  actuno heb412_gen-2.2 test/dummy; 
+  actuno heb412_gen-2.2r3.4 test/dummy; 
 } fi;
 
 if (test "$SALTASIVEL2GEN" != "1") then {
   echo "**** sivel2_gen"
-  actuno sivel2_gen-2.2 test/dummy; 
+  actuno sivel2_gen-2.2r3.4 test/dummy; 
 } fi;
 
 #if (test "$SALTAAPO214" != "1") then {
@@ -88,7 +88,7 @@ if (test "$SALTASIVEL2GEN" != "1") then {
 
 if (test "$SALTASIVEL2" != "1") then {
   echo "**** sivel2"
-  actuno sivel2-2.2
+  actuno sivel2-2.2r3.4
 } fi;
 
 if (test "$SALTASIADDHH" != "1") then {
@@ -96,29 +96,24 @@ if (test "$SALTASIADDHH" != "1") then {
   actuno siaddhh
 } fi;
 
-if (test "$SALTASIBDHN" != "1") then {
-  echo "**** si_bdhn"
-  actuno si_bdhn
-} fi;
+#if (test "$SALTASIBDHN" != "1") then {
+#  echo "**** si_bdhn"
+#  actuno si_bdhn
+#} fi;
 
 if (test "$SALTACOR1440" != "1") then {
   echo "**** cor1440_gen"
-  actuno cor1440_gen-2.2 test/dummy; 
+  actuno cor1440_gen-2.2r3.4 test/dummy; 
 } fi;
 
 if (test "$SALTAJOS19" != "1") then {
   echo "**** jos19"
-  actuno jos19-2.2
+  actuno jos19-2.2r3.4
 } fi;
 
-if (test "$SALTAMIND" != "1") then {
-  echo "**** sivel2_mujeresindigenas"
-  actuno sivel2_mujeresindigenas
-} fi;
-
-#if (test "$SALTASIASOM" != "1") then {
-#  echo "**** si_asom"
-#  actuno si_asom
+#if (test "$SALTAMIND" != "1") then {
+#  echo "**** sivel2_mujeresindigenas"
+#  actuno sivel2_mujeresindigenas
 #} fi;
 
 if (test "$SALTASIJRSCOL" != "1") then {
